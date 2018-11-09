@@ -1,5 +1,5 @@
 baseurl = "/"
-publishDir = "docs"
+publishDir = "public"
 title = "Hugo Tanka Theme"
 author = "Nan Xiao"
 canonifyurls = true
