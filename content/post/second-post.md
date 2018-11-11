@@ -34,7 +34,7 @@ Let's say we wish to multiply the above matrix with this vector:
 \\end{bmatrix}
 \\]
 
-We could look at the matrix as the collection of vectors $ \begin{bmatrix} 1 \newline -1 \newline 0 \end{bmatrix}$, $ \begin{bmatrix} 0 \newline 1 \newline -1 \end{bmatrix}$ and $ \begin{bmatrix} 0 \newline 0 \newline 1 \end{bmatrix}$ and then take the linear combination of columns: 
+We could look at the matrix as the collection of vectors `$ \begin{bmatrix} 1 \newline -1 \newline 0 \end{bmatrix}$`, `$ \begin{bmatrix} 0 \newline 1 \newline -1 \end{bmatrix}$` and `$ \begin{bmatrix} 0 \newline 0 \newline 1 \end{bmatrix}$` and then take the linear combination of columns: 
 \\[ 
 x_1
 %
@@ -65,7 +65,7 @@ x_3
 \end{bmatrix}
 \\]
 
-This does give you the correct result. The numbers $x_1$, $x_2$ and $x_3$ multiply the columns which make up the matrix. But we want to change our point of view. We want to see the matrix as a _thing_ which somehow transforms the vector. So... let's finally look at the result of this matrix multiplication:
+This does give you the correct result. The numbers `$x_1$`, `$x_2$` and `$x_3$` multiply the columns which make up the matrix. But we want to change our point of view. We want to see the matrix as a _thing_ which somehow transforms the vector. So... let's finally look at the result of this matrix multiplication:
 
 \begin{bmatrix}
 x_1 \newline
@@ -73,8 +73,8 @@ x_2 - x_1 \newline
 x_3 - x_2 
 \end{bmatrix}
 
-There it is. Can you see why we called this matrix a difference matrix? The top difference is $x_1 - x_0 = x_1 - 0 = x_1$.
-Let's try this with an example. Let's take a vector with $x_1 = 1$, $x_2= 4$ and $x_3 = 9$ that is:
+There it is. Can you see why we called this matrix a difference matrix? The top difference is `$x_1 - x_0 = x_1 - 0 = x_1$`.
+Let's try this with an example. Let's take a vector with `$x_1 = 1$`, `$x_2= 4$` and `$x_3 = 9$` that is:
 
 \\begin{bmatrix}
  1 \newline
@@ -100,7 +100,7 @@ The result here is:
 \\end{bmatrix}
 \\]
 
-This matrix will always behave like this - for any vector in $\mathbb{R}^3$. 
+This matrix will always behave like this - for any vector in `$\mathbb{R}^3$`. 
 
 Seeing matrix multiplication between a matrix and a vector as a linear combination of vectors (as we did initially) is obviously correct, and yields a correct result. But it's also important to note that matrices are things which operate on vectors. In this case, our difference matrix will take as "input" a vector and as "output" produce a new vector which contains the differences of the "input" vector. (And here I hope to stop my liberal usage of quotes).
 

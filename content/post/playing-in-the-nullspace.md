@@ -19,9 +19,9 @@ A
  \end{bmatrix} 
 \\]
 
-We're interested in finding its nullspace: that is, all vectors such that when we multiply them by our matrix $A$, we get 0. Well, the zero vector, $ \begin{bmatrix} 0 & 0 & 0 \end{bmatrix} ^ {T}$.
+We're interested in finding its nullspace: that is, all vectors such that when we multiply them by our matrix `$A$`, we get 0. Well, the zero vector, `$ \begin{bmatrix} 0 & 0 & 0 \end{bmatrix} ^ {T}$`.
 
-I happen to know that $ \begin{bmatrix} -3 & 1 & -2 & 2 \end{bmatrix} ^ {T}$ is one such vector:
+I happen to know that `$ \begin{bmatrix} -3 & 1 & -2 & 2 \end{bmatrix} ^ {T}$` is one such vector:
 
 \\[
 \begin{bmatrix}
@@ -61,7 +61,7 @@ How we'll do this is by:
 1. Using elimination to find our pivots
 2. Using back substitution to find our solutions
 
-By elimination, we obtain the following matrix $U$:
+By elimination, we obtain the following matrix `$U$`:
 
 \\[ 
 U
@@ -75,35 +75,35 @@ U
  \end{bmatrix} 
 \\]
 
-Our pivot variables are $x_1$ and $x_3$ (since columns 1 and 3 contain pivots). Our free variables are $x_2$ and $x_4$ (since columns 2 and 4 have no pivots).
+Our pivot variables are `$x_1$` and `$x_3$` (since columns 1 and 3 contain pivots). Our free variables are `$x_2$` and `$x_4$` (since columns 2 and 4 have no pivots).
 
-Note that there are 4 variables in total. This is because the nullspace vectors are in $\mathbb{R}^4$ in this case, since $A$ (and $U$) are $3 \times 4$ matrices. 
+Note that there are 4 variables in total. This is because the nullspace vectors are in `$\mathbb{R}^4$` in this case, since `$A$` (and `$U$`) are `$3 \times 4$` matrices. 
 
 We now use back-substitution to find our __special solutions__ which we'll eventually use to yield a __complete solution__.
 
-We can give $x_2$ and $x_4$, our free variables, any values we wish. Then back-substitution finds out pivot variables. The simples choice for our free variables are ones and zeroes.
+We can give `$x_2$` and `$x_4$`, our free variables, any values we wish. Then back-substitution finds out pivot variables. The simples choice for our free variables are ones and zeroes.
 
-Looking back to our matrix $U$, we can create equations out of our rows:
+Looking back to our matrix `$U$`, we can create equations out of our rows:
 
-$x_1 + x_2 + 2x_3 + 3x_4 = 0$ 
+`$x_1 + x_2 + 2x_3 + 3x_4 = 0$`
 
-$4x_3 + 4x_4 = 0$
+`$4x_3 + 4x_4 = 0$`
 
-We then set $x_2 = 1$ and $x_4 = 0$. Using back-substitution we get:
+We then set `$x_2 = 1$` and `$x_4 = 0$`. Using back-substitution we get:
 
-$x_3 = 0$
+`$x_3 = 0$`
 
-$x_1 = -1$
+`$x_1 = -1$`
 
-Next, we set $x_2 = 0$ and $x_4 = 1$. Again, using back-substitution we get:
+Next, we set `$x_2 = 0$` and `$x_4 = 1$`. Again, using back-substitution we get:
 
-$x_3 = -1$
+`$x_3 = -1$`
 
-$x_1 = -1$
+`$x_1 = -1$`
 
 Since we had 2 free variables, we get 2 special solutions:
 
-$ \begin{bmatrix} -1 \newline 1 \newline 0 \newline 0 \end{bmatrix} $ and $ \begin{bmatrix} -1 \newline 0 \newline -1 \newline 1 \end{bmatrix} $.
+`$ \begin{bmatrix} -1 \newline 1 \newline 0 \newline 0 \end{bmatrix} $` and `$ \begin{bmatrix} -1 \newline 0 \newline -1 \newline 1 \end{bmatrix} $`.
 
 These two special solutions are _in the nullspace_. Crucially - ___every combination of our special solutions is in the nullspace___. 
 
@@ -144,7 +144,7 @@ x
 \end{bmatrix}
 \\]
 
-What does this actually mean? Well, it means that we can pick our free variables $x_2$ and $x_4$ however we wish, and we will get a valid solution in response, for example: $x_2=1$ and $x_4 = 2$. So:
+What does this actually mean? Well, it means that we can pick our free variables `$x_2$` and `$x_4$` however we wish, and we will get a valid solution in response, for example: `$x_2=1$` and `$x_4 = 2$`. So:
 
 \\[
 \begin{bmatrix}
@@ -181,19 +181,19 @@ U
 
 The second column contains our free variable. Since there is only __one free variable__, there will only be __one special solution__.
 
-We need to back substitute $x_2 = 1$ (no need to set zeroes this time, as there is only one free variable).
+We need to back substitute `$x_2 = 1$` (no need to set zeroes this time, as there is only one free variable).
 
 Then
 
-$9x_3 = 0$ gives
+`$9x_3 = 0$` gives
 
-$x_3 = 0$
+`$x_3 = 0$`
 
 and 
 
-$x_1 + 5x_2 = 0$ so
+`$x_1 + 5x_2 = 0$` so
 
-$x_1 = -5$ (since $x_2 = 1$)
+`$x_1 = -5$` (since `$x_2 = 1$`)
 
 So, 
 \\[
@@ -210,4 +210,4 @@ x_2
  \end{bmatrix} 
 \\]
 
-The nullspace in this case is a line in $\mathbb{R}^3$. It contains multiples of the special solution.
+The nullspace in this case is a line in `$\mathbb{R}^3$`. It contains multiples of the special solution.
