@@ -1,5 +1,5 @@
 ---
-title: "Playing in the Nullspace"
+title: "A Matrix Nullspace Tutorial - How to Find the Nullspace Using Elimination and Back Substitution"
 date: 2018-03-01T20:35:21+02:00
 draft: false
 tags: ["linear algebra", "18.06", "matrices", "nullspace"]
