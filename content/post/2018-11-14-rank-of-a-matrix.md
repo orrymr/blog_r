@@ -14,3 +14,7 @@ tags:
 rank of a matrix
 10K – 100K
 Low
+
+inverse matrix
+100K – 1M
+Low
