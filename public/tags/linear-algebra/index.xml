@@ -6,20 +6,31 @@
     <description>Recent content in Linear Algebra on orrymr.com</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en</language>
-    <lastBuildDate>Thu, 01 Mar 2018 20:35:21 +0200</lastBuildDate>
+    <lastBuildDate>Wed, 14 Nov 2018 00:00:00 +0000</lastBuildDate>
     
 	<atom:link href="/tags/linear-algebra/index.xml" rel="self" type="application/rss+xml" />
     
     
     <item>
-      <title>Playing in the Nullspace</title>
+      <title>Rank of a Matrix</title>
+      <link>/post/rank-of-a-matrix/</link>
+      <pubDate>Wed, 14 Nov 2018 00:00:00 +0000</pubDate>
+      
+      <guid>/post/rank-of-a-matrix/</guid>
+      <description>rank of a matrix 10K – 100K Low
+inverse matrix 100K – 1M Low</description>
+    </item>
+    
+    <item>
+      <title>A Matrix Nullspace (Kernel) Tutorial - Finding the Nullspace</title>
       <link>/post/playing-in-the-nullspace/</link>
       <pubDate>Thu, 01 Mar 2018 20:35:21 +0200</pubDate>
       
       <guid>/post/playing-in-the-nullspace/</guid>
-      <description>Have a look at this matrix:
-\[ A % &amp;#61; % \begin{bmatrix} 1 &amp;amp; 1 &amp;amp; 2 &amp;amp; 3 \newline 2 &amp;amp; 2 &amp;amp; 8 &amp;amp; 10 \newline 3 &amp;amp; 3 &amp;amp; 10 &amp;amp; 13 \end{bmatrix} \]
-We&amp;rsquo;re interested in finding its nullspace: that is, all vectors such that when we multiply them by our matrix $A$, we get 0. Well, the zero vector, $ \begin{bmatrix} 0 &amp;amp; 0 &amp;amp; 0 \end{bmatrix} ^ {T}$.</description>
+      <description>1. Introduction In this article we describe what the nullspace is. We go on to explain how to find the nullspace.
+2. Nullspace, Null Space or Kernel? The nullspace (or null space) of a matrix is also known as the kernel of a matrix. These terms are interchangeable.
+The nullspace is a set of vectors that when multiplied by a matrix returns $0$ (well, the zero vector).
+3. How To Find the Nullspace Have a look at this matrix:</description>
     </item>
     
     <item>

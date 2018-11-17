@@ -1,9 +1,20 @@
 ---
-title: "A Matrix Nullspace Tutorial - How to Find the Nullspace Using Elimination and Back Substitution"
+title: "A Matrix Nullspace (Kernel) Tutorial - Finding the Nullspace"
 date: 2018-03-01T20:35:21+02:00
 draft: false
 tags: ["linear algebra", "18.06", "matrices", "nullspace"]
 ---
+
+# 1. Introduction
+In this article we describe __what the nullspace is__. We go on to explain __how to find the nullspace__.
+
+# 2. Nullspace, Null Space or Kernel?
+
+The _nullspace_ (or _null space_) of a matrix is also known as the _kernel_ of a matrix. __These terms are interchangeable.__ 
+
+The nullspace is a __set of vectors that when multiplied by a matrix returns `$0$`__ (well, the zero vector).
+
+# 3. How To Find the Nullspace
 
 Have a look at this matrix:
 
@@ -19,7 +30,7 @@ A
  \end{bmatrix} 
 \\]
 
-We're interested in finding its nullspace: that is, all vectors such that when we multiply them by our matrix `$A$`, we get 0. Well, the zero vector, `$ \begin{bmatrix} 0 & 0 & 0 \end{bmatrix} ^ {T}$`.
+We're interested in finding its nullspace: that is, all vectors such that when multiplied by our matrix `$A$`, return the zero vector, `$ \begin{bmatrix} 0 & 0 & 0 \end{bmatrix} ^ {T}$`.
 
 I happen to know that `$ \begin{bmatrix} -3 & 1 & -2 & 2 \end{bmatrix} ^ {T}$` is one such vector:
 
@@ -55,13 +66,23 @@ I happen to know that `$ \begin{bmatrix} -3 & 1 & -2 & 2 \end{bmatrix} ^ {T}$` i
 \end{bmatrix}
 \\]
 
-What I'm going to describe is a systematic way by which to find all such vectors which will produce the zero vector; ie, I'll describe how to find the nullspace.
-How we'll do this is by:
+If we set `$x = \begin{bmatrix} -3 & 1 & -2 & 2 \end{bmatrix} ^ {T}$` , then we can write out the above equation more succinctly: `$Ax = 0$`
+
+We say that __`$x$` is in the nullspace of `$A$`.__
+
+We're going to look at a __systematic way to find all the vectors in the nullspace.__
+We'll do this is by:
 
 1. Using elimination to find our pivots
 2. Using back substitution to find our solutions
 
-By elimination, we obtain the following matrix `$U$`:
+We can think of this as our two-step recipe to find our nullspace.
+
+## 3.1 Finding The Pivots
+
+This article isn't about how to do Gaussian elimination on a matrix. I'm going to assume that you already know how to do this. I hope to write an article about this in the future.
+
+Suppose we performed elimination on our matrix `$A$`, which results in our new `$U$`:
 
 \\[ 
 U
@@ -75,37 +96,155 @@ U
  \end{bmatrix} 
 \\]
 
-Our pivot variables are `$x_1$` and `$x_3$` (since columns 1 and 3 contain pivots). Our free variables are `$x_2$` and `$x_4$` (since columns 2 and 4 have no pivots).
+__The cool thing is that `$A$` and `$U$` have the same nullspace.__ So, if we know that `$Ux = 0$`, we also know that `$Ax = 0$`.
 
-Note that there are 4 variables in total. This is because the nullspace vectors are in `$\mathbb{R}^4$` in this case, since `$A$` (and `$U$`) are `$3 \times 4$` matrices. 
+Let's suppose that we didn't know that `$x = \begin{bmatrix} -3 & 1 & -2 & 2 \end{bmatrix} ^ {T}$` was in the nullspace of the matrix `$A$`. We know that there is some vector `$x = \begin{bmatrix} x_1 & x_2 & x_3 & x_4 \end{bmatrix} ^ {T}$` such that `$Ux = 0$` (even if that vector is just `$\begin{bmatrix} 0 & 0 & 0 & 0 \end{bmatrix} ^ {T}$`). 
 
-We now use back-substitution to find our __special solutions__ which we'll eventually use to yield a __complete solution__.
+Writing this out more explicitly:
 
-We can give `$x_2$` and `$x_4$`, our free variables, any values we wish. Then back-substitution finds out pivot variables. The simples choice for our free variables are ones and zeroes.
+\\[ 
+\tag{1}
+\label{1}
+ \begin{bmatrix}
+  1 & 1 & 2 & 3 \newline
+  0 & 0 & 4 & 4 \newline
+  0 & 0 & 0 & 0
+ \end{bmatrix} 
+ %
+ \begin{bmatrix}
+  x_1 \newline
+  x_2 \newline
+  x_3 \newline
+  x_4
+ \end{bmatrix}
+ %
+  &#61;
+ %
+ \begin{bmatrix}
+  0 \newline
+  0 \newline
+  0
+ \end{bmatrix}
+\\]
 
-Looking back to our matrix `$U$`, we can create equations out of our rows:
+According to our recipe for finding the nullspace, we need to find our pivots. __A pivot is simply the first non-zero element in each row of the matrix.__ 
 
-`$x_1 + x_2 + 2x_3 + 3x_4 = 0$`
+Looking at `$U$`, the first row has a pivot in the first column, with value `$1$`. The second row has a pivot in the third column: `$4$`. The third row does not have a pivot. 
 
-`$4x_3 + 4x_4 = 0$`
+__We call `$x_1$` and `$x_3$`__ ___pivot variables___ since columns 1 and 3 contain pivots. __`$x_2$` and `$x_4$` are called__ ___free variables___ since columns 2 and 4 have no pivots.
 
-We then set `$x_2 = 1$` and `$x_4 = 0$`. Using back-substitution we get:
+Note that there are 4 variables in total - 2 free variables, and 2 pivot variables. This is because the nullspace vectors are in `$\mathbb{R}^4$` in this case, since `$A$` (and `$U$`) are `$3 \times 4$` matrices. 
 
-`$x_3 = 0$`
+## 3.2 Using Back Substitution to Find our Nullspace
 
-`$x_1 = -1$`
+Now that we know what our pivots are, we want to find our _special solutions_. Special solutions are vectors in our nullspace which will eventually __help us find all the vectors in our nullspace__. 
 
-Next, we set `$x_2 = 0$` and `$x_4 = 1$`. Again, using back-substitution we get:
+__We will have as many special solutions as we have free variables.__ In this case, we have 2 free variables, so we will have 2 special solutions. The way we find the special solutions is by _back substitution_. 
 
-`$x_3 = -1$`
+Before we get to what back substition is, let's rewrite equation `$(\ref{1})$` as a set of equations, instead of its matrix form:
 
-`$x_1 = -1$`
+\\[ 
+x_1 + x_2 + 2x_3 + 3x_4 = 0
+\\]
+
+\\[ 
+4x_3 + 4x_4 = 0
+\\]
+
+We want to find values for `$x_1$`, `$x_2$`, `$x_3$` and `$x_4$` which satisfy the above set of equations. 
+
+__Since `$x_2$` and `$x_4$` are free variables, we can give them any values we wish__ - they are _free_ variables, after all! The simples choice for our free variables is ones or zeroes. 
+
+Let's set `$x_2 = 1$` and `$x_4 = 0$`:
+
+
+\\[ 
+x_1 + (1) + 2x_3 + 3(0) = 0
+\\]
+
+\\[ 
+4x_3 + 4(0) = 0
+\\]
+
+which gives: 
+
+\\[ 
+\label{2}
+\tag{2}
+x_1 + 1 + 2x_3 = 0
+\\]
+
+\\[ 
+\label{3}
+\tag{3}
+x_3 = 0
+\\]
+
+Great! __We now know that `$x_3 = 0$`__ (and we have values for `$x_2$` and `$x_4$` ). All that's left is for us to find `$x_1$`
+
+__Now, let's use back substitution to plug `$x_3 = 0$` into equation (`$\ref{2}$`):__
+
+\\[ 
+x_1 + 1 + 2(0) = 0
+\\]
+
+so 
+
+\\[ 
+x_1 = -1
+\\]
+
+We now have our first special solution:
+
+\\[
+\begin{bmatrix}
+ x_1 \newline
+ x_2 \newline
+ x_3 \newline
+ x_4
+\end{bmatrix}
+%
+&#61;
+%
+\begin{bmatrix}
+ -1 \newline
+ 1 \newline
+ 0 \newline
+ 0
+\end{bmatrix}
+\\]
+
+Setting `$x_2 = 1$` and `$x_4 = 0$` gave us our first special solution. __We need to find our second special solution.__ The easiest way to do this is to set `$x_2 = 0$` and `$x_4 = 1$`. Using the same procedure as we did for the first special solution we find our second special solution:
+
+\\[
+\begin{bmatrix}
+ -1 \newline
+ 0 \newline
+ -1 \newline
+ 1
+\end{bmatrix}
+\\]
 
 Since we had 2 free variables, we get 2 special solutions:
 
-`$ \begin{bmatrix} -1 \newline 1 \newline 0 \newline 0 \end{bmatrix} $` and `$ \begin{bmatrix} -1 \newline 0 \newline -1 \newline 1 \end{bmatrix} $`.
+\\[ 
+\begin{bmatrix} 
+  -1 \newline 
+  1 \newline 
+  0 \newline 
+  0 
+\end{bmatrix}, 
+\begin{bmatrix} 
+  -1 \newline 
+  0 \newline 
+  -1 \newline 
+  1 
+\end{bmatrix}
+\\]
 
-These two special solutions are _in the nullspace_. Crucially - ___every combination of our special solutions is in the nullspace___. 
+These two special solutions are __in the nullspace of `$U$` and therefore also `$A$`__. This means that if you multiply the matrix `$A$` or `$U$` by these vectors, you will get the zero vector.
+
+Crucially - ___every combination of our special solutions is in the nullspace___. 
 
 So, the complete solution is:
 
@@ -144,7 +283,9 @@ x
 \end{bmatrix}
 \\]
 
-What does this actually mean? Well, it means that we can pick our free variables `$x_2$` and `$x_4$` however we wish, and we will get a valid solution in response, for example: `$x_2=1$` and `$x_4 = 2$`. So:
+What does this actually mean? It means that __we can pick our free variables `$x_2$` and `$x_4$` however we wish, and we will get a valid solution in response.__
+
+For example let's pick: `$x_2=1$` and `$x_4 = 2$`. So:
 
 \\[
 \begin{bmatrix}
@@ -164,7 +305,9 @@ What does this actually mean? Well, it means that we can pick our free variables
 \end{bmatrix}
 \\]
 
-which was my initial example.
+which was my example at the beginning of the article.
+
+## 4 Another Example
 
 Say now I wish to find the nullspace of
 
@@ -179,21 +322,38 @@ U
  \end{bmatrix} 
 \\]
 
-The second column contains our free variable. Since there is only __one free variable__, there will only be __one special solution__.
+The second column contains our free variable. Since there is only __one free variable, there will only be one special solution__.
 
 We need to back substitute `$x_2 = 1$` (no need to set zeroes this time, as there is only one free variable).
 
 Then
+\\[
+9x_3 = 0
+\\]
 
-`$9x_3 = 0$` gives
+gives
 
-`$x_3 = 0$`
+\\[
+x_3 = 0
+\\]
 
 and 
 
-`$x_1 + 5x_2 = 0$` so
+\\[
+x_1 + 5x_2 = 0
+\\]
 
-`$x_1 = -5$` (since `$x_2 = 1$`)
+so
+
+\\[
+x_1 = -5
+\\]
+
+since 
+
+\\[
+x_2 = 1
+\\]
 
 So, 
 \\[

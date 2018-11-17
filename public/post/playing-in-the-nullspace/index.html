@@ -15,7 +15,7 @@
   <title>
     
     
-     Playing in the Nullspace 
+     A Matrix Nullspace (Kernel) Tutorial - Finding the Nullspace 
     
   </title>
   <link rel="canonical" href="/post/playing-in-the-nullspace/">
@@ -48,14 +48,28 @@
 
 
 <section id=content>
-  <h1> Playing in the Nullspace </h1>
+  <h1> A Matrix Nullspace (Kernel) Tutorial - Finding the Nullspace </h1>
 
   <div id=sub-header>
-     · 2018/03/01 · 4 minute read
+     · 2018/03/01 · 7 minute read
   </div>
 
   <div class="entry-content">
-    <p>Have a look at this matrix:</p>
+    
+
+<h1 id="1-introduction">1. Introduction</h1>
+
+<p>In this article we describe <strong>what the nullspace is</strong>. We go on to explain <strong>how to find the nullspace</strong>.</p>
+
+<h1 id="2-nullspace-null-space-or-kernel">2. Nullspace, Null Space or Kernel?</h1>
+
+<p>The <em>nullspace</em> (or <em>null space</em>) of a matrix is also known as the <em>kernel</em> of a matrix. <strong>These terms are interchangeable.</strong></p>
+
+<p>The nullspace is a <strong>set of vectors that when multiplied by a matrix returns <code>$0$</code></strong> (well, the zero vector).</p>
+
+<h1 id="3-how-to-find-the-nullspace">3. How To Find the Nullspace</h1>
+
+<p>Have a look at this matrix:</p>
 
 <p>\[
 A
@@ -69,7 +83,7 @@ A
  \end{bmatrix}
 \]</p>
 
-<p>We&rsquo;re interested in finding its nullspace: that is, all vectors such that when we multiply them by our matrix <code>$A$</code>, we get 0. Well, the zero vector, <code>$ \begin{bmatrix} 0 &amp; 0 &amp; 0 \end{bmatrix} ^ {T}$</code>.</p>
+<p>We&rsquo;re interested in finding its nullspace: that is, all vectors such that when multiplied by our matrix <code>$A$</code>, return the zero vector, <code>$ \begin{bmatrix} 0 &amp; 0 &amp; 0 \end{bmatrix} ^ {T}$</code>.</p>
 
 <p>I happen to know that <code>$ \begin{bmatrix} -3 &amp; 1 &amp; -2 &amp; 2 \end{bmatrix} ^ {T}$</code> is one such vector:</p>
 
@@ -105,15 +119,25 @@ A
 \end{bmatrix}
 \]</p>
 
-<p>What I&rsquo;m going to describe is a systematic way by which to find all such vectors which will produce the zero vector; ie, I&rsquo;ll describe how to find the nullspace.
-How we&rsquo;ll do this is by:</p>
+<p>If we set <code>$x = \begin{bmatrix} -3 &amp; 1 &amp; -2 &amp; 2 \end{bmatrix} ^ {T}$</code> , then we can write out the above equation more succinctly: <code>$Ax = 0$</code></p>
+
+<p>We say that <strong><code>$x$</code> is in the nullspace of <code>$A$</code>.</strong></p>
+
+<p>We&rsquo;re going to look at a <strong>systematic way to find all the vectors in the nullspace.</strong>
+We&rsquo;ll do this is by:</p>
 
 <ol>
 <li>Using elimination to find our pivots</li>
 <li>Using back substitution to find our solutions</li>
 </ol>
 
-<p>By elimination, we obtain the following matrix <code>$U$</code>:</p>
+<p>We can think of this as our two-step recipe to find our nullspace.</p>
+
+<h2 id="3-1-finding-the-pivots">3.1 Finding The Pivots</h2>
+
+<p>This article isn&rsquo;t about how to do Gaussian elimination on a matrix. I&rsquo;m going to assume that you already know how to do this. I hope to write an article about this in the future.</p>
+
+<p>Suppose we performed elimination on our matrix <code>$A$</code>, which results in our new <code>$U$</code>:</p>
 
 <p>\[
 U
@@ -127,37 +151,154 @@ U
  \end{bmatrix}
 \]</p>
 
-<p>Our pivot variables are <code>$x_1$</code> and <code>$x_3$</code> (since columns 1 and 3 contain pivots). Our free variables are <code>$x_2$</code> and <code>$x_4$</code> (since columns 2 and 4 have no pivots).</p>
+<p><strong>The cool thing is that <code>$A$</code> and <code>$U$</code> have the same nullspace.</strong> So, if we know that <code>$Ux = 0$</code>, we also know that <code>$Ax = 0$</code>.</p>
 
-<p>Note that there are 4 variables in total. This is because the nullspace vectors are in <code>$\mathbb{R}^4$</code> in this case, since <code>$A$</code> (and <code>$U$</code>) are <code>$3 \times 4$</code> matrices.</p>
+<p>Let&rsquo;s suppose that we didn&rsquo;t know that <code>$x = \begin{bmatrix} -3 &amp; 1 &amp; -2 &amp; 2 \end{bmatrix} ^ {T}$</code> was in the nullspace of the matrix <code>$A$</code>. We know that there is some vector <code>$x = \begin{bmatrix} x_1 &amp; x_2 &amp; x_3 &amp; x_4 \end{bmatrix} ^ {T}$</code> such that <code>$Ux = 0$</code> (even if that vector is just <code>$\begin{bmatrix} 0 &amp; 0 &amp; 0 &amp; 0 \end{bmatrix} ^ {T}$</code>).</p>
 
-<p>We now use back-substitution to find our <strong>special solutions</strong> which we&rsquo;ll eventually use to yield a <strong>complete solution</strong>.</p>
+<p>Writing this out more explicitly:</p>
 
-<p>We can give <code>$x_2$</code> and <code>$x_4$</code>, our free variables, any values we wish. Then back-substitution finds out pivot variables. The simples choice for our free variables are ones and zeroes.</p>
+<p>\[
+\tag{1}
+\label{1}
+ \begin{bmatrix}
+  1 &amp; 1 &amp; 2 &amp; 3 \newline
+  0 &amp; 0 &amp; 4 &amp; 4 \newline
+  0 &amp; 0 &amp; 0 &amp; 0
+ \end{bmatrix}
+ %
+ \begin{bmatrix}
+  x_1 \newline
+  x_2 \newline
+  x_3 \newline
+  x_4
+ \end{bmatrix}
+ %
+  &#61;
+ %
+ \begin{bmatrix}
+  0 \newline
+  0 \newline
+  0
+ \end{bmatrix}
+\]</p>
 
-<p>Looking back to our matrix <code>$U$</code>, we can create equations out of our rows:</p>
+<p>According to our recipe for finding the nullspace, we need to find our pivots. <strong>A pivot is simply the first non-zero element in each row of the matrix.</strong></p>
 
-<p><code>$x_1 + x_2 + 2x_3 + 3x_4 = 0$</code></p>
+<p>Looking at <code>$U$</code>, the first row has a pivot in the first column, with value <code>$1$</code>. The second row has a pivot in the third column: <code>$4$</code>. The third row does not have a pivot.</p>
 
-<p><code>$4x_3 + 4x_4 = 0$</code></p>
+<p><strong>We call <code>$x_1$</code> and <code>$x_3$</code></strong> <strong><em>pivot variables</em></strong> since columns 1 and 3 contain pivots. <strong><code>$x_2$</code> and <code>$x_4$</code> are called</strong> <strong><em>free variables</em></strong> since columns 2 and 4 have no pivots.</p>
 
-<p>We then set <code>$x_2 = 1$</code> and <code>$x_4 = 0$</code>. Using back-substitution we get:</p>
+<p>Note that there are 4 variables in total - 2 free variables, and 2 pivot variables. This is because the nullspace vectors are in <code>$\mathbb{R}^4$</code> in this case, since <code>$A$</code> (and <code>$U$</code>) are <code>$3 \times 4$</code> matrices.</p>
 
-<p><code>$x_3 = 0$</code></p>
+<h2 id="3-2-using-back-substitution-to-find-our-nullspace">3.2 Using Back Substitution to Find our Nullspace</h2>
 
-<p><code>$x_1 = -1$</code></p>
+<p>Now that we know what our pivots are, we want to find our <em>special solutions</em>. Special solutions are vectors in our nullspace which will eventually <strong>help us find all the vectors in our nullspace</strong>.</p>
 
-<p>Next, we set <code>$x_2 = 0$</code> and <code>$x_4 = 1$</code>. Again, using back-substitution we get:</p>
+<p><strong>We will have as many special solutions as we have free variables.</strong> In this case, we have 2 free variables, so we will have 2 special solutions. The way we find the special solutions is by <em>back substitution</em>.</p>
 
-<p><code>$x_3 = -1$</code></p>
+<p>Before we get to what back substition is, let&rsquo;s rewrite equation <code>$(\ref{1})$</code> as a set of equations, instead of its matrix form:</p>
 
-<p><code>$x_1 = -1$</code></p>
+<p>\[
+x_1 + x_2 + 2x_3 + 3x_4 = 0
+\]</p>
+
+<p>\[
+4x_3 + 4x_4 = 0
+\]</p>
+
+<p>We want to find values for <code>$x_1$</code>, <code>$x_2$</code>, <code>$x_3$</code> and <code>$x_4$</code> which satisfy the above set of equations.</p>
+
+<p><strong>Since <code>$x_2$</code> and <code>$x_4$</code> are free variables, we can give them any values we wish</strong> - they are <em>free</em> variables, after all! The simples choice for our free variables is ones or zeroes.</p>
+
+<p>Let&rsquo;s set <code>$x_2 = 1$</code> and <code>$x_4 = 0$</code>:</p>
+
+<p>\[
+x_1 + (1) + 2x_3 + 3(0) = 0
+\]</p>
+
+<p>\[
+4x_3 + 4(0) = 0
+\]</p>
+
+<p>which gives:</p>
+
+<p>\[
+\label{2}
+\tag{2}
+x_1 + 1 + 2x_3 = 0
+\]</p>
+
+<p>\[
+\label{3}
+\tag{3}
+x_3 = 0
+\]</p>
+
+<p>Great! <strong>We now know that <code>$x_3 = 0$</code></strong> (and we have values for <code>$x_2$</code> and <code>$x_4$</code> ). All that&rsquo;s left is for us to find <code>$x_1$</code></p>
+
+<p><strong>Now, let&rsquo;s use back substitution to plug <code>$x_3 = 0$</code> into equation (<code>$\ref{2}$</code>):</strong></p>
+
+<p>\[
+x_1 + 1 + 2(0) = 0
+\]</p>
+
+<p>so</p>
+
+<p>\[
+x_1 = -1
+\]</p>
+
+<p>We now have our first special solution:</p>
+
+<p>\[
+\begin{bmatrix}
+ x_1 \newline
+ x_2 \newline
+ x_3 \newline
+ x_4
+\end{bmatrix}
+%
+&#61;
+%
+\begin{bmatrix}
+ -1 \newline
+ 1 \newline
+ 0 \newline
+ 0
+\end{bmatrix}
+\]</p>
+
+<p>Setting <code>$x_2 = 1$</code> and <code>$x_4 = 0$</code> gave us our first special solution. <strong>We need to find our second special solution.</strong> The easiest way to do this is to set <code>$x_2 = 0$</code> and <code>$x_4 = 1$</code>. Using the same procedure as we did for the first special solution we find our second special solution:</p>
+
+<p>\[
+\begin{bmatrix}
+ -1 \newline
+ 0 \newline
+ -1 \newline
+ 1
+\end{bmatrix}
+\]</p>
 
 <p>Since we had 2 free variables, we get 2 special solutions:</p>
 
-<p><code>$ \begin{bmatrix} -1 \newline 1 \newline 0 \newline 0 \end{bmatrix} $</code> and <code>$ \begin{bmatrix} -1 \newline 0 \newline -1 \newline 1 \end{bmatrix} $</code>.</p>
+<p>\[
+\begin{bmatrix}
+  -1 \newline
+  1 \newline
+  0 \newline
+  0
+\end{bmatrix},
+\begin{bmatrix}
+  -1 \newline
+  0 \newline
+  -1 \newline
+  1
+\end{bmatrix}
+\]</p>
 
-<p>These two special solutions are <em>in the nullspace</em>. Crucially - <strong><em>every combination of our special solutions is in the nullspace</em></strong>.</p>
+<p>These two special solutions are <strong>in the nullspace of <code>$U$</code> and therefore also <code>$A$</code></strong>. This means that if you multiply the matrix <code>$A$</code> or <code>$U$</code> by these vectors, you will get the zero vector.</p>
+
+<p>Crucially - <strong><em>every combination of our special solutions is in the nullspace</em></strong>.</p>
 
 <p>So, the complete solution is:</p>
 
@@ -196,7 +337,9 @@ x
 \end{bmatrix}
 \]</p>
 
-<p>What does this actually mean? Well, it means that we can pick our free variables <code>$x_2$</code> and <code>$x_4$</code> however we wish, and we will get a valid solution in response, for example: <code>$x_2=1$</code> and <code>$x_4 = 2$</code>. So:</p>
+<p>What does this actually mean? It means that <strong>we can pick our free variables <code>$x_2$</code> and <code>$x_4$</code> however we wish, and we will get a valid solution in response.</strong></p>
+
+<p>For example let&rsquo;s pick: <code>$x_2=1$</code> and <code>$x_4 = 2$</code>. So:</p>
 
 <p>\[
 \begin{bmatrix}
@@ -216,7 +359,9 @@ x
 \end{bmatrix}
 \]</p>
 
-<p>which was my initial example.</p>
+<p>which was my example at the beginning of the article.</p>
+
+<h2 id="4-another-example">4 Another Example</h2>
 
 <p>Say now I wish to find the nullspace of</p>
 
@@ -231,21 +376,38 @@ U
  \end{bmatrix}
 \]</p>
 
-<p>The second column contains our free variable. Since there is only <strong>one free variable</strong>, there will only be <strong>one special solution</strong>.</p>
+<p>The second column contains our free variable. Since there is only <strong>one free variable, there will only be one special solution</strong>.</p>
 
 <p>We need to back substitute <code>$x_2 = 1$</code> (no need to set zeroes this time, as there is only one free variable).</p>
 
-<p>Then</p>
+<p>Then
+\[
+9x_3 = 0
+\]</p>
 
-<p><code>$9x_3 = 0$</code> gives</p>
+<p>gives</p>
 
-<p><code>$x_3 = 0$</code></p>
+<p>\[
+x_3 = 0
+\]</p>
 
 <p>and</p>
 
-<p><code>$x_1 + 5x_2 = 0$</code> so</p>
+<p>\[
+x_1 + 5x_2 = 0
+\]</p>
 
-<p><code>$x_1 = -5$</code> (since <code>$x_2 = 1$</code>)</p>
+<p>so</p>
+
+<p>\[
+x_1 = -5
+\]</p>
+
+<p>since</p>
+
+<p>\[
+x_2 = 1
+\]</p>
 
 <p>So,
 \[
@@ -270,6 +432,8 @@ x_2
     
       <a class="basic-alignment left" href="/post/of-matrices-and-men-part-2/">&laquo; Of Matrices and Men (pt. 2)</a>
     
+    
+      <a class="basic-alignment left" href="/post/rank-of-a-matrix/">Rank of a Matrix &raquo;</a>
     
   </div>
 </section>
