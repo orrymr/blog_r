@@ -12,13 +12,13 @@
     
     
     <item>
-      <title>inverse matrix</title>
+      <title>Inverse Matrices - A Primer</title>
       <link>/post/inverse-matrix/</link>
       <pubDate>Sun, 18 Nov 2018 00:00:00 +0000</pubDate>
       
       <guid>/post/inverse-matrix/</guid>
-      <description>1. Introduction In this post we talk about the inverse matrix. We&amp;rsquo;ll talk about what it means for a matrix to be invertible, for it not to be invertible (singular) and how to find a matrix&amp;rsquo;s inverse.
-2. Invertibility Let&amp;rsquo;s think about a square matrix, $A$. In a previous post we spoke about how a matrix acts on a vector. The inverse of $A$ is $A^{-1}$. It undoes what $A$ did.</description>
+      <description>1. Introduction In this post we talk about the inverse matrix. We&amp;rsquo;ll talk about what it means for a matrix to be invertible. We&amp;rsquo;ll go on to discuss what it means for it not to be invertible - singular. Finally, we&amp;rsquo;ll go through how to find a matrix&amp;rsquo;s inverse.
+2. Invertibility Let&amp;rsquo;s think about a square matrix, $A$. In a previous post we spoke about how a matrix acts on a vector.</description>
     </item>
     
     <item>
@@ -28,7 +28,8 @@
       
       <guid>/post/rank-of-a-matrix/</guid>
       <description>rank of a matrix 10K – 100K Low
-inverse matrix 100K – 1M Low</description>
+inverse matrix 100K – 1M Low
+ rank of 1 - when the output of the matrix multiplication is a line (for next article)  rank of 2 - when all the outputs of the matrix mult land in 2-D, then matrix has a rank of 2. etc&amp;hellip;   </description>
     </item>
     
     <item>

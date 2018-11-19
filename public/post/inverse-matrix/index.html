@@ -15,7 +15,7 @@
   <title>
     
     
-     inverse matrix 
+     Inverse Matrices - A Primer 
     
   </title>
   <link rel="canonical" href="/post/inverse-matrix/">
@@ -48,10 +48,10 @@
 
 
 <section id=content>
-  <h1> inverse matrix </h1>
+  <h1> Inverse Matrices - A Primer </h1>
 
   <div id=sub-header>
-     · 2018/11/18 · 2 minute read
+    Orry Messer · 2018/11/18 · 3 minute read
   </div>
 
   <div class="entry-content">
@@ -59,30 +59,40 @@
 
 <h1 id="1-introduction">1. Introduction</h1>
 
-<p>In this post <strong>we talk about the</strong> <strong><em>inverse matrix</em></strong>. We&rsquo;ll talk about what it means for a matrix to be invertible, for it not to be invertible (singular) and how to find a matrix&rsquo;s inverse.</p>
+<p>In this post <strong>we talk about the</strong> <strong><em>inverse matrix</em></strong>. We&rsquo;ll talk about what it means for a matrix to be <em>invertible</em>. We&rsquo;ll go on to discuss what it means for it <em>not</em> to be invertible - <em>singular</em>. Finally, we&rsquo;ll go through how to find a matrix&rsquo;s inverse.</p>
 
 <h1 id="2-invertibility">2. Invertibility</h1>
 
-<p>Let&rsquo;s think about a square matrix, <code>$A$</code>. In <a href="/post/second-post/">a previous post</a> we spoke about how <strong>a matrix acts on a vector</strong>. The inverse of <code>$A$</code> is <code>$A^{-1}$</code>. It undoes what <code>$A$</code> did.</p>
+<p>Let&rsquo;s think about a square matrix, <code>$A$</code>. In <a href="/post/second-post/">a previous post</a> we spoke about how <strong>a matrix acts on a vector</strong>. The matrix does something to that vector.</p>
 
-<p>If we have a vector <code>$x$</code>, and we multiply it by our matrix <code>$A$</code>, we get <code>$Ax$</code>. If we undo this operation by applying the inverse, we get back to <code>$x = A^{-1}Ax$</code>. <strong>The one matrix which always leaves any vector unchanged is the identity matrix, <code>$I$</code>; which is why <code>$A^{-1}A = I$</code></strong>.</p>
+<p><strong>The inverse of a matrix undoes what the original matrix did.</strong> The inverse of <code>$A$</code> is <code>$A^{-1}$</code>. <code>$A^{-1}$</code> undoes what <code>$A$</code> did. It&rsquo;s kind of like dividing by a number after multiplying by it.</p>
 
-<p>When matrix <code>$A$</code> has an inverse it is said to be <em>invertible</em>. However, this is not always the case. When a matrix is not invertible, it is also known as <em>singular</em>.</p>
+<p>If we have a vector <code>$x$</code>, and we multiply it by our matrix <code>$A$</code>, we get <code>$Ax$</code>. If we undo this operation by applying the inverse, we get back to <code>$x = A^{-1}Ax$</code>. The one matrix which always leaves any vector unchanged is the identity matrix, <code>$I$</code>. That is: <code>$Ix = x$</code> . <strong>This is why <code>$A^{-1}A = I$</code>.</strong></p>
+
+<p>When matrix <code>$A$</code> has an inverse it is said to be <em>invertible</em>. However, this is not always the case. <strong>When a matrix is not invertible, it is also known as</strong> <strong><em>singular.</em></strong></p>
 
 <h1 id="3-non-invertibility-singular-matrices">3. Non-Invertibility - Singular Matrices</h1>
 
-<ul>
-<li>det = 0 in this case (lose information, can&rsquo;t undo the transformation - it moves all the vectors into a lower dimension)</li>
-<li>rank of 1 - when the output of the matrix multiplication is a line (for next article)
+<p>Not all matrics are invertible. <strong>Matrices which are not invertible are known as</strong> <strong><em>singular.</em></strong> This means that there exists no matrix which can undo what the original matrix just did.</p>
 
-<ul>
-<li>rank of 2 - when all the outputs of the matrix mult land in 2-D, then matrix has a rank of 2.</li>
-<li>etc&hellip;</li>
-</ul></li>
-</ul>
+<p>Say we are working in two dimensions - a plane. <strong>Most <code>$2 \times 2$</code> matrices will move vectors around the <code>$2 \times 2$</code> plane.</strong> They&rsquo;ll either stretch them, or squash them, or even change their direction. But they&rsquo;ll usually always use up all of the plane; the output of that matrix multiplication won&rsquo;t just be limited to a single line on that plane.</p>
 
-<p>Not all matrices invertible.
-  - (like it says at start of chapter) whatever A does, A^-1 undoes. link to post about how a matrix acts on a vector</p>
+<p>But <strong>if the output of a <code>$2 \times 2$</code> matrix always lands on a single line, then there is no way to undo that operation.</strong> We&rsquo;ve, in effect, lost some information.</p>
+
+<p>It&rsquo;s kind of like how <code>$0$</code> has no inverse. If we have the number <code>$10$</code>, and we multiply it by <code>$5$</code>, we get <code>$50$</code>. If we want to undo this operation, we multiply by <code>$5$</code>&rsquo;s inverse: <code>$\frac {1} {5}$</code> and get back <code>$50 \times \frac {1} {5} = 10$</code>. However, if we multiply <code>$10$</code> by <code>$0$</code>, we get <code>$0$</code>. There really isn&rsquo;t much we can do to <code>$0$</code> to get back to <code>$10$</code>. This is a tenuous analogy at best, as matrices and numbers are different animals. But, hopefully this helps convey <em>some</em> intuition.</p>
+
+<h1 id="4-testing-for-singularity">4. Testing for Singularity</h1>
+
+<p><strong>There are several equivalent conditions which, if met, mean that a matrix is singular.</strong> Some of these conditions are:
+* The matrix&rsquo;s determinant is 0
+* The matrix does not have full rank
+* The <code>$n \times n$</code> matrix does not have all of its pivots.</p>
+
+<p>Discussions about rank and determinants are enough to warrant their own posts (and more), and are beyond the scope of this post. When I do get around to writing those posts, I&rsquo;ll be sure to link this post though.</p>
+
+<p>For now, let&rsquo;s just keep in mind that not all matrices have inverses, and that if the determinant of a matrix is zero, then it doesn&rsquo;t have an inverse.</p>
+
+<p>But if it does have an inverse, let&rsquo;s try out finding it:</p>
 
 <h1 id="4-inverse-of-a-2x2-matrix">4. Inverse of a 2x2 Matrix</h1>
 
