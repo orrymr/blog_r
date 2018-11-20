@@ -193,7 +193,7 @@ So it looks like we've done our calculations correctly!
 
 # 5. Inverse of a Larger Matrix 
 
-
+For 
 
 
 
