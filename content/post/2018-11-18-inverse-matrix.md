@@ -42,7 +42,66 @@ For now, let's just keep in mind that not all matrices have inverses, and that i
 But if it does have an inverse, let's try out finding it:
 
 # 4. Inverse of a 2x2 Matrix
+A `$2 \times 2$` matrix has this form:
 
+\\[ 
+ \begin{bmatrix}
+  a & b  \newline
+  c & d
+ \end{bmatrix} 
+\\]
 
+If a `$2 \times 2$` matrix is invertible, then its inverse is:
+
+\\[ 
+\frac {1} {ad - bc}
+\times
+ \begin{bmatrix}
+  d & -b  \newline
+  -c & a
+ \end{bmatrix} 
+\\]
+
+`$\frac {1} {ad - bc}$` is the determinant of the matrix. If it's zero, then we'd have `$\frac {1} {0}$`. In other words, the inverse wouldn't exist - our matrix would be singular.
+
+Consider the matrix:
+
+\\[ 
+A
+%
+&#61;
+%
+ \begin{bmatrix}
+  1 & 3  \newline
+  2 & 7
+ \end{bmatrix} 
+\\]
+
+According to our formula above, its inverse is:
+
+\\[ 
+\frac {1} {1 \times 7 - 3 \times 2}
+\times
+ \begin{bmatrix}
+  7 & -3  \newline
+  -2 & 1
+ \end{bmatrix} 
+%
+&#61;
+%
+\frac {1} {1}
+\times
+ \begin{bmatrix}
+  7 & -3  \newline
+  -2 & 1
+ \end{bmatrix} 
+ %
+&#61;
+%
+ \begin{bmatrix}
+  7 & -3  \newline
+  -2 & 1
+ \end{bmatrix} 
+\\]
 
 # 5. Inverse of a Larger Matrix 

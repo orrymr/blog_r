@@ -51,7 +51,7 @@
   <h1> Inverse Matrices - A Primer </h1>
 
   <div id=sub-header>
-    Orry Messer · 2018/11/18 · 3 minute read
+    Orry Messer · 2018/11/18 · 4 minute read
   </div>
 
   <div class="entry-content">
@@ -95,6 +95,68 @@
 <p>But if it does have an inverse, let&rsquo;s try out finding it:</p>
 
 <h1 id="4-inverse-of-a-2x2-matrix">4. Inverse of a 2x2 Matrix</h1>
+
+<p>A <code>$2 \times 2$</code> matrix has this form:</p>
+
+<p>\[
+ \begin{bmatrix}
+  a &amp; b  \newline
+  c &amp; d
+ \end{bmatrix}
+\]</p>
+
+<p>If a <code>$2 \times 2$</code> matrix is invertible, then its inverse is:</p>
+
+<p>\[
+\frac {1} {ad - bc}
+\times
+ \begin{bmatrix}
+  d &amp; -b  \newline
+  -c &amp; a
+ \end{bmatrix}
+\]</p>
+
+<p><code>$\frac {1} {ad - bc}$</code> is the determinant of the matrix. If it&rsquo;s zero, then we&rsquo;d have <code>$\frac {1} {0}$</code>. In other words, the inverse wouldn&rsquo;t exist - our matrix would be singular.</p>
+
+<p>Consider the matrix:</p>
+
+<p>\[
+A
+%
+&#61;
+%
+ \begin{bmatrix}
+  1 &amp; 3  \newline
+  2 &amp; 7
+ \end{bmatrix}
+\]</p>
+
+<p>According to our formula above, its inverse is:</p>
+
+<p>\[
+\frac {1} {1 \times 7 - 3 \times 2}
+\times
+ \begin{bmatrix}
+  7 &amp; -3  \newline
+  -2 &amp; 1
+ \end{bmatrix}
+%
+&#61;
+%
+\frac {1} {1}
+\times
+ \begin{bmatrix}
+  7 &amp; -3  \newline
+  -2 &amp; 1
+ \end{bmatrix}
+ %
+&#61;
+%
+ \begin{bmatrix}
+  7 &amp; -3  \newline
+  -2 &amp; 1
+ \end{bmatrix}
+\]</p>
 
 <h1 id="5-inverse-of-a-larger-matrix">5. Inverse of a Larger Matrix</h1>
 
