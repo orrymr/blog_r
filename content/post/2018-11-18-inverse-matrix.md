@@ -104,4 +104,98 @@ According to our formula above, its inverse is:
  \end{bmatrix} 
 \\]
 
+Let's verify that this is indeed the inverse in two ways. 
+
+We'll multiply the original matrix by the inverse. If we get the identity matrix, then we've done our calculation correctly:
+
+
+\\[ 
+ \begin{bmatrix}
+  1 & 3  \newline
+  2 & 7
+ \end{bmatrix} 
+  \begin{bmatrix}
+  7 & -3  \newline
+  -2 & 1
+ \end{bmatrix} 
+  %
+  &#61;
+  %
+ \begin{bmatrix}
+  1 \times 7 + 3 \times (-2) & 1 \times (-3) + 3 \times 1  \newline
+  2 \times 7 + 7 \times (-2) & 2 \times (-3) + 7 \times 1
+ \end{bmatrix}
+  %
+  &#61;
+  %
+ \begin{bmatrix}
+  1 & 0  \newline
+  0 & 1
+ \end{bmatrix}
+\\]
+
+
+Next, we'll multiply a vector by the original matrix and then the result of that calculation, by the inverse. Let's pick the vector `$ \begin{bmatrix} 1 & 2 \end{bmatrix} ^ {T}$`. We should end up with the original after this:
+
+\\[ 
+ \begin{bmatrix}
+  1 & 3  \newline
+  2 & 7
+ \end{bmatrix}
+  \begin{bmatrix}
+  1 \newline
+  2
+ \end{bmatrix}
+  %
+  &#61;
+  %
+ \begin{bmatrix}
+  1 \times 1 + 3 \times 2 \newline
+  2 \times 1 + 7 \times 2
+ \end{bmatrix}
+  %
+  &#61;
+  %
+  \begin{bmatrix}
+  7 \newline
+  16
+ \end{bmatrix}
+\\]
+
+Let's now see if the inverse matrix brings  `$ \begin{bmatrix} 7 & 16 \end{bmatrix} ^ {T}$` back to `$ \begin{bmatrix} 1 & 2 \end{bmatrix} ^ {T}$` 
+
+\\[ 
+ \begin{bmatrix}
+  7 & -3  \newline
+  -2 & 1
+ \end{bmatrix}
+  \begin{bmatrix}
+  7 \newline
+  16
+ \end{bmatrix}
+  %
+  &#61;
+  %
+ \begin{bmatrix}
+  7 \times 7 + (-3) \times 16 \newline
+  (-2) \times 7 + 1 \times 16
+ \end{bmatrix}
+  %
+  &#61;
+  %
+  \begin{bmatrix}
+  1 \newline
+  2
+ \end{bmatrix}
+\\]
+
+So it looks like we've done our calculations correctly!
+
 # 5. Inverse of a Larger Matrix 
+
+
+
+
+
+
+
