@@ -17,8 +17,8 @@
       <pubDate>Sun, 18 Nov 2018 00:00:00 +0000</pubDate>
       
       <guid>/post/inverse-matrix/</guid>
-      <description>1. Introduction In this post we talk about the inverse matrix. We&amp;rsquo;ll talk about what it means for a matrix to be invertible. We&amp;rsquo;ll go on to discuss what it means for it not to be invertible - singular. Finally, we&amp;rsquo;ll go through how to find a matrix&amp;rsquo;s inverse.
-2. Invertibility Let&amp;rsquo;s think about a square matrix, $A$. In a previous post we spoke about how a matrix acts on a vector.</description>
+      <description>1. Introduction In this post we talk about the inverse matrix. We discuss what it means for a matrix to be invertible. We then discuss what it means for a matrix not to be invertible - singular. Finally, we briefly go through how to find a matrix&amp;rsquo;s inverse.
+2. Invertibility Let&amp;rsquo;s think about a square matrix, $A$. In a previous post we mentioned that a matrix acts on a vector.</description>
     </item>
     
     <item>
