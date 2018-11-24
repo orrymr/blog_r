@@ -4,8 +4,8 @@ author: 'Orry Messer'
 date: '2018-11-18'
 slug: inverse-matrix
 categories: []
-draft: true
-tags: []
+draft: false
+tags: ["linear algebra", "18.06", "matrices", "nullspace", "inverse"]
 ---
 
 # 1. Introduction
@@ -27,7 +27,7 @@ Say we are working in two dimensions - a plane. __Most `$2 \times 2$` matrices w
 
 But __if the output of a `$2 \times 2$` matrix always lands on a single line, then there is no way to undo that operation.__ We've, in effect, lost some information. 
 
-This extends to higher dimensions. __If you cannot select a vector in `$\mathbb{R}^n$` so that the output of an `$n \times n$` matrix multiplication with that vector cannot fall anywhere within the `$\mathbb{R}^n$` hyperplane, then that `$n \times n$` matrix is singular.__ This means that the output of that matrix multiplication is constrained to a lower dimension (even a line, or a point).
+This extends to higher dimensions. __If you cannot select a vector in `$\mathbb{R}^n$` so that the output of an `$n \times n$` matrix multiplication with that vector can fall anywhere within the `$\mathbb{R}^n$` hyperplane, then that `$n \times n$` matrix is singular.__ This means that the output of that matrix multiplication is constrained to a lower dimension (even a line, or a point).
 
 __It's kind of like how `$0$` has no inverse.__ If we have the number `$10$`, and we multiply it by `$5$`, we get `$50$`. If we want to undo this operation, we multiply by `$5$`'s (multiplicative) inverse: `$\frac {1} {5}$` and get back `$50 \times \frac {1} {5} = 10$`. However, if we multiply `$10$` by `$0$`, we get `$0$`. There really isn't much we can do to `$0$` to get back to `$10$`. This is a tenuous analogy at best, as matrices and numbers are different animals. But, hopefully this helps convey _some_ intuition.
 
