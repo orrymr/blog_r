@@ -15,10 +15,8 @@ rank of a matrix
 10K – 100K
 Low
 
-inverse matrix
-100K – 1M
-Low
-
 - rank of 1 - when the output of the matrix multiplication is a line (for next article)
   - rank of 2 - when all the outputs of the matrix mult land in 2-D, then matrix has a rank of 2.
   - etc...
+
+
