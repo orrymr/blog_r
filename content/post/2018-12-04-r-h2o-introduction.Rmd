@@ -1,0 +1,48 @@
+---
+title: r h2o introduction
+author: ''
+date: '2018-12-04'
+slug: r-h2o-introduction
+categories: []
+tags: []
+---
+
+Install it: http://h2o-release.s3.amazonaws.com/h2o/rel-xia/2/index.html and click the "INSTALL IN R" tab
+
+R is just a client interfact for H2O. There is also a Python interface. Also, there is Flow (communicates via REST API)
+
+You use R to send commands to H2O. You could equally just use Flow or Python to send commands.
+
+All clients talk to H2O via a REST API
+
+Since it's just REST based API, when you call an H2O function in R, the function itself does a JSON post to H20
+
+Distributed Frame (15 minutes into the video)
+
+Essentially, when reading in a csv, or data in general, you get back a pointer to the (potentially distributed) h2oFrame
+
+```{r}
+library(datasets)
+library(h2o)
+
+h2o.init() #Then check it in the browser
+
+data(iris)
+View(iris)
+
+
+iris.hex <- as.h2o(iris)  
+h2o.ls()
+
+
+iris.hex
+
+
+loan_csv <- "https://raw.githubusercontent.com/h2oai/app-consumer-loan/master/data/loan.csv"
+data <- h2o.importFile(loan_csv)  
+
+
+
+```
+
+https://github.com/h2oai/h2o-tutorials/blob/master/h2o-open-tour-2016/chicago/intro-to-h2o.R
