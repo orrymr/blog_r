@@ -7,7 +7,6 @@ categories: []
 tags: []
 ---
 
-<<<<<<< HEAD
 Definition from their Github:
 "H2O is an in-memory platform for distributed, scalable machine learning. H2O uses familiar interfaces like R, Python, Scala, Java, JSON and the Flow notebook/web interface, and works seamlessly with big data technologies like Hadoop and Spark."
 
@@ -15,10 +14,7 @@ Or from IBM: "H2O is an open source, in-memory, distributed, fast, and scalable 
 
 DKV: https://www.h2o.ai/blog/h2o-architecture/
 
-Install it: http://h2o-release.s3.amazonaws.com/h2o/rel-xia/2/index.html and click the "INSTALL IN R" tab
-=======
 Install it: http://h2o-release.s3.amazonaws.com/h2o/rel-xia/2/index.html and click the "INSTALL IN R" tab, although install.packages("h2o") just worked for me.
->>>>>>> 3855cfbce304db01d2938d85228e64734aef3095
 
 R is just a client interfact for H2O. There is also a Python interface. Also, there is Flow (communicates via REST API)
 
@@ -61,8 +57,42 @@ h2o.describe(iris.hex)
 h2o.hist(iris.hex$Sepal.Length)
 
 iris.hex$bleh <- iris.hex$Sepal.Length + 2
+#unary and binary operations are supported by h2o data frames. 
+#Why doesn't the "bleh" column show up in Flow's view of the iris dataframe... but it does create a new dataframe with a random name which has this new column? wtf....
 
 r_df <- as.data.frame(iris.hex)
+
+
+iris.hex$bleh <- NULL
+
+h2o.levels(iris.hex$Species)
+# Note, if you get the error "Error in chk.H2OFrame(x) : must be an H2OFrame" - check that you spelled the column name correctly, case sensitive and all
+
+
+# get a nice GLM dataset make it easier to explain
+
+splits <- h2o.splitFrame(data = iris.hex, 
+                         ratios = c(0.7, 0.15),  #partition data into 70%, 15%, 15% chunks
+                         seed = 198) 
+
+train <- splits[[1]]
+valid <- splits[[2]]
+test <- splits[[3]]
+
+#seed changes the ratio. ratio seems to be not exact thing.
+#h2o uses approximate splitting
+
+rf <- h2o.randomForest(x = c("Sepal.Length", "Sepal.Width", "Petal.Length", "Petal.Width"), 
+                    y = c("Species"), 
+                    training_frame = train,
+                    model_id = "our.rf")
+
+rf_perf1 <- h2o.performance(model = rf,
+                            newdata = test)
+
+
+#keep going through: https://github.com/h2oai/h2o-tutorials/blob/master/h2o-open-tour-2016/chicago/intro-to-h2o.R
+# read this: http://docs.h2o.ai/h2o/latest-stable/h2o-docs/data-science/drf.html
 
 ```
 
