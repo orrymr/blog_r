@@ -7,6 +7,7 @@ categories: []
 tags: []
 ---
 
+<<<<<<< HEAD
 Definition from their Github:
 "H2O is an in-memory platform for distributed, scalable machine learning. H2O uses familiar interfaces like R, Python, Scala, Java, JSON and the Flow notebook/web interface, and works seamlessly with big data technologies like Hadoop and Spark."
 
@@ -15,6 +16,9 @@ Or from IBM: "H2O is an open source, in-memory, distributed, fast, and scalable 
 DKV: https://www.h2o.ai/blog/h2o-architecture/
 
 Install it: http://h2o-release.s3.amazonaws.com/h2o/rel-xia/2/index.html and click the "INSTALL IN R" tab
+=======
+Install it: http://h2o-release.s3.amazonaws.com/h2o/rel-xia/2/index.html and click the "INSTALL IN R" tab, although install.packages("h2o") just worked for me.
+>>>>>>> 3855cfbce304db01d2938d85228e64734aef3095
 
 R is just a client interfact for H2O. There is also a Python interface. Also, there is Flow (communicates via REST API)
 
@@ -28,7 +32,11 @@ Since it's just REST based API, when you call an H2O function in R, the function
 
 Distributed Frame (15 minutes into the video)
 
-Essentially, when reading in a csv, or data in general, you get back a pointer to the (potentially distributed) h2oFrame
+Essentially, when reading in a csv, or data in general, you get back a pointer to the (potentially distributed) h2oFrame.
+
+You can view objects created in R, in Python or Flow - it all just connects to the same H2O instance.
+
+So, it seems like when you manipulate an H2O dataframe, even using syntax like you would with a normal df, like  `filtered <- my_df[bleh > 3, ]`, that it is actually doing this on the h2o instance. You send the command to the h2o server.
 
 
 https://www.h2o.ai/blog/h2o-architecture/
@@ -38,6 +46,8 @@ library(datasets)
 library(h2o)
 
 h2o.init() #Then check it in the browser
+# by default only uses 2 cores
+#h2o.init(nthreads = -1) will use all cores
 
 data(iris)
 View(iris)
@@ -46,14 +56,13 @@ View(iris)
 iris.hex <- as.h2o(iris)  
 h2o.ls()
 
+h2o.describe(iris.hex)
+#Describe the output
+h2o.hist(iris.hex$Sepal.Length)
 
-iris.hex
+iris.hex$bleh <- iris.hex$Sepal.Length + 2
 
-
-loan_csv <- "https://raw.githubusercontent.com/h2oai/app-consumer-loan/master/data/loan.csv"
-data <- h2o.importFile(loan_csv)  
-
-
+r_df <- as.data.frame(iris.hex)
 
 ```
 
