@@ -7,9 +7,18 @@ categories: []
 tags: []
 ---
 
+Definition from their Github:
+"H2O is an in-memory platform for distributed, scalable machine learning. H2O uses familiar interfaces like R, Python, Scala, Java, JSON and the Flow notebook/web interface, and works seamlessly with big data technologies like Hadoop and Spark."
+
+Or from IBM: "H2O is an open source, in-memory, distributed, fast, and scalable machine learning and predictive analytics platform that allows you to build machine learning models on big data and provides easy productionalization of those models in an enterprise environment."
+
+DKV: https://www.h2o.ai/blog/h2o-architecture/
+
 Install it: http://h2o-release.s3.amazonaws.com/h2o/rel-xia/2/index.html and click the "INSTALL IN R" tab
 
 R is just a client interfact for H2O. There is also a Python interface. Also, there is Flow (communicates via REST API)
+
+Data is not in R, R only has a pointer to the data.
 
 You use R to send commands to H2O. You could equally just use Flow or Python to send commands.
 
@@ -20,6 +29,9 @@ Since it's just REST based API, when you call an H2O function in R, the function
 Distributed Frame (15 minutes into the video)
 
 Essentially, when reading in a csv, or data in general, you get back a pointer to the (potentially distributed) h2oFrame
+
+
+https://www.h2o.ai/blog/h2o-architecture/
 
 ```{r}
 library(datasets)
