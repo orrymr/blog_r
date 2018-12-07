@@ -1,0 +1,197 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="chrome=1">
+  <meta name="HandheldFriendly" content="True">
+  <meta name="MobileOptimized" content="320">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="referrer" content="no-referrer">
+  <meta name="google-site-verification" content="i-9rnKTO55VrWDag6iP74KddaTXU6YZylRl3rzB8cik" />
+  
+
+  <link rel="icon" type="image/png" href="/favicon.png">
+
+  <title>
+    
+    
+     r h2o introduction 
+    
+  </title>
+  <link rel="canonical" href="/post/r-h2o-introduction/">
+
+  <link rel="stylesheet" href="/css/fonts.css" />
+  <link rel="stylesheet" href="/css/style.css" />
+
+  
+</head>
+
+<body>
+<section id=nav>
+  <h1><a href="/">orrymr.com</a></h1>
+  <ul>
+    
+    <li><a href="http://orrymr.com">Home</a></li>
+    
+    <li><a href="https://github.com/orrymr">GitHub</a></li>
+    
+    <li><a href="#">Music</a></li>
+    
+    <li><a href="#">About</a></li>
+    
+    <li><a href="https://twitter.com/orrymr">Twitter</a></li>
+    
+    <li><a href="/index.xml">RSS</a></li>
+    
+  </ul>
+</section>
+
+
+<section id=content>
+  <h1> r h2o introduction </h1>
+
+  <div id=sub-header>
+     · 2018/12/04 · 4 minute read
+  </div>
+
+  <div class="entry-content">
+    
+
+
+<div id="introduction" class="section level1">
+<h1>1. Introduction</h1>
+<p><a href="https://www.h2o.ai/">H2O</a> <a href="https://github.com/h2oai/h2o-3">“is an in-memory platform for distributed, scalable machine learning.”</a>. In this post we unpack what this statement means, and get started working with H2O using R.</p>
+</div>
+<div id="what-is-h2o" class="section level1">
+<h1>2. What is H2O?</h1>
+<p>The definition found on H2O’s Github page is a lot to take in, especially if you’re just starting out with H2O (like I am!): “H2O is an in-memory platform for distributed, scalable machine learning. H2O uses familiar interfaces like R, Python, Scala, Java, JSON and the Flow notebook/web interface, and works seamlessly with big data technologies like Hadoop and Spark.”</p>
+<p>Let’s break down this statement piece by piece.</p>
+<div id="h2o-is-an-in-memory-platform" class="section level2">
+<h2>2.1 H2O is an In-Memory Platform</h2>
+<p>They start off by telling us that H2O is an “<strong>in-memory platform</strong>”. Saying that it’s in-memory means that the data and software being used is in main memory (RAM). Main memory, or <strong>primary memory</strong> is typically much faster than secondary memory (such as a hard drive). A software platform is typically something which can be used to build something. We happen to know that this platform is used for building machine learning models. Putting this togther we now know that H2O is an in-memory environment for building machine learning models.</p>
+</div>
+<div id="h2o-is-distributed-and-scalable" class="section level2">
+<h2>2.2 H2O is distributed and Scalable</h2>
+<p><strong>“…for distributed, scalable machine learning”</strong></p>
+<p>Or from IBM: “H2O is an open source, in-memory, distributed, fast, and scalable machine learning and predictive analytics platform that allows you to build machine learning models on big data and provides easy productionalization of those models in an enterprise environment.”</p>
+<p>DKV: <a href="https://www.h2o.ai/blog/h2o-architecture/" class="uri">https://www.h2o.ai/blog/h2o-architecture/</a></p>
+<p>Install it: <a href="http://h2o-release.s3.amazonaws.com/h2o/rel-xia/2/index.html" class="uri">http://h2o-release.s3.amazonaws.com/h2o/rel-xia/2/index.html</a> and click the “INSTALL IN R” tab, although install.packages(“h2o”) just worked for me.</p>
+<p>R is just a client interfact for H2O. There is also a Python interface. Also, there is Flow (communicates via REST API)</p>
+<p>Data is not in R, R only has a pointer to the data.</p>
+<p>You use R to send commands to H2O. You could equally just use Flow or Python to send commands.</p>
+<p>All clients talk to H2O via a REST API</p>
+<p>Since it’s just REST based API, when you call an H2O function in R, the function itself does a JSON post to H20</p>
+<p>Distributed Frame (15 minutes into the video)</p>
+<p>Essentially, when reading in a csv, or data in general, you get back a pointer to the (potentially distributed) h2oFrame.</p>
+<p>You can view objects created in R, in Python or Flow - it all just connects to the same H2O instance.</p>
+<p>So, it seems like when you manipulate an H2O dataframe, even using syntax like you would with a normal df, like <code>filtered &lt;- my_df[bleh &gt; 3, ]</code>, that it is actually doing this on the h2o instance. You send the command to the h2o server.</p>
+<p><a href="https://www.h2o.ai/blog/h2o-architecture/" class="uri">https://www.h2o.ai/blog/h2o-architecture/</a></p>
+<pre class="r"><code># library(datasets)
+# library(h2o)
+# 
+# h2o.init() #Then check it in the browser
+# # by default only uses 2 cores
+# #h2o.init(nthreads = -1) will use all cores
+# 
+# data(iris)
+# 
+# 
+# iris.hex &lt;- as.h2o(iris)  
+# h2o.ls()
+# 
+# h2o.describe(iris.hex)
+# #Describe the output
+# h2o.hist(iris.hex$Sepal.Length)
+# 
+# iris.hex$bleh &lt;- iris.hex$Sepal.Length + 2
+# #unary and binary operations are supported by h2o data frames. 
+# #Why doesn&#39;t the &quot;bleh&quot; column show up in Flow&#39;s view of the iris dataframe... but it does create a new dataframe with a random name which has this new column? wtf....
+# 
+# r_df &lt;- as.data.frame(iris.hex)
+# 
+# 
+# iris.hex$bleh &lt;- NULL
+# 
+# h2o.levels(iris.hex$Species)
+# # Note, if you get the error &quot;Error in chk.H2OFrame(x) : must be an H2OFrame&quot; - check that you spelled the column name correctly, case sensitive and all
+# 
+# 
+# # get a nice GLM dataset make it easier to explain
+# 
+# splits &lt;- h2o.splitFrame(data = iris.hex, 
+#                          ratios = c(0.7, 0.15),  #partition data into 70%, 15%, 15% chunks
+#                          seed = 198) 
+# 
+# train &lt;- splits[[1]]
+# valid &lt;- splits[[2]]
+# test &lt;- splits[[3]]
+# 
+# #seed changes the ratio. ratio seems to be not exact thing.
+# #h2o uses approximate splitting
+# 
+# rf &lt;- h2o.randomForest(x = c(&quot;Sepal.Length&quot;, &quot;Sepal.Width&quot;, &quot;Petal.Length&quot;, &quot;Petal.Width&quot;), 
+#                     y = c(&quot;Species&quot;), 
+#                     training_frame = train,
+#                     model_id = &quot;our.rf&quot;)
+# 
+# rf_perf1 &lt;- h2o.performance(model = rf,
+#                             newdata = test)
+
+
+#keep going through: https://github.com/h2oai/h2o-tutorials/blob/master/h2o-open-tour-2016/chicago/intro-to-h2o.R
+# read this: http://docs.h2o.ai/h2o/latest-stable/h2o-docs/data-science/drf.html</code></pre>
+<p><a href="https://github.com/h2oai/h2o-tutorials/blob/master/h2o-open-tour-2016/chicago/intro-to-h2o.R" class="uri">https://github.com/h2oai/h2o-tutorials/blob/master/h2o-open-tour-2016/chicago/intro-to-h2o.R</a></p>
+</div>
+</div>
+
+  </div>
+
+  <div id=links>
+    
+      <a class="basic-alignment left" href="/post/h2o-intro/">&laquo; H2o Intro</a>
+    
+    
+  </div>
+</section>
+
+<section id="comments">
+<div id="disqus_thread"></div>
+<script type="text/javascript">
+
+(function() {
+      
+      
+      if (window.location.hostname == "localhost")
+                return;
+
+      var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+      var disqus_shortname = 'orrymr';
+      dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
+      (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+})();
+</script>
+<noscript>Please enable JavaScript to view the <a href="https://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+</section>
+
+
+  
+<script type="application/javascript">
+var doNotTrack = false;
+if (!doNotTrack) {
+	window.ga=window.ga||function(){(ga.q=ga.q||[]).push(arguments)};ga.l=+new Date;
+	ga('create', 'UA-115127992-1', 'auto');
+	
+	ga('send', 'pageview');
+}
+</script>
+<script async src='https://www.google-analytics.com/analytics.js'></script>
+
+  
+<script src="/js/math-code.js"></script>
+<script async src="//cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.1/MathJax.js?config=TeX-MML-AM_CHTML"></script>
+
+
+
+</body>
+</html>
+

@@ -7,8 +7,22 @@ categories: []
 tags: []
 ---
 
-Definition from their Github:
-"H2O is an in-memory platform for distributed, scalable machine learning. H2O uses familiar interfaces like R, Python, Scala, Java, JSON and the Flow notebook/web interface, and works seamlessly with big data technologies like Hadoop and Spark."
+# 1. Introduction
+[H2O](https://www.h2o.ai/) ["is an in-memory platform for distributed, scalable machine learning."](https://github.com/h2oai/h2o-3). In this post we unpack what this statement means, and get started working with H2O using R.
+
+# 2. What is H2O?
+
+The definition found on H2O's Github page is a lot to take in, especially if you're just starting out with H2O (like I am!): "H2O is an in-memory platform for distributed, scalable machine learning. H2O uses familiar interfaces like R, Python, Scala, Java, JSON and the Flow notebook/web interface, and works seamlessly with big data technologies like Hadoop and Spark."
+
+Let's break down this statement piece by piece.
+
+## 2.1 H2O is an In-Memory Platform
+
+They start off by telling us that H2O is an "__in-memory platform__". Saying that it's in-memory means that the data and software being used is in main memory (RAM). Main memory, or __primary memory__ is typically much faster than secondary memory (such as a hard drive). A software platform is typically something which can be used to build something. We happen to know that this platform is used for building machine learning models. Putting this togther we now know that H2O is an in-memory environment for building machine learning models.
+
+## 2.2 H2O is distributed and Scalable
+
+__"...for distributed, scalable machine learning"__
 
 Or from IBM: "H2O is an open source, in-memory, distributed, fast, and scalable machine learning and predictive analytics platform that allows you to build machine learning models on big data and provides easy productionalization of those models in an enterprise environment."
 
@@ -38,57 +52,56 @@ So, it seems like when you manipulate an H2O dataframe, even using syntax like y
 https://www.h2o.ai/blog/h2o-architecture/
 
 ```{r}
-library(datasets)
-library(h2o)
-
-h2o.init() #Then check it in the browser
-# by default only uses 2 cores
-#h2o.init(nthreads = -1) will use all cores
-
-data(iris)
-View(iris)
-
-
-iris.hex <- as.h2o(iris)  
-h2o.ls()
-
-h2o.describe(iris.hex)
-#Describe the output
-h2o.hist(iris.hex$Sepal.Length)
-
-iris.hex$bleh <- iris.hex$Sepal.Length + 2
-#unary and binary operations are supported by h2o data frames. 
-#Why doesn't the "bleh" column show up in Flow's view of the iris dataframe... but it does create a new dataframe with a random name which has this new column? wtf....
-
-r_df <- as.data.frame(iris.hex)
-
-
-iris.hex$bleh <- NULL
-
-h2o.levels(iris.hex$Species)
-# Note, if you get the error "Error in chk.H2OFrame(x) : must be an H2OFrame" - check that you spelled the column name correctly, case sensitive and all
-
-
-# get a nice GLM dataset make it easier to explain
-
-splits <- h2o.splitFrame(data = iris.hex, 
-                         ratios = c(0.7, 0.15),  #partition data into 70%, 15%, 15% chunks
-                         seed = 198) 
-
-train <- splits[[1]]
-valid <- splits[[2]]
-test <- splits[[3]]
-
-#seed changes the ratio. ratio seems to be not exact thing.
-#h2o uses approximate splitting
-
-rf <- h2o.randomForest(x = c("Sepal.Length", "Sepal.Width", "Petal.Length", "Petal.Width"), 
-                    y = c("Species"), 
-                    training_frame = train,
-                    model_id = "our.rf")
-
-rf_perf1 <- h2o.performance(model = rf,
-                            newdata = test)
+# library(datasets)
+# library(h2o)
+# 
+# h2o.init() #Then check it in the browser
+# # by default only uses 2 cores
+# #h2o.init(nthreads = -1) will use all cores
+# 
+# data(iris)
+# 
+# 
+# iris.hex <- as.h2o(iris)  
+# h2o.ls()
+# 
+# h2o.describe(iris.hex)
+# #Describe the output
+# h2o.hist(iris.hex$Sepal.Length)
+# 
+# iris.hex$bleh <- iris.hex$Sepal.Length + 2
+# #unary and binary operations are supported by h2o data frames. 
+# #Why doesn't the "bleh" column show up in Flow's view of the iris dataframe... but it does create a new dataframe with a random name which has this new column? wtf....
+# 
+# r_df <- as.data.frame(iris.hex)
+# 
+# 
+# iris.hex$bleh <- NULL
+# 
+# h2o.levels(iris.hex$Species)
+# # Note, if you get the error "Error in chk.H2OFrame(x) : must be an H2OFrame" - check that you spelled the column name correctly, case sensitive and all
+# 
+# 
+# # get a nice GLM dataset make it easier to explain
+# 
+# splits <- h2o.splitFrame(data = iris.hex, 
+#                          ratios = c(0.7, 0.15),  #partition data into 70%, 15%, 15% chunks
+#                          seed = 198) 
+# 
+# train <- splits[[1]]
+# valid <- splits[[2]]
+# test <- splits[[3]]
+# 
+# #seed changes the ratio. ratio seems to be not exact thing.
+# #h2o uses approximate splitting
+# 
+# rf <- h2o.randomForest(x = c("Sepal.Length", "Sepal.Width", "Petal.Length", "Petal.Width"), 
+#                     y = c("Species"), 
+#                     training_frame = train,
+#                     model_id = "our.rf")
+# 
+# rf_perf1 <- h2o.performance(model = rf,
+#                             newdata = test)
 
 
 #keep going through: https://github.com/h2oai/h2o-tutorials/blob/master/h2o-open-tour-2016/chicago/intro-to-h2o.R
