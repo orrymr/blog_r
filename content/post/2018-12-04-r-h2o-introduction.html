@@ -25,9 +25,16 @@ tags: []
 <div id="h2o-is-distributed-and-scalable" class="section level2">
 <h2>2.2 H2O is distributed and Scalable</h2>
 <p><strong>“…for distributed, scalable machine learning”</strong></p>
-<p>Or from IBM: “H2O is an open source, in-memory, distributed, fast, and scalable machine learning and predictive analytics platform that allows you to build machine learning models on big data and provides easy productionalization of those models in an enterprise environment.”</p>
-<p>DKV: <a href="https://www.h2o.ai/blog/h2o-architecture/" class="uri">https://www.h2o.ai/blog/h2o-architecture/</a></p>
-<p>Install it: <a href="http://h2o-release.s3.amazonaws.com/h2o/rel-xia/2/index.html" class="uri">http://h2o-release.s3.amazonaws.com/h2o/rel-xia/2/index.html</a> and click the “INSTALL IN R” tab, although install.packages(“h2o”) just worked for me.</p>
+<p>H2O runs on clusters. Although I haven’t actually tried this (yet), I’ve read that H2O works on clusters such as Hadoop. It’s something that I still need to experiment with, and when I do, I’ll post a link here. So, for now, I’m just going to interpret the phrase “distributed, scalable machine learning” as saying that we can run the H2O platform on a cluster.</p>
+<p>One thing to note, is that H2O uses what’s known as a Distributed Key Value (DKV). You can read more about it <a href="https://www.h2o.ai/blog/h2o-architecture/">here</a>, but essentially what this means, is that any object you create in H2O can be distributed amongst several nodes in the cluster. Of course, if you aren’t using a cluster - and just using a laptop, like I did with the example that follows - you need need to have enough memory to hold your objects locally. Whether you are using a cluster, or running locally, once you’ve imported your data into the H2O platform, you get back a hexadecimal key which you can then use to access your data.</p>
+<p>So, <strong>Distributed Key Value</strong>: It’s distributed because your object can be spread amongst several nodes in your cluster. And the key-value part means that you get back a key into what is effectively a hashmap to your object.</p>
+<p>DKV:</p>
+</div>
+</div>
+<div id="running-h2o" class="section level1">
+<h1>3. Running H2O</h1>
+<p>You can install H2O using R: <code>install.packages(&quot;h2o&quot;)</code>. If you’re having trouble with this, <a href="http://h2o-release.s3.amazonaws.com/h2o/rel-xia/2/index.html">have a look here.</a></p>
+<p>We spoke earlier about H2O being a platform. It’s important to distinguish between the R <strong><em>interface</em></strong> for H2O, and H2O itself. H2O can exist perfectly fine without R. H2O is just a <a href="https://en.wikipedia.org/wiki/JAR_(file_format)">.jar</a> which can run on its own. If you don’t know (or particularly care) what a .jar is - just think of it as a java program packaged with all the stuff it needs to run.</p>
 <p>R is just a client interfact for H2O. There is also a Python interface. Also, there is Flow (communicates via REST API)</p>
 <p>Data is not in R, R only has a pointer to the data.</p>
 <p>You use R to send commands to H2O. You could equally just use Flow or Python to send commands.</p>
@@ -93,5 +100,4 @@ tags: []
 #keep going through: https://github.com/h2oai/h2o-tutorials/blob/master/h2o-open-tour-2016/chicago/intro-to-h2o.R
 # read this: http://docs.h2o.ai/h2o/latest-stable/h2o-docs/data-science/drf.html</code></pre>
 <p><a href="https://github.com/h2oai/h2o-tutorials/blob/master/h2o-open-tour-2016/chicago/intro-to-h2o.R" class="uri">https://github.com/h2oai/h2o-tutorials/blob/master/h2o-open-tour-2016/chicago/intro-to-h2o.R</a></p>
-</div>
 </div>

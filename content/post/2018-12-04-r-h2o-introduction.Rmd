@@ -25,11 +25,19 @@ They start off by telling us that H2O is an "__in-memory platform__". Saying tha
 
 __"...for distributed, scalable machine learning"__
 
-Or from IBM: "H2O is an open source, in-memory, distributed, fast, and scalable machine learning and predictive analytics platform that allows you to build machine learning models on big data and provides easy productionalization of those models in an enterprise environment."
+H2O runs on clusters. Although I haven't actually tried this (yet), I've read that H2O works on clusters such as Hadoop. It's something that I still need to experiment with, and when I do, I'll post a link here. So, for now, I'm just going to interpret the phrase "distributed, scalable machine learning" as saying that we can run the H2O platform on a cluster.
 
-DKV: https://www.h2o.ai/blog/h2o-architecture/
+One thing to note, is that H2O uses what's known as a Distributed Key Value (DKV). You can read more about it [here](https://www.h2o.ai/blog/h2o-architecture/), but essentially what this means, is that any object you create in H2O can be distributed amongst several nodes in the cluster. Of course, if you aren't using a cluster - and just using a laptop, like I did with the example that follows - you need need to have enough memory to hold your objects locally. Whether you are using a cluster, or running locally, once you've imported your data into the H2O platform, you get back a hexadecimal key which you can then use to access your data.
 
-Install it: http://h2o-release.s3.amazonaws.com/h2o/rel-xia/2/index.html and click the "INSTALL IN R" tab, although install.packages("h2o") just worked for me.
+So, __Distributed Key Value__: It's distributed because your object can be spread amongst several nodes in your cluster. And the key-value part means that you get back a key into what is effectively a hashmap to your object.
+
+DKV: 
+
+# 3. Running H2O
+
+You can install H2O using R: `install.packages("h2o")`. If you're having trouble with this, [have a look here.](http://h2o-release.s3.amazonaws.com/h2o/rel-xia/2/index.html)
+
+We spoke earlier about H2O being a platform. It's important to distinguish between the R ___interface___ for H2O, and H2O itself. H2O can exist perfectly fine without R. H2O is just a [.jar](https://en.wikipedia.org/wiki/JAR_(file_format)) which can run on its own. If you don't know (or particularly care) what a .jar is - just think of it as a java program packaged with all the stuff it needs to run.
 
 R is just a client interfact for H2O. There is also a Python interface. Also, there is Flow (communicates via REST API)
 
