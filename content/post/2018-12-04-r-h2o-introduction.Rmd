@@ -31,38 +31,36 @@ One thing to note, is that H2O uses what's known as a Distributed Key Value (DKV
 
 So, __Distributed Key Value__: It's distributed because your object can be spread amongst several nodes in your cluster. And the key-value part means that you get back a key into what is effectively a hashmap to your object.
 
-DKV: 
+This part doesn't flow nicely into the next
 
-# 3. Running H2O
+# 3. How H2O runs under the hood
 
 You can install H2O using R: `install.packages("h2o")`. If you're having trouble with this, [have a look here.](http://h2o-release.s3.amazonaws.com/h2o/rel-xia/2/index.html)
 
 We spoke earlier about H2O being a platform. It's important to distinguish between the R ___interface___ for H2O, and H2O itself. H2O can exist perfectly fine without R. H2O is just a [.jar](https://en.wikipedia.org/wiki/JAR_(file_format)) which can run on its own. If you don't know (or particularly care) what a .jar is - just think of it as a java program packaged with all the stuff it needs to run.
 
-R is just a client interfact for H2O. There is also a Python interface. Also, there is Flow (communicates via REST API)
+When you start H2O, you actually create a server which can respond to [REST](https://en.wikipedia.org/wiki/Representational_state_transfer) calls. Again, you don't really need to know how REST works in order to use H2O. But if you do care, just know that you can use any HTTP client to speak with an H2O instance.
+
+R is just a client interfact for H2O. All the R functions you call when working with H2O are actually calling H2O using a REST API (a JSON POST request) under the hood. The Python H2O library, as well as the Flow UI (link here) interfaces with H2O in a similar way. __If this is all very confusing just think about it like this: you use R to send commands to H2O.__ You could equally just use Flow or Python to send commands.
 
 Data is not in R, R only has a pointer to the data.
 
-You use R to send commands to H2O. You could equally just use Flow or Python to send commands.
 
-All clients talk to H2O via a REST API
-
-Since it's just REST based API, when you call an H2O function in R, the function itself does a JSON post to H20
 
 Distributed Frame (15 minutes into the video)
 
 Essentially, when reading in a csv, or data in general, you get back a pointer to the (potentially distributed) h2oFrame.
-
-You can view objects created in R, in Python or Flow - it all just connects to the same H2O instance.
 
 So, it seems like when you manipulate an H2O dataframe, even using syntax like you would with a normal df, like  `filtered <- my_df[bleh > 3, ]`, that it is actually doing this on the h2o instance. You send the command to the h2o server.
 
 
 https://www.h2o.ai/blog/h2o-architecture/
 
+# 4. Running An Example
+
 ```{r}
-# library(datasets)
-# library(h2o)
+library(datasets)
+library(h2o)
 # 
 # h2o.init() #Then check it in the browser
 # # by default only uses 2 cores
@@ -117,5 +115,9 @@ https://www.h2o.ai/blog/h2o-architecture/
 # read this: http://docs.h2o.ai/h2o/latest-stable/h2o-docs/data-science/drf.html
 
 ```
+
+# 5. Conclusion 
+
+Link the final code here
 
 https://github.com/h2oai/h2o-tutorials/blob/master/h2o-open-tour-2016/chicago/intro-to-h2o.R
