@@ -58,47 +58,83 @@ https://www.h2o.ai/blog/h2o-architecture/
 
 # 4. Running An Example
 
+First we'll need to load the packages we'll be using: `h2o` and `datasets`. We load the latter as we'll be using the famous [iris dataset](https://en.wikipedia.org/wiki/Iris_flower_data_set), which is part of the `datasets` package.
+
 ```{r}
 library(datasets)
 library(h2o)
-# 
-# h2o.init() #Then check it in the browser
-# # by default only uses 2 cores
-# #h2o.init(nthreads = -1) will use all cores
-# 
-# data(iris)
-# 
-# 
-# iris.hex <- as.h2o(iris)  
-# h2o.ls()
-# 
-# h2o.describe(iris.hex)
-# #Describe the output
-# h2o.hist(iris.hex$Sepal.Length)
-# 
-# iris.hex$bleh <- iris.hex$Sepal.Length + 2
-# #unary and binary operations are supported by h2o data frames. 
-# #Why doesn't the "bleh" column show up in Flow's view of the iris dataframe... but it does create a new dataframe with a random name which has this new column? wtf....
-# 
-# r_df <- as.data.frame(iris.hex)
-# 
-# 
-# iris.hex$bleh <- NULL
-# 
-# h2o.levels(iris.hex$Species)
-# # Note, if you get the error "Error in chk.H2OFrame(x) : must be an H2OFrame" - check that you spelled the column name correctly, case sensitive and all
-# 
-# 
-# # get a nice GLM dataset make it easier to explain
-# 
-# splits <- h2o.splitFrame(data = iris.hex, 
-#                          ratios = c(0.7, 0.15),  #partition data into 70%, 15%, 15% chunks
-#                          seed = 198) 
-# 
-# train <- splits[[1]]
-# valid <- splits[[2]]
-# test <- splits[[3]]
-# 
+```
+The Iris Dataset contains attributes of three species of iris flowers.
+
+Let's load the iris dataset, and start up our H2O instance:
+
+```{r}
+h2o.init(nthreads = -1) 
+data(iris)
+```
+By default, H2O starts up using 2 cores. By calling `h2o.init(nthreads = -1)`, we use all available cores.
+
+If `h2o.init()` was succesful, you should have an instance of H2O running locally! You can verify this by navigating to http://localhost:54321. Here, you should see the Flow UI.
+
+The iris dataset is now loaded into R. It's not yet in H2O. Let's go ahead and load the iris data into our H2O instance:
+
+```{r}
+iris.hex <- as.h2o(iris)
+h2o.ls()
+```
+`h2o.ls()` lists the dataframes you have loaded into H2O. Right now, you should see only one: iris.
+
+Let's start investigating this dataframe. We can get the summary statistics of the various factors:
+
+```{r}
+h2o.describe(iris.hex)
+```
+We can also use H2O to plot histograms:
+
+```{r}
+h2o.hist(iris.hex$Sepal.Length)
+```
+
+You can use familiar R syntax to modify your H2O dataframe:
+
+```{r}
+iris.hex$bleh <- iris.hex$Sepal.Length + 2
+```
+
+If we now run `h2o.describe(iris.hex)`, we should see this extra variable:
+
+```{r}
+h2o.describe(iris.hex)
+```
+
+(What I still don't understand is why we don't see this extra column from the Flow UI. If anyone knows, please let me know in the comments!)
+
+But we don't really need this nonsense column, so let's get rid of it:
+
+```{r}
+iris.hex$bleh <- NULL
+```
+
+We can also get our dataframe back into R, from H2O:
+
+```{r}
+r_df <- as.data.frame(iris.hex)
+```
+We've got our H2O instance up and running, with some data in it. Let's go ahead and do some machine learning - let's implement a Random Forest. 
+
+First off, we'll split our data into a training set and a test set. I'm not going to explicitly set a validation set, as the algorithm will use the [out of bag error](https://en.wikipedia.org/wiki/Out-of-bag_error) instead.
+
+```{r}
+splits <- h2o.splitFrame(data = iris.hex,
+                         ratios = c(0.8),  #partition data into 80% and 20% chunks
+                         seed = 198)
+
+train <- splits[[1]]
+test <- splits[[2]]
+```
+`h2o.splitFrame()` uses approximate splitting. That is, it won't split the data into an exact 80%-20% split. Setting the seed allows us to create reproducible results. In this case
+
+```{r}
 # #seed changes the ratio. ratio seems to be not exact thing.
 # #h2o uses approximate splitting
 # 
