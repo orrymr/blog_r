@@ -9,11 +9,11 @@ tags: [h2o, data-science, machine-learning, R]
 ---
 
 # 1. Introduction
-In this post we discuss the H2O machine learning platform. We discuss what this means, and how to get started with it, using R.
+In this post we discuss the [H2O machine learning platform.](https://www.h2o.ai/) We talk about what H2O is, and how to get started with it, using R.
 
 # 2. What is H2O?
 
-__The definition found on H2O's Github page is a lot to take in,__ especially if you're just starting out with H2O (like I am!): ["H2O is an in-memory platform for distributed, scalable machine learning. H2O uses familiar interfaces like R, Python, Scala, Java, JSON and the Flow notebook/web interface, and works seamlessly with big data technologies like Hadoop and Spark."](https://github.com/h2oai/h2o-3)
+__The definition found on [H2O's Github page](https://github.com/h2oai/h2o-3) is a lot to take in,__ especially if you're just starting out with H2O: "H2O is an in-memory platform for distributed, scalable machine learning. H2O uses familiar interfaces like R, Python, Scala, Java, JSON and the Flow notebook/web interface, and works seamlessly with big data technologies like Hadoop and Spark."
 
 Let's break down this statement piece by piece.
 
@@ -25,21 +25,17 @@ They also call H2O a "platform." __A platform, in this context, is software whic
 
 Putting this togther we now know that H2O is an in-memory environment for building machine learning models.
 
-## 2.2 H2O is distributed and Scalable
+## 2.2 H2O is Distributed and Scalable
 
-__"...for distributed, scalable machine learning"__
+__H2O can be run on a cluster.__ H2O works on clusters such as [Hadoop](https://hadoop.apache.org/). I've yet to experiment with this, so, for now, I'll interpret "distributed, scalable machine learning" as saying that we can run the H2O platform on a cluster.
 
-__H2O can run on clusters.__ Although I haven't actually tried this (yet), I've read that H2O works on clusters such as [Hadoop](https://hadoop.apache.org/). It's something that I still need to experiment with, and when I do, I'll post a link here. So, for now, I'm just going to interpret the phrase "distributed, scalable machine learning" as saying that we can run the H2O platform on a cluster.
+H2O is said to be distributed because your object can be spread amongst several nodes in your cluster. H2O does this by using a Distributed Key Value (DKV). You can read more about it [here](https://www.h2o.ai/blog/h2o-architecture/), but essentially what this means, is that __any object you create in H2O can be distributed amongst several nodes in the cluster.__ 
 
-One thing to note, is that H2O uses what's known as a Distributed Key Value (DKV). You can read more about it [here](https://www.h2o.ai/blog/h2o-architecture/), but essentially what this means, is that __any object you create in H2O can be distributed amongst several nodes in the cluster.__ 
+And the key-value part of DKV means that when you load data into H2O, you get back a key into a hashmap containing your (potentially distributed) object.
 
-Of course, if you aren't using a cluster - and are just using a laptop, you need need to have enough memory to hold your objects locally. Whether you are using a cluster, or running locally, once you've imported your data into the H2O platform, __you get back a hexadecimal key which you can then use to access your data.__
+# 3. How H2O Runs Under the Hood
 
-So, __Distributed Key Value__: It's distributed because your object can be spread amongst several nodes in your cluster. And the key-value part means that you get back a key into a hashmap containing your object.
-
-# 3. How H2O runs under the hood
-
-We spoke earlier about H2O being a platform. __It's important to distinguish between the R interface for H2O, and H2O itself.__ H2O can exist perfectly fine without R. H2O is just a [.jar](https://en.wikipedia.org/wiki/JAR_(file_format)) which can be run on its own. If you don't know (or particularly care) what a .jar is - just think of it as a java program packaged with all the stuff you need in order to run it.
+We spoke earlier about H2O being a platform. __It's important to distinguish between the R interface for H2O, and H2O itself.__ H2O can exist perfectly fine without R. H2O is just a [.jar](https://en.wikipedia.org/wiki/JAR_(file_format)) which can be run on its own. If you don't know (or particularly care) what a .jar is - just think of it as Java code packaged with all the stuff you need in order to run it.
 
 When you start H2O, you actually create a server which can respond to [REST](https://en.wikipedia.org/wiki/Representational_state_transfer) calls. Again, you don't really need to know how REST works in order to use H2O. But if you do care, just know that __you can use any HTTP client to speak with an H2O instance.__
 
