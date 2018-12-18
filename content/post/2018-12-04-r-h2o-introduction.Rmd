@@ -1,66 +1,61 @@
 ---
-title: r h2o introduction
-author: ''
+title: An Introduction to H2O Using R
+author: 'Orry Messer'
 date: '2018-12-04'
-slug: r-h2o-introduction
+slug: intro-to-h2o-using-r
 draft: true
-categories: []
-tags: []
+categories: [data-science]
+tags: [h2o, data-science, machine-learning, R]
 ---
 
 # 1. Introduction
-[H2O](https://www.h2o.ai/) ["is an in-memory platform for distributed, scalable machine learning."](https://github.com/h2oai/h2o-3). In this post we unpack what this statement means, and get started working with H2O using R.
+In this post we discuss the H2O machine learning platform. We discuss what this means, and how to get started with it, using R.
 
 # 2. What is H2O?
 
-The definition found on H2O's Github page is a lot to take in, especially if you're just starting out with H2O (like I am!): "H2O is an in-memory platform for distributed, scalable machine learning. H2O uses familiar interfaces like R, Python, Scala, Java, JSON and the Flow notebook/web interface, and works seamlessly with big data technologies like Hadoop and Spark."
+__The definition found on H2O's Github page is a lot to take in,__ especially if you're just starting out with H2O (like I am!): ["H2O is an in-memory platform for distributed, scalable machine learning. H2O uses familiar interfaces like R, Python, Scala, Java, JSON and the Flow notebook/web interface, and works seamlessly with big data technologies like Hadoop and Spark."](https://github.com/h2oai/h2o-3)
 
 Let's break down this statement piece by piece.
 
 ## 2.1 H2O is an In-Memory Platform
 
-They start off by telling us that H2O is an "__in-memory platform__". Saying that it's in-memory means that the data and software being used is in main memory (RAM). Main memory, or __primary memory__ is typically much faster than secondary memory (such as a hard drive). A software platform is typically something which can be used to build something. We happen to know that this platform is used for building machine learning models. Putting this togther we now know that H2O is an in-memory environment for building machine learning models.
+They start off by telling us that H2O is an "in-memory platform". __Saying that it's in-memory means that the data being used is loaded into main memory (RAM).__ Reading from main memory, (also known as primary memory) is typically much faster than secondary memory (such as a hard drive). 
+
+They also call H2O a "platform." __A platform, in this context, is software which can be used to build something - in this case, machine learning models.__ 
+
+Putting this togther we now know that H2O is an in-memory environment for building machine learning models.
 
 ## 2.2 H2O is distributed and Scalable
 
 __"...for distributed, scalable machine learning"__
 
-H2O runs on clusters. Although I haven't actually tried this (yet), I've read that H2O works on clusters such as Hadoop. It's something that I still need to experiment with, and when I do, I'll post a link here. So, for now, I'm just going to interpret the phrase "distributed, scalable machine learning" as saying that we can run the H2O platform on a cluster.
+__H2O can run on clusters.__ Although I haven't actually tried this (yet), I've read that H2O works on clusters such as [Hadoop](https://hadoop.apache.org/). It's something that I still need to experiment with, and when I do, I'll post a link here. So, for now, I'm just going to interpret the phrase "distributed, scalable machine learning" as saying that we can run the H2O platform on a cluster.
 
-One thing to note, is that H2O uses what's known as a Distributed Key Value (DKV). You can read more about it [here](https://www.h2o.ai/blog/h2o-architecture/), but essentially what this means, is that any object you create in H2O can be distributed amongst several nodes in the cluster. Of course, if you aren't using a cluster - and just using a laptop, like I did with the example that follows - you need need to have enough memory to hold your objects locally. Whether you are using a cluster, or running locally, once you've imported your data into the H2O platform, you get back a hexadecimal key which you can then use to access your data.
+One thing to note, is that H2O uses what's known as a Distributed Key Value (DKV). You can read more about it [here](https://www.h2o.ai/blog/h2o-architecture/), but essentially what this means, is that __any object you create in H2O can be distributed amongst several nodes in the cluster.__ 
 
-So, __Distributed Key Value__: It's distributed because your object can be spread amongst several nodes in your cluster. And the key-value part means that you get back a key into what is effectively a hashmap to your object.
+Of course, if you aren't using a cluster - and are just using a laptop, you need need to have enough memory to hold your objects locally. Whether you are using a cluster, or running locally, once you've imported your data into the H2O platform, __you get back a hexadecimal key which you can then use to access your data.__
 
-This part doesn't flow nicely into the next
+So, __Distributed Key Value__: It's distributed because your object can be spread amongst several nodes in your cluster. And the key-value part means that you get back a key into a hashmap containing your object.
 
 # 3. How H2O runs under the hood
 
-You can install H2O using R: `install.packages("h2o")`. If you're having trouble with this, [have a look here.](http://h2o-release.s3.amazonaws.com/h2o/rel-xia/2/index.html)
+We spoke earlier about H2O being a platform. __It's important to distinguish between the R interface for H2O, and H2O itself.__ H2O can exist perfectly fine without R. H2O is just a [.jar](https://en.wikipedia.org/wiki/JAR_(file_format)) which can be run on its own. If you don't know (or particularly care) what a .jar is - just think of it as a java program packaged with all the stuff you need in order to run it.
 
-We spoke earlier about H2O being a platform. It's important to distinguish between the R ___interface___ for H2O, and H2O itself. H2O can exist perfectly fine without R. H2O is just a [.jar](https://en.wikipedia.org/wiki/JAR_(file_format)) which can run on its own. If you don't know (or particularly care) what a .jar is - just think of it as a java program packaged with all the stuff it needs to run.
+When you start H2O, you actually create a server which can respond to [REST](https://en.wikipedia.org/wiki/Representational_state_transfer) calls. Again, you don't really need to know how REST works in order to use H2O. But if you do care, just know that __you can use any HTTP client to speak with an H2O instance.__
 
-When you start H2O, you actually create a server which can respond to [REST](https://en.wikipedia.org/wiki/Representational_state_transfer) calls. Again, you don't really need to know how REST works in order to use H2O. But if you do care, just know that you can use any HTTP client to speak with an H2O instance.
-
-R is just a client interfact for H2O. All the R functions you call when working with H2O are actually calling H2O using a REST API (a JSON POST request) under the hood. The Python H2O library, as well as the Flow UI (link here) interfaces with H2O in a similar way. __If this is all very confusing just think about it like this: you use R to send commands to H2O.__ You could equally just use Flow or Python to send commands.
-
-Data is not in R, R only has a pointer to the data.
-
-
-
-Distributed Frame (15 minutes into the video)
-
-Essentially, when reading in a csv, or data in general, you get back a pointer to the (potentially distributed) h2oFrame.
-
-So, it seems like when you manipulate an H2O dataframe, even using syntax like you would with a normal df, like  `filtered <- my_df[bleh > 3, ]`, that it is actually doing this on the h2o instance. You send the command to the h2o server.
-
-
-https://www.h2o.ai/blog/h2o-architecture/
+R is just a client interfact for H2O. All the R functions you call when working with H2O are actually calling H2O using a REST API (a JSON POST request) under the hood. The Python H2O library, as well as the [Flow UI](https://www.h2o.ai/blog/introducing-flow/) interfaces with H2O in a similar way. __If this is all very confusing just think about it like this: you use R to send commands to H2O. You could equally well just use Flow or Python to send commands.__
 
 # 4. Running An Example
 
+## 4.1 Installing H2O
+
+You can install H2O using R: `install.packages("h2o")`. If you're having trouble with this, [have a look here.](http://h2o-release.s3.amazonaws.com/h2o/rel-xia/2/index.html)
+
+## 4.2 Starting H2O and Loading Data
+
 First we'll need to load the packages we'll be using: `h2o` and `datasets`. We load the latter as we'll be using the famous [iris dataset](https://en.wikipedia.org/wiki/Iris_flower_data_set), which is part of the `datasets` package.
 
-```{r}
+```{r echo=T, results='hide', message = FALSE}
 library(datasets)
 library(h2o)
 ```
@@ -68,23 +63,23 @@ The Iris Dataset contains attributes of three species of iris flowers.
 
 Let's load the iris dataset, and start up our H2O instance:
 
-```{r}
+```{r echo=T, results='hide'}
 h2o.init(nthreads = -1) 
 data(iris)
 ```
-By default, H2O starts up using 2 cores. By calling `h2o.init(nthreads = -1)`, we use all available cores.
+By default, H2O starts up using 2 cores. By calling `h2o.init(nthreads = -1)`, with `nthreads = -1`, we use all available cores.
 
-If `h2o.init()` was succesful, you should have an instance of H2O running locally! You can verify this by navigating to http://localhost:54321. Here, you should see the Flow UI.
+If `h2o.init()` was succesful, you should have an instance of H2O running locally! You can verify this by navigating to http://localhost:54321. There, you should see the Flow UI.
 
-The iris dataset is now loaded into R. It's not yet in H2O. Let's go ahead and load the iris data into our H2O instance:
+The iris dataset is now loaded into R. However, it's not yet in H2O. Let's go ahead and load the iris data into our H2O instance:
 
-```{r}
+```{r echo=T, results='hide', message = FALSE}
 iris.hex <- as.h2o(iris)
 h2o.ls()
 ```
 `h2o.ls()` lists the dataframes you have loaded into H2O. Right now, you should see only one: iris.
 
-Let's start investigating this dataframe. We can get the summary statistics of the various factors:
+Let's start investigating this dataframe. We can get the summary statistics of the various columns:
 
 ```{r}
 h2o.describe(iris.hex)
@@ -98,7 +93,7 @@ h2o.hist(iris.hex$Sepal.Length)
 You can use familiar R syntax to modify your H2O dataframe:
 
 ```{r}
-iris.hex$bleh <- iris.hex$Sepal.Length + 2
+iris.hex$foo <- iris.hex$Sepal.Length + 2
 ```
 
 If we now run `h2o.describe(iris.hex)`, we should see this extra variable:
@@ -112,7 +107,7 @@ h2o.describe(iris.hex)
 But we don't really need this nonsense column, so let's get rid of it:
 
 ```{r}
-iris.hex$bleh <- NULL
+iris.hex$foo <- NULL
 ```
 
 We can also get our dataframe back into R, from H2O:
@@ -120,6 +115,8 @@ We can also get our dataframe back into R, from H2O:
 ```{r}
 r_df <- as.data.frame(iris.hex)
 ```
+## 4.3 Building a Model
+
 We've got our H2O instance up and running, with some data in it. Let's go ahead and do some machine learning - let's implement a Random Forest. 
 
 First off, we'll split our data into a training set and a test set. I'm not going to explicitly set a validation set, as the algorithm will use the [out of bag error](https://en.wikipedia.org/wiki/Out-of-bag_error) instead.
@@ -132,28 +129,48 @@ splits <- h2o.splitFrame(data = iris.hex,
 train <- splits[[1]]
 test <- splits[[2]]
 ```
-`h2o.splitFrame()` uses approximate splitting. That is, it won't split the data into an exact 80%-20% split. Setting the seed allows us to create reproducible results. In this case
+`h2o.splitFrame()` uses approximate splitting. That is, it won't split the data into an exact 80%-20% split. Setting the seed allows us to create reproducible results. 
+
+We can use `h2o.nrow()` to check the number of rows in our train and test sets.
 
 ```{r}
-# #seed changes the ratio. ratio seems to be not exact thing.
-# #h2o uses approximate splitting
-# 
-# rf <- h2o.randomForest(x = c("Sepal.Length", "Sepal.Width", "Petal.Length", "Petal.Width"), 
-#                     y = c("Species"), 
-#                     training_frame = train,
-#                     model_id = "our.rf")
-# 
-# rf_perf1 <- h2o.performance(model = rf,
-#                             newdata = test)
+print(paste0("Number of rows in train set: ", h2o.nrow(train)))
+print(paste0("Number of rows in test set: ", h2o.nrow(test)))
+```
+Next, let's call `h2o.randomForest()` to create our model:
+
+```{r echo=T, results='hide', message = FALSE}
+rf <- h2o.randomForest(x = c("Sepal.Length", "Sepal.Width", "Petal.Length", "Petal.Width"),
+                    y = c("Species"),
+                    training_frame = train,
+                    model_id = "our.rf",
+                    seed = 1234)
+```
+The parameters `x` and `y` specify our independent and dependent variables, respectively. The `training_frame` specified the training set, and `model_id` is the model name, within H2O (not to be confused with variable `rf` in the above code - `rf` is the R handle; whereas `our.rf` is what H2O calls the model). `seed` is used for reproducibility.
+
+We can get the model details simply by printing out the model:
+
+```{r}
+print(rf)
+```
+
+That seems pretty good. But let's see how the model performs on the test set:
 
 
-#keep going through: https://github.com/h2oai/h2o-tutorials/blob/master/h2o-open-tour-2016/chicago/intro-to-h2o.R
-# read this: http://docs.h2o.ai/h2o/latest-stable/h2o-docs/data-science/drf.html
+```{r}
+rf_perf1 <- h2o.performance(model = rf, newdata = test)
+print(rf_perf1)
+```
 
+Finally, let's use our model to make some predictions:
+
+```{r, results='hide', message = FALSE}
+predictions <- h2o.predict(rf, test)
+```
+```{r}
+print(predictions)
 ```
 
 # 5. Conclusion 
 
-Link the final code here
-
-https://github.com/h2oai/h2o-tutorials/blob/master/h2o-open-tour-2016/chicago/intro-to-h2o.R
+This post discussed what H2O is, and how to use it from R. The full code used in this post can be found [here.](./h2o_intro.R)

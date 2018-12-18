@@ -15,10 +15,10 @@
   <title>
     
     
-     r h2o introduction 
+     An Introduction to H2O Using R 
     
   </title>
-  <link rel="canonical" href="/post/r-h2o-introduction/">
+  <link rel="canonical" href="/post/intro-to-h2o-using-r/">
 
   <link rel="stylesheet" href="/css/fonts.css" />
   <link rel="stylesheet" href="/css/style.css" />
@@ -48,10 +48,10 @@
 
 
 <section id=content>
-  <h1> r h2o introduction </h1>
+  <h1> An Introduction to H2O Using R </h1>
 
   <div id=sub-header>
-     · 2018/12/04 · 8 minute read
+    Orry Messer · 2018/12/04 · 9 minute read
   </div>
 
   <div class="entry-content">
@@ -76,7 +76,8 @@
 <h2>2.2 H2O is distributed and Scalable</h2>
 <p><strong>“…for distributed, scalable machine learning”</strong></p>
 <p><strong>H2O can run on clusters.</strong> Although I haven’t actually tried this (yet), I’ve read that H2O works on clusters such as <a href="https://hadoop.apache.org/">Hadoop</a>. It’s something that I still need to experiment with, and when I do, I’ll post a link here. So, for now, I’m just going to interpret the phrase “distributed, scalable machine learning” as saying that we can run the H2O platform on a cluster.</p>
-<p>One thing to note, is that H2O uses what’s known as a Distributed Key Value (DKV). You can read more about it <a href="https://www.h2o.ai/blog/h2o-architecture/">here</a>, but essentially what this means, is that <strong>any object you create in H2O can be distributed amongst several nodes in the cluster.</strong> Of course, if you aren’t using a cluster - and just using a laptop, like I do with the example later in this post - you need need to have enough memory to hold your objects locally. Whether you are using a cluster, or running locally, once you’ve imported your data into the H2O platform, you get back a hexadecimal key which you can then use to access your data.</p>
+<p>One thing to note, is that H2O uses what’s known as a Distributed Key Value (DKV). You can read more about it <a href="https://www.h2o.ai/blog/h2o-architecture/">here</a>, but essentially what this means, is that <strong>any object you create in H2O can be distributed amongst several nodes in the cluster.</strong></p>
+<p>Of course, if you aren’t using a cluster - and are just using a laptop, you need need to have enough memory to hold your objects locally. Whether you are using a cluster, or running locally, once you’ve imported your data into the H2O platform, <strong>you get back a hexadecimal key which you can then use to access your data.</strong></p>
 <p>So, <strong>Distributed Key Value</strong>: It’s distributed because your object can be spread amongst several nodes in your cluster. And the key-value part means that you get back a key into a hashmap containing your object.</p>
 </div>
 </div>
@@ -92,80 +93,22 @@
 <h2>4.1 Installing H2O</h2>
 <p>You can install H2O using R: <code>install.packages(&quot;h2o&quot;)</code>. If you’re having trouble with this, <a href="http://h2o-release.s3.amazonaws.com/h2o/rel-xia/2/index.html">have a look here.</a></p>
 </div>
-<div id="running-the-code" class="section level2">
-<h2>4.2 Running the Code</h2>
+<div id="starting-h2o-and-loading-data" class="section level2">
+<h2>4.2 Starting H2O and Loading Data</h2>
 <p>First we’ll need to load the packages we’ll be using: <code>h2o</code> and <code>datasets</code>. We load the latter as we’ll be using the famous <a href="https://en.wikipedia.org/wiki/Iris_flower_data_set">iris dataset</a>, which is part of the <code>datasets</code> package.</p>
 <pre class="r"><code>library(datasets)
 library(h2o)</code></pre>
-<pre><code>## 
-## ----------------------------------------------------------------------
-## 
-## Your next step is to start H2O:
-##     &gt; h2o.init()
-## 
-## For H2O package documentation, ask for help:
-##     &gt; ??h2o
-## 
-## After starting H2O, you can use the Web UI at http://localhost:54321
-## For more information visit http://docs.h2o.ai
-## 
-## ----------------------------------------------------------------------</code></pre>
-<pre><code>## 
-## Attaching package: &#39;h2o&#39;</code></pre>
-<pre><code>## The following objects are masked from &#39;package:stats&#39;:
-## 
-##     cor, sd, var</code></pre>
-<pre><code>## The following objects are masked from &#39;package:base&#39;:
-## 
-##     %*%, %in%, &amp;&amp;, ||, apply, as.factor, as.numeric, colnames,
-##     colnames&lt;-, ifelse, is.character, is.factor, is.numeric, log,
-##     log10, log1p, log2, round, signif, trunc</code></pre>
 <p>The Iris Dataset contains attributes of three species of iris flowers.</p>
 <p>Let’s load the iris dataset, and start up our H2O instance:</p>
-<pre class="r"><code>h2o.init(nthreads = -1) </code></pre>
-<pre><code>## 
-## H2O is not running yet, starting it now...
-## 
-## Note:  In case of errors look at the following log files:
-##     C:\Users\orry1\AppData\Local\Temp\RtmpWa1mna/h2o_ORRY1_started_from_r.out
-##     C:\Users\orry1\AppData\Local\Temp\RtmpWa1mna/h2o_ORRY1_started_from_r.err
-## 
-## 
-## Starting H2O JVM and connecting: . Connection successful!
-## 
-## R is connected to the H2O cluster: 
-##     H2O cluster uptime:         5 seconds 625 milliseconds 
-##     H2O cluster timezone:       Africa/Harare 
-##     H2O data parsing timezone:  UTC 
-##     H2O cluster version:        3.20.0.8 
-##     H2O cluster version age:    2 months and 26 days  
-##     H2O cluster name:           H2O_started_from_R_ORRY1_cwd207 
-##     H2O cluster total nodes:    1 
-##     H2O cluster total memory:   3.52 GB 
-##     H2O cluster total cores:    8 
-##     H2O cluster allowed cores:  8 
-##     H2O cluster healthy:        TRUE 
-##     H2O Connection ip:          localhost 
-##     H2O Connection port:        54321 
-##     H2O Connection proxy:       NA 
-##     H2O Internal Security:      FALSE 
-##     H2O API Extensions:         Algos, AutoML, Core V3, Core V4 
-##     R Version:                  R version 3.5.1 (2018-07-02)</code></pre>
-<pre class="r"><code>data(iris)</code></pre>
-<p>By default, H2O starts up using 2 cores. By calling <code>h2o.init(nthreads = -1)</code>, we use all available cores.</p>
-<p>If <code>h2o.init()</code> was succesful, you should have an instance of H2O running locally! You can verify this by navigating to <a href="http://localhost:54321" class="uri">http://localhost:54321</a>. Here, you should see the Flow UI.</p>
-<p>The iris dataset is now loaded into R. It’s not yet in H2O. Let’s go ahead and load the iris data into our H2O instance:</p>
-<pre class="r"><code>iris.hex &lt;- as.h2o(iris)</code></pre>
-<pre><code>## 
-  |                                                                       
-  |                                                                 |   0%
-  |                                                                       
-  |=================================================================| 100%</code></pre>
-<pre class="r"><code>h2o.ls()</code></pre>
-<pre><code>##    key
-## 1 iris</code></pre>
+<pre class="r"><code>h2o.init(nthreads = -1) 
+data(iris)</code></pre>
+<p>By default, H2O starts up using 2 cores. By calling <code>h2o.init(nthreads = -1)</code>, with <code>nthreads = -1</code>, we use all available cores.</p>
+<p>If <code>h2o.init()</code> was succesful, you should have an instance of H2O running locally! You can verify this by navigating to <a href="http://localhost:54321" class="uri">http://localhost:54321</a>. There, you should see the Flow UI.</p>
+<p>The iris dataset is now loaded into R. However, it’s not yet in H2O. Let’s go ahead and load the iris data into our H2O instance:</p>
+<pre class="r"><code>iris.hex &lt;- as.h2o(iris)
+h2o.ls()</code></pre>
 <p><code>h2o.ls()</code> lists the dataframes you have loaded into H2O. Right now, you should see only one: iris.</p>
-<p>Let’s start investigating this dataframe. We can get the summary statistics of the various factors:</p>
+<p>Let’s start investigating this dataframe. We can get the summary statistics of the various columns:</p>
 <pre class="r"><code>h2o.describe(iris.hex)</code></pre>
 <pre><code>##          Label Type Missing Zeros PosInf NegInf Min Max     Mean     Sigma
 ## 1 Sepal.Length real       0     0      0      0 4.3 7.9 5.843333 0.8280661
@@ -183,7 +126,7 @@ library(h2o)</code></pre>
 <pre class="r"><code>h2o.hist(iris.hex$Sepal.Length)</code></pre>
 <p><img src="/post/2018-12-04-r-h2o-introduction_files/figure-html/unnamed-chunk-5-1.png" width="672" /></p>
 <p>You can use familiar R syntax to modify your H2O dataframe:</p>
-<pre class="r"><code>iris.hex$bleh &lt;- iris.hex$Sepal.Length + 2</code></pre>
+<pre class="r"><code>iris.hex$foo &lt;- iris.hex$Sepal.Length + 2</code></pre>
 <p>If we now run <code>h2o.describe(iris.hex)</code>, we should see this extra variable:</p>
 <pre class="r"><code>h2o.describe(iris.hex)</code></pre>
 <pre><code>##          Label Type Missing Zeros PosInf NegInf Min Max     Mean     Sigma
@@ -192,7 +135,7 @@ library(h2o)</code></pre>
 ## 3 Petal.Length real       0     0      0      0 1.0 6.9 3.758000 1.7652982
 ## 4  Petal.Width real       0     0      0      0 0.1 2.5 1.199333 0.7622377
 ## 5      Species enum       0    50      0      0 0.0 2.0       NA        NA
-## 6         bleh real       0     0      0      0 6.3 9.9 7.843333 0.8280661
+## 6          foo real       0     0      0      0 6.3 9.9 7.843333 0.8280661
 ##   Cardinality
 ## 1          NA
 ## 2          NA
@@ -202,9 +145,12 @@ library(h2o)</code></pre>
 ## 6          NA</code></pre>
 <p>(What I still don’t understand is why we don’t see this extra column from the Flow UI. If anyone knows, please let me know in the comments!)</p>
 <p>But we don’t really need this nonsense column, so let’s get rid of it:</p>
-<pre class="r"><code>iris.hex$bleh &lt;- NULL</code></pre>
+<pre class="r"><code>iris.hex$foo &lt;- NULL</code></pre>
 <p>We can also get our dataframe back into R, from H2O:</p>
 <pre class="r"><code>r_df &lt;- as.data.frame(iris.hex)</code></pre>
+</div>
+<div id="building-a-model" class="section level2">
+<h2>4.3 Building a Model</h2>
 <p>We’ve got our H2O instance up and running, with some data in it. Let’s go ahead and do some machine learning - let’s implement a Random Forest.</p>
 <p>First off, we’ll split our data into a training set and a test set. I’m not going to explicitly set a validation set, as the algorithm will use the <a href="https://en.wikipedia.org/wiki/Out-of-bag_error">out of bag error</a> instead.</p>
 <pre class="r"><code>splits &lt;- h2o.splitFrame(data = iris.hex,
@@ -213,27 +159,106 @@ library(h2o)</code></pre>
 
 train &lt;- splits[[1]]
 test &lt;- splits[[2]]</code></pre>
-<p><code>h2o.splitFrame()</code> uses approximate splitting. That is, it won’t split the data into an exact 80%-20% split. Setting the seed allows us to create reproducible results. In this case</p>
-<pre class="r"><code># #seed changes the ratio. ratio seems to be not exact thing.
-# #h2o uses approximate splitting
-# 
-# rf &lt;- h2o.randomForest(x = c(&quot;Sepal.Length&quot;, &quot;Sepal.Width&quot;, &quot;Petal.Length&quot;, &quot;Petal.Width&quot;), 
-#                     y = c(&quot;Species&quot;), 
-#                     training_frame = train,
-#                     model_id = &quot;our.rf&quot;)
-# 
-# rf_perf1 &lt;- h2o.performance(model = rf,
-#                             newdata = test)
-
-
-#keep going through: https://github.com/h2oai/h2o-tutorials/blob/master/h2o-open-tour-2016/chicago/intro-to-h2o.R
-# read this: http://docs.h2o.ai/h2o/latest-stable/h2o-docs/data-science/drf.html</code></pre>
+<p><code>h2o.splitFrame()</code> uses approximate splitting. That is, it won’t split the data into an exact 80%-20% split. Setting the seed allows us to create reproducible results.</p>
+<p>We can use <code>h2o.nrow()</code> to check the number of rows in our train and test sets.</p>
+<pre class="r"><code>print(paste0(&quot;Number of rows in train set: &quot;, h2o.nrow(train)))</code></pre>
+<pre><code>## [1] &quot;Number of rows in train set: 117&quot;</code></pre>
+<pre class="r"><code>print(paste0(&quot;Number of rows in test set: &quot;, h2o.nrow(test)))</code></pre>
+<pre><code>## [1] &quot;Number of rows in test set: 33&quot;</code></pre>
+<p>Next, let’s call <code>h2o.randomForest()</code> to create our model:</p>
+<pre class="r"><code>rf &lt;- h2o.randomForest(x = c(&quot;Sepal.Length&quot;, &quot;Sepal.Width&quot;, &quot;Petal.Length&quot;, &quot;Petal.Width&quot;),
+                    y = c(&quot;Species&quot;),
+                    training_frame = train,
+                    model_id = &quot;our.rf&quot;,
+                    seed = 1234)</code></pre>
+<p>The parameters <code>x</code> and <code>y</code> specify our independent and dependent variables, respectively. The <code>training_frame</code> specified the training set, and <code>model_id</code> is the model name, within H2O (not to be confused with variable <code>rf</code> in the above code - <code>rf</code> is the R handle; whereas <code>our.rf</code> is what H2O calls the model). <code>seed</code> is used for reproducibility.</p>
+<p>We can get the model details simply by printing out the model:</p>
+<pre class="r"><code>print(rf)</code></pre>
+<pre><code>## Model Details:
+## ==============
+## 
+## H2OMultinomialModel: drf
+## Model ID:  our.rf 
+## Model Summary: 
+##   number_of_trees number_of_internal_trees model_size_in_bytes min_depth
+## 1              50                      150               19532         1
+##   max_depth mean_depth min_leaves max_leaves mean_leaves
+## 1         7    3.26000          2         12     5.41333
+## 
+## 
+## H2OMultinomialMetrics: drf
+## ** Reported on training data. **
+## ** Metrics reported on Out-Of-Bag training samples **
+## 
+## Training Set Metrics: 
+## =====================
+## 
+## Extract training frame with `h2o.getFrame(&quot;RTMP_sid_bc77_6&quot;)`
+## MSE: (Extract with `h2o.mse`) 0.03286954
+## RMSE: (Extract with `h2o.rmse`) 0.1812996
+## Logloss: (Extract with `h2o.logloss`) 0.09793089
+## Mean Per-Class Error: 0.0527027
+## Confusion Matrix: Extract with `h2o.confusionMatrix(&lt;model&gt;,train = TRUE)`)
+## =========================================================================
+## Confusion Matrix: Row labels: Actual class; Column labels: Predicted class
+##            setosa versicolor virginica  Error      Rate
+## setosa         40          0         0 0.0000 =  0 / 40
+## versicolor      0         38         2 0.0500 =  2 / 40
+## virginica       0          4        33 0.1081 =  4 / 37
+## Totals         40         42        35 0.0513 = 6 / 117
+## 
+## Hit Ratio Table: Extract with `h2o.hit_ratio_table(&lt;model&gt;,train = TRUE)`
+## =======================================================================
+## Top-3 Hit Ratios: 
+##   k hit_ratio
+## 1 1  0.948718
+## 2 2  1.000000
+## 3 3  1.000000</code></pre>
+<p>That seems pretty good. But let’s see how the model performs on the test set:</p>
+<pre class="r"><code>rf_perf1 &lt;- h2o.performance(model = rf, newdata = test)
+print(rf_perf1)</code></pre>
+<pre><code>## H2OMultinomialMetrics: drf
+## 
+## Test Set Metrics: 
+## =====================
+## 
+## MSE: (Extract with `h2o.mse`) 0.05806405
+## RMSE: (Extract with `h2o.rmse`) 0.2409648
+## Logloss: (Extract with `h2o.logloss`) 0.1708688
+## Mean Per-Class Error: 0.1102564
+## Confusion Matrix: Extract with `h2o.confusionMatrix(&lt;model&gt;, &lt;data&gt;)`)
+## =========================================================================
+## Confusion Matrix: Row labels: Actual class; Column labels: Predicted class
+##            setosa versicolor virginica  Error     Rate
+## setosa         10          0         0 0.0000 = 0 / 10
+## versicolor      0          9         1 0.1000 = 1 / 10
+## virginica       0          3        10 0.2308 = 3 / 13
+## Totals         10         12        11 0.1212 = 4 / 33
+## 
+## Hit Ratio Table: Extract with `h2o.hit_ratio_table(&lt;model&gt;, &lt;data&gt;)`
+## =======================================================================
+## Top-3 Hit Ratios: 
+##   k hit_ratio
+## 1 1  0.878788
+## 2 2  1.000000
+## 3 3  1.000000</code></pre>
+<p>Finally, let’s use our model to make some predictions:</p>
+<pre class="r"><code>predictions &lt;- h2o.predict(rf, test)</code></pre>
+<pre class="r"><code>print(predictions)</code></pre>
+<pre><code>##   predict    setosa versicolor  virginica
+## 1  setosa 0.9969698          0 0.00303019
+## 2  setosa 0.9969698          0 0.00303019
+## 3  setosa 0.9969698          0 0.00303019
+## 4  setosa 0.9969698          0 0.00303019
+## 5  setosa 0.9969698          0 0.00303019
+## 6  setosa 0.9969698          0 0.00303019
+## 
+## [33 rows x 4 columns]</code></pre>
 </div>
 </div>
 <div id="conclusion" class="section level1">
 <h1>5. Conclusion</h1>
-<p>Link the final code here</p>
-<p><a href="https://github.com/h2oai/h2o-tutorials/blob/master/h2o-open-tour-2016/chicago/intro-to-h2o.R" class="uri">https://github.com/h2oai/h2o-tutorials/blob/master/h2o-open-tour-2016/chicago/intro-to-h2o.R</a></p>
+<p>This post discussed what H2O is, and how to use it from R. The full code used in this post can be found <a href="./h2o_intro.R">here.</a></p>
 </div>
 
   </div>

@@ -21,6 +21,24 @@
     </item>
     
     <item>
+      <title>Data Science</title>
+      <link>/tags/data-science/</link>
+      <pubDate>Tue, 04 Dec 2018 00:00:00 +0000</pubDate>
+      
+      <guid>/tags/data-science/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>H2o</title>
+      <link>/tags/h2o/</link>
+      <pubDate>Tue, 04 Dec 2018 00:00:00 +0000</pubDate>
+      
+      <guid>/tags/h2o/</guid>
+      <description></description>
+    </item>
+    
+    <item>
       <title>Inverse</title>
       <link>/tags/inverse/</link>
       <pubDate>Sun, 18 Nov 2018 00:00:00 +0000</pubDate>
@@ -39,6 +57,15 @@
     </item>
     
     <item>
+      <title>Machine Learning</title>
+      <link>/tags/machine-learning/</link>
+      <pubDate>Tue, 04 Dec 2018 00:00:00 +0000</pubDate>
+      
+      <guid>/tags/machine-learning/</guid>
+      <description></description>
+    </item>
+    
+    <item>
       <title>Matrices</title>
       <link>/tags/matrices/</link>
       <pubDate>Sun, 18 Nov 2018 00:00:00 +0000</pubDate>
@@ -53,6 +80,15 @@
       <pubDate>Sun, 18 Nov 2018 00:00:00 +0000</pubDate>
       
       <guid>/tags/nullspace/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>R</title>
+      <link>/tags/r/</link>
+      <pubDate>Tue, 04 Dec 2018 00:00:00 +0000</pubDate>
+      
+      <guid>/tags/r/</guid>
       <description></description>
     </item>
     
