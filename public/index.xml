@@ -17,8 +17,8 @@
       <pubDate>Tue, 04 Dec 2018 00:00:00 +0000</pubDate>
       
       <guid>/post/intro-to-h2o-using-r/</guid>
-      <description>1. IntroductionIn this post we discuss the H2O machine learning platform. We talk about what H2O is, and how to get started with it, using R.
-2. What is H2O?The definition found on H2O’s Github page is a lot to take in, especially if you’re just starting out with H2O: “H2O is an in-memory platform for distributed, scalable machine learning. H2O uses familiar interfaces like R, Python, Scala, Java, JSON and the Flow notebook/web interface, and works seamlessly with big data technologies like Hadoop and Spark.</description>
+      <description>1. IntroductionIn this post we discuss the H2O machine learning platform. We talk about what H2O is, and how to get started with it, using R - we create a Random Forest which we use to classify the Iris Dataset.
+2. What is H2O?The definition found on H2O’s Github page is a lot to take in, especially if you’re just starting out with H2O: “H2O is an in-memory platform for distributed, scalable machine learning.</description>
     </item>
     
     <item>

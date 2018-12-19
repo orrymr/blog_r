@@ -3,35 +3,35 @@ title: An Introduction to H2O Using R
 author: 'Orry Messer'
 date: '2018-12-04'
 slug: intro-to-h2o-using-r
-draft: true
+draft: false
 categories: [data-science]
 tags: [h2o, data-science, machine-learning, R]
 ---
 
 # 1. Introduction
-In this post we discuss the [H2O machine learning platform.](https://www.h2o.ai/) We talk about what H2O is, and how to get started with it, using R.
+In this post we discuss the [H2O machine learning platform.](https://www.h2o.ai/) We talk about what H2O is, and how to get started with it, using R - we create a Random Forest which we use to classify the Iris Dataset.
 
 # 2. What is H2O?
 
 __The definition found on [H2O's Github page](https://github.com/h2oai/h2o-3) is a lot to take in,__ especially if you're just starting out with H2O: "H2O is an in-memory platform for distributed, scalable machine learning. H2O uses familiar interfaces like R, Python, Scala, Java, JSON and the Flow notebook/web interface, and works seamlessly with big data technologies like Hadoop and Spark."
 
-Let's break down this statement piece by piece.
+We spend the rest of section 2 as well as section 3 discussing salient points of the above definition.
 
 ## 2.1 H2O is an In-Memory Platform
 
-They start off by telling us that H2O is an "in-memory platform". __Saying that it's in-memory means that the data being used is loaded into main memory (RAM).__ Reading from main memory, (also known as primary memory) is typically much faster than secondary memory (such as a hard drive). 
+H2O is an "in-memory platform". __Saying that it's in-memory means that the data being used is loaded into main memory (RAM).__ Reading from main memory, (also known as primary memory) is typically much faster than secondary memory (such as a hard drive). 
 
-They also call H2O a "platform." __A platform, in this context, is software which can be used to build something - in this case, machine learning models.__ 
+H2O is a "platform." __A platform is software which can be used to build something - in this case, machine learning models.__ 
 
 Putting this togther we now know that H2O is an in-memory environment for building machine learning models.
 
 ## 2.2 H2O is Distributed and Scalable
 
-__H2O can be run on a cluster.__ H2O works on clusters such as [Hadoop](https://hadoop.apache.org/). I've yet to experiment with this, so, for now, I'll interpret "distributed, scalable machine learning" as saying that we can run the H2O platform on a cluster.
+__H2O can be run on a cluster.__ [Hadoop](https://hadoop.apache.org/) is an example of a cluster which can run H2O.
 
 H2O is said to be distributed because your object can be spread amongst several nodes in your cluster. H2O does this by using a Distributed Key Value (DKV). You can read more about it [here](https://www.h2o.ai/blog/h2o-architecture/), but essentially what this means, is that __any object you create in H2O can be distributed amongst several nodes in the cluster.__ 
 
-And the key-value part of DKV means that when you load data into H2O, you get back a key into a hashmap containing your (potentially distributed) object.
+The key-value part of DKV means that when you load data into H2O, you get back a key into a hashmap containing your (potentially distributed) object.
 
 # 3. How H2O Runs Under the Hood
 
@@ -39,7 +39,7 @@ We spoke earlier about H2O being a platform. __It's important to distinguish bet
 
 When you start H2O, you actually create a server which can respond to [REST](https://en.wikipedia.org/wiki/Representational_state_transfer) calls. Again, you don't really need to know how REST works in order to use H2O. But if you do care, just know that __you can use any HTTP client to speak with an H2O instance.__
 
-R is just a client interfact for H2O. All the R functions you call when working with H2O are actually calling H2O using a REST API (a JSON POST request) under the hood. The Python H2O library, as well as the [Flow UI](https://www.h2o.ai/blog/introducing-flow/) interfaces with H2O in a similar way. __If this is all very confusing just think about it like this: you use R to send commands to H2O. You could equally well just use Flow or Python to send commands.__
+R is just a client interfact for H2O. All the R functions you call when working with H2O are actually calling H2O using a REST API (a JSON POST request) under the hood. The Python H2O library, as well as the [Flow UI](https://www.h2o.ai/blog/introducing-flow/), interface with H2O in a similar way. __If this is all very confusing just think about it like this: you use R to send commands to H2O. You could equally well just use Flow or Python to send commands.__
 
 # 4. Running An Example
 
@@ -49,7 +49,7 @@ You can install H2O using R: `install.packages("h2o")`. If you're having trouble
 
 ## 4.2 Starting H2O and Loading Data
 
-First we'll need to load the packages we'll be using: `h2o` and `datasets`. We load the latter as we'll be using the famous [iris dataset](https://en.wikipedia.org/wiki/Iris_flower_data_set), which is part of the `datasets` package.
+First we'll need to load the packages we'll be using: `h2o` and `datasets`. We load the latter as we'll be using the famous [Iris Dataset](https://en.wikipedia.org/wiki/Iris_flower_data_set), which is part of the `datasets` package.
 
 ```{r echo=T, results='hide', message = FALSE}
 library(datasets)

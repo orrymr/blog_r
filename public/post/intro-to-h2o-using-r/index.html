@@ -60,30 +60,30 @@
 
 <div id="introduction" class="section level1">
 <h1>1. Introduction</h1>
-<p>In this post we discuss the <a href="https://www.h2o.ai/">H2O machine learning platform.</a> We talk about what H2O is, and how to get started with it, using R.</p>
+<p>In this post we discuss the <a href="https://www.h2o.ai/">H2O machine learning platform.</a> We talk about what H2O is, and how to get started with it, using R - we create a Random Forest which we use to classify the Iris Dataset.</p>
 </div>
 <div id="what-is-h2o" class="section level1">
 <h1>2. What is H2O?</h1>
 <p><strong>The definition found on <a href="https://github.com/h2oai/h2o-3">H2O’s Github page</a> is a lot to take in,</strong> especially if you’re just starting out with H2O: “H2O is an in-memory platform for distributed, scalable machine learning. H2O uses familiar interfaces like R, Python, Scala, Java, JSON and the Flow notebook/web interface, and works seamlessly with big data technologies like Hadoop and Spark.”</p>
-<p>Let’s break down this statement piece by piece.</p>
+<p>We spend the rest of section 2 as well as section 3 discussing salient points of the above definition.</p>
 <div id="h2o-is-an-in-memory-platform" class="section level2">
 <h2>2.1 H2O is an In-Memory Platform</h2>
-<p>They start off by telling us that H2O is an “in-memory platform”. <strong>Saying that it’s in-memory means that the data being used is loaded into main memory (RAM).</strong> Reading from main memory, (also known as primary memory) is typically much faster than secondary memory (such as a hard drive).</p>
-<p>They also call H2O a “platform.” <strong>A platform, in this context, is software which can be used to build something - in this case, machine learning models.</strong></p>
+<p>H2O is an “in-memory platform”. <strong>Saying that it’s in-memory means that the data being used is loaded into main memory (RAM).</strong> Reading from main memory, (also known as primary memory) is typically much faster than secondary memory (such as a hard drive).</p>
+<p>H2O is a “platform.” <strong>A platform is software which can be used to build something - in this case, machine learning models.</strong></p>
 <p>Putting this togther we now know that H2O is an in-memory environment for building machine learning models.</p>
 </div>
 <div id="h2o-is-distributed-and-scalable" class="section level2">
 <h2>2.2 H2O is Distributed and Scalable</h2>
-<p><strong>H2O can be run on a cluster.</strong> H2O works on clusters such as <a href="https://hadoop.apache.org/">Hadoop</a>. I’ve yet to experiment with this, so, for now, I’ll interpret “distributed, scalable machine learning” as saying that we can run the H2O platform on a cluster.</p>
+<p><strong>H2O can be run on a cluster.</strong> <a href="https://hadoop.apache.org/">Hadoop</a> is an example of a cluster which can run H2O.</p>
 <p>H2O is said to be distributed because your object can be spread amongst several nodes in your cluster. H2O does this by using a Distributed Key Value (DKV). You can read more about it <a href="https://www.h2o.ai/blog/h2o-architecture/">here</a>, but essentially what this means, is that <strong>any object you create in H2O can be distributed amongst several nodes in the cluster.</strong></p>
-<p>And the key-value part of DKV means that when you load data into H2O, you get back a key into a hashmap containing your (potentially distributed) object.</p>
+<p>The key-value part of DKV means that when you load data into H2O, you get back a key into a hashmap containing your (potentially distributed) object.</p>
 </div>
 </div>
 <div id="how-h2o-runs-under-the-hood" class="section level1">
 <h1>3. How H2O Runs Under the Hood</h1>
 <p>We spoke earlier about H2O being a platform. <strong>It’s important to distinguish between the R interface for H2O, and H2O itself.</strong> H2O can exist perfectly fine without R. H2O is just a <a href="https://en.wikipedia.org/wiki/JAR_(file_format)">.jar</a> which can be run on its own. If you don’t know (or particularly care) what a .jar is - just think of it as Java code packaged with all the stuff you need in order to run it.</p>
 <p>When you start H2O, you actually create a server which can respond to <a href="https://en.wikipedia.org/wiki/Representational_state_transfer">REST</a> calls. Again, you don’t really need to know how REST works in order to use H2O. But if you do care, just know that <strong>you can use any HTTP client to speak with an H2O instance.</strong></p>
-<p>R is just a client interfact for H2O. All the R functions you call when working with H2O are actually calling H2O using a REST API (a JSON POST request) under the hood. The Python H2O library, as well as the <a href="https://www.h2o.ai/blog/introducing-flow/">Flow UI</a> interfaces with H2O in a similar way. <strong>If this is all very confusing just think about it like this: you use R to send commands to H2O. You could equally well just use Flow or Python to send commands.</strong></p>
+<p>R is just a client interfact for H2O. All the R functions you call when working with H2O are actually calling H2O using a REST API (a JSON POST request) under the hood. The Python H2O library, as well as the <a href="https://www.h2o.ai/blog/introducing-flow/">Flow UI</a>, interface with H2O in a similar way. <strong>If this is all very confusing just think about it like this: you use R to send commands to H2O. You could equally well just use Flow or Python to send commands.</strong></p>
 </div>
 <div id="running-an-example" class="section level1">
 <h1>4. Running An Example</h1>
@@ -93,7 +93,7 @@
 </div>
 <div id="starting-h2o-and-loading-data" class="section level2">
 <h2>4.2 Starting H2O and Loading Data</h2>
-<p>First we’ll need to load the packages we’ll be using: <code>h2o</code> and <code>datasets</code>. We load the latter as we’ll be using the famous <a href="https://en.wikipedia.org/wiki/Iris_flower_data_set">iris dataset</a>, which is part of the <code>datasets</code> package.</p>
+<p>First we’ll need to load the packages we’ll be using: <code>h2o</code> and <code>datasets</code>. We load the latter as we’ll be using the famous <a href="https://en.wikipedia.org/wiki/Iris_flower_data_set">Iris Dataset</a>, which is part of the <code>datasets</code> package.</p>
 <pre class="r"><code>library(datasets)
 library(h2o)</code></pre>
 <p>The Iris Dataset contains attributes of three species of iris flowers.</p>
@@ -179,7 +179,7 @@ test &lt;- splits[[2]]</code></pre>
 ## Model ID:  our.rf 
 ## Model Summary: 
 ##   number_of_trees number_of_internal_trees model_size_in_bytes min_depth
-## 1              50                      150               19545         1
+## 1              50                      150               19542         1
 ##   max_depth mean_depth min_leaves max_leaves mean_leaves
 ## 1         7    3.26000          2         12     5.41333
 ## 
@@ -191,7 +191,7 @@ test &lt;- splits[[2]]</code></pre>
 ## Training Set Metrics: 
 ## =====================
 ## 
-## Extract training frame with `h2o.getFrame(&quot;RTMP_sid_af14_6&quot;)`
+## Extract training frame with `h2o.getFrame(&quot;RTMP_sid_af2e_6&quot;)`
 ## MSE: (Extract with `h2o.mse`) 0.03286954
 ## RMSE: (Extract with `h2o.rmse`) 0.1812996
 ## Logloss: (Extract with `h2o.logloss`) 0.09793089
