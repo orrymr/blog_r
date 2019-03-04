@@ -9,6 +9,8 @@ tags: []
 ---
 
 ```{r}
+library(ggplot2)
+library(dplyr)
 library(Rtsne)
 library(cluster)
 #####

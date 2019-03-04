@@ -17,6 +17,10 @@ ignoreFiles = ["\\.Rmd$", "\\.Rmarkdown$", "_files$", "_cache$"]
 
 [params]
   sitename = "orrymr.com"
+  
+[taxonomies]
+  category = "categories"
+  tag = "tags"
 
 [[menu.main]]
     name = "Home"

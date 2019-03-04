@@ -6,10 +6,28 @@
     <description>Recent content in Posts on orrymr.com</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en</language>
-    <lastBuildDate>Tue, 04 Dec 2018 00:00:00 +0000</lastBuildDate>
+    <lastBuildDate>Mon, 04 Mar 2019 00:00:00 +0000</lastBuildDate>
     
 	<atom:link href="/post/index.xml" rel="self" type="application/rss+xml" />
     
+    
+    <item>
+      <title>r-pca</title>
+      <link>/post/r-pca/</link>
+      <pubDate>Mon, 04 Mar 2019 00:00:00 +0000</pubDate>
+      
+      <guid>/post/r-pca/</guid>
+      <description>1.set.seed(1337)mathScore &amp;lt;- rescale(rnorm(100), to = c(0, 100))physicsScore &amp;lt;- mathScore + rnorm(100, sd = 8)allTestResults &amp;lt;- data.frame(math = mathScore, physics = physicsScore)#Get rid of negative test results, and results &amp;gt; 100:#Throws error if no values less than 0, or greater than 100. Do proper error handling one day.allTestResults[allTestResults$physics &amp;lt; 0, ]$physics &amp;lt;- 0# allTestResults[allTestResults$physics &amp;gt; 100, ]$physics &amp;lt;- 100plot(allTestResults$math, allTestResults$physics, xlab = &amp;quot;Math&amp;quot;, ylab = &amp;quot;Physics&amp;quot;)cor(allTestResults$math, allTestResults$physics)## [1] 0.</description>
+    </item>
+    
+    <item>
+      <title>r-tsne</title>
+      <link>/post/r-tsne/</link>
+      <pubDate>Mon, 04 Mar 2019 00:00:00 +0000</pubDate>
+      
+      <guid>/post/r-tsne/</guid>
+      <description>library(ggplot2)library(dplyr)## ## Attaching package: &amp;#39;dplyr&amp;#39;## The following objects are masked from &amp;#39;package:stats&amp;#39;:## ## filter, lag## The following objects are masked from &amp;#39;package:base&amp;#39;:## ## intersect, setdiff, setequal, unionlibrary(Rtsne)library(cluster)#####a_1 &amp;lt;- rnorm(200, mean = 20, sd = 2)a_2 &amp;lt;- rnorm(200, mean = 272, sd = 5)a_3 &amp;lt;- rnorm(200, mean = 62, sd = 3)a_4 &amp;lt;- rnorm(200, mean = 600, sd = 9)a_5 &amp;lt;- rnorm(200, mean = 209, sd = 5)a_y &amp;lt;- rep(1, 200)b_1 &amp;lt;- rnorm(200, mean = -20, sd = 32)b_2 &amp;lt;- rnorm(200, mean = 23, sd = 5)b_3 &amp;lt;- rnorm(200, mean = -32, sd = 31)b_4 &amp;lt;- rnorm(200, mean = 5670, sd = 93)b_5 &amp;lt;- rnorm(200, mean = 19283, sd = 59)b_y &amp;lt;- rep(0, 200)data &amp;lt;- data.</description>
+    </item>
     
     <item>
       <title>An Introduction to H2O Using R</title>
@@ -17,8 +35,8 @@
       <pubDate>Tue, 04 Dec 2018 00:00:00 +0000</pubDate>
       
       <guid>/post/intro-to-h2o-using-r/</guid>
-      <description>1. IntroductionIn this post we discuss the H2O machine learning platform. We talk about what H2O is, and how to get started with it, using R - we create a Random Forest which we use to classify the Iris Dataset.
-2. What is H2O?The definition found on H2O’s Github page is a lot to take in, especially if you’re just starting out with H2O: “H2O is an in-memory platform for distributed, scalable machine learning.</description>
+      <description>1. Introduction In this post we discuss the H2O machine learning platform. We talk about what H2O is, and how to get started with it, using R - we create a Random Forest which we use to classify the Iris Dataset.
+ 2. What is H2O? The definition found on H2O’s Github page is a lot to take in, especially if you’re just starting out with H2O: “H2O is an in-memory platform for distributed, scalable machine learning.</description>
     </item>
     
     <item>
@@ -38,7 +56,8 @@
       
       <guid>/post/rank-of-a-matrix/</guid>
       <description>rank of a matrix 10K – 100K Low
- rank of 1 - when the output of the matrix multiplication is a line (for next article)  rank of 2 - when all the outputs of the matrix mult land in 2-D, then matrix has a rank of 2. etc&amp;hellip;   </description>
+The dimension of the column space of a matrix is called its rank. - rank of 1 - when the output of the matrix multiplication is a line (for next article) - rank of 2 - when all the outputs of the matrix mult land in 2-D, then matrix has a rank of 2. - etc&amp;hellip;
+It is the number of linearly independent columns</description>
     </item>
     
     <item>

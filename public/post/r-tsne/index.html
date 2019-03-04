@@ -15,10 +15,10 @@
   <title>
     
     
-     Rank of a Matrix 
+     r-tsne 
     
   </title>
-  <link rel="canonical" href="/post/rank-of-a-matrix/">
+  <link rel="canonical" href="/post/r-tsne/">
 
   <link rel="stylesheet" href="/css/fonts.css" />
   <link rel="stylesheet" href="/css/style.css" />
@@ -48,10 +48,10 @@
 
 
 <section id=content>
-  <h1> Rank of a Matrix </h1>
+  <h1> r-tsne </h1>
 
   <div id=sub-header>
-    Orrymr · 2018/11/14 · 1 minute read
+     · 2019/03/04 · 1 minute read
   </div>
 
   <p class="terms">
@@ -59,40 +59,75 @@
   
   
   
-  Tags:
-  
-  <a href='/tags/linear-algebra'>linear algebra</a>
-  
-  <a href='/tags/matrices'>matrices</a>
-  
-  <a href='/tags/18.06'>18.06</a>
-  
-  
   
   </p>
 
   <div class="entry-content">
-    <p>rank of a matrix
-10K – 100K
-Low</p>
+    
 
-<p>The dimension of the column space of a matrix is called its rank.
-- rank of 1 - when the output of the matrix multiplication is a line (for next article)
-  - rank of 2 - when all the outputs of the matrix mult land in 2-D, then matrix has a rank of 2.
-  - etc&hellip;</p>
 
-<p>It is the number of linearly independent columns</p>
+<pre class="r"><code>library(ggplot2)
+library(dplyr)</code></pre>
+<pre><code>## 
+## Attaching package: &#39;dplyr&#39;</code></pre>
+<pre><code>## The following objects are masked from &#39;package:stats&#39;:
+## 
+##     filter, lag</code></pre>
+<pre><code>## The following objects are masked from &#39;package:base&#39;:
+## 
+##     intersect, setdiff, setequal, union</code></pre>
+<pre class="r"><code>library(Rtsne)
+library(cluster)
+#####
 
-<p>It is the number of pivots of a matrix</p>
+a_1 &lt;- rnorm(200, mean = 20, sd = 2)
+a_2 &lt;- rnorm(200, mean = 272, sd = 5)
+a_3 &lt;- rnorm(200, mean = 62, sd = 3)
+a_4 &lt;- rnorm(200, mean = 600, sd = 9)
+a_5 &lt;- rnorm(200, mean = 209, sd = 5)
+a_y &lt;- rep(1, 200)
+
+
+b_1 &lt;- rnorm(200, mean = -20, sd = 32)
+b_2 &lt;- rnorm(200, mean = 23, sd = 5)
+b_3 &lt;- rnorm(200, mean = -32, sd = 31)
+b_4 &lt;- rnorm(200, mean = 5670, sd = 93)
+b_5 &lt;- rnorm(200, mean = 19283, sd = 59)
+b_y &lt;- rep(0, 200)
+
+
+data &lt;- data.frame(first = c(a_1, b_1),
+                   second = c(a_2, b_2),
+                   third = c(a_3, b_3),
+                   fourth = c(a_4, b_4),
+                   fifth = c(a_5, b_5),
+                   class = c(a_y, b_y))
+
+
+
+data_gower &lt;- daisy(data %&gt;% select(-class))
+
+set.seed(1337)
+tsne_obj_test &lt;- Rtsne(data_gower, is_distance = TRUE)
+
+tsne_data &lt;- tsne_obj_test$Y %&gt;%
+  data.frame() %&gt;%
+  setNames(c(&quot;X&quot;, &quot;Y&quot;))
+
+tsne_data$class &lt;- data$class
+
+ggplot(aes(x = X, y = Y), data = tsne_data) +
+  geom_point(aes(color = class))</code></pre>
+<p><img src="/post/2019-03-04-r-tsne_files/figure-html/unnamed-chunk-1-1.png" width="672" /></p>
 
   </div>
 
   <div id=links>
     
-      <a class="basic-alignment left" href="/post/playing-in-the-nullspace/">&laquo; A Matrix Nullspace (Kernel) Tutorial - Finding the Nullspace</a>
+      <a class="basic-alignment left" href="/post/intro-to-h2o-using-r/">&laquo; An Introduction to H2O Using R</a>
     
     
-      <a class="basic-alignment left" href="/post/inverse-matrix/">Inverse Matrices - A Primer &raquo;</a>
+      <a class="basic-alignment left" href="/post/r-pca/">r-pca &raquo;</a>
     
   </div>
 </section>
@@ -130,6 +165,9 @@ if (!doNotTrack) {
 <script async src='https://www.google-analytics.com/analytics.js'></script>
 
   
+<script src="/js/math-code.js"></script>
+<script async src="//cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.1/MathJax.js?config=TeX-MML-AM_CHTML"></script>
+
 
 
 </body>

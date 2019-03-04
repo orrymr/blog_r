@@ -1,0 +1,75 @@
+---
+title: r-pca
+author: ''
+date: '2019-03-04'
+slug: r-pca
+draft: true
+categories: []
+tags: []
+---
+
+
+
+<div id="section" class="section level1">
+<h1>1.</h1>
+<pre class="r"><code>set.seed(1337)
+mathScore &lt;- rescale(rnorm(100), to = c(0, 100))
+physicsScore &lt;- mathScore + rnorm(100, sd = 8)
+
+allTestResults &lt;- data.frame(math = mathScore, physics = physicsScore)
+
+#Get rid of negative test results, and results &gt; 100:
+#Throws error if no values less than 0, or greater than 100. Do proper error handling one day.
+allTestResults[allTestResults$physics &lt; 0, ]$physics &lt;- 0
+# allTestResults[allTestResults$physics &gt; 100, ]$physics &lt;- 100
+
+plot(allTestResults$math, allTestResults$physics, xlab = &quot;Math&quot;, ylab = &quot;Physics&quot;)</code></pre>
+<p><img src="/post/2019-03-04-r-pca_files/figure-html/unnamed-chunk-1-1.png" width="672" /></p>
+<pre class="r"><code>cor(allTestResults$math, allTestResults$physics)</code></pre>
+<pre><code>## [1] 0.9093882</code></pre>
+<pre class="r"><code>pca_results &lt;- prcomp(allTestResults, center = TRUE) #Don&#39;t need to scale, since both axes already on same scale, but centering is NB
+
+print (pca_results)</code></pre>
+<pre><code>## Standard deviations (1, .., p=2):
+## [1] 26.004921  5.659014
+## 
+## Rotation (n x k) = (2 x 2):
+##               PC1        PC2
+## math    0.6898402 -0.7239617
+## physics 0.7239617  0.6898402</code></pre>
+<pre class="r"><code>plot(pca_results$x)</code></pre>
+<p><img src="/post/2019-03-04-r-pca_files/figure-html/unnamed-chunk-3-1.png" width="672" /></p>
+<pre class="r"><code># Let&#39;s scale the plot:
+plot(pca_results$x, xlim = c(-60, 80), ylim = c(-60, 80))</code></pre>
+<p><img src="/post/2019-03-04-r-pca_files/figure-html/unnamed-chunk-4-1.png" width="672" /></p>
+<pre class="r"><code>screeplot(pca_results)</code></pre>
+<p><img src="/post/2019-03-04-r-pca_files/figure-html/unnamed-chunk-5-1.png" width="672" /></p>
+<pre class="r"><code>pov &lt;- pca_results$sdev^2/sum(pca_results$sdev^2)</code></pre>
+<p>Percentage of variance explained by the first principal component: 95.4785647%</p>
+<pre class="r"><code>biplot(pca_results)</code></pre>
+<p><img src="/post/2019-03-04-r-pca_files/figure-html/unnamed-chunk-7-1.png" width="672" /></p>
+<pre class="r"><code># allTestResults[8, ]
+# allTestResults[34, ]
+# allTestResults[100, ]
+# allTestResults[57, ]
+# allTestResults[84, ]
+# allTestResults[39, ]</code></pre>
+<pre class="r"><code>allTestResults[8, ]</code></pre>
+<pre><code>##       math physics
+## 8 76.43931 80.7065</code></pre>
+<pre class="r"><code>allTestResults[34, ]</code></pre>
+<pre><code>##    math  physics
+## 34  100 96.65649</code></pre>
+<pre class="r"><code>allTestResults[100, ]</code></pre>
+<pre><code>##         math  physics
+## 100 56.23334 79.66458</code></pre>
+<pre class="r"><code>allTestResults[57, ]</code></pre>
+<pre><code>##    math physics
+## 57    0       0</code></pre>
+<pre class="r"><code>allTestResults[84, ]</code></pre>
+<pre><code>##        math  physics
+## 84 39.13561 19.34019</code></pre>
+<pre class="r"><code>allTestResults[39, ]</code></pre>
+<pre><code>##        math  physics
+## 39 21.83543 46.66482</code></pre>
+</div>

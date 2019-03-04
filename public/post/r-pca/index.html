@@ -1,0 +1,183 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="chrome=1">
+  <meta name="HandheldFriendly" content="True">
+  <meta name="MobileOptimized" content="320">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="referrer" content="no-referrer">
+  <meta name="google-site-verification" content="i-9rnKTO55VrWDag6iP74KddaTXU6YZylRl3rzB8cik" />
+  
+
+  <link rel="icon" type="image/png" href="/favicon.png">
+
+  <title>
+    
+    
+     r-pca 
+    
+  </title>
+  <link rel="canonical" href="/post/r-pca/">
+
+  <link rel="stylesheet" href="/css/fonts.css" />
+  <link rel="stylesheet" href="/css/style.css" />
+
+  
+</head>
+
+<body>
+<section id=nav>
+  <h1><a href="/">orrymr.com</a></h1>
+  <ul>
+    
+    <li><a href="http://orrymr.com">Home</a></li>
+    
+    <li><a href="https://github.com/orrymr">GitHub</a></li>
+    
+    <li><a href="#">Music</a></li>
+    
+    <li><a href="#">About</a></li>
+    
+    <li><a href="https://twitter.com/orrymr">Twitter</a></li>
+    
+    <li><a href="/index.xml">RSS</a></li>
+    
+  </ul>
+</section>
+
+
+<section id=content>
+  <h1> r-pca </h1>
+
+  <div id=sub-header>
+     · 2019/03/04 · 2 minute read
+  </div>
+
+  <p class="terms">
+  
+  
+  
+  
+  
+  </p>
+
+  <div class="entry-content">
+    
+
+
+<div id="section" class="section level1">
+<h1>1.</h1>
+<pre class="r"><code>set.seed(1337)
+mathScore &lt;- rescale(rnorm(100), to = c(0, 100))
+physicsScore &lt;- mathScore + rnorm(100, sd = 8)
+
+allTestResults &lt;- data.frame(math = mathScore, physics = physicsScore)
+
+#Get rid of negative test results, and results &gt; 100:
+#Throws error if no values less than 0, or greater than 100. Do proper error handling one day.
+allTestResults[allTestResults$physics &lt; 0, ]$physics &lt;- 0
+# allTestResults[allTestResults$physics &gt; 100, ]$physics &lt;- 100
+
+plot(allTestResults$math, allTestResults$physics, xlab = &quot;Math&quot;, ylab = &quot;Physics&quot;)</code></pre>
+<p><img src="/post/2019-03-04-r-pca_files/figure-html/unnamed-chunk-1-1.png" width="672" /></p>
+<pre class="r"><code>cor(allTestResults$math, allTestResults$physics)</code></pre>
+<pre><code>## [1] 0.9093882</code></pre>
+<pre class="r"><code>pca_results &lt;- prcomp(allTestResults, center = TRUE) #Don&#39;t need to scale, since both axes already on same scale, but centering is NB
+
+print (pca_results)</code></pre>
+<pre><code>## Standard deviations (1, .., p=2):
+## [1] 26.004921  5.659014
+## 
+## Rotation (n x k) = (2 x 2):
+##               PC1        PC2
+## math    0.6898402 -0.7239617
+## physics 0.7239617  0.6898402</code></pre>
+<pre class="r"><code>plot(pca_results$x)</code></pre>
+<p><img src="/post/2019-03-04-r-pca_files/figure-html/unnamed-chunk-3-1.png" width="672" /></p>
+<pre class="r"><code># Let&#39;s scale the plot:
+plot(pca_results$x, xlim = c(-60, 80), ylim = c(-60, 80))</code></pre>
+<p><img src="/post/2019-03-04-r-pca_files/figure-html/unnamed-chunk-4-1.png" width="672" /></p>
+<pre class="r"><code>screeplot(pca_results)</code></pre>
+<p><img src="/post/2019-03-04-r-pca_files/figure-html/unnamed-chunk-5-1.png" width="672" /></p>
+<pre class="r"><code>pov &lt;- pca_results$sdev^2/sum(pca_results$sdev^2)</code></pre>
+<p>Percentage of variance explained by the first principal component: 95.4785647%</p>
+<pre class="r"><code>biplot(pca_results)</code></pre>
+<p><img src="/post/2019-03-04-r-pca_files/figure-html/unnamed-chunk-7-1.png" width="672" /></p>
+<pre class="r"><code># allTestResults[8, ]
+# allTestResults[34, ]
+# allTestResults[100, ]
+# allTestResults[57, ]
+# allTestResults[84, ]
+# allTestResults[39, ]</code></pre>
+<pre class="r"><code>allTestResults[8, ]</code></pre>
+<pre><code>##       math physics
+## 8 76.43931 80.7065</code></pre>
+<pre class="r"><code>allTestResults[34, ]</code></pre>
+<pre><code>##    math  physics
+## 34  100 96.65649</code></pre>
+<pre class="r"><code>allTestResults[100, ]</code></pre>
+<pre><code>##         math  physics
+## 100 56.23334 79.66458</code></pre>
+<pre class="r"><code>allTestResults[57, ]</code></pre>
+<pre><code>##    math physics
+## 57    0       0</code></pre>
+<pre class="r"><code>allTestResults[84, ]</code></pre>
+<pre><code>##        math  physics
+## 84 39.13561 19.34019</code></pre>
+<pre class="r"><code>allTestResults[39, ]</code></pre>
+<pre><code>##        math  physics
+## 39 21.83543 46.66482</code></pre>
+</div>
+
+  </div>
+
+  <div id=links>
+    
+      <a class="basic-alignment left" href="/post/r-tsne/">&laquo; r-tsne</a>
+    
+    
+  </div>
+</section>
+
+<section id="comments">
+<div id="disqus_thread"></div>
+<script type="text/javascript">
+
+(function() {
+      
+      
+      if (window.location.hostname == "localhost")
+                return;
+
+      var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+      var disqus_shortname = 'orrymr';
+      dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
+      (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+})();
+</script>
+<noscript>Please enable JavaScript to view the <a href="https://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+</section>
+
+
+  
+<script type="application/javascript">
+var doNotTrack = false;
+if (!doNotTrack) {
+	window.ga=window.ga||function(){(ga.q=ga.q||[]).push(arguments)};ga.l=+new Date;
+	ga('create', 'UA-115127992-1', 'auto');
+	
+	ga('send', 'pageview');
+}
+</script>
+<script async src='https://www.google-analytics.com/analytics.js'></script>
+
+  
+<script src="/js/math-code.js"></script>
+<script async src="//cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.1/MathJax.js?config=TeX-MML-AM_CHTML"></script>
+
+
+
+</body>
+</html>
+
