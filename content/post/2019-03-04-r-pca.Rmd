@@ -1,0 +1,79 @@
+---
+title: r-pca
+author: ''
+date: '2019-03-04'
+slug: r-pca
+draft: true
+categories: []
+tags: []
+---
+
+
+```{r setup, include=FALSE}
+library(scales)
+library(dplyr)
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+# 1.
+```{r}
+set.seed(1337)
+mathScore <- rescale(rnorm(100), to = c(0, 100))
+physicsScore <- mathScore + rnorm(100, sd = 8)
+
+allTestResults <- data.frame(math = mathScore, physics = physicsScore)
+
+#Get rid of negative test results, and results > 100:
+#Throws error if no values less than 0, or greater than 100. Do proper error handling one day.
+allTestResults[allTestResults$physics < 0, ]$physics <- 0
+# allTestResults[allTestResults$physics > 100, ]$physics <- 100
+
+plot(allTestResults$math, allTestResults$physics, xlab = "Math", ylab = "Physics")
+```
+
+```{r}
+cor(allTestResults$math, allTestResults$physics)
+```
+
+```{r}
+pca_results <- prcomp(allTestResults, center = TRUE) #Don't need to scale, since both axes already on same scale, but centering is NB
+
+print (pca_results)
+plot(pca_results$x)
+```
+
+```{r}
+# Let's scale the plot:
+plot(pca_results$x, xlim = c(-60, 80), ylim = c(-60, 80))
+```
+
+
+```{r}
+screeplot(pca_results)
+```
+```{r}
+pov <- pca_results$sdev^2/sum(pca_results$sdev^2)
+```
+Percentage of variance explained by the first principal component: `r pov[[1]] * 100`%
+
+```{r}
+biplot(pca_results)
+```
+
+```{r}
+# allTestResults[8, ]
+# allTestResults[34, ]
+# allTestResults[100, ]
+# allTestResults[57, ]
+# allTestResults[84, ]
+# allTestResults[39, ]
+```
+
+```{r}
+allTestResults[8, ]
+allTestResults[34, ]
+allTestResults[100, ]
+allTestResults[57, ]
+allTestResults[84, ]
+allTestResults[39, ]
+```
