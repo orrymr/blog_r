@@ -14,9 +14,7 @@ body {
   line-height: 28px;
   color: #333;
   max-width: 700px;
-  position: absolute;
-  /*top: 50%;*/
-  left: 30%;
+  margin: auto;
 }
 p {
   margin: 20px 0;
