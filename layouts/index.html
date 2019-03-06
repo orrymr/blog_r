@@ -1,8 +1,8 @@
 {{ partial "header.html" . }}
 
-{{ partial "left_sidebar.html" . }}
-
 <section id=content>
+
+
   <ul class=posts_listing>
     {{ range .Data.Pages.ByDate.Reverse }}
       <li>
@@ -14,5 +14,6 @@
     {{ end }}
   </ul>
 </section>
+  {{ partial "left_sidebar.html" . }}
 
 {{ partial "footer.html" . }}
