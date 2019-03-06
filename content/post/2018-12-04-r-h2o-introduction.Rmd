@@ -65,6 +65,12 @@ data(iris)
 ```
 By default, H2O starts up using 2 cores. By calling `h2o.init(nthreads = -1)`, with `nthreads = -1`, we use all available cores.
 
+Edit: it doesn't default to two cores anymore (as per this tweet from H2O's chief ML scientist):
+
+<blockquote class="twitter-tweet" data-lang="en"><p lang="en" dir="ltr">Nice post!  BTW, H2O in R no longer defaults to 2 cores, so you can just do `h2o.init()` now. :-)</p>&mdash; Erin LeDell (@ledell) <a href="https://twitter.com/ledell/status/1075444885296168962?ref_src=twsrc%5Etfw">December 19, 2018</a></blockquote>
+<script async src="https://platform.twitter.com/widgets.js" charset="utf-8"></script>
+
+
 If `h2o.init()` was succesful, you should have an instance of H2O running locally! You can verify this by navigating to http://localhost:54321. There, you should see the Flow UI.
 
 The iris dataset is now loaded into R. However, it's not yet in H2O. Let's go ahead and load the iris data into our H2O instance:

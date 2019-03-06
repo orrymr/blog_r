@@ -125,6 +125,14 @@ library(h2o)</code></pre>
 <pre class="r"><code>h2o.init(nthreads = -1) 
 data(iris)</code></pre>
 <p>By default, H2O starts up using 2 cores. By calling <code>h2o.init(nthreads = -1)</code>, with <code>nthreads = -1</code>, we use all available cores.</p>
+<p>Edit: it doesn’t default to two cores anymore (as per this tweet from H2O’s chief ML scientist):</p>
+<blockquote class="twitter-tweet" data-lang="en">
+<p lang="en" dir="ltr">
+Nice post! BTW, H2O in R no longer defaults to 2 cores, so you can just do <code>h2o.init()</code> now. :-)
+</p>
+— Erin LeDell (<span class="citation">@ledell</span>) <a href="https://twitter.com/ledell/status/1075444885296168962?ref_src=twsrc%5Etfw">December 19, 2018</a>
+</blockquote>
+<script async src="https://platform.twitter.com/widgets.js" charset="utf-8"></script>
 <p>If <code>h2o.init()</code> was succesful, you should have an instance of H2O running locally! You can verify this by navigating to <a href="http://localhost:54321" class="uri">http://localhost:54321</a>. There, you should see the Flow UI.</p>
 <p>The iris dataset is now loaded into R. However, it’s not yet in H2O. Let’s go ahead and load the iris data into our H2O instance:</p>
 <pre class="r"><code>iris.hex &lt;- as.h2o(iris)
@@ -203,7 +211,7 @@ test &lt;- splits[[2]]</code></pre>
 ## Model ID:  our.rf 
 ## Model Summary: 
 ##   number_of_trees number_of_internal_trees model_size_in_bytes min_depth
-## 1              50                      150               19542         1
+## 1              50                      150               18941         1
 ##   max_depth mean_depth min_leaves max_leaves mean_leaves
 ## 1         7    3.26000          2         12     5.41333
 ## 
@@ -215,7 +223,7 @@ test &lt;- splits[[2]]</code></pre>
 ## Training Set Metrics: 
 ## =====================
 ## 
-## Extract training frame with `h2o.getFrame(&quot;RTMP_sid_af2e_6&quot;)`
+## Extract training frame with `h2o.getFrame(&quot;RTMP_sid_8ebc_7&quot;)`
 ## MSE: (Extract with `h2o.mse`) 0.03286954
 ## RMSE: (Extract with `h2o.rmse`) 0.1812996
 ## Logloss: (Extract with `h2o.logloss`) 0.09793089
