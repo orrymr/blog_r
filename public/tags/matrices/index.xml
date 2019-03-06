@@ -8,7 +8,7 @@
     <language>en</language>
     <lastBuildDate>Sun, 18 Nov 2018 00:00:00 +0000</lastBuildDate>
     
-	<atom:link href="/tags/matrices/index.xml" rel="self" type="application/rss+xml" />
+        <atom:link href="/tags/matrices/index.xml" rel="self" type="application/rss+xml" />
     
     
     <item>
@@ -17,8 +17,267 @@
       <pubDate>Sun, 18 Nov 2018 00:00:00 +0000</pubDate>
       
       <guid>/post/inverse-matrix/</guid>
-      <description>1. Introduction In this post we talk about the inverse matrix. We discuss what it means for a matrix to be invertible. We then discuss what it means for a matrix not to be invertible - singular. Finally, we briefly go through how to find a matrix&amp;rsquo;s inverse.
-2. Invertibility Let&amp;rsquo;s think about a square matrix, $A$. In a previous post we mentioned that a matrix acts on a vector.</description>
+      <description>
+
+&lt;h1 id=&#34;1-introduction&#34;&gt;1. Introduction&lt;/h1&gt;
+
+&lt;p&gt;In this post &lt;strong&gt;we talk about the&lt;/strong&gt; &lt;strong&gt;&lt;em&gt;inverse matrix&lt;/em&gt;&lt;/strong&gt;. We discuss what it means for a matrix to be &lt;em&gt;invertible&lt;/em&gt;. We then discuss what it means for a matrix &lt;em&gt;not&lt;/em&gt; to be invertible - &lt;em&gt;singular&lt;/em&gt;. Finally, we briefly go through how to find a matrix&amp;rsquo;s inverse.&lt;/p&gt;
+
+&lt;h1 id=&#34;2-invertibility&#34;&gt;2. Invertibility&lt;/h1&gt;
+
+&lt;p&gt;Let&amp;rsquo;s think about a square matrix, &lt;code&gt;$A$&lt;/code&gt;. In &lt;a href=&#34;/post/second-post/&#34;&gt;a previous post&lt;/a&gt; we mentioned that &lt;strong&gt;a matrix acts on a vector&lt;/strong&gt;. The matrix does something to that vector.&lt;/p&gt;
+
+&lt;p&gt;&lt;strong&gt;The inverse of a matrix undoes what the original matrix did.&lt;/strong&gt; The inverse of &lt;code&gt;$A$&lt;/code&gt; is &lt;code&gt;$A^{-1}$&lt;/code&gt;. &lt;code&gt;$A^{-1}$&lt;/code&gt; undoes what &lt;code&gt;$A$&lt;/code&gt; did. It&amp;rsquo;s kind of like dividing by a number after multiplying by it.&lt;/p&gt;
+
+&lt;p&gt;If we have a vector &lt;code&gt;$x$&lt;/code&gt;, and we multiply it by our matrix &lt;code&gt;$A$&lt;/code&gt;, we get &lt;code&gt;$Ax$&lt;/code&gt;. If we undo this operation by applying the inverse, we get back to &lt;code&gt;$x = A^{-1}Ax$&lt;/code&gt;. The one matrix which always leaves any vector unchanged is the identity matrix, &lt;code&gt;$I$&lt;/code&gt;. That is: &lt;code&gt;$Ix = x$&lt;/code&gt; . &lt;strong&gt;This is why &lt;code&gt;$A^{-1}A = I$&lt;/code&gt;.&lt;/strong&gt;&lt;/p&gt;
+
+&lt;p&gt;When matrix &lt;code&gt;$A$&lt;/code&gt; has an inverse it is said to be &lt;em&gt;invertible&lt;/em&gt;. However, this is not always the case. &lt;strong&gt;When a matrix is not invertible, it is also known as&lt;/strong&gt; &lt;strong&gt;&lt;em&gt;singular.&lt;/em&gt;&lt;/strong&gt;&lt;/p&gt;
+
+&lt;h1 id=&#34;3-non-invertibility-singular-matrices&#34;&gt;3. Non-Invertibility - Singular Matrices&lt;/h1&gt;
+
+&lt;p&gt;Not all matrics are invertible. &lt;strong&gt;Matrices which are not invertible are known as&lt;/strong&gt; &lt;strong&gt;&lt;em&gt;singular.&lt;/em&gt;&lt;/strong&gt; This means that there exists no matrix which can undo what the original matrix just did.&lt;/p&gt;
+
+&lt;p&gt;Say we are working in two dimensions - a plane. &lt;strong&gt;Most &lt;code&gt;$2 \times 2$&lt;/code&gt; matrices will move vectors around the &lt;code&gt;$2 \times 2$&lt;/code&gt; plane.&lt;/strong&gt; They&amp;rsquo;ll either stretch them, or squash them, or even change their direction. But they&amp;rsquo;ll usually use up all of the plane; the output of that matrix multiplication won&amp;rsquo;t just be limited to a single line on that plane. The output of that matrix multiplication can &lt;strong&gt;&lt;em&gt;usually&lt;/em&gt;&lt;/strong&gt; fall anywhere on the plane.&lt;/p&gt;
+
+&lt;p&gt;But &lt;strong&gt;if the output of a &lt;code&gt;$2 \times 2$&lt;/code&gt; matrix always lands on a single line, then there is no way to undo that operation.&lt;/strong&gt; We&amp;rsquo;ve, in effect, lost some information.&lt;/p&gt;
+
+&lt;p&gt;This extends to higher dimensions. &lt;strong&gt;If you cannot select a vector in &lt;code&gt;$\mathbb{R}^n$&lt;/code&gt; so that the output of an &lt;code&gt;$n \times n$&lt;/code&gt; matrix multiplication with that vector can fall anywhere within the &lt;code&gt;$\mathbb{R}^n$&lt;/code&gt; hyperplane, then that &lt;code&gt;$n \times n$&lt;/code&gt; matrix is singular.&lt;/strong&gt; This means that the output of that matrix multiplication is constrained to a lower dimension (even a line, or a point).&lt;/p&gt;
+
+&lt;p&gt;&lt;strong&gt;It&amp;rsquo;s kind of like how &lt;code&gt;$0$&lt;/code&gt; has no inverse.&lt;/strong&gt; If we have the number &lt;code&gt;$10$&lt;/code&gt;, and we multiply it by &lt;code&gt;$5$&lt;/code&gt;, we get &lt;code&gt;$50$&lt;/code&gt;. If we want to undo this operation, we multiply by &lt;code&gt;$5$&lt;/code&gt;&amp;rsquo;s (multiplicative) inverse: &lt;code&gt;$\frac {1} {5}$&lt;/code&gt; and get back &lt;code&gt;$50 \times \frac {1} {5} = 10$&lt;/code&gt;. However, if we multiply &lt;code&gt;$10$&lt;/code&gt; by &lt;code&gt;$0$&lt;/code&gt;, we get &lt;code&gt;$0$&lt;/code&gt;. There really isn&amp;rsquo;t much we can do to &lt;code&gt;$0$&lt;/code&gt; to get back to &lt;code&gt;$10$&lt;/code&gt;. This is a tenuous analogy at best, as matrices and numbers are different animals. But, hopefully this helps convey &lt;em&gt;some&lt;/em&gt; intuition.&lt;/p&gt;
+
+&lt;h1 id=&#34;4-testing-for-singularity&#34;&gt;4. Testing for Singularity&lt;/h1&gt;
+
+&lt;p&gt;&lt;strong&gt;There are several equivalent conditions which, if met, mean that a matrix is singular.&lt;/strong&gt; Some of these conditions are:&lt;/p&gt;
+
+&lt;ul&gt;
+&lt;li&gt;The matrix&amp;rsquo;s determinant is 0&lt;/li&gt;
+&lt;li&gt;The matrix does not have full rank&lt;/li&gt;
+&lt;li&gt;The &lt;code&gt;$n \times n$&lt;/code&gt; matrix does not have all of its pivots.&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;Discussions about rank and determinants are enough to warrant their own posts (and more), and are beyond the scope of this post. When I do get around to writing those posts, I&amp;rsquo;ll be sure to link them here!&lt;/p&gt;
+
+&lt;p&gt;For now, let&amp;rsquo;s just keep in mind that not all matrices have inverses, and that if the determinant of a matrix is zero, then it doesn&amp;rsquo;t have an inverse.&lt;/p&gt;
+
+&lt;p&gt;But if it does have an inverse, let&amp;rsquo;s try out finding it:&lt;/p&gt;
+
+&lt;h1 id=&#34;5-inverse-of-a-2x2-matrix&#34;&gt;5. Inverse of a 2x2 Matrix&lt;/h1&gt;
+
+&lt;p&gt;A &lt;code&gt;$2 \times 2$&lt;/code&gt; matrix has this form:&lt;/p&gt;
+
+&lt;p&gt;\[
+ \begin{bmatrix}
+  a &amp;amp; b  \newline
+  c &amp;amp; d
+ \end{bmatrix}
+\]&lt;/p&gt;
+
+&lt;p&gt;If a &lt;code&gt;$2 \times 2$&lt;/code&gt; matrix is invertible, then its inverse is:&lt;/p&gt;
+
+&lt;p&gt;\[
+\frac {1} {ad - bc}
+\times
+ \begin{bmatrix}
+  d &amp;amp; -b  \newline
+  -c &amp;amp; a
+ \end{bmatrix}
+\]&lt;/p&gt;
+
+&lt;p&gt;&lt;code&gt;$\frac {1} {ad - bc}$&lt;/code&gt; is the determinant of the matrix. If it&amp;rsquo;s zero, then we&amp;rsquo;d have &lt;code&gt;$\frac {1} {0}$&lt;/code&gt;. In other words, the inverse wouldn&amp;rsquo;t exist - our matrix would be singular.&lt;/p&gt;
+
+&lt;p&gt;Consider the matrix:&lt;/p&gt;
+
+&lt;p&gt;\[
+A
+%
+&amp;#61;
+%
+ \begin{bmatrix}
+  1 &amp;amp; 3  \newline
+  2 &amp;amp; 7
+ \end{bmatrix}
+\]&lt;/p&gt;
+
+&lt;p&gt;According to our formula above, its inverse is:&lt;/p&gt;
+
+&lt;p&gt;\[
+\frac {1} {1 \times 7 - 3 \times 2}
+\times
+ \begin{bmatrix}
+  7 &amp;amp; -3  \newline
+  -2 &amp;amp; 1
+ \end{bmatrix}
+%
+&amp;#61;
+%
+\frac {1} {1}
+\times
+ \begin{bmatrix}
+  7 &amp;amp; -3  \newline
+  -2 &amp;amp; 1
+ \end{bmatrix}
+ %
+&amp;#61;
+%
+ \begin{bmatrix}
+  7 &amp;amp; -3  \newline
+  -2 &amp;amp; 1
+ \end{bmatrix}
+\]&lt;/p&gt;
+
+&lt;p&gt;Let&amp;rsquo;s verify that this is indeed the inverse in two ways.&lt;/p&gt;
+
+&lt;h2 id=&#34;5-1-verification-1-matrix-times-inverse-equals-identity&#34;&gt;5.1 Verification #1 - Matrix times Inverse Equals Identity&lt;/h2&gt;
+
+&lt;p&gt;We&amp;rsquo;ll multiply the original matrix by the inverse. If we get the identity matrix, then we&amp;rsquo;ve done our calculation correctly:&lt;/p&gt;
+
+&lt;p&gt;\[
+ \begin{bmatrix}
+  1 &amp;amp; 3  \newline
+  2 &amp;amp; 7
+ \end{bmatrix}
+  \begin{bmatrix}
+  7 &amp;amp; -3  \newline
+  -2 &amp;amp; 1
+ \end{bmatrix}
+  %
+  &amp;#61;
+  %
+ \begin{bmatrix}
+  1 \times 7 + 3 \times (-2) &amp;amp; 1 \times (-3) + 3 \times 1  \newline
+  2 \times 7 + 7 \times (-2) &amp;amp; 2 \times (-3) + 7 \times 1
+ \end{bmatrix}
+  %
+  &amp;#61;
+  %
+ \begin{bmatrix}
+  1 &amp;amp; 0  \newline
+  0 &amp;amp; 1
+ \end{bmatrix}
+\]&lt;/p&gt;
+
+&lt;h2 id=&#34;5-2-verification-2-inverse-undoes-what-the-original-matrix-did&#34;&gt;5.2 Verification #2 - Inverse Undoes what the Original Matrix Did&lt;/h2&gt;
+
+&lt;p&gt;Next, we&amp;rsquo;ll multiply a vector by the original matrix and then the result of that calculation, by the inverse. &lt;strong&gt;We should get back our original vector.&lt;/strong&gt;&lt;/p&gt;
+
+&lt;p&gt;Let&amp;rsquo;s pick the vector &lt;code&gt;$ \begin{bmatrix} 1 &amp;amp; 2 \end{bmatrix} ^ {T}$&lt;/code&gt;:&lt;/p&gt;
+
+&lt;p&gt;\[
+ \begin{bmatrix}
+  1 &amp;amp; 3  \newline
+  2 &amp;amp; 7
+ \end{bmatrix}
+  \begin{bmatrix}
+  1 \newline
+  2
+ \end{bmatrix}
+  %
+  &amp;#61;
+  %
+ \begin{bmatrix}
+  1 \times 1 + 3 \times 2 \newline
+  2 \times 1 + 7 \times 2
+ \end{bmatrix}
+  %
+  &amp;#61;
+  %
+  \begin{bmatrix}
+  7 \newline
+  16
+ \end{bmatrix}
+\]&lt;/p&gt;
+
+&lt;p&gt;Let&amp;rsquo;s now see if the inverse matrix brings  &lt;code&gt;$ \begin{bmatrix} 7 &amp;amp; 16 \end{bmatrix} ^ {T}$&lt;/code&gt; back to &lt;code&gt;$ \begin{bmatrix} 1 &amp;amp; 2 \end{bmatrix} ^ {T}$&lt;/code&gt;&lt;/p&gt;
+
+&lt;p&gt;\[
+ \begin{bmatrix}
+  7 &amp;amp; -3  \newline
+  -2 &amp;amp; 1
+ \end{bmatrix}
+  \begin{bmatrix}
+  7 \newline
+  16
+ \end{bmatrix}
+  %
+  &amp;#61;
+  %
+ \begin{bmatrix}
+  7 \times 7 + (-3) \times 16 \newline
+  (-2) \times 7 + 1 \times 16
+ \end{bmatrix}
+  %
+  &amp;#61;
+  %
+  \begin{bmatrix}
+  1 \newline
+  2
+ \end{bmatrix}
+\]&lt;/p&gt;
+
+&lt;p&gt;So it looks like we&amp;rsquo;ve done our calculations correctly!&lt;/p&gt;
+
+&lt;h1 id=&#34;6-inverse-of-a-larger-matrix&#34;&gt;6. Inverse of a Larger Matrix&lt;/h1&gt;
+
+&lt;p&gt;&lt;strong&gt;For larger matrices, we can&amp;rsquo;t compute the inverse in the same way that we did for &lt;code&gt;$2 \times 2$&lt;/code&gt; matrices.&lt;/strong&gt; Here, we&amp;rsquo;ll employ a different strategy using &lt;a href=&#34;https://en.wikipedia.org/wiki/Gaussian_elimination&#34;&gt;Gaussian Elimination&lt;/a&gt;.&lt;/p&gt;
+
+&lt;p&gt;Say we wish to find the inverse of the 3x3 matrix:&lt;/p&gt;
+
+&lt;p&gt;\[
+A
+%
+&amp;#61;
+%
+ \begin{bmatrix}
+  2 &amp;amp; -1 &amp;amp; 0  \newline
+  -1 &amp;amp; 2 &amp;amp; -1 \newline
+  0 &amp;amp; -1 &amp;amp; 2
+ \end{bmatrix}
+\]&lt;/p&gt;
+
+&lt;p&gt;We&amp;rsquo;ll start off by creating the &lt;em&gt;augmented matrix&lt;/em&gt; &lt;code&gt;$[A \space \space I]$&lt;/code&gt;, where &lt;code&gt;$I$&lt;/code&gt; is the identity matrix:&lt;/p&gt;
+
+&lt;p&gt;\[
+[A \space \space I]
+%
+&amp;#61;
+%
+ \begin{bmatrix}
+  2 &amp;amp; -1 &amp;amp; 0 &amp;amp; 1 &amp;amp; 0 &amp;amp; 0  \newline
+  -1 &amp;amp; 2 &amp;amp; -1 &amp;amp; 0 &amp;amp; 1 &amp;amp; 0 \newline
+  0 &amp;amp; -1 &amp;amp; 2 &amp;amp; 0 &amp;amp; 0 &amp;amp; 1
+ \end{bmatrix}
+\]&lt;/p&gt;
+
+&lt;p&gt;We then apply Gaussian Elimination, and end up with the matrix &lt;code&gt;$[I \space \space A^{-1}]$&lt;/code&gt;:&lt;/p&gt;
+
+&lt;p&gt;\[
+[I \space \space A^{-1}]
+%
+&amp;#61;
+%
+ \begin{bmatrix}
+  1 &amp;amp; 0 &amp;amp; 0 &amp;amp; \frac{3} {4} &amp;amp; \frac{1} {2} &amp;amp; \frac{1} {4}  \newline
+  0 &amp;amp; 1 &amp;amp; 0 &amp;amp; \frac{1} {2} &amp;amp; 1 &amp;amp; \frac{1} {2}  \newline
+  0 &amp;amp; 0 &amp;amp; 1 &amp;amp; \frac{1} {4} &amp;amp; \frac{1} {2} &amp;amp; \frac{3} {4}&lt;br /&gt;
+ \end{bmatrix}
+\]&lt;/p&gt;
+
+&lt;p&gt;Yielding the inverse matrix:&lt;/p&gt;
+
+&lt;p&gt;\[
+A^{-1}
+%
+&amp;#61;
+%
+ \begin{bmatrix}
+  \frac{3} {4} &amp;amp; \frac{1} {2} &amp;amp; \frac{1} {4}  \newline
+  \frac{1} {2} &amp;amp; 1 &amp;amp; \frac{1} {2}  \newline
+  \frac{1} {4} &amp;amp; \frac{1} {2} &amp;amp; \frac{3} {4}&lt;br /&gt;
+ \end{bmatrix}
+\]&lt;/p&gt;
+
+&lt;p&gt;We can then apply the same sort of calculations that we did for the &lt;code&gt;$2 \times 2$&lt;/code&gt; case, and test that this is indeed the inverse matrix. If you don&amp;rsquo;t believe that this is in fact the inverse, then feel free to do so :) I&amp;rsquo;m going to stop right here, though!&lt;/p&gt;
+</description>
     </item>
     
     <item>
@@ -27,9 +286,19 @@
       <pubDate>Wed, 14 Nov 2018 00:00:00 +0000</pubDate>
       
       <guid>/post/rank-of-a-matrix/</guid>
-      <description>rank of a matrix 10K – 100K Low
-The dimension of the column space of a matrix is called its rank. - rank of 1 - when the output of the matrix multiplication is a line (for next article) - rank of 2 - when all the outputs of the matrix mult land in 2-D, then matrix has a rank of 2. - etc&amp;hellip;
-It is the number of linearly independent columns</description>
+      <description>&lt;p&gt;rank of a matrix
+10K – 100K
+Low&lt;/p&gt;
+
+&lt;p&gt;The dimension of the column space of a matrix is called its rank.
+- rank of 1 - when the output of the matrix multiplication is a line (for next article)
+  - rank of 2 - when all the outputs of the matrix mult land in 2-D, then matrix has a rank of 2.
+  - etc&amp;hellip;&lt;/p&gt;
+
+&lt;p&gt;It is the number of linearly independent columns&lt;/p&gt;
+
+&lt;p&gt;It is the number of pivots of a matrix&lt;/p&gt;
+</description>
     </item>
     
     <item>
@@ -38,10 +307,377 @@ It is the number of linearly independent columns</description>
       <pubDate>Thu, 01 Mar 2018 20:35:21 +0200</pubDate>
       
       <guid>/post/playing-in-the-nullspace/</guid>
-      <description>1. Introduction In this article we describe what the nullspace is. We go on to explain how to find the nullspace.
-2. Nullspace, Null Space or Kernel? The nullspace (or null space) of a matrix is also known as the kernel of a matrix. These terms are interchangeable.
-The nullspace is a set of vectors that when multiplied by a matrix returns $0$ (well, the zero vector).
-3. How To Find the Nullspace Have a look at this matrix:</description>
+      <description>
+
+&lt;h1 id=&#34;1-introduction&#34;&gt;1. Introduction&lt;/h1&gt;
+
+&lt;p&gt;In this article we describe &lt;strong&gt;what the nullspace is&lt;/strong&gt;. We go on to explain &lt;strong&gt;how to find the nullspace&lt;/strong&gt;.&lt;/p&gt;
+
+&lt;h1 id=&#34;2-nullspace-null-space-or-kernel&#34;&gt;2. Nullspace, Null Space or Kernel?&lt;/h1&gt;
+
+&lt;p&gt;The &lt;em&gt;nullspace&lt;/em&gt; (or &lt;em&gt;null space&lt;/em&gt;) of a matrix is also known as the &lt;em&gt;kernel&lt;/em&gt; of a matrix. &lt;strong&gt;These terms are interchangeable.&lt;/strong&gt;&lt;/p&gt;
+
+&lt;p&gt;The nullspace is a &lt;strong&gt;set of vectors that when multiplied by a matrix returns &lt;code&gt;$0$&lt;/code&gt;&lt;/strong&gt; (well, the zero vector).&lt;/p&gt;
+
+&lt;h1 id=&#34;3-how-to-find-the-nullspace&#34;&gt;3. How To Find the Nullspace&lt;/h1&gt;
+
+&lt;p&gt;Have a look at this matrix:&lt;/p&gt;
+
+&lt;p&gt;\[
+A
+%
+&amp;#61;
+%
+ \begin{bmatrix}
+  1 &amp;amp; 1 &amp;amp; 2 &amp;amp; 3 \newline
+  2 &amp;amp; 2 &amp;amp; 8 &amp;amp; 10 \newline
+  3 &amp;amp; 3 &amp;amp; 10 &amp;amp; 13
+ \end{bmatrix}
+\]&lt;/p&gt;
+
+&lt;p&gt;We&amp;rsquo;re interested in finding its nullspace: that is, all vectors such that when multiplied by our matrix &lt;code&gt;$A$&lt;/code&gt;, return the zero vector, &lt;code&gt;$ \begin{bmatrix} 0 &amp;amp; 0 &amp;amp; 0 \end{bmatrix} ^ {T}$&lt;/code&gt;.&lt;/p&gt;
+
+&lt;p&gt;I happen to know that &lt;code&gt;$ \begin{bmatrix} -3 &amp;amp; 1 &amp;amp; -2 &amp;amp; 2 \end{bmatrix} ^ {T}$&lt;/code&gt; is one such vector:&lt;/p&gt;
+
+&lt;p&gt;\[
+\begin{bmatrix}
+  1 &amp;amp; 1 &amp;amp; 2 &amp;amp; 3 \newline
+  2 &amp;amp; 2 &amp;amp; 8 &amp;amp; 10 \newline
+  3 &amp;amp; 3 &amp;amp; 10 &amp;amp; 13
+ \end{bmatrix}
+%
+\begin{bmatrix}
+ -3 \newline
+ 1 \newline
+ -2 \newline
+ 2
+\end{bmatrix}
+%
+&amp;#61;
+%
+%
+\begin{bmatrix}
+ -3 + 1 - 4 + 6 \newline
+ -6 + 2 - 16 + 20 \newline
+ -9 + 3 - 20 + 26
+\end{bmatrix}
+%
+&amp;#61;
+%
+\begin{bmatrix}
+ 0 \newline
+ 0 \newline
+ 0
+\end{bmatrix}
+\]&lt;/p&gt;
+
+&lt;p&gt;If we set &lt;code&gt;$x = \begin{bmatrix} -3 &amp;amp; 1 &amp;amp; -2 &amp;amp; 2 \end{bmatrix} ^ {T}$&lt;/code&gt; , then we can write out the above equation more succinctly: &lt;code&gt;$Ax = 0$&lt;/code&gt;&lt;/p&gt;
+
+&lt;p&gt;We say that &lt;strong&gt;&lt;code&gt;$x$&lt;/code&gt; is in the nullspace of &lt;code&gt;$A$&lt;/code&gt;.&lt;/strong&gt;&lt;/p&gt;
+
+&lt;p&gt;We&amp;rsquo;re going to look at a &lt;strong&gt;systematic way to find all the vectors in the nullspace.&lt;/strong&gt;
+We&amp;rsquo;ll do this is by:&lt;/p&gt;
+
+&lt;ol&gt;
+&lt;li&gt;Using elimination to find our pivots&lt;/li&gt;
+&lt;li&gt;Using back substitution to find our solutions&lt;/li&gt;
+&lt;/ol&gt;
+
+&lt;p&gt;We can think of this as our two-step recipe to find our nullspace.&lt;/p&gt;
+
+&lt;h2 id=&#34;3-1-finding-the-pivots&#34;&gt;3.1 Finding The Pivots&lt;/h2&gt;
+
+&lt;p&gt;This article isn&amp;rsquo;t about how to do Gaussian elimination on a matrix. I&amp;rsquo;m going to assume that you already know how to do this. I hope to write an article about this in the future.&lt;/p&gt;
+
+&lt;p&gt;Suppose we performed elimination on our matrix &lt;code&gt;$A$&lt;/code&gt;, which results in our new &lt;code&gt;$U$&lt;/code&gt;:&lt;/p&gt;
+
+&lt;p&gt;\[
+U
+%
+&amp;#61;
+%
+ \begin{bmatrix}
+  1 &amp;amp; 1 &amp;amp; 2 &amp;amp; 3 \newline
+  0 &amp;amp; 0 &amp;amp; 4 &amp;amp; 4 \newline
+  0 &amp;amp; 0 &amp;amp; 0 &amp;amp; 0
+ \end{bmatrix}
+\]&lt;/p&gt;
+
+&lt;p&gt;&lt;strong&gt;The cool thing is that &lt;code&gt;$A$&lt;/code&gt; and &lt;code&gt;$U$&lt;/code&gt; have the same nullspace.&lt;/strong&gt; So, if we know that &lt;code&gt;$Ux = 0$&lt;/code&gt;, we also know that &lt;code&gt;$Ax = 0$&lt;/code&gt;.&lt;/p&gt;
+
+&lt;p&gt;Let&amp;rsquo;s suppose that we didn&amp;rsquo;t know that &lt;code&gt;$x = \begin{bmatrix} -3 &amp;amp; 1 &amp;amp; -2 &amp;amp; 2 \end{bmatrix} ^ {T}$&lt;/code&gt; was in the nullspace of the matrix &lt;code&gt;$A$&lt;/code&gt;. We know that there is some vector &lt;code&gt;$x = \begin{bmatrix} x_1 &amp;amp; x_2 &amp;amp; x_3 &amp;amp; x_4 \end{bmatrix} ^ {T}$&lt;/code&gt; such that &lt;code&gt;$Ux = 0$&lt;/code&gt; (even if that vector is just &lt;code&gt;$\begin{bmatrix} 0 &amp;amp; 0 &amp;amp; 0 &amp;amp; 0 \end{bmatrix} ^ {T}$&lt;/code&gt;).&lt;/p&gt;
+
+&lt;p&gt;Writing this out more explicitly:&lt;/p&gt;
+
+&lt;p&gt;\[
+\tag{1}
+\label{1}
+ \begin{bmatrix}
+  1 &amp;amp; 1 &amp;amp; 2 &amp;amp; 3 \newline
+  0 &amp;amp; 0 &amp;amp; 4 &amp;amp; 4 \newline
+  0 &amp;amp; 0 &amp;amp; 0 &amp;amp; 0
+ \end{bmatrix}
+ %
+ \begin{bmatrix}
+  x_1 \newline
+  x_2 \newline
+  x_3 \newline
+  x_4
+ \end{bmatrix}
+ %
+  &amp;#61;
+ %
+ \begin{bmatrix}
+  0 \newline
+  0 \newline
+  0
+ \end{bmatrix}
+\]&lt;/p&gt;
+
+&lt;p&gt;According to our recipe for finding the nullspace, we need to find our pivots. &lt;strong&gt;A pivot is simply the first non-zero element in each row of the matrix.&lt;/strong&gt;&lt;/p&gt;
+
+&lt;p&gt;Looking at &lt;code&gt;$U$&lt;/code&gt;, the first row has a pivot in the first column, with value &lt;code&gt;$1$&lt;/code&gt;. The second row has a pivot in the third column: &lt;code&gt;$4$&lt;/code&gt;. The third row does not have a pivot.&lt;/p&gt;
+
+&lt;p&gt;&lt;strong&gt;We call &lt;code&gt;$x_1$&lt;/code&gt; and &lt;code&gt;$x_3$&lt;/code&gt;&lt;/strong&gt; &lt;strong&gt;&lt;em&gt;pivot variables&lt;/em&gt;&lt;/strong&gt; since columns 1 and 3 contain pivots. &lt;strong&gt;&lt;code&gt;$x_2$&lt;/code&gt; and &lt;code&gt;$x_4$&lt;/code&gt; are called&lt;/strong&gt; &lt;strong&gt;&lt;em&gt;free variables&lt;/em&gt;&lt;/strong&gt; since columns 2 and 4 have no pivots.&lt;/p&gt;
+
+&lt;p&gt;Note that there are 4 variables in total - 2 free variables, and 2 pivot variables. This is because the nullspace vectors are in &lt;code&gt;$\mathbb{R}^4$&lt;/code&gt; in this case, since &lt;code&gt;$A$&lt;/code&gt; (and &lt;code&gt;$U$&lt;/code&gt;) are &lt;code&gt;$3 \times 4$&lt;/code&gt; matrices.&lt;/p&gt;
+
+&lt;h2 id=&#34;3-2-using-back-substitution-to-find-our-nullspace&#34;&gt;3.2 Using Back Substitution to Find our Nullspace&lt;/h2&gt;
+
+&lt;p&gt;Now that we know what our pivots are, we want to find our &lt;em&gt;special solutions&lt;/em&gt;. Special solutions are vectors in our nullspace which will eventually &lt;strong&gt;help us find all the vectors in our nullspace&lt;/strong&gt;.&lt;/p&gt;
+
+&lt;p&gt;&lt;strong&gt;We will have as many special solutions as we have free variables.&lt;/strong&gt; In this case, we have 2 free variables, so we will have 2 special solutions. The way we find the special solutions is by &lt;em&gt;back substitution&lt;/em&gt;.&lt;/p&gt;
+
+&lt;p&gt;Before we get to what back substition is, let&amp;rsquo;s rewrite equation &lt;code&gt;$(\ref{1})$&lt;/code&gt; as a set of equations, instead of its matrix form:&lt;/p&gt;
+
+&lt;p&gt;\[
+x_1 + x_2 + 2x_3 + 3x_4 = 0
+\]&lt;/p&gt;
+
+&lt;p&gt;\[
+4x_3 + 4x_4 = 0
+\]&lt;/p&gt;
+
+&lt;p&gt;We want to find values for &lt;code&gt;$x_1$&lt;/code&gt;, &lt;code&gt;$x_2$&lt;/code&gt;, &lt;code&gt;$x_3$&lt;/code&gt; and &lt;code&gt;$x_4$&lt;/code&gt; which satisfy the above set of equations.&lt;/p&gt;
+
+&lt;p&gt;&lt;strong&gt;Since &lt;code&gt;$x_2$&lt;/code&gt; and &lt;code&gt;$x_4$&lt;/code&gt; are free variables, we can give them any values we wish&lt;/strong&gt; - they are &lt;em&gt;free&lt;/em&gt; variables, after all! The simples choice for our free variables is ones or zeroes.&lt;/p&gt;
+
+&lt;p&gt;Let&amp;rsquo;s set &lt;code&gt;$x_2 = 1$&lt;/code&gt; and &lt;code&gt;$x_4 = 0$&lt;/code&gt;:&lt;/p&gt;
+
+&lt;p&gt;\[
+x_1 + (1) + 2x_3 + 3(0) = 0
+\]&lt;/p&gt;
+
+&lt;p&gt;\[
+4x_3 + 4(0) = 0
+\]&lt;/p&gt;
+
+&lt;p&gt;which gives:&lt;/p&gt;
+
+&lt;p&gt;\[
+\label{2}
+\tag{2}
+x_1 + 1 + 2x_3 = 0
+\]&lt;/p&gt;
+
+&lt;p&gt;\[
+\label{3}
+\tag{3}
+x_3 = 0
+\]&lt;/p&gt;
+
+&lt;p&gt;Great! &lt;strong&gt;We now know that &lt;code&gt;$x_3 = 0$&lt;/code&gt;&lt;/strong&gt; (and we have values for &lt;code&gt;$x_2$&lt;/code&gt; and &lt;code&gt;$x_4$&lt;/code&gt; ). All that&amp;rsquo;s left is for us to find &lt;code&gt;$x_1$&lt;/code&gt;&lt;/p&gt;
+
+&lt;p&gt;&lt;strong&gt;Now, let&amp;rsquo;s use back substitution to plug &lt;code&gt;$x_3 = 0$&lt;/code&gt; into equation (&lt;code&gt;$\ref{2}$&lt;/code&gt;):&lt;/strong&gt;&lt;/p&gt;
+
+&lt;p&gt;\[
+x_1 + 1 + 2(0) = 0
+\]&lt;/p&gt;
+
+&lt;p&gt;so&lt;/p&gt;
+
+&lt;p&gt;\[
+x_1 = -1
+\]&lt;/p&gt;
+
+&lt;p&gt;We now have our first special solution:&lt;/p&gt;
+
+&lt;p&gt;\[
+\begin{bmatrix}
+ x_1 \newline
+ x_2 \newline
+ x_3 \newline
+ x_4
+\end{bmatrix}
+%
+&amp;#61;
+%
+\begin{bmatrix}
+ -1 \newline
+ 1 \newline
+ 0 \newline
+ 0
+\end{bmatrix}
+\]&lt;/p&gt;
+
+&lt;p&gt;Setting &lt;code&gt;$x_2 = 1$&lt;/code&gt; and &lt;code&gt;$x_4 = 0$&lt;/code&gt; gave us our first special solution. &lt;strong&gt;We need to find our second special solution.&lt;/strong&gt; The easiest way to do this is to set &lt;code&gt;$x_2 = 0$&lt;/code&gt; and &lt;code&gt;$x_4 = 1$&lt;/code&gt;. Using the same procedure as we did for the first special solution we find our second special solution:&lt;/p&gt;
+
+&lt;p&gt;\[
+\begin{bmatrix}
+ -1 \newline
+ 0 \newline
+ -1 \newline
+ 1
+\end{bmatrix}
+\]&lt;/p&gt;
+
+&lt;p&gt;Since we had 2 free variables, we get 2 special solutions:&lt;/p&gt;
+
+&lt;p&gt;\[
+\begin{bmatrix}
+  -1 \newline
+  1 \newline
+  0 \newline
+  0
+\end{bmatrix},
+\begin{bmatrix}
+  -1 \newline
+  0 \newline
+  -1 \newline
+  1
+\end{bmatrix}
+\]&lt;/p&gt;
+
+&lt;p&gt;These two special solutions are &lt;strong&gt;in the nullspace of &lt;code&gt;$U$&lt;/code&gt; and therefore also &lt;code&gt;$A$&lt;/code&gt;&lt;/strong&gt;. This means that if you multiply the matrix &lt;code&gt;$A$&lt;/code&gt; or &lt;code&gt;$U$&lt;/code&gt; by these vectors, you will get the zero vector.&lt;/p&gt;
+
+&lt;p&gt;Crucially - &lt;strong&gt;&lt;em&gt;every combination of our special solutions is in the nullspace&lt;/em&gt;&lt;/strong&gt;.&lt;/p&gt;
+
+&lt;p&gt;So, the complete solution is:&lt;/p&gt;
+
+&lt;p&gt;\[
+x
+%
+&amp;#61;
+%
+ x_2
+ %
+\begin{bmatrix}
+ -1 \newline
+ 1 \newline
+ 0 \newline
+ 0
+\end{bmatrix}
+%&lt;br /&gt;
++
+%
+ x_4
+ %
+\begin{bmatrix}
+ -1 \newline
+ 0 \newline
+ -1 \newline
+ 1
+\end{bmatrix}
+%
+&amp;#61;
+%
+\begin{bmatrix}
+ -x_2 - x_4 \newline
+ x_2 \newline
+ -x_4 \newline
+ x_4
+\end{bmatrix}
+\]&lt;/p&gt;
+
+&lt;p&gt;What does this actually mean? It means that &lt;strong&gt;we can pick our free variables &lt;code&gt;$x_2$&lt;/code&gt; and &lt;code&gt;$x_4$&lt;/code&gt; however we wish, and we will get a valid solution in response.&lt;/strong&gt;&lt;/p&gt;
+
+&lt;p&gt;For example let&amp;rsquo;s pick: &lt;code&gt;$x_2=1$&lt;/code&gt; and &lt;code&gt;$x_4 = 2$&lt;/code&gt;. So:&lt;/p&gt;
+
+&lt;p&gt;\[
+\begin{bmatrix}
+ -x_2 - x_4 \newline
+ x_2 \newline
+ -x_4 \newline
+ x_4
+\end{bmatrix}
+%
+&amp;#61;
+%
+\begin{bmatrix}
+ -3 \newline
+ 1 \newline
+ -2 \newline
+ 2
+\end{bmatrix}
+\]&lt;/p&gt;
+
+&lt;p&gt;which was my example at the beginning of the article.&lt;/p&gt;
+
+&lt;h2 id=&#34;4-another-example&#34;&gt;4 Another Example&lt;/h2&gt;
+
+&lt;p&gt;Say now I wish to find the nullspace of&lt;/p&gt;
+
+&lt;p&gt;\[
+U
+%
+&amp;#61;
+%
+ \begin{bmatrix}
+  1 &amp;amp; 5 &amp;amp; 7 \newline
+  0 &amp;amp; 0 &amp;amp; 9 \newline
+ \end{bmatrix}
+\]&lt;/p&gt;
+
+&lt;p&gt;The second column contains our free variable. Since there is only &lt;strong&gt;one free variable, there will only be one special solution&lt;/strong&gt;.&lt;/p&gt;
+
+&lt;p&gt;We need to back substitute &lt;code&gt;$x_2 = 1$&lt;/code&gt; (no need to set zeroes this time, as there is only one free variable).&lt;/p&gt;
+
+&lt;p&gt;Then
+\[
+9x_3 = 0
+\]&lt;/p&gt;
+
+&lt;p&gt;gives&lt;/p&gt;
+
+&lt;p&gt;\[
+x_3 = 0
+\]&lt;/p&gt;
+
+&lt;p&gt;and&lt;/p&gt;
+
+&lt;p&gt;\[
+x_1 + 5x_2 = 0
+\]&lt;/p&gt;
+
+&lt;p&gt;so&lt;/p&gt;
+
+&lt;p&gt;\[
+x_1 = -5
+\]&lt;/p&gt;
+
+&lt;p&gt;since&lt;/p&gt;
+
+&lt;p&gt;\[
+x_2 = 1
+\]&lt;/p&gt;
+
+&lt;p&gt;So,
+\[
+x
+%
+&amp;#61;
+%
+x_2
+%
+ \begin{bmatrix}
+  -5 \newline
+  1 \newline
+  0
+ \end{bmatrix}
+\]&lt;/p&gt;
+
+&lt;p&gt;The nullspace in this case is a line in &lt;code&gt;$\mathbb{R}^3$&lt;/code&gt;. It contains multiples of the special solution.&lt;/p&gt;
+</description>
     </item>
     
     <item>
@@ -50,9 +686,168 @@ The nullspace is a set of vectors that when multiplied by a matrix returns $0$ (
       <pubDate>Wed, 22 Nov 2017 20:35:21 +0200</pubDate>
       
       <guid>/post/of-matrices-and-men-part-2/</guid>
-      <description>In my last post we saw how a matrix could operate on a vector to produce a result:
-\[ \begin{bmatrix} 1 &amp;amp; 0 &amp;amp; 0 \newline -1 &amp;amp; 1 &amp;amp; 0 \newline 0 &amp;amp; -1 &amp;amp; 1 \end{bmatrix} % \begin{bmatrix} 1 \newline 4 \newline 9 \end{bmatrix} % &amp;#61; % \begin{bmatrix} 1 \newline 3 \newline 5 \end{bmatrix} \]
-The matrix used above is a $3 \times 3$ difference matrix. The general form for this type of operation is:</description>
+      <description>&lt;p&gt;In my &lt;a href=&#34;/post/second-post/&#34;&gt;last post&lt;/a&gt; we saw how a matrix could operate on a vector to produce a result:&lt;/p&gt;
+
+&lt;p&gt;\[
+\begin{bmatrix}
+  1 &amp;amp; 0 &amp;amp; 0 \newline
+  -1 &amp;amp; 1 &amp;amp; 0 \newline
+  0 &amp;amp; -1 &amp;amp; 1
+ \end{bmatrix}
+%
+\begin{bmatrix}
+ 1 \newline
+ 4 \newline
+ 9
+\end{bmatrix}
+%
+&amp;#61;
+%
+\begin{bmatrix}
+1 \newline
+3 \newline
+5
+\end{bmatrix}
+\]&lt;/p&gt;
+
+&lt;p&gt;The matrix used above is a &lt;code&gt;$3 \times 3$&lt;/code&gt; &lt;em&gt;difference matrix&lt;/em&gt;. The general form for this type of operation is:&lt;/p&gt;
+
+&lt;p&gt;\[
+Ax = b
+\]&lt;/p&gt;
+
+&lt;p&gt;From the above equation, you can see that vector &lt;code&gt;$b$&lt;/code&gt; is produced by applying matrix &lt;code&gt;$A$&lt;/code&gt; to vector &lt;code&gt;$x$&lt;/code&gt;. This &lt;code&gt;$Ax = b$&lt;/code&gt; is pretty much the central equation of linear algebra.&lt;/p&gt;
+
+&lt;p&gt;Say you now know what &lt;code&gt;$b$&lt;/code&gt; is and you wish to recover &lt;code&gt;$x$&lt;/code&gt;. That is, given &lt;code&gt;$Ax = b$&lt;/code&gt;, which is:&lt;/p&gt;
+
+&lt;p&gt;\[
+\begin{bmatrix}
+  1 &amp;amp; 0 &amp;amp; 0 \newline
+  -1 &amp;amp; 1 &amp;amp; 0 \newline
+  0 &amp;amp; -1 &amp;amp; 1
+ \end{bmatrix}
+%
+\begin{bmatrix}
+ x_1 \newline
+ x_2 \newline
+ x_3
+\end{bmatrix}
+%
+&amp;#61;
+%
+\begin{bmatrix}
+ b_1 \newline
+ b_2 \newline
+ b_3
+\end{bmatrix}
+\]&lt;/p&gt;
+
+&lt;p&gt;We assume that &lt;code&gt;$b$&lt;/code&gt; is known, and we now wish to retrieve &lt;code&gt;$x$&lt;/code&gt;.
+We can write out &lt;code&gt;$Ax = b$&lt;/code&gt; as a set of linear equations:&lt;/p&gt;
+
+&lt;p&gt;\[
+\begin{equation}
+1 \cdot x_1 + 0 \cdot x_2 + 0 \cdot x_3 = b_1
+\end{equation}
+\]
+\[
+\begin{equation}
+-1 \cdot x_1 + 1 \cdot x_2 + 0 \cdot x_3 = b_2
+\end{equation}
+\]
+\[
+\begin{equation}
+0 \cdot x_1 -1 \cdot x_2 + 1 \cdot x_3 = b_3
+\end{equation}
+\]&lt;/p&gt;
+
+&lt;p&gt;And now solving for the &lt;code&gt;$x_i$&lt;/code&gt;s:&lt;/p&gt;
+
+&lt;p&gt;\[
+\begin{equation}
+x_1 = b_1 \qquad
+\end{equation}
+\]
+\[
+\begin{equation}
+x_2 = b_1 + b_2
+\end{equation}
+\]
+\[
+\begin{equation}
+\qquad x_3 = b_1 + b_2 + b_3
+\end{equation}
+\]&lt;/p&gt;
+
+&lt;p&gt;We were able to solve for the &lt;code&gt;$x_i$&lt;/code&gt;s so easily because our matrix &lt;code&gt;$A$&lt;/code&gt; is &lt;em&gt;lower triangular&lt;/em&gt;. This just means that all the entries above the diagonal entries are equal to &lt;code&gt;$0$&lt;/code&gt;. In general, we can recover a unique &lt;code&gt;$x$&lt;/code&gt;, given a &lt;code&gt;$b$&lt;/code&gt;, if the matrix which produced &lt;code&gt;$b$&lt;/code&gt; is &lt;em&gt;invertible&lt;/em&gt;. I&amp;rsquo;ll use my next post to discuss invertibility and why it was possible for us to so easily solve for the &lt;code&gt;$x_i$&lt;/code&gt;s.
+For now, just know that from any vector &lt;code&gt;$b$&lt;/code&gt; produced by the the difference matrix &lt;code&gt;$A$&lt;/code&gt;, we can solve for the &lt;code&gt;$x$&lt;/code&gt; which led to it. Let&amp;rsquo;s try
+\[
+b = \begin{bmatrix} b_1 \newline b_2 \newline b_3 \end{bmatrix} = \begin{bmatrix} 1 \newline 3 \newline 5 \end{bmatrix}
+\]
+This will give us
+\[
+x = \begin{bmatrix} x_1 \newline x_2 \newline x_3 \end{bmatrix} = \begin{bmatrix} b_1 \qquad \qquad \newline b_1 + b_2 \qquad \newline b_1 + b_2 +b_3 \end{bmatrix}= \begin{bmatrix} 1 \newline 1 + 3 \newline 1 + 3 + 5 \end{bmatrix} = \begin{bmatrix} 1 \newline 4 \newline 9 \end{bmatrix}
+\]
+This is in fact correct, and should come as no surprise to anybody who has endured high school algebra.&lt;/p&gt;
+
+&lt;p&gt;The cool part comes now.&lt;/p&gt;
+
+&lt;p&gt;From the above, we can write &lt;code&gt;$ \begin{bmatrix} x_1 \newline x_2 \newline x_3 \end{bmatrix} $&lt;/code&gt; as follows:
+\[
+ \begin{bmatrix} b_1 \qquad \qquad \newline b_1 +b_2 \qquad \newline b_1 + b_2 +b_3 \end{bmatrix} = \begin{bmatrix}
+  1 &amp;amp; 0 &amp;amp; 0 \newline
+  1 &amp;amp; 1 &amp;amp; 0 \newline
+  1 &amp;amp; 1 &amp;amp; 1
+ \end{bmatrix}
+\begin{bmatrix} b_1 \newline b_2 \newline b_3 \end{bmatrix}
+\]&lt;/p&gt;
+
+&lt;p&gt;Don&amp;rsquo;t worry too much about exactly &lt;em&gt;how&lt;/em&gt; we found the matrix \begin{bmatrix}
+  1 &amp;amp; 0 &amp;amp; 0 \newline
+  1 &amp;amp; 1 &amp;amp; 0 \newline
+  1 &amp;amp; 1 &amp;amp; 1
+ \end{bmatrix} (which we&amp;rsquo;ll call &lt;code&gt;$S$&lt;/code&gt;), just convince yourself that it is, in fact, the correct matrix to have here. The neat thing about this matrix, is that it&amp;rsquo;s actually a &lt;em&gt;sum matrix&lt;/em&gt;; as opposed to the &lt;em&gt;difference matrix&lt;/em&gt;, which is its inverse. There is a nice duality or symmetry going on here. The inverse of the difference matrix is the sum matrix.&lt;/p&gt;
+
+&lt;p&gt;Let&amp;rsquo;s take the result of our initial &lt;code&gt;$Ax = b$&lt;/code&gt;, which is
+\[
+b = \begin{bmatrix}
+ 1 \newline
+ 3 \newline
+ 5
+\end{bmatrix}
+\]&lt;/p&gt;
+
+&lt;p&gt;Let&amp;rsquo;s then apply the sum matrix to it:&lt;/p&gt;
+
+&lt;p&gt;\[
+\begin{bmatrix}
+  1 &amp;amp; 0 &amp;amp; 0 \newline
+  1 &amp;amp; 1 &amp;amp; 0 \newline
+  1 &amp;amp; 1 &amp;amp; 1
+ \end{bmatrix}
+%
+\begin{bmatrix}
+ 1 \newline
+ 3 \newline
+ 5
+\end{bmatrix}
+%
+&amp;#61;
+%
+%
+\begin{bmatrix}
+ 1 \newline
+ 4 \newline
+ 9
+\end{bmatrix}
+\]&lt;/p&gt;
+
+&lt;p&gt;We get back our original &lt;code&gt;$x = \begin{bmatrix} 1 \newline 4 \newline 9 \end{bmatrix}$&lt;/code&gt;.&lt;/p&gt;
+
+&lt;p&gt;So, &lt;code&gt;$Ax = b$&lt;/code&gt;, and &lt;code&gt;$Sb = x$&lt;/code&gt;.&lt;/p&gt;
+
+&lt;p&gt;Pretty cool, right?&lt;/p&gt;
+</description>
     </item>
     
     <item>
@@ -61,7 +856,107 @@ The matrix used above is a $3 \times 3$ difference matrix. The general form for 
       <pubDate>Sun, 22 Oct 2017 20:35:21 +0200</pubDate>
       
       <guid>/post/second-post/</guid>
-      <description>One of the most crucial changes in my viewpoint came when I learned that matrices, much like functions, act on inputs. Until then, a matrix was just a collection of numbers and matrix multiplication was just a mechanical set of rules used to produce another collection of numbers. I knew that the result of matrix multiplication could be a scalar, a vector or another matrix&amp;hellip; but I abandoned any further investigations.</description>
+      <description>&lt;p&gt;One of the most crucial changes in my viewpoint came when I learned that matrices, much like functions, &lt;em&gt;act&lt;/em&gt; on inputs. Until then, a matrix was just a collection of numbers and matrix multiplication was just a mechanical set of rules used to produce another collection of numbers. I knew that the result of matrix multiplication could be a scalar, a vector or another matrix&amp;hellip; but I abandoned any further investigations.&lt;/p&gt;
+
+&lt;p&gt;I&amp;rsquo;m going to assume that the reader is familiar with the mechanics of matrix multiplication. What I&amp;rsquo;ll be talking about is how a matrix affects a vector; in this case, how a matrix transforms a vector into a different vector and that the transformation is encoded in the matrix itself.&lt;/p&gt;
+
+&lt;p&gt;An example Prof. Strang uses in his lectures and book is the &lt;em&gt;difference matrix&lt;/em&gt;. It looks like this:&lt;/p&gt;
+
+&lt;p&gt;\begin{bmatrix}
+  1 &amp;amp; 0 &amp;amp; 0 \newline
+  -1 &amp;amp; 1 &amp;amp; 0 \newline
+  0 &amp;amp; -1 &amp;amp; 1
+ \end{bmatrix}
+&lt;br&gt;
+Now, let&amp;rsquo;s say we have a vector: &lt;code&gt;$ \begin{bmatrix} x_1 \newline x_2 \newline x_3 \end{bmatrix} \in  \mathbb{R}^3$&lt;/code&gt;.
+Let&amp;rsquo;s say we wish to multiply the above matrix with this vector:&lt;/p&gt;
+
+&lt;p&gt;\[
+\begin{bmatrix}
+  1 &amp;amp; 0 &amp;amp; 0 \newline
+  -1 &amp;amp; 1 &amp;amp; 0 \newline
+  0 &amp;amp; -1 &amp;amp; 1
+ \end{bmatrix}
+%
+\begin{bmatrix}
+ x_1 \newline
+ x_2 \newline
+ x_3
+\end{bmatrix}
+\]&lt;/p&gt;
+
+&lt;p&gt;We could look at the matrix as the collection of vectors &lt;code&gt;$ \begin{bmatrix} 1 \newline -1 \newline 0 \end{bmatrix}$&lt;/code&gt;, &lt;code&gt;$ \begin{bmatrix} 0 \newline 1 \newline -1 \end{bmatrix}$&lt;/code&gt; and &lt;code&gt;$ \begin{bmatrix} 0 \newline 0 \newline 1 \end{bmatrix}$&lt;/code&gt; and then take the linear combination of columns:
+\[
+x_1
+%
+\begin{bmatrix}
+1 \newline
+-1 \newline
+0
+\end{bmatrix}
+%
++
+%
+x_2
+%
+\begin{bmatrix}
+0 \newline
+1 \newline
+-1
+\end{bmatrix}
+%
++
+%
+x_3
+%
+\begin{bmatrix}
+0 \newline
+0 \newline
+1
+\end{bmatrix}
+\]&lt;/p&gt;
+
+&lt;p&gt;This does give you the correct result. The numbers &lt;code&gt;$x_1$&lt;/code&gt;, &lt;code&gt;$x_2$&lt;/code&gt; and &lt;code&gt;$x_3$&lt;/code&gt; multiply the columns which make up the matrix. But we want to change our point of view. We want to see the matrix as a &lt;em&gt;thing&lt;/em&gt; which somehow transforms the vector. So&amp;hellip; let&amp;rsquo;s finally look at the result of this matrix multiplication:&lt;/p&gt;
+
+&lt;p&gt;\begin{bmatrix}
+x_1 \newline
+x_2 - x_1 \newline
+x_3 - x_2
+\end{bmatrix}&lt;/p&gt;
+
+&lt;p&gt;There it is. Can you see why we called this matrix a difference matrix? The top difference is &lt;code&gt;$x_1 - x_0 = x_1 - 0 = x_1$&lt;/code&gt;.
+Let&amp;rsquo;s try this with an example. Let&amp;rsquo;s take a vector with &lt;code&gt;$x_1 = 1$&lt;/code&gt;, &lt;code&gt;$x_2= 4$&lt;/code&gt; and &lt;code&gt;$x_3 = 9$&lt;/code&gt; that is:&lt;/p&gt;
+
+&lt;p&gt;\begin{bmatrix}
+ 1 \newline
+ 4 \newline
+ 9
+\end{bmatrix}&lt;/p&gt;
+
+&lt;p&gt;The result here is:&lt;/p&gt;
+
+&lt;p&gt;\[
+\begin{bmatrix}
+ 1 - 0 \newline
+ 4 - 1 \newline
+ 9 - 4
+\end{bmatrix}
+%
+&amp;#61;
+%
+\begin{bmatrix}
+1 \newline
+3 \newline
+5
+\end{bmatrix}
+\]&lt;/p&gt;
+
+&lt;p&gt;This matrix will always behave like this - for any vector in &lt;code&gt;$\mathbb{R}^3$&lt;/code&gt;.&lt;/p&gt;
+
+&lt;p&gt;Seeing matrix multiplication between a matrix and a vector as a linear combination of vectors (as we did initially) is obviously correct, and yields a correct result. But it&amp;rsquo;s also important to note that matrices are things which operate on vectors. In this case, our difference matrix will take as &amp;ldquo;input&amp;rdquo; a vector and as &amp;ldquo;output&amp;rdquo; produce a new vector which contains the differences of the &amp;ldquo;input&amp;rdquo; vector. (And here I hope to stop my liberal usage of quotes).&lt;/p&gt;
+
+&lt;p&gt;This post discussed obtaining the result of matrix multiplication. Next time I&amp;rsquo;ll talk about how to find out which combination of columns give you a certain result (and if that&amp;rsquo;s even possible). Unlike this post, I hope to write it while not jetlagged (and I apologize if this post is slightly incoherent. I&amp;rsquo;m blaming timezone differences).&lt;/p&gt;
+</description>
     </item>
     
   </channel>
