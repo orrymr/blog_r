@@ -4,8 +4,8 @@ author: ''
 date: '2019-03-04'
 slug: r-pca
 draft: true
-categories: []
-tags: []
+categories: [data-science]
+tags: [R, pca]
 ---
 
 
@@ -15,7 +15,14 @@ library(dplyr)
 knitr::opts_chunk$set(echo = TRUE)
 ```
 
-# 1.
+# 1. Introduction
+
+Principal Components Analysis (PCA) is a commonly used dimensionality reduction algorithm. In this post, we show how to perform PCA in R. This post will only briefly touch on the theory behind PCA; more detailed explanations can be found <here>
+
+# 2. PCA - A Brief Introduction
+
+# 3. Implementation in R
+
 ```{r}
 set.seed(1337)
 mathScore <- rescale(rnorm(100), to = c(0, 100))
