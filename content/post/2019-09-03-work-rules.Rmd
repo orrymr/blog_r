@@ -1,0 +1,110 @@
+---
+title: Work Rules! - Insights from Inside Google That Will Transform How You Live and Lead, Part 1
+author: 'Orry Messer'
+date: '2019-09-03'
+slug: work-rules
+draft: false
+categories: []
+tags:
+  - Books
+  - Non-fiction
+---
+
+Hello Person From The Internet who has decided to come here. Thank you for dropping by. 
+
+Today I'm going to talk about a book I read - [Work Rules!: Insights from Inside Google That Will Transform How You Live and Lead](https://www.amazon.com/gp/product/1455554790/ref=as_li_tl?ie=UTF8&camp=1789&creative=9325&creativeASIN=1455554790&linkCode=as2&tag=orrymr-20&linkId=35253fa91ca83356f3f4b863eb42b3f1) by Laszlo Bock.
+
+Although this book is intended for people who manage teams, most human beings will be able to get valuable insight out of this worthwhile book. Our author, Laszlo, has been in various roles at some large companies, including a stint as Senior Vice President of People Operations (HR, I believe) at Google (the search engine company - keep an eye out for them).
+
+I read this book a couple of months ago, and have been procrastinating writing this post ever since. So, I'm relying on my barely legible notes and an unreliable brain (human memory is so capricious, isn't it?). 
+
+What I shall do, Dear Reader, is go through the book, chapter by chapter, divulging my meticulous notes to you.
+
+Pull yourself towards yourself, here it comes!
+
+# Chapter 0 & 1
+
+- Being part of an environment where people thrive starts with taking responsibility for that environment. I like that. Make a place nice. Don't only care about output, care about what _kind_ of place it is. Is it the kind of place where we yell at the new guy because he doesn't know where the HR office is? No! We don't do that. Because eventually he'll find out where the HR office is, and we will get in trouble! Is it the kind of place where we show the new guy around? Yes! Because he might be smarter and more hard working than we are, and he might remember that when he is our overlord.
+
+- "Act like a founder" - sayeth Bock. 
+
+- Talent flows to "high freedom" companies - although Laszlo does state in a later chapter that companies have been successful both in high and low freedom settings. That's one of the things I really liked about this book; he often says "this is how we did things, it worked for us like that, but that don't mean it ain't gonna work for you in another way, dagnabit". I'm paraphrasing.
+
+- Managers serve the team - s/he clears roadblocks. Not literal ones, although, he doesn't preclude managers from clearing literal roadblocks (but I don't recommend it).
+
+
+# Chapter 2 - Culture Eats Strategy For Breakfast
+
+I wonder what culture has for brunch.
+
+- Google has a simple mission statement (organize the world’s information and make it universally accessible and useful). It's easy to rally behind, but they can never really full accomplish it... so they are compelled to keep going.
+
+- Google has a culture of information sharing and trust. K.
+
+# Chapter 3 - Lake Wobegon, Where all the Hires are Above Average
+
+- Only hire people who are better than you (in some meaningful way). 
+
+- Take your time hiring. 
+
+# Chapter 4 - Searching For the Best
+
+- We are all biased; we may be biased towards hiring friends.. So try be objective in your hiring (read the book to learn how. What? You expect moi to tell you?)
+
+# Chapter 5 - Don't Trust Your Gut
+
+For me this was a tough one. If my gut says cheeseburger, I'm trusting it. Apparently hiring people and deciding what lunch to get _should_ involve different cognitive processes. K.
+
+- [Confirmation bias](https://en.wikipedia.org/wiki/Confirmation_bias) (my personal favourite of all the cognitive biases) - interviewees make a first impression on us... then we spend the rest of the time in the interview trying to confirm our initial impression. Well, some of us do. The more sound of mind amongst us know that if a person makes a first impression as a well put together educated young man, then they are obviously a machete wielding senile old woman.
+
+- Get a disinterested party to interview, for objectivity. Like, get someone from another team. 
+
+- Have a subordinate interview and get his/her opinion.
+
+- Aggregate many interviewers' opinions - wisdom of the crowd.
+
+# Defusing the Exploding Offer: The Farpoint Gambit
+
+This isn't a chapter, but I thought it a cool enough idea to merit its own section. 
+
+An exploding offer is an offer of employment which expires after a certain amount of time. This can be quite a short amount of time, intending to pressurize. The gambit is simply to accept the offer... provisionally. What you do is set out a condition of your own which causes the deadline to pass. Once the deadline passes, the credibility of the threat is destroyed.
+
+Say you have 1 week within which to accept the offer. You say: "Gee, I accept!... But I'd sure like to meet the team I'll be working with. I can't this week, because my aunt is getting her tonsils removed, so maybe next week?" Of course, next week is already after the deadline.
+
+# Chapter 6 - Let the Inmates Run The Asylum
+
+- Eliminate status symbols - symbols and stories matter.
+
+- He spends a lot of time advocating for the removal of managers' power. However, one place he says managers should have power, is in tie breaking. When a team can't make a decision, it can't move forward. By having a person break the tie, we can all continue making dog food at the dog food factory. One of managers' primary responsibilities then, is to BREAK TIES.
+
+# I'm tired and going to sleep
+
+So I will continue this in a part 2, at some point in the future. 
+
+Until then, Dear Reader, never stop learning, reading and being awesome!
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

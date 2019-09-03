@@ -3,6 +3,16 @@
   xmlns:xhtml="http://www.w3.org/1999/xhtml">
   
   <url>
+    <loc>/post/work-rules/</loc>
+    <lastmod>2019-09-03T00:00:00+00:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>/post/hitchhiker-s-guide-to-data-science/</loc>
+    <lastmod>2019-06-06T00:00:00+00:00</lastmod>
+  </url>
+  
+  <url>
     <loc>/post/r-pca/</loc>
     <lastmod>2019-03-04T00:00:00+00:00</lastmod>
   </url>
@@ -54,18 +64,24 @@
   </url>
   
   <url>
+    <loc>/tags/books/</loc>
+    <lastmod>2019-09-03T00:00:00+00:00</lastmod>
+    <priority>0</priority>
+  </url>
+  
+  <url>
     <loc>/categories/</loc>
     <priority>0</priority>
   </url>
   
   <url>
-    <loc>/categories/data-science/</loc>
+    <loc>/tags/data-science/</loc>
     <lastmod>2018-12-04T00:00:00+00:00</lastmod>
     <priority>0</priority>
   </url>
   
   <url>
-    <loc>/tags/data-science/</loc>
+    <loc>/categories/data-science/</loc>
     <lastmod>2018-12-04T00:00:00+00:00</lastmod>
     <priority>0</priority>
   </url>
@@ -101,6 +117,12 @@
   </url>
   
   <url>
+    <loc>/tags/non-fiction/</loc>
+    <lastmod>2019-09-03T00:00:00+00:00</lastmod>
+    <priority>0</priority>
+  </url>
+  
+  <url>
     <loc>/tags/nullspace/</loc>
     <lastmod>2018-11-18T00:00:00+00:00</lastmod>
     <priority>0</priority>
@@ -108,7 +130,7 @@
   
   <url>
     <loc>/post/</loc>
-    <lastmod>2019-03-04T00:00:00+00:00</lastmod>
+    <lastmod>2019-09-03T00:00:00+00:00</lastmod>
     <priority>0</priority>
   </url>
   
@@ -126,7 +148,7 @@
   
   <url>
     <loc>/</loc>
-    <lastmod>2019-03-04T00:00:00+00:00</lastmod>
+    <lastmod>2019-09-03T00:00:00+00:00</lastmod>
     <priority>0</priority>
   </url>
   
