@@ -75,13 +75,13 @@
   </url>
   
   <url>
-    <loc>/tags/data-science/</loc>
+    <loc>/categories/data-science/</loc>
     <lastmod>2018-12-04T00:00:00+00:00</lastmod>
     <priority>0</priority>
   </url>
   
   <url>
-    <loc>/categories/data-science/</loc>
+    <loc>/tags/data-science/</loc>
     <lastmod>2018-12-04T00:00:00+00:00</lastmod>
     <priority>0</priority>
   </url>
