@@ -4,39 +4,62 @@ author: ''
 date: '2019-03-04'
 slug: r-pca
 draft: true
-categories: []
-tags: []
+categories: [data-science]
+tags: [R, pca]
 ---
 
 
 
-<div id="section" class="section level1">
-<h1>1.</h1>
+<div id="introduction" class="section level1">
+<h1>1. Introduction</h1>
+<p>Principal Components Analysis (PCA) is a commonly used dimensionality reduction algorithm. In this post, we show how to perform PCA in R. This post will only briefly touch on the theory behind PCA; instead, we focus on intuition, implementation and interpretation.</p>
+</div>
+<div id="pca---a-brief-introduction" class="section level1">
+<h1>2. PCA - A Brief Introduction</h1>
+<p>PCA dates back to the early 20th century, and is used to reduce the dimensionality of data (technically, it’s a <em>linear</em> dimensionality reduction procedure. We won’t get into what that means in this post).</p>
+<p>The reason you might want to do this is because high dimensional data might lie in a low dimensional subspace. We want to “re-state” this data in that lower dimensional space; that is, we want to get rid of those superfluous extra dimensions.</p>
+</div>
+<div id="intuition" class="section level1">
+<h1>3. Intuition</h1>
+<p>A simple example could be collecting data about houses in your neighbourhood; you collect features such as:</p>
+<ul>
+<li>Number of windows</li>
+<li>Number of bedrooms</li>
+<li>House price</li>
+</ul>
+<p>Each one of these is another dimension in your dataset. Say you mistakenly collect the area of your house both in square meters <em>and</em> in square feet. You now have 5 dimensional data, but really, it only lies in a 4 dimensional subspace.</p>
+<p>This is obviously a contrived example, but hopefully you get the picture.</p>
+</div>
+<div id="implementation-in-r" class="section level1">
+<h1>3. Implementation in R</h1>
+<p>Let’s generate data which simulates some marks in two tests, a maths test and a physics test:</p>
 <pre class="r"><code>set.seed(1337)
-mathScore &lt;- rescale(rnorm(100), to = c(0, 100))
+mathScore &lt;- runif(100) * 100
 physicsScore &lt;- mathScore + rnorm(100, sd = 8)
 
+#Let&#39;s make sure that there are no negative marks:
+physicsScore &lt;- pmax(0, physicsScore)
+
+#And let&#39;s make sure that there are no marks greater than 100:
+physicsScore &lt;- pmin(100, physicsScore)
+
 allTestResults &lt;- data.frame(math = mathScore, physics = physicsScore)
-
-#Get rid of negative test results, and results &gt; 100:
-#Throws error if no values less than 0, or greater than 100. Do proper error handling one day.
-allTestResults[allTestResults$physics &lt; 0, ]$physics &lt;- 0
-# allTestResults[allTestResults$physics &gt; 100, ]$physics &lt;- 100
-
 plot(allTestResults$math, allTestResults$physics, xlab = &quot;Math&quot;, ylab = &quot;Physics&quot;)</code></pre>
 <p><img src="/post/2019-03-04-r-pca_files/figure-html/unnamed-chunk-1-1.png" width="672" /></p>
+<p>We can see from the picture above that the data are pretty correlated:</p>
 <pre class="r"><code>cor(allTestResults$math, allTestResults$physics)</code></pre>
-<pre><code>## [1] 0.9093882</code></pre>
+<pre><code>## [1] 0.9725437</code></pre>
+<p>Maybe there is some underlying, latent “smartness” dimension upon which the data truly lie. Let us attempt to determine</p>
 <pre class="r"><code>pca_results &lt;- prcomp(allTestResults, center = TRUE) #Don&#39;t need to scale, since both axes already on same scale, but centering is NB
 
 print (pca_results)</code></pre>
 <pre><code>## Standard deviations (1, .., p=2):
-## [1] 26.004921  5.659014
+## [1] 42.769762  5.045888
 ## 
 ## Rotation (n x k) = (2 x 2):
-##               PC1        PC2
-## math    0.6898402 -0.7239617
-## physics 0.7239617  0.6898402</code></pre>
+##                PC1        PC2
+## math    -0.7050443  0.7091633
+## physics -0.7091633 -0.7050443</code></pre>
 <pre class="r"><code>plot(pca_results$x)</code></pre>
 <p><img src="/post/2019-03-04-r-pca_files/figure-html/unnamed-chunk-3-1.png" width="672" /></p>
 <pre class="r"><code># Let&#39;s scale the plot:
@@ -45,7 +68,7 @@ plot(pca_results$x, xlim = c(-60, 80), ylim = c(-60, 80))</code></pre>
 <pre class="r"><code>screeplot(pca_results)</code></pre>
 <p><img src="/post/2019-03-04-r-pca_files/figure-html/unnamed-chunk-5-1.png" width="672" /></p>
 <pre class="r"><code>pov &lt;- pca_results$sdev^2/sum(pca_results$sdev^2)</code></pre>
-<p>Percentage of variance explained by the first principal component: 95.4785647%</p>
+<p>Percentage of variance explained by the first principal component: 98.6272283%</p>
 <pre class="r"><code>biplot(pca_results)</code></pre>
 <p><img src="/post/2019-03-04-r-pca_files/figure-html/unnamed-chunk-7-1.png" width="672" /></p>
 <pre class="r"><code># allTestResults[8, ]
@@ -55,21 +78,21 @@ plot(pca_results$x, xlim = c(-60, 80), ylim = c(-60, 80))</code></pre>
 # allTestResults[84, ]
 # allTestResults[39, ]</code></pre>
 <pre class="r"><code>allTestResults[8, ]</code></pre>
-<pre><code>##       math physics
-## 8 76.43931 80.7065</code></pre>
+<pre><code>##       math  physics
+## 8 28.11173 32.83384</code></pre>
 <pre class="r"><code>allTestResults[34, ]</code></pre>
-<pre><code>##    math  physics
-## 34  100 96.65649</code></pre>
-<pre class="r"><code>allTestResults[100, ]</code></pre>
-<pre><code>##         math  physics
-## 100 56.23334 79.66458</code></pre>
-<pre class="r"><code>allTestResults[57, ]</code></pre>
-<pre><code>##    math physics
-## 57    0       0</code></pre>
-<pre class="r"><code>allTestResults[84, ]</code></pre>
 <pre><code>##        math  physics
-## 84 39.13561 19.34019</code></pre>
+## 34 22.91205 22.28855</code></pre>
+<pre class="r"><code>allTestResults[100, ]</code></pre>
+<pre><code>##         math physics
+## 100 97.10537     100</code></pre>
+<pre class="r"><code>allTestResults[57, ]</code></pre>
+<pre><code>##        math  physics
+## 57 14.12764 7.651867</code></pre>
+<pre class="r"><code>allTestResults[84, ]</code></pre>
+<pre><code>##       math  physics
+## 84 18.4879 15.14439</code></pre>
 <pre class="r"><code>allTestResults[39, ]</code></pre>
 <pre><code>##        math  physics
-## 39 21.83543 46.66482</code></pre>
+## 39 29.27543 36.10048</code></pre>
 </div>
