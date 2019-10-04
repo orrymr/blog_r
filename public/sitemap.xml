@@ -3,6 +3,11 @@
   xmlns:xhtml="http://www.w3.org/1999/xhtml">
   
   <url>
+    <loc>/post/an-r-pipeline-for-xgboost-and-a-discussion-about-hyperparameters/</loc>
+    <lastmod>2019-10-04T00:00:00+00:00</lastmod>
+  </url>
+  
+  <url>
     <loc>/post/work-rules/</loc>
     <lastmod>2019-09-03T00:00:00+00:00</lastmod>
   </url>
@@ -75,14 +80,14 @@
   </url>
   
   <url>
-    <loc>/tags/data-science/</loc>
-    <lastmod>2018-12-04T00:00:00+00:00</lastmod>
+    <loc>/categories/data-science/</loc>
+    <lastmod>2019-10-04T00:00:00+00:00</lastmod>
     <priority>0</priority>
   </url>
   
   <url>
-    <loc>/categories/data-science/</loc>
-    <lastmod>2019-03-04T00:00:00+00:00</lastmod>
+    <loc>/tags/data-science/</loc>
+    <lastmod>2019-10-04T00:00:00+00:00</lastmod>
     <priority>0</priority>
   </url>
   
@@ -136,13 +141,13 @@
   
   <url>
     <loc>/post/</loc>
-    <lastmod>2019-09-03T00:00:00+00:00</lastmod>
+    <lastmod>2019-10-04T00:00:00+00:00</lastmod>
     <priority>0</priority>
   </url>
   
   <url>
     <loc>/tags/r/</loc>
-    <lastmod>2019-03-04T00:00:00+00:00</lastmod>
+    <lastmod>2019-10-04T00:00:00+00:00</lastmod>
     <priority>0</priority>
   </url>
   
@@ -153,8 +158,14 @@
   </url>
   
   <url>
+    <loc>/tags/xgboost/</loc>
+    <lastmod>2019-10-04T00:00:00+00:00</lastmod>
+    <priority>0</priority>
+  </url>
+  
+  <url>
     <loc>/</loc>
-    <lastmod>2019-09-03T00:00:00+00:00</lastmod>
+    <lastmod>2019-10-04T00:00:00+00:00</lastmod>
     <priority>0</priority>
   </url>
   

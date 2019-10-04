@@ -6,10 +6,247 @@
     <description>Recent content in Data Science on orrymr.com</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en</language>
-    <lastBuildDate>Tue, 04 Dec 2018 00:00:00 +0000</lastBuildDate>
+    <lastBuildDate>Fri, 04 Oct 2019 00:00:00 +0000</lastBuildDate>
     
         <atom:link href="/tags/data-science/index.xml" rel="self" type="application/rss+xml" />
     
+    
+    <item>
+      <title>An R Pipeline for XGBoost (and a discussion about hyperparameters)</title>
+      <link>/post/an-r-pipeline-for-xgboost-and-a-discussion-about-hyperparameters/</link>
+      <pubDate>Fri, 04 Oct 2019 00:00:00 +0000</pubDate>
+      
+      <guid>/post/an-r-pipeline-for-xgboost-and-a-discussion-about-hyperparameters/</guid>
+      <description>
+
+
+&lt;pre class=&#34;r&#34;&gt;&lt;code&gt;library(Matrix)
+library(xgboost)
+library(ggplot2)
+library(readr)
+library(dplyr)&lt;/code&gt;&lt;/pre&gt;
+&lt;pre&gt;&lt;code&gt;## 
+## Attaching package: &amp;#39;dplyr&amp;#39;&lt;/code&gt;&lt;/pre&gt;
+&lt;pre&gt;&lt;code&gt;## The following object is masked from &amp;#39;package:xgboost&amp;#39;:
+## 
+##     slice&lt;/code&gt;&lt;/pre&gt;
+&lt;pre&gt;&lt;code&gt;## The following objects are masked from &amp;#39;package:stats&amp;#39;:
+## 
+##     filter, lag&lt;/code&gt;&lt;/pre&gt;
+&lt;pre&gt;&lt;code&gt;## The following objects are masked from &amp;#39;package:base&amp;#39;:
+## 
+##     intersect, setdiff, setequal, union&lt;/code&gt;&lt;/pre&gt;
+&lt;div id=&#34;introduction&#34; class=&#34;section level1&#34;&gt;
+&lt;h1&gt;1. Introduction&lt;/h1&gt;
+&lt;p&gt;XGBoost is …. I will use this post to consolidate my learnings thus far about XGBoost.&lt;/p&gt;
+&lt;/div&gt;
+&lt;div id=&#34;load-and-explore-the-data&#34; class=&#34;section level1&#34;&gt;
+&lt;h1&gt;2. Load And Explore The Data&lt;/h1&gt;
+&lt;p&gt;We will use the &lt;a href=&#34;https://www.kaggle.com/c/titanic/data&#34;&gt;Titanic Dataset&lt;/a&gt; which comes prepackaged with the xgboost library. Basically, we try predict whether a passenger survived or not (so this is a binary classification problem).&lt;/p&gt;
+&lt;p&gt;Let’s load up the data:&lt;/p&gt;
+&lt;pre class=&#34;r&#34;&gt;&lt;code&gt;titanic_train &amp;lt;- read_csv(&amp;quot;./xg_boost_data/train.csv&amp;quot;)&lt;/code&gt;&lt;/pre&gt;
+&lt;pre&gt;&lt;code&gt;## Parsed with column specification:
+## cols(
+##   PassengerId = col_double(),
+##   Survived = col_double(),
+##   Pclass = col_double(),
+##   Name = col_character(),
+##   Sex = col_character(),
+##   Age = col_double(),
+##   SibSp = col_double(),
+##   Parch = col_double(),
+##   Ticket = col_character(),
+##   Fare = col_double(),
+##   Cabin = col_character(),
+##   Embarked = col_character()
+## )&lt;/code&gt;&lt;/pre&gt;
+&lt;pre class=&#34;r&#34;&gt;&lt;code&gt;titanic_test &amp;lt;- read_csv(&amp;quot;./xg_boost_data//test.csv&amp;quot;)&lt;/code&gt;&lt;/pre&gt;
+&lt;pre&gt;&lt;code&gt;## Parsed with column specification:
+## cols(
+##   PassengerId = col_double(),
+##   Pclass = col_double(),
+##   Name = col_character(),
+##   Sex = col_character(),
+##   Age = col_double(),
+##   SibSp = col_double(),
+##   Parch = col_double(),
+##   Ticket = col_character(),
+##   Fare = col_double(),
+##   Cabin = col_character(),
+##   Embarked = col_character()
+## )&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;For the sake of brevity, I’ll only keep some of the features:&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;Pclass&lt;/li&gt;
+&lt;li&gt;Sex&lt;/li&gt;
+&lt;li&gt;Age&lt;/li&gt;
+&lt;li&gt;Embarked&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;Let’s have a look at our data after discarding a few features:&lt;/p&gt;
+&lt;pre class=&#34;r&#34;&gt;&lt;code&gt;titanic_train &amp;lt;- titanic_train %&amp;gt;%
+  select(Survived,
+         Pclass,
+         Sex,
+         Age,
+         Embarked)
+
+titanic_test &amp;lt;- titanic_test %&amp;gt;%
+  select(Pclass,
+         Sex,
+         Age,
+         Embarked)
+
+str(titanic_train)&lt;/code&gt;&lt;/pre&gt;
+&lt;pre&gt;&lt;code&gt;## Classes &amp;#39;spec_tbl_df&amp;#39;, &amp;#39;tbl_df&amp;#39;, &amp;#39;tbl&amp;#39; and &amp;#39;data.frame&amp;#39;: 891 obs. of  5 variables:
+##  $ Survived: num  0 1 1 1 0 0 0 0 1 1 ...
+##  $ Pclass  : num  3 1 3 1 3 3 1 3 3 2 ...
+##  $ Sex     : chr  &amp;quot;male&amp;quot; &amp;quot;female&amp;quot; &amp;quot;female&amp;quot; &amp;quot;female&amp;quot; ...
+##  $ Age     : num  22 38 26 35 35 NA 54 2 27 14 ...
+##  $ Embarked: chr  &amp;quot;S&amp;quot; &amp;quot;C&amp;quot; &amp;quot;S&amp;quot; &amp;quot;S&amp;quot; ...
+##  - attr(*, &amp;quot;spec&amp;quot;)=
+##   .. cols(
+##   ..   PassengerId = col_double(),
+##   ..   Survived = col_double(),
+##   ..   Pclass = col_double(),
+##   ..   Name = col_character(),
+##   ..   Sex = col_character(),
+##   ..   Age = col_double(),
+##   ..   SibSp = col_double(),
+##   ..   Parch = col_double(),
+##   ..   Ticket = col_character(),
+##   ..   Fare = col_double(),
+##   ..   Cabin = col_character(),
+##   ..   Embarked = col_character()
+##   .. )&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;XGBoost will only take numeric data as input. Let’s convert our character features to factors, and one-hot encode.&lt;/p&gt;
+&lt;pre class=&#34;r&#34;&gt;&lt;code&gt;# sparse.model.matrix() will drop rows with NA&amp;#39;s (https://stackoverflow.com/questions/29732720/sparse-model-matrix-loses-rows-in-r)
+summary(titanic_train) # seems like there are 177 NA&amp;#39;s in the Age variable, and 2 in the Embarked variable&lt;/code&gt;&lt;/pre&gt;
+&lt;pre&gt;&lt;code&gt;##     Survived          Pclass          Sex                 Age       
+##  Min.   :0.0000   Min.   :1.000   Length:891         Min.   : 0.42  
+##  1st Qu.:0.0000   1st Qu.:2.000   Class :character   1st Qu.:20.12  
+##  Median :0.0000   Median :3.000   Mode  :character   Median :28.00  
+##  Mean   :0.3838   Mean   :2.309                      Mean   :29.70  
+##  3rd Qu.:1.0000   3rd Qu.:3.000                      3rd Qu.:38.00  
+##  Max.   :1.0000   Max.   :3.000                      Max.   :80.00  
+##                                                      NA&amp;#39;s   :177    
+##    Embarked        
+##  Length:891        
+##  Class :character  
+##  Mode  :character  
+##                    
+##                    
+##                    
+## &lt;/code&gt;&lt;/pre&gt;
+&lt;pre class=&#34;r&#34;&gt;&lt;code&gt;summary(titanic_test) # 68 NA&amp;#39;s in age var&lt;/code&gt;&lt;/pre&gt;
+&lt;pre&gt;&lt;code&gt;##      Pclass          Sex                 Age          Embarked        
+##  Min.   :1.000   Length:418         Min.   : 0.17   Length:418        
+##  1st Qu.:1.000   Class :character   1st Qu.:21.00   Class :character  
+##  Median :3.000   Mode  :character   Median :27.00   Mode  :character  
+##  Mean   :2.266                      Mean   :30.27                     
+##  3rd Qu.:3.000                      3rd Qu.:39.00                     
+##  Max.   :3.000                      Max.   :76.00                     
+##                                     NA&amp;#39;s   :86&lt;/code&gt;&lt;/pre&gt;
+&lt;pre class=&#34;r&#34;&gt;&lt;code&gt;# We don&amp;#39;t want to drop rows. So let&amp;#39;s replace NA&amp;#39;s with a sentinal value; how about -999?
+titanic_train[is.na(titanic_train)] &amp;lt;- -999
+titanic_test[is.na(titanic_test)] &amp;lt;- -999
+
+titanic_train$Sex &amp;lt;- as.factor(titanic_train$Sex)
+titanic_train$Embarked &amp;lt;- as.factor(titanic_train$Embarked)
+titanic_train$Pclass &amp;lt;- as.factor(titanic_train$Pclass) # Could be ordinal, but leaving it is strict categorical
+titanic_test$Sex &amp;lt;- as.factor(titanic_test$Sex)
+titanic_test$Embarked &amp;lt;- as.factor(titanic_test$Embarked)
+titanic_test$Pclass &amp;lt;- as.factor(titanic_test$Pclass) # Could be ordinal, but leaving it is strict categorical
+
+titanic_train_sparse &amp;lt;- sparse.model.matrix(Survived~., data = titanic_train)[,-1]
+# Recall, xgboost takes advantage of the sparsity. Sparsity can be induced from 1-hot encoding.
+class(titanic_train_sparse)&lt;/code&gt;&lt;/pre&gt;
+&lt;pre&gt;&lt;code&gt;## [1] &amp;quot;dgCMatrix&amp;quot;
+## attr(,&amp;quot;package&amp;quot;)
+## [1] &amp;quot;Matrix&amp;quot;&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;The data are in the format of a &lt;strong&gt;dgCMatrix&lt;/strong&gt; class - this is the Matrix package’s implementation of sparse matrix.&lt;/p&gt;
+&lt;p&gt;Let’s have a look at the structure of the data a little closer:&lt;/p&gt;
+&lt;pre class=&#34;r&#34;&gt;&lt;code&gt;str(titanic_train_sparse)&lt;/code&gt;&lt;/pre&gt;
+&lt;pre&gt;&lt;code&gt;## Formal class &amp;#39;dgCMatrix&amp;#39; [package &amp;quot;Matrix&amp;quot;] with 6 slots
+##   ..@ i       : int [1:3032] 9 15 17 20 21 33 41 43 53 56 ...
+##   ..@ p       : int [1:8] 0 184 675 1252 2143 2311 2388 3032
+##   ..@ Dim     : int [1:2] 891 7
+##   ..@ Dimnames:List of 2
+##   .. ..$ : chr [1:891] &amp;quot;1&amp;quot; &amp;quot;2&amp;quot; &amp;quot;3&amp;quot; &amp;quot;4&amp;quot; ...
+##   .. ..$ : chr [1:7] &amp;quot;Pclass2&amp;quot; &amp;quot;Pclass3&amp;quot; &amp;quot;Sexmale&amp;quot; &amp;quot;Age&amp;quot; ...
+##   ..@ x       : num [1:3032] 1 1 1 1 1 1 1 1 1 1 ...
+##   ..@ factors : list()&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;We can check this directly:&lt;/p&gt;
+&lt;pre class=&#34;r&#34;&gt;&lt;code&gt;dim(titanic_train_sparse)&lt;/code&gt;&lt;/pre&gt;
+&lt;pre&gt;&lt;code&gt;## [1] 891   7&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;The names are the features are given by &lt;a href=&#34;mailto:titanic_train_sparse@Dimnames&#34;&gt;titanic_train_sparse@Dimnames&lt;/a&gt;:&lt;/p&gt;
+&lt;pre class=&#34;r&#34;&gt;&lt;code&gt;head(titanic_train_sparse@Dimnames[[2]])&lt;/code&gt;&lt;/pre&gt;
+&lt;pre&gt;&lt;code&gt;## [1] &amp;quot;Pclass2&amp;quot;   &amp;quot;Pclass3&amp;quot;   &amp;quot;Sexmale&amp;quot;   &amp;quot;Age&amp;quot;       &amp;quot;EmbarkedC&amp;quot; &amp;quot;EmbarkedQ&amp;quot;&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;You can convert this data into a dataframe, thusly:&lt;/p&gt;
+&lt;pre class=&#34;r&#34;&gt;&lt;code&gt;train_data_as_df &amp;lt;- as.data.frame(as.matrix(titanic_train_sparse))&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
+&lt;div id=&#34;hyperparameters&#34; class=&#34;section level1&#34;&gt;
+&lt;h1&gt;3 Hyperparameters&lt;/h1&gt;
+&lt;p&gt;This is a vast topic. Without going into too much depth, I’ll outline some of the more commonly used hyperparameters:&lt;/p&gt;
+&lt;pre class=&#34;r&#34;&gt;&lt;code&gt;# Full reference: https://xgboost.readthedocs.io/en/latest/parameter.html
+#### Tree booster params...####
+# eta:                              default = 0.3
+#                                   learning rate / shrinkage. Scales the contribution of each try by a factor of 0 &amp;lt; eta &amp;lt; 1
+# gamma:                            default = 0
+#                                   minimum loss reduction needed to make another partition in a given tree.
+#                                   larger the value, the more conservative the tree will be (as it will need to make a bigger reduction to split)
+#                                   So, conservative in the sense of willingness to split.
+# max_depth:                        default = 6
+#                                   max depth of each tree...
+# subsample:                        1 (ie, no subsampling)
+#                                   fraction of training samples to use in each &amp;quot;boosting iteration&amp;quot;
+# colsample_bytree:     default = 1 (ie, no sampling)
+#                       Fraction of columns to be used when constructing each tree. This is an idea used in RandomForests
+# min_child_weight:     default = 1
+#                       This is the minimum number of instances that have to been in a node. It&amp;#39;s a regularization parameter
+#                       So, if it&amp;#39;s set to 10, each leaf has to have at least 10 instances assigned to it.
+#                       The higher the value, the more conservative the tree will be.&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;(I’ve left it as commented code, as I like to past this into my scripts as a quick reference.)&lt;/p&gt;
+&lt;p&gt;Let’s create the hyper-parameters list:&lt;/p&gt;
+&lt;pre class=&#34;r&#34;&gt;&lt;code&gt;params_booster &amp;lt;- list(
+  booster = &amp;#39;gbtree&amp;#39;, # Possible to also have linear boosters as your weak learners.
+  eta = 1, 
+  gamma = 0,
+  max.depth = 2, 
+  subsample = 1, 
+  colsample_bytree = 1,
+  min_child_weight = 1, 
+  objective = &amp;quot;binary:logistic&amp;quot;
+)
+
+bstSparse &amp;lt;- xgboost(data = titanic_train_sparse, 
+                     label = titanic_train$Survived, 
+                     nrounds = 100,  
+                     params = params_booster)&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;The xgb.train() and xgboost() functions are used to train the boosting model, and both return an object of class xgb.Booster. Before we do that, let’s first use xgb.cv() to get some understanding of our performance before we evaluate against our final hold our test set. Important to not that xgb.cv() returns an object of type xgb.cv.synchronous, not xgb.Booster. So you won’t be able to call functions like xgb.importance() on it, as xgb.importance() takes object of class xgb.Booster &lt;strong&gt;not&lt;/strong&gt; xgb.cv.synchronous.&lt;/p&gt;
+&lt;pre class=&#34;r&#34;&gt;&lt;code&gt;# NB: keep in mind xgb.cv() is used to select the correct hyperparams.
+# Once you have them, train using xgb.train() or xgboost() to get the final model.
+
+bst.cv &amp;lt;- xgb.cv(data = titanic_train_sparse, 
+              label = titanic_train$Survived, 
+              params = params_booster,
+              nrounds = 300, 
+              nfold = 5,
+              print_every_n = 20,
+              verbose = 2)&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;Note, we can also implement early-stopping: early_stopping_rounds = 3, so that if there has been no improvement in test accuracy for a specified number of rounds, the algorithm stops.&lt;/p&gt;
+&lt;pre class=&#34;r&#34;&gt;&lt;code&gt;res_df &amp;lt;- data.frame(tr = bst.cv$evaluation_log$train_error_mean, 
+                     val = bst.cv$evaluation_log$test_error_mean,
+                     iter = bst.cv$evaluation_log$iter)
+
+g &amp;lt;- ggplot(res_df, aes(x=iter)) +        # Look @ it overfit.
+  geom_line(aes(y=tr), color = &amp;quot;blue&amp;quot;) +
+  geom_line(aes(y=val), colour = &amp;quot;green&amp;quot;)
+
+g&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;&lt;img src=&#34;/post/2019-10-04-an-r-pipeline-for-xgboost-and-a-discussion-about-hyperparameters_files/figure-html/unnamed-chunk-12-1.png&#34; width=&#34;672&#34; /&gt;&lt;/p&gt;
+&lt;/div&gt;
+</description>
+    </item>
     
     <item>
       <title>An Introduction to H2O Using R</title>

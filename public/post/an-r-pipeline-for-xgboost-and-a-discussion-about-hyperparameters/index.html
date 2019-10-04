@@ -1,0 +1,359 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="chrome=1">
+  <meta name="HandheldFriendly" content="True">
+  <meta name="MobileOptimized" content="320">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="referrer" content="no-referrer">
+  <meta name="google-site-verification" content="i-9rnKTO55VrWDag6iP74KddaTXU6YZylRl3rzB8cik" />
+  
+
+  <link rel="icon" type="image/png" href="/favicon.png">
+
+  <title>
+    
+    
+     An R Pipeline for XGBoost (and a discussion about hyperparameters) 
+    
+  </title>
+  <link rel="canonical" href="/post/an-r-pipeline-for-xgboost-and-a-discussion-about-hyperparameters/">
+
+  <link rel="stylesheet" href="/css/fonts.css" />
+  <link rel="stylesheet" href="/css/style.css" />
+
+  
+</head>
+
+<body>
+<section id=nav>
+  <h1><a href="/">orrymr.com</a></h1>
+  <ul>
+    
+    <li><a href="http://orrymr.com">Home</a></li>
+    
+    <li><a href="https://github.com/orrymr">GitHub</a></li>
+    
+    <li><a href="#">Music</a></li>
+    
+    <li><a href="#">About</a></li>
+    
+    <li><a href="https://twitter.com/orrymr">Twitter</a></li>
+    
+    <li><a href="/index.xml">RSS</a></li>
+    
+  </ul>
+</section>
+
+
+<section id=content>
+  <h1> An R Pipeline for XGBoost (and a discussion about hyperparameters) </h1>
+
+  <div id=sub-header>
+    Orry Messer · 2019/10/04 · 7 minute read
+  </div>
+
+  <p class="terms">
+  
+  
+  Categories:
+  
+  <a href='/categories/data-science'>data-science</a>
+  
+  
+  
+  
+  Tags:
+  
+  <a href='/tags/r'>R</a>
+  
+  <a href='/tags/data-science'>data-science</a>
+  
+  <a href='/tags/xgboost'>xgboost</a>
+  
+  
+  
+  </p>
+
+  <div class="entry-content">
+    
+
+
+<pre class="r"><code>library(Matrix)
+library(xgboost)
+library(ggplot2)
+library(readr)
+library(dplyr)</code></pre>
+<pre><code>## 
+## Attaching package: &#39;dplyr&#39;</code></pre>
+<pre><code>## The following object is masked from &#39;package:xgboost&#39;:
+## 
+##     slice</code></pre>
+<pre><code>## The following objects are masked from &#39;package:stats&#39;:
+## 
+##     filter, lag</code></pre>
+<pre><code>## The following objects are masked from &#39;package:base&#39;:
+## 
+##     intersect, setdiff, setequal, union</code></pre>
+<div id="introduction" class="section level1">
+<h1>1. Introduction</h1>
+<p>XGBoost is …. I will use this post to consolidate my learnings thus far about XGBoost.</p>
+</div>
+<div id="load-and-explore-the-data" class="section level1">
+<h1>2. Load And Explore The Data</h1>
+<p>We will use the <a href="https://www.kaggle.com/c/titanic/data">Titanic Dataset</a> which comes prepackaged with the xgboost library. Basically, we try predict whether a passenger survived or not (so this is a binary classification problem).</p>
+<p>Let’s load up the data:</p>
+<pre class="r"><code>titanic_train &lt;- read_csv(&quot;./xg_boost_data/train.csv&quot;)</code></pre>
+<pre><code>## Parsed with column specification:
+## cols(
+##   PassengerId = col_double(),
+##   Survived = col_double(),
+##   Pclass = col_double(),
+##   Name = col_character(),
+##   Sex = col_character(),
+##   Age = col_double(),
+##   SibSp = col_double(),
+##   Parch = col_double(),
+##   Ticket = col_character(),
+##   Fare = col_double(),
+##   Cabin = col_character(),
+##   Embarked = col_character()
+## )</code></pre>
+<pre class="r"><code>titanic_test &lt;- read_csv(&quot;./xg_boost_data//test.csv&quot;)</code></pre>
+<pre><code>## Parsed with column specification:
+## cols(
+##   PassengerId = col_double(),
+##   Pclass = col_double(),
+##   Name = col_character(),
+##   Sex = col_character(),
+##   Age = col_double(),
+##   SibSp = col_double(),
+##   Parch = col_double(),
+##   Ticket = col_character(),
+##   Fare = col_double(),
+##   Cabin = col_character(),
+##   Embarked = col_character()
+## )</code></pre>
+<p>For the sake of brevity, I’ll only keep some of the features:</p>
+<ul>
+<li>Pclass</li>
+<li>Sex</li>
+<li>Age</li>
+<li>Embarked</li>
+</ul>
+<p>Let’s have a look at our data after discarding a few features:</p>
+<pre class="r"><code>titanic_train &lt;- titanic_train %&gt;%
+  select(Survived,
+         Pclass,
+         Sex,
+         Age,
+         Embarked)
+
+titanic_test &lt;- titanic_test %&gt;%
+  select(Pclass,
+         Sex,
+         Age,
+         Embarked)
+
+str(titanic_train)</code></pre>
+<pre><code>## Classes &#39;spec_tbl_df&#39;, &#39;tbl_df&#39;, &#39;tbl&#39; and &#39;data.frame&#39;: 891 obs. of  5 variables:
+##  $ Survived: num  0 1 1 1 0 0 0 0 1 1 ...
+##  $ Pclass  : num  3 1 3 1 3 3 1 3 3 2 ...
+##  $ Sex     : chr  &quot;male&quot; &quot;female&quot; &quot;female&quot; &quot;female&quot; ...
+##  $ Age     : num  22 38 26 35 35 NA 54 2 27 14 ...
+##  $ Embarked: chr  &quot;S&quot; &quot;C&quot; &quot;S&quot; &quot;S&quot; ...
+##  - attr(*, &quot;spec&quot;)=
+##   .. cols(
+##   ..   PassengerId = col_double(),
+##   ..   Survived = col_double(),
+##   ..   Pclass = col_double(),
+##   ..   Name = col_character(),
+##   ..   Sex = col_character(),
+##   ..   Age = col_double(),
+##   ..   SibSp = col_double(),
+##   ..   Parch = col_double(),
+##   ..   Ticket = col_character(),
+##   ..   Fare = col_double(),
+##   ..   Cabin = col_character(),
+##   ..   Embarked = col_character()
+##   .. )</code></pre>
+<p>XGBoost will only take numeric data as input. Let’s convert our character features to factors, and one-hot encode.</p>
+<pre class="r"><code># sparse.model.matrix() will drop rows with NA&#39;s (https://stackoverflow.com/questions/29732720/sparse-model-matrix-loses-rows-in-r)
+summary(titanic_train) # seems like there are 177 NA&#39;s in the Age variable, and 2 in the Embarked variable</code></pre>
+<pre><code>##     Survived          Pclass          Sex                 Age       
+##  Min.   :0.0000   Min.   :1.000   Length:891         Min.   : 0.42  
+##  1st Qu.:0.0000   1st Qu.:2.000   Class :character   1st Qu.:20.12  
+##  Median :0.0000   Median :3.000   Mode  :character   Median :28.00  
+##  Mean   :0.3838   Mean   :2.309                      Mean   :29.70  
+##  3rd Qu.:1.0000   3rd Qu.:3.000                      3rd Qu.:38.00  
+##  Max.   :1.0000   Max.   :3.000                      Max.   :80.00  
+##                                                      NA&#39;s   :177    
+##    Embarked        
+##  Length:891        
+##  Class :character  
+##  Mode  :character  
+##                    
+##                    
+##                    
+## </code></pre>
+<pre class="r"><code>summary(titanic_test) # 68 NA&#39;s in age var</code></pre>
+<pre><code>##      Pclass          Sex                 Age          Embarked        
+##  Min.   :1.000   Length:418         Min.   : 0.17   Length:418        
+##  1st Qu.:1.000   Class :character   1st Qu.:21.00   Class :character  
+##  Median :3.000   Mode  :character   Median :27.00   Mode  :character  
+##  Mean   :2.266                      Mean   :30.27                     
+##  3rd Qu.:3.000                      3rd Qu.:39.00                     
+##  Max.   :3.000                      Max.   :76.00                     
+##                                     NA&#39;s   :86</code></pre>
+<pre class="r"><code># We don&#39;t want to drop rows. So let&#39;s replace NA&#39;s with a sentinal value; how about -999?
+titanic_train[is.na(titanic_train)] &lt;- -999
+titanic_test[is.na(titanic_test)] &lt;- -999
+
+titanic_train$Sex &lt;- as.factor(titanic_train$Sex)
+titanic_train$Embarked &lt;- as.factor(titanic_train$Embarked)
+titanic_train$Pclass &lt;- as.factor(titanic_train$Pclass) # Could be ordinal, but leaving it is strict categorical
+titanic_test$Sex &lt;- as.factor(titanic_test$Sex)
+titanic_test$Embarked &lt;- as.factor(titanic_test$Embarked)
+titanic_test$Pclass &lt;- as.factor(titanic_test$Pclass) # Could be ordinal, but leaving it is strict categorical
+
+titanic_train_sparse &lt;- sparse.model.matrix(Survived~., data = titanic_train)[,-1]
+# Recall, xgboost takes advantage of the sparsity. Sparsity can be induced from 1-hot encoding.
+class(titanic_train_sparse)</code></pre>
+<pre><code>## [1] &quot;dgCMatrix&quot;
+## attr(,&quot;package&quot;)
+## [1] &quot;Matrix&quot;</code></pre>
+<p>The data are in the format of a <strong>dgCMatrix</strong> class - this is the Matrix package’s implementation of sparse matrix.</p>
+<p>Let’s have a look at the structure of the data a little closer:</p>
+<pre class="r"><code>str(titanic_train_sparse)</code></pre>
+<pre><code>## Formal class &#39;dgCMatrix&#39; [package &quot;Matrix&quot;] with 6 slots
+##   ..@ i       : int [1:3032] 9 15 17 20 21 33 41 43 53 56 ...
+##   ..@ p       : int [1:8] 0 184 675 1252 2143 2311 2388 3032
+##   ..@ Dim     : int [1:2] 891 7
+##   ..@ Dimnames:List of 2
+##   .. ..$ : chr [1:891] &quot;1&quot; &quot;2&quot; &quot;3&quot; &quot;4&quot; ...
+##   .. ..$ : chr [1:7] &quot;Pclass2&quot; &quot;Pclass3&quot; &quot;Sexmale&quot; &quot;Age&quot; ...
+##   ..@ x       : num [1:3032] 1 1 1 1 1 1 1 1 1 1 ...
+##   ..@ factors : list()</code></pre>
+<p>We can check this directly:</p>
+<pre class="r"><code>dim(titanic_train_sparse)</code></pre>
+<pre><code>## [1] 891   7</code></pre>
+<p>The names are the features are given by <a href="mailto:titanic_train_sparse@Dimnames">titanic_train_sparse@Dimnames</a>:</p>
+<pre class="r"><code>head(titanic_train_sparse@Dimnames[[2]])</code></pre>
+<pre><code>## [1] &quot;Pclass2&quot;   &quot;Pclass3&quot;   &quot;Sexmale&quot;   &quot;Age&quot;       &quot;EmbarkedC&quot; &quot;EmbarkedQ&quot;</code></pre>
+<p>You can convert this data into a dataframe, thusly:</p>
+<pre class="r"><code>train_data_as_df &lt;- as.data.frame(as.matrix(titanic_train_sparse))</code></pre>
+</div>
+<div id="hyperparameters" class="section level1">
+<h1>3 Hyperparameters</h1>
+<p>This is a vast topic. Without going into too much depth, I’ll outline some of the more commonly used hyperparameters:</p>
+<pre class="r"><code># Full reference: https://xgboost.readthedocs.io/en/latest/parameter.html
+#### Tree booster params...####
+# eta:                              default = 0.3
+#                                   learning rate / shrinkage. Scales the contribution of each try by a factor of 0 &lt; eta &lt; 1
+# gamma:                            default = 0
+#                                   minimum loss reduction needed to make another partition in a given tree.
+#                                   larger the value, the more conservative the tree will be (as it will need to make a bigger reduction to split)
+#                                   So, conservative in the sense of willingness to split.
+# max_depth:                        default = 6
+#                                   max depth of each tree...
+# subsample:                        1 (ie, no subsampling)
+#                                   fraction of training samples to use in each &quot;boosting iteration&quot;
+# colsample_bytree:     default = 1 (ie, no sampling)
+#                       Fraction of columns to be used when constructing each tree. This is an idea used in RandomForests
+# min_child_weight:     default = 1
+#                       This is the minimum number of instances that have to been in a node. It&#39;s a regularization parameter
+#                       So, if it&#39;s set to 10, each leaf has to have at least 10 instances assigned to it.
+#                       The higher the value, the more conservative the tree will be.</code></pre>
+<p>(I’ve left it as commented code, as I like to past this into my scripts as a quick reference.)</p>
+<p>Let’s create the hyper-parameters list:</p>
+<pre class="r"><code>params_booster &lt;- list(
+  booster = &#39;gbtree&#39;, # Possible to also have linear boosters as your weak learners.
+  eta = 1, 
+  gamma = 0,
+  max.depth = 2, 
+  subsample = 1, 
+  colsample_bytree = 1,
+  min_child_weight = 1, 
+  objective = &quot;binary:logistic&quot;
+)
+
+bstSparse &lt;- xgboost(data = titanic_train_sparse, 
+                     label = titanic_train$Survived, 
+                     nrounds = 100,  
+                     params = params_booster)</code></pre>
+<p>The xgb.train() and xgboost() functions are used to train the boosting model, and both return an object of class xgb.Booster. Before we do that, let’s first use xgb.cv() to get some understanding of our performance before we evaluate against our final hold our test set. Important to not that xgb.cv() returns an object of type xgb.cv.synchronous, not xgb.Booster. So you won’t be able to call functions like xgb.importance() on it, as xgb.importance() takes object of class xgb.Booster <strong>not</strong> xgb.cv.synchronous.</p>
+<pre class="r"><code># NB: keep in mind xgb.cv() is used to select the correct hyperparams.
+# Once you have them, train using xgb.train() or xgboost() to get the final model.
+
+bst.cv &lt;- xgb.cv(data = titanic_train_sparse, 
+              label = titanic_train$Survived, 
+              params = params_booster,
+              nrounds = 300, 
+              nfold = 5,
+              print_every_n = 20,
+              verbose = 2)</code></pre>
+<p>Note, we can also implement early-stopping: early_stopping_rounds = 3, so that if there has been no improvement in test accuracy for a specified number of rounds, the algorithm stops.</p>
+<pre class="r"><code>res_df &lt;- data.frame(tr = bst.cv$evaluation_log$train_error_mean, 
+                     val = bst.cv$evaluation_log$test_error_mean,
+                     iter = bst.cv$evaluation_log$iter)
+
+g &lt;- ggplot(res_df, aes(x=iter)) +        # Look @ it overfit.
+  geom_line(aes(y=tr), color = &quot;blue&quot;) +
+  geom_line(aes(y=val), colour = &quot;green&quot;)
+
+g</code></pre>
+<p><img src="/post/2019-10-04-an-r-pipeline-for-xgboost-and-a-discussion-about-hyperparameters_files/figure-html/unnamed-chunk-12-1.png" width="672" /></p>
+</div>
+
+  </div>
+
+  <div id=links>
+    
+      <a class="basic-alignment left" href="/post/work-rules/">&laquo; Work Rules! - Insights from Inside Google That Will Transform How You Live and Lead, Part 1</a>
+    
+    
+  </div>
+</section>
+
+<section id="comments">
+<div id="disqus_thread"></div>
+<script type="text/javascript">
+
+(function() {
+      
+      
+      if (window.location.hostname == "localhost")
+                return;
+
+      var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+      var disqus_shortname = 'orrymr';
+      dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
+      (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+})();
+</script>
+<noscript>Please enable JavaScript to view the <a href="https://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+</section>
+
+
+  
+<script type="application/javascript">
+var doNotTrack = false;
+if (!doNotTrack) {
+	window.ga=window.ga||function(){(ga.q=ga.q||[]).push(arguments)};ga.l=+new Date;
+	ga('create', 'UA-115127992-1', 'auto');
+	
+	ga('send', 'pageview');
+}
+</script>
+<script async src='https://www.google-analytics.com/analytics.js'></script>
+
+  
+<script src="/js/math-code.js"></script>
+<script async src="//cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.1/MathJax.js?config=TeX-MML-AM_CHTML"></script>
+
+
+
+</body>
+</html>
+
