@@ -1,5 +1,9 @@
 ---
 title: An R Pipeline for XGBoost (and a discussion about hyperparameters)
+output:
+  blogdown::html_page:
+    toc: true
+    number_sections: true
 author: 'Orry Messer'
 date: '2019-10-04'
 slug: an-r-pipeline-for-xgboost-and-a-discussion-about-hyperparameters
@@ -11,30 +15,38 @@ tags:
   - xgboost
 ---
 
-```{r, results='hide'}
+```{r, echo = FALSE, results = 'hide', warning = FALSE, include = FALSE}
+knitr::opts_chunk$set(echo = TRUE, message = FALSE)
+options(kableExtra.html.bsTable = TRUE)
+
 library(Matrix)
 library(xgboost)
 library(ggplot2)
 library(readr)
 library(dplyr)
+library(knitr)
+library(kableExtra)
+
+directoryWhichContainsTrainingData <-  "./xg_boost_data/train.csv"
+directoryWhichContaintsTestData <- "./xg_boost_data//test.csv"
 ```
 
 
-# 1. Introduction
+# Introduction
 
 XGBoost is ....
 I will use this post to consolidate my learnings thus far about XGBoost.
 
-# 2. Load And Explore The Data
+# Load And Explore The Data
 
-We will use the [Titanic Dataset](https://www.kaggle.com/c/titanic/data) which comes prepackaged with the xgboost library. Basically, we try predict whether a passenger survived or not (so this is a binary classification problem).
+We will use the [Titanic Dataset](https://www.kaggle.com/c/titanic/data) which we get from Kaggle. Basically, we try predict whether a passenger survived or not (so this is a binary classification problem).
 
 Let's load up the data:
 
-```{r, results='hide'}
+```{r, echo=TRUE, message = FALSE}
 
-titanic_train <- read_csv("./xg_boost_data/train.csv")
-titanic_test <- read_csv("./xg_boost_data//test.csv")
+titanic_train <- read_csv(directoryWhichContainsTrainingData)
+titanic_test <- read_csv(directoryWhichContaintsTestData)
 
 ```
 
@@ -45,10 +57,9 @@ For the sake of brevity, I'll only keep some of the features:
 - Age
 - Embarked
 
-Let's have a look at our data after discarding a few features:
+I'll use dplyr's select() to do this:
 
 ```{r}
-
 titanic_train <- titanic_train %>%
   select(Survived,
          Pclass,
@@ -61,69 +72,82 @@ titanic_test <- titanic_test %>%
          Sex,
          Age,
          Embarked)
-
-str(titanic_train)
-
 ```
-XGBoost will only take numeric data as input. Let's convert our character features to factors, and one-hot encode.
+
+
+Let's have a look at our data after discarding a few features:
+
+```{r, message = TRUE}
+str(titanic_train, give.attr = FALSE)
+```
+XGBoost will only take numeric data as input. Let's convert our character features to factors, and one-hot encode. We will use sparse.model.matrix() to create a sparse matrix which will be used as input for our model. XGBoost has been written to take advantage of sparse matrices, so we want to make sure that we're using this feature.
+
+Unfortunately, in using R at least, sparse.model.matrix() will drop rows which contain NA's if the global option `options('na.action')` is set to `"na.omit"`.
+
+So we use a fix outlined [here](https://stackoverflow.com/questions/29732720/sparse-model-matrix-loses-rows-in-r):
 
 ```{r}
-
-
-
-# sparse.model.matrix() will drop rows with NA's (https://stackoverflow.com/questions/29732720/sparse-model-matrix-loses-rows-in-r)
-summary(titanic_train) # seems like there are 177 NA's in the Age variable, and 2 in the Embarked variable
-summary(titanic_test) # 68 NA's in age var
-
-# We don't want to drop rows. So let's replace NA's with a sentinal value; how about -999?
-titanic_train[is.na(titanic_train)] <- -999
-titanic_test[is.na(titanic_test)] <- -999
+previous_na_action <- options('na.action')
+options(na.action='na.pass')
 
 titanic_train$Sex <- as.factor(titanic_train$Sex)
 titanic_train$Embarked <- as.factor(titanic_train$Embarked)
-titanic_train$Pclass <- as.factor(titanic_train$Pclass) # Could be ordinal, but leaving it is strict categorical
-titanic_test$Sex <- as.factor(titanic_test$Sex)
-titanic_test$Embarked <- as.factor(titanic_test$Embarked)
-titanic_test$Pclass <- as.factor(titanic_test$Pclass) # Could be ordinal, but leaving it is strict categorical
 
 titanic_train_sparse <- sparse.model.matrix(Survived~., data = titanic_train)[,-1]
-# Recall, xgboost takes advantage of the sparsity. Sparsity can be induced from 1-hot encoding.
-class(titanic_train_sparse)
+
+options(na.action=previous_na_action$na.action)
+
 ```
 
-The data are in the format of a __dgCMatrix__ class - this is the Matrix package's implementation of sparse matrix.
+Alternatively, we could have just used a sentinel value to replace the NA's.
 
-Let's have a look at the structure of the data a little closer:
+## Interacting with the Sparse Matrix Object
+
+The data are in the format of a __dgCMatrix__ class - this is the Matrix package's implementation of sparse matrix:
 
 ```{r}
 str(titanic_train_sparse)
 ```
 
-We can check this directly:
+We can check the dimension of the matrix directly:
 
 ```{r}
 dim(titanic_train_sparse)
 ```
 
-The names are the features are given by titanic_train_sparse@Dimnames:
+The names are the features are given by `titanic_train_sparse@Dimnames[[2]]`:
 
 ```{r}
 head(titanic_train_sparse@Dimnames[[2]])
 ```
 
-You can convert this data into a dataframe, thusly:
+If needed, you can convert this data (back) into a dataframe, thusly:
 
 ```{r, results='hide'}
 train_data_as_df <- as.data.frame(as.matrix(titanic_train_sparse))
 ```
 
-# 3 Hyperparameters
+# Hyperparameters
 
-This is a vast topic. Without going into too much depth, I'll outline some of the more commonly used hyperparameters:
+Tuning hyperparameters is a vast topic. Without going into too much depth, I'll outline some of the more commonly used hyperparameters:
+
+Full reference: https://xgboost.readthedocs.io/en/latest/parameter.html
+### Tree booster params...####
+
+```{r, echo=FALSE, message = FALSE}
+param_df <- data.frame(Parameter = c("eta", 
+                                     "gamma", 
+                                     "max_depth", "subsample", "colsample_bytree", "min_child_weight"), 
+                      Explanation = c("default = 0.3	learning rate / shrinkage. Scales the contribution of each try by a factor of 0 < eta < 1", "default = 0 minimum loss reduction needed to make another partition in a given tree.	larger the value, the more conservative the tree will be (as it will need to make a bigger reduction to split)	So, conservative in the sense of willingness to split.", "default = 6	max depth of each tree...", "1 (ie, no subsampling)	fraction of training samples to use in each \"boosting iteration\"", " default = 1 (ie, no sampling) Fraction of columns to be used when constructing each tree. This is an idea used in RandomForests", "default = 1 This is the minimum number of instances that have to been in a node. It's a regularization parameter So, if it's set to 10, each leaf has to have at least 10 instances assigned to it. The higher the value, the more conservative the tree will be."))
+
+kable(param_df, caption = "Parameters") %>%
+  kable_styling(bootstrap_options = c("striped", "hover"))
+
+```
 
 ```{r}
 # Full reference: https://xgboost.readthedocs.io/en/latest/parameter.html
-#### Tree booster params...####
+# ### Tree booster params...####
 # eta:       						default = 0.3
 #            						learning rate / shrinkage. Scales the contribution of each try by a factor of 0 < eta < 1
 # gamma:     						default = 0
@@ -167,6 +191,8 @@ bstSparse <- xgboost(data = titanic_train_sparse,
                      params = params_booster)
 
 ```
+
+# Training The Model
 
 The xgb.train() and xgboost() functions are used to train the boosting model, and both return an object of class xgb.Booster.
 Before we do that, let's first use xgb.cv() to get some understanding of our performance before we evaluate against our final hold our test set. Important to not that xgb.cv() returns an object of type xgb.cv.synchronous, not xgb.Booster. So you won't be able to call functions like xgb.importance() on it, as xgb.importance() takes object of class xgb.Booster __not__ xgb.cv.synchronous.
