@@ -1,17 +1,12 @@
----
-title: An R Pipeline for XGBoost (and a discussion about hyperparameters)
-author: 'Orry Messer'
-date: '2019-10-04'
-slug: an-r-pipeline-for-xgboost-and-a-discussion-about-hyperparameters
-draft: true
-categories: [data-science]
-tags:
-  - R
-  - data-science
-  - xgboost
----
 
-
+<div id="TOC">
+<ul>
+<li><a href="#introduction"><span class="toc-section-number">1</span> 1. Introduction</a></li>
+<li><a href="#xgboost"><span class="toc-section-number">2</span> XGBoost</a></li>
+<li><a href="#load-and-explore-the-data"><span class="toc-section-number">3</span> 2. Load And Explore The Data</a></li>
+<li><a href="#hyperparameters"><span class="toc-section-number">4</span> 3 Hyperparameters</a></li>
+</ul>
+</div>
 
 <pre class="r"><code>library(Matrix)
 library(xgboost)
@@ -30,12 +25,15 @@ library(dplyr)</code></pre>
 ## 
 ##     intersect, setdiff, setequal, union</code></pre>
 <div id="introduction" class="section level1">
-<h1>1. Introduction</h1>
-<p>XGBoost is …. I will use this post to consolidate my learnings thus far about XGBoost.</p>
+<h1><span class="header-section-number">1</span> 1. Introduction</h1>
+<p><a href="https://xgboost.readthedocs.io/en/latest/">XGBoost</a> is an implementation of a machine learning technique known as <a href="https://en.wikipedia.org/wiki/Gradient_boosting">gradient boosting</a>. In this blog post, we discuss what XGBoost is, and demonstrate a pipeline for working with it in R.</p>
+</div>
+<div id="xgboost" class="section level1">
+<h1><span class="header-section-number">2</span> XGBoost</h1>
 </div>
 <div id="load-and-explore-the-data" class="section level1">
-<h1>2. Load And Explore The Data</h1>
-<p>We will use the <a href="https://www.kaggle.com/c/titanic/data">Titanic Dataset</a> which comes prepackaged with the xgboost library. Basically, we try predict whether a passenger survived or not (so this is a binary classification problem).</p>
+<h1><span class="header-section-number">3</span> 2. Load And Explore The Data</h1>
+<p>We will use the <a href="https://www.kaggle.com/c/titanic/data">Titanic Dataset</a>. Basically, we try predict whether a passenger survived or not (so this is a binary classification problem).</p>
 <p>Let’s load up the data:</p>
 <pre class="r"><code>titanic_train &lt;- read_csv(&quot;./xg_boost_data/train.csv&quot;)</code></pre>
 <pre><code>## Parsed with column specification:
@@ -178,7 +176,7 @@ class(titanic_train_sparse)</code></pre>
 <pre class="r"><code>train_data_as_df &lt;- as.data.frame(as.matrix(titanic_train_sparse))</code></pre>
 </div>
 <div id="hyperparameters" class="section level1">
-<h1>3 Hyperparameters</h1>
+<h1><span class="header-section-number">4</span> 3 Hyperparameters</h1>
 <p>This is a vast topic. Without going into too much depth, I’ll outline some of the more commonly used hyperparameters:</p>
 <pre class="r"><code># Full reference: https://xgboost.readthedocs.io/en/latest/parameter.html
 #### Tree booster params...####
@@ -236,5 +234,5 @@ g &lt;- ggplot(res_df, aes(x=iter)) +        # Look @ it overfit.
   geom_line(aes(y=val), colour = &quot;green&quot;)
 
 g</code></pre>
-<p><img src="/post/2019-10-04-an-r-pipeline-for-xgboost-and-a-discussion-about-hyperparameters_files/figure-html/unnamed-chunk-12-1.png" width="672" /></p>
+<p><img src="2019-10-04-an-r-pipeline-for-xgboost-and-a-discussion-about-hyperparameters_files/figure-html/unnamed-chunk-12-1.png" width="672" /></p>
 </div>

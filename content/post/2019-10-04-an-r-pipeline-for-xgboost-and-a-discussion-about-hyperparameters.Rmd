@@ -9,6 +9,10 @@ tags:
   - R
   - data-science
   - xgboost
+output:
+  blogdown::html_page:
+      number_sections: true
+      toc: TRUE
 ---
 
 ```{r, results='hide'}
@@ -20,14 +24,27 @@ library(dplyr)
 ```
 
 
-# 1. Introduction
+# Introduction
 
-XGBoost is ....
-I will use this post to consolidate my learnings thus far about XGBoost.
+[XGBoost](https://xgboost.readthedocs.io/en/latest/) is an implementation of a machine learning technique known as [gradient boosting](https://en.wikipedia.org/wiki/Gradient_boosting).
+In this blog post, we discuss what XGBoost is, and demonstrate a pipeline for working with it in R.
 
-# 2. Load And Explore The Data
+# XGBoost - An Implementation of Gradient Boosting
 
-We will use the [Titanic Dataset](https://www.kaggle.com/c/titanic/data) which comes prepackaged with the xgboost library. Basically, we try predict whether a passenger survived or not (so this is a binary classification problem).
+Gradient boosting is part of a class of machine learning techniques known as ensemble methods. An ensemble method leverages the output of many <u>weak learners</u> in order to make a prediction. Typically, these weak learners are implemented as decision trees. While each individual weak learner might not get the answer right, on average, their combined answers should be pretty decent. What makes gradient boosting different from another popular ensemble method - [Random Forest](https://en.wikipedia.org/wiki/Random_forest), is that the construction of the weak learners depend on the previously constructed learners. 
+
+In gradient boosting, each weak learner is chosen iteratively in a greedy manner, so as to minimize the loss function.
+
+XGBoost is a highly optimized implementation of gradient boosting. The original paper describing XGBoost can be found [here](https://arxiv.org/pdf/1603.02754.pdf). Although XGBoost is written in C++, it can be interfaced from R using the `xgboost` package.
+
+To install the package:
+
+`install.packages("xgboost")`
+
+
+# Load And Explore The Data
+
+We will use the [Titanic Dataset](https://www.kaggle.com/c/titanic/data). Basically, we try predict whether a passenger survived or not (so this is a binary classification problem).
 
 Let's load up the data:
 
