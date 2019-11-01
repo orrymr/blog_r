@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 
 <div id="TOC">
 <ul>
@@ -236,3 +237,240 @@ g &lt;- ggplot(res_df, aes(x=iter)) +        # Look @ it overfit.
 g</code></pre>
 <p><img src="2019-10-04-an-r-pipeline-for-xgboost-and-a-discussion-about-hyperparameters_files/figure-html/unnamed-chunk-12-1.png" width="672" /></p>
 </div>
+=======
+---
+title: An R Pipeline for XGBoost (and a discussion about hyperparameters)
+output:
+  blogdown::html_page:
+    toc: true
+    number_sections: true
+author: 'Orry Messer'
+date: '2019-10-04'
+slug: an-r-pipeline-for-xgboost-and-a-discussion-about-hyperparameters
+draft: true
+categories: [data-science]
+tags:
+  - R
+  - data-science
+  - xgboost
+---
+
+<script src="/rmarkdown-libs/kePrint/kePrint.js"></script>
+<link href="/rmarkdown-libs/bsTable/bootstrapTable.min.css" rel="stylesheet" />
+
+<div id="TOC">
+<ul>
+<li><a href="#introduction"><span class="toc-section-number">1</span> Introduction</a></li>
+<li><a href="#load-and-explore-the-data"><span class="toc-section-number">2</span> Load And Explore The Data</a><ul>
+<li><a href="#interacting-with-the-sparse-matrix-object"><span class="toc-section-number">2.1</span> Interacting with the Sparse Matrix Object</a></li>
+</ul></li>
+<li><a href="#hyperparameters"><span class="toc-section-number">3</span> Hyperparameters</a></li>
+<li><a href="#training-the-model"><span class="toc-section-number">4</span> Training The Model</a></li>
+</ul>
+</div>
+
+<div id="introduction" class="section level1">
+<h1><span class="header-section-number">1</span> Introduction</h1>
+<p>XGBoost is …. I will use this post to consolidate my learnings thus far about XGBoost.</p>
+</div>
+<div id="load-and-explore-the-data" class="section level1">
+<h1><span class="header-section-number">2</span> Load And Explore The Data</h1>
+<p>We will use the <a href="https://www.kaggle.com/c/titanic/data">Titanic Dataset</a> which we get from Kaggle. Basically, we try predict whether a passenger survived or not (so this is a binary classification problem).</p>
+<p>Let’s load up the data:</p>
+<pre class="r"><code>titanic_train &lt;- read_csv(directoryWhichContainsTrainingData)
+titanic_test &lt;- read_csv(directoryWhichContaintsTestData)</code></pre>
+<p>For the sake of brevity, I’ll only keep some of the features:</p>
+<ul>
+<li>Pclass</li>
+<li>Sex</li>
+<li>Age</li>
+<li>Embarked</li>
+</ul>
+<p>I’ll use dplyr’s select() to do this:</p>
+<pre class="r"><code>titanic_train &lt;- titanic_train %&gt;%
+  select(Survived,
+         Pclass,
+         Sex,
+         Age,
+         Embarked)
+
+titanic_test &lt;- titanic_test %&gt;%
+  select(Pclass,
+         Sex,
+         Age,
+         Embarked)</code></pre>
+<p>Let’s have a look at our data after discarding a few features:</p>
+<pre class="r"><code>str(titanic_train, give.attr = FALSE)</code></pre>
+<pre><code>## Classes &#39;spec_tbl_df&#39;, &#39;tbl_df&#39;, &#39;tbl&#39; and &#39;data.frame&#39;: 891 obs. of  5 variables:
+##  $ Survived: num  0 1 1 1 0 0 0 0 1 1 ...
+##  $ Pclass  : num  3 1 3 1 3 3 1 3 3 2 ...
+##  $ Sex     : chr  &quot;male&quot; &quot;female&quot; &quot;female&quot; &quot;female&quot; ...
+##  $ Age     : num  22 38 26 35 35 NA 54 2 27 14 ...
+##  $ Embarked: chr  &quot;S&quot; &quot;C&quot; &quot;S&quot; &quot;S&quot; ...</code></pre>
+<p>XGBoost will only take numeric data as input. Let’s convert our character features to factors, and one-hot encode. We will use sparse.model.matrix() to create a sparse matrix which will be used as input for our model. XGBoost has been written to take advantage of sparse matrices, so we want to make sure that we’re using this feature.</p>
+<p>Unfortunately, in using R at least, sparse.model.matrix() will drop rows which contain NA’s if the global option <code>options('na.action')</code> is set to <code>&quot;na.omit&quot;</code>.</p>
+<p>So we use a fix outlined <a href="https://stackoverflow.com/questions/29732720/sparse-model-matrix-loses-rows-in-r">here</a>:</p>
+<pre class="r"><code>previous_na_action &lt;- options(&#39;na.action&#39;)
+options(na.action=&#39;na.pass&#39;)
+
+titanic_train$Sex &lt;- as.factor(titanic_train$Sex)
+titanic_train$Embarked &lt;- as.factor(titanic_train$Embarked)
+
+titanic_train_sparse &lt;- sparse.model.matrix(Survived~., data = titanic_train)[,-1]
+
+options(na.action=previous_na_action$na.action)</code></pre>
+<p>Alternatively, we could have just used a sentinel value to replace the NA’s.</p>
+<div id="interacting-with-the-sparse-matrix-object" class="section level2">
+<h2><span class="header-section-number">2.1</span> Interacting with the Sparse Matrix Object</h2>
+<p>The data are in the format of a <strong>dgCMatrix</strong> class - this is the Matrix package’s implementation of sparse matrix:</p>
+<pre class="r"><code>str(titanic_train_sparse)</code></pre>
+<pre><code>## Formal class &#39;dgCMatrix&#39; [package &quot;Matrix&quot;] with 6 slots
+##   ..@ i       : int [1:3080] 0 1 2 3 4 5 6 7 8 9 ...
+##   ..@ p       : int [1:6] 0 891 1468 2359 2436 3080
+##   ..@ Dim     : int [1:2] 891 5
+##   ..@ Dimnames:List of 2
+##   .. ..$ : chr [1:891] &quot;1&quot; &quot;2&quot; &quot;3&quot; &quot;4&quot; ...
+##   .. ..$ : chr [1:5] &quot;Pclass&quot; &quot;Sexmale&quot; &quot;Age&quot; &quot;EmbarkedQ&quot; ...
+##   ..@ x       : num [1:3080] 3 1 3 1 3 3 1 3 3 2 ...
+##   ..@ factors : list()</code></pre>
+<p>We can check the dimension of the matrix directly:</p>
+<pre class="r"><code>dim(titanic_train_sparse)</code></pre>
+<pre><code>## [1] 891   5</code></pre>
+<p>The names are the features are given by <code>titanic_train_sparse@Dimnames[[2]]</code>:</p>
+<pre class="r"><code>head(titanic_train_sparse@Dimnames[[2]])</code></pre>
+<pre><code>## [1] &quot;Pclass&quot;    &quot;Sexmale&quot;   &quot;Age&quot;       &quot;EmbarkedQ&quot; &quot;EmbarkedS&quot;</code></pre>
+<p>If needed, you can convert this data (back) into a dataframe, thusly:</p>
+<pre class="r"><code>train_data_as_df &lt;- as.data.frame(as.matrix(titanic_train_sparse))</code></pre>
+</div>
+</div>
+<div id="hyperparameters" class="section level1">
+<h1><span class="header-section-number">3</span> Hyperparameters</h1>
+<p>Tuning hyperparameters is a vast topic. Without going into too much depth, I’ll outline some of the more commonly used hyperparameters:</p>
+<p>Full reference: <a href="https://xgboost.readthedocs.io/en/latest/parameter.html" class="uri">https://xgboost.readthedocs.io/en/latest/parameter.html</a> ### Tree booster params…####</p>
+<table class="table table-striped table-hover" style="margin-left: auto; margin-right: auto;">
+<caption>
+<span id="tab:unnamed-chunk-10">Table 3.1: </span>Parameters
+</caption>
+<thead>
+<tr>
+<th style="text-align:left;">
+Parameter
+</th>
+<th style="text-align:left;">
+Explanation
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:left;">
+eta
+</td>
+<td style="text-align:left;">
+default = 0.3 learning rate / shrinkage. Scales the contribution of each try by a factor of 0 &lt; eta &lt; 1
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+gamma
+</td>
+<td style="text-align:left;">
+default = 0 minimum loss reduction needed to make another partition in a given tree. larger the value, the more conservative the tree will be (as it will need to make a bigger reduction to split) So, conservative in the sense of willingness to split.
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+max_depth
+</td>
+<td style="text-align:left;">
+default = 6 max depth of each tree…
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+subsample
+</td>
+<td style="text-align:left;">
+1 (ie, no subsampling) fraction of training samples to use in each “boosting iteration”
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+colsample_bytree
+</td>
+<td style="text-align:left;">
+default = 1 (ie, no sampling) Fraction of columns to be used when constructing each tree. This is an idea used in RandomForests
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+min_child_weight
+</td>
+<td style="text-align:left;">
+default = 1 This is the minimum number of instances that have to been in a node. It’s a regularization parameter So, if it’s set to 10, each leaf has to have at least 10 instances assigned to it. The higher the value, the more conservative the tree will be.
+</td>
+</tr>
+</tbody>
+</table>
+<pre class="r"><code># Full reference: https://xgboost.readthedocs.io/en/latest/parameter.html
+# ### Tree booster params...####
+# eta:                              default = 0.3
+#                                   learning rate / shrinkage. Scales the contribution of each try by a factor of 0 &lt; eta &lt; 1
+# gamma:                            default = 0
+#                                   minimum loss reduction needed to make another partition in a given tree.
+#                                   larger the value, the more conservative the tree will be (as it will need to make a bigger reduction to split)
+#                                   So, conservative in the sense of willingness to split.
+# max_depth:                        default = 6
+#                                   max depth of each tree...
+# subsample:                        1 (ie, no subsampling)
+#                                   fraction of training samples to use in each &quot;boosting iteration&quot;
+# colsample_bytree:     default = 1 (ie, no sampling)
+#                       Fraction of columns to be used when constructing each tree. This is an idea used in RandomForests
+# min_child_weight:     default = 1
+#                       This is the minimum number of instances that have to been in a node. It&#39;s a regularization parameter
+#                       So, if it&#39;s set to 10, each leaf has to have at least 10 instances assigned to it.
+#                       The higher the value, the more conservative the tree will be.</code></pre>
+<p>(I’ve left it as commented code, as I like to past this into my scripts as a quick reference.)</p>
+<p>Let’s create the hyper-parameters list:</p>
+<pre class="r"><code>params_booster &lt;- list(
+  booster = &#39;gbtree&#39;, # Possible to also have linear boosters as your weak learners.
+  eta = 1, 
+  gamma = 0,
+  max.depth = 2, 
+  subsample = 1, 
+  colsample_bytree = 1,
+  min_child_weight = 1, 
+  objective = &quot;binary:logistic&quot;
+)
+
+bstSparse &lt;- xgboost(data = titanic_train_sparse, 
+                     label = titanic_train$Survived, 
+                     nrounds = 100,  
+                     params = params_booster)</code></pre>
+</div>
+<div id="training-the-model" class="section level1">
+<h1><span class="header-section-number">4</span> Training The Model</h1>
+<p>The xgb.train() and xgboost() functions are used to train the boosting model, and both return an object of class xgb.Booster. Before we do that, let’s first use xgb.cv() to get some understanding of our performance before we evaluate against our final hold our test set. Important to not that xgb.cv() returns an object of type xgb.cv.synchronous, not xgb.Booster. So you won’t be able to call functions like xgb.importance() on it, as xgb.importance() takes object of class xgb.Booster <strong>not</strong> xgb.cv.synchronous.</p>
+<pre class="r"><code># NB: keep in mind xgb.cv() is used to select the correct hyperparams.
+# Once you have them, train using xgb.train() or xgboost() to get the final model.
+
+bst.cv &lt;- xgb.cv(data = titanic_train_sparse, 
+              label = titanic_train$Survived, 
+              params = params_booster,
+              nrounds = 300, 
+              nfold = 5,
+              print_every_n = 20,
+              verbose = 2)</code></pre>
+<p>Note, we can also implement early-stopping: early_stopping_rounds = 3, so that if there has been no improvement in test accuracy for a specified number of rounds, the algorithm stops.</p>
+<pre class="r"><code>res_df &lt;- data.frame(tr = bst.cv$evaluation_log$train_error_mean, 
+                     val = bst.cv$evaluation_log$test_error_mean,
+                     iter = bst.cv$evaluation_log$iter)
+
+g &lt;- ggplot(res_df, aes(x=iter)) +        # Look @ it overfit.
+  geom_line(aes(y=tr), color = &quot;blue&quot;) +
+  geom_line(aes(y=val), colour = &quot;green&quot;)
+
+g</code></pre>
+<p><img src="/post/2019-10-04-an-r-pipeline-for-xgboost-and-a-discussion-about-hyperparameters_files/figure-html/unnamed-chunk-14-1.png" width="672" /></p>
+</div>
+>>>>>>> 3b9e6eb27cdc54f3e4e214759cb5130dfd4780c5
