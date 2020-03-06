@@ -1,0 +1,11 @@
+Error in setinfo.xgb.DMatrix(dmat, names(p), p[[1]]) : 
+  The length of labels must equal to the number of rows in the input data
+
+Have you done:
+
+previous_na_action <- options('na.action')
+options(na.action='na.pass')
+
+options(na.action = previous_na_action)
+
+----------------------------------------
