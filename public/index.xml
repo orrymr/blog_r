@@ -1676,5 +1676,318 @@ Let&amp;rsquo;s try this with an example. Let&amp;rsquo;s take a vector with &lt
 </description>
     </item>
     
+    <item>
+      <title></title>
+      <link>/books-ive-read/</link>
+      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+      
+      <guid>/books-ive-read/</guid>
+      <description>Erm.. Yeah, so this is a place for me to keep track of what I&#39;ve been reading. 
+&lt;br/&gt;
+
+My goodreads profile exists &lt;a href = &#34;https://www.goodreads.com/user/show/103071340-orry&#34;&gt;here&lt;/a&gt;
+&lt;br/&gt;
+&lt;br/&gt;
+
+&lt;hr&gt;
+
+
+&lt;table style=&#34;width:100%&#34;&gt;
+  &lt;style&gt;
+      table, th, td {
+      padding: 10px;
+      border: 1px solid black; 
+      border-collapse: collapse;
+      }
+    &lt;/style&gt;
+  &lt;tr&gt;
+    &lt;th&gt;Date Finished&lt;/th&gt;
+    &lt;th&gt;Author&lt;/th&gt;
+    &lt;th&gt;Title&lt;/th&gt;
+  &lt;/tr&gt;
+  &lt;tr&gt;
+    &lt;td&gt;Feb 2020&lt;/td&gt;
+    &lt;td&gt;Blake Crouch&lt;/td&gt;
+    &lt;td&gt;&lt;a href=&#34;https://www.goodreads.com/book/show/42046112-recursion&#34;&gt;Recursion&lt;/a&gt;&lt;/td&gt;
+  &lt;/tr&gt;
+&lt;/table&gt;
+
+&lt;a href=&#34;https://www.goodreads.com/book/show/42046112-recursion&#34;&gt;&lt;img src=&#34;https://i.gr-assets.com/images/S/compressed.photo.goodreads.com/books/1543687940l/42046112.jpg&#34; alt=&#34;Recursion_Img&#34;&gt;&lt;/a&gt;
+
+&lt;hr&gt;
+
+
+&lt;table style=&#34;width:100%&#34;&gt;
+  &lt;style&gt;
+      table, th, td {
+      padding: 10px;
+      border: 1px solid black; 
+      border-collapse: collapse;
+      }
+    &lt;/style&gt;
+  &lt;tr&gt;
+    &lt;th&gt;Date Finished&lt;/th&gt;
+    &lt;th&gt;Author&lt;/th&gt;
+    &lt;th&gt;Title&lt;/th&gt;
+  &lt;/tr&gt;
+  &lt;tr&gt;
+    &lt;td&gt;Feb 2020&lt;/td&gt;
+    &lt;td&gt;Simon Schama&lt;/td&gt;
+    &lt;td&gt;&lt;a href=&#34;https://www.goodreads.com/book/show/18909070-the-story-of-the-jews&#34;&gt;The Story of the Jews: Finding the Words (1000 BCE - 1492)&lt;/a&gt;&lt;/td&gt;
+  &lt;/tr&gt;
+&lt;/table&gt;
+
+&lt;a href=https://www.goodreads.com/book/show/18909070-the-story-of-the-jews&gt;&lt;img src=&#34;https://i.gr-assets.com/images/S/compressed.photo.goodreads.com/books/1389546762l/18909070.jpg&#34; alt=&#34;JEWS_Img&#34;&gt;&lt;/a&gt;
+
+
+&lt;hr&gt;
+
+
+&lt;table style=&#34;width:100%&#34;&gt;
+  &lt;style&gt;
+      table, th, td {
+      padding: 10px;
+      border: 1px solid black; 
+      border-collapse: collapse;
+      }
+    &lt;/style&gt;
+  &lt;tr&gt;
+    &lt;th&gt;Date Finished&lt;/th&gt;
+    &lt;th&gt;Author&lt;/th&gt;
+    &lt;th&gt;Title&lt;/th&gt;
+  &lt;/tr&gt;
+  &lt;tr&gt;
+    &lt;td&gt;December 2019&lt;/td&gt;
+    &lt;td&gt;Adam Hochschild&lt;/td&gt;
+    &lt;td&gt;&lt;a href=&#34;https://www.goodreads.com/book/show/41823410-king-leopold-s-ghost&#34;&gt;King Leopold&#39;s Ghost: A Story of Greed, Terror and Heroism in Colonial Africa&lt;/a&gt;&lt;/td&gt;
+  &lt;/tr&gt;
+&lt;/table&gt;
+
+&lt;a href=https://www.goodreads.com/book/show/41823410-king-leopold-s-ghost&gt;&lt;img src=&#34;https://i.gr-assets.com/images/S/compressed.photo.goodreads.com/books/1536867157l/41823410._SY475_.jpg&#34; alt=&#34;leop_ghost_img&#34;&gt;&lt;/a&gt;
+
+
+&lt;hr&gt;
+
+
+&lt;table style=&#34;width:100%&#34;&gt;
+  &lt;style&gt;
+      table, th, td {
+      padding: 10px;
+      border: 1px solid black; 
+      border-collapse: collapse;
+      }
+    &lt;/style&gt;
+  &lt;tr&gt;
+    &lt;th&gt;Date Finished&lt;/th&gt;
+    &lt;th&gt;Author&lt;/th&gt;
+    &lt;th&gt;Title&lt;/th&gt;
+  &lt;/tr&gt;
+  &lt;tr&gt;
+    &lt;td&gt;November 2019&lt;/td&gt;
+    &lt;td&gt;Neal Stephenson&lt;/td&gt;
+    &lt;td&gt;&lt;a href=&#34;https://www.goodreads.com/book/show/14761514-cryptonomicon&#34;&gt;Cryptonomicon&lt;/a&gt;&lt;/td&gt;
+  &lt;/tr&gt;
+&lt;/table&gt;
+
+&lt;a href=https://www.goodreads.com/book/show/14761514-cryptonomicon&gt;&lt;img src=&#34;https://i.gr-assets.com/images/S/compressed.photo.goodreads.com/books/1349690067l/14761514.jpg&#34; alt=&#34;crypto_img&#34;&gt;&lt;/a&gt;
+
+
+&lt;hr&gt;
+
+
+&lt;table style=&#34;width:100%&#34;&gt;
+  &lt;style&gt;
+      table, th, td {
+      padding: 10px;
+      border: 1px solid black; 
+      border-collapse: collapse;
+      }
+    &lt;/style&gt;
+  &lt;tr&gt;
+    &lt;th&gt;Date Finished&lt;/th&gt;
+    &lt;th&gt;Author&lt;/th&gt;
+    &lt;th&gt;Title&lt;/th&gt;
+  &lt;/tr&gt;
+  &lt;tr&gt;
+    &lt;td&gt;Sometime 2019&lt;/td&gt;
+    &lt;td&gt;Hermann Hesse&lt;/td&gt;
+    &lt;td&gt;&lt;a href=&#34;https://www.goodreads.com/book/show/17378652-steppenwolf&#34;&gt;Steppenwolf&lt;/a&gt;&lt;/td&gt;
+  &lt;/tr&gt;
+&lt;/table&gt;
+
+&lt;a href=https://www.goodreads.com/book/show/17378652-steppenwolf&gt;&lt;img src=&#34;https://i.gr-assets.com/images/S/compressed.photo.goodreads.com/books/1361044013l/17378652.jpg&#34; alt=&#34;steppenw_img&#34;&gt;&lt;/a&gt;
+
+
+
+&lt;hr&gt;
+
+
+&lt;table style=&#34;width:100%&#34;&gt;
+  &lt;style&gt;
+      table, th, td {
+      padding: 10px;
+      border: 1px solid black; 
+      border-collapse: collapse;
+      }
+    &lt;/style&gt;
+  &lt;tr&gt;
+    &lt;th&gt;Date Finished&lt;/th&gt;
+    &lt;th&gt;Author&lt;/th&gt;
+    &lt;th&gt;Title&lt;/th&gt;
+  &lt;/tr&gt;
+  &lt;tr&gt;
+    &lt;td&gt;Sometime 2019&lt;/td&gt;
+    &lt;td&gt;Michael Chabon&lt;/td&gt;
+    &lt;td&gt;&lt;a href=&#34;https://www.goodreads.com/book/show/16703.The_Yiddish_Policemen_s_Union&#34;&gt;The Yiddish Policemen&#39;s Union
+&lt;/a&gt;&lt;/td&gt;
+  &lt;/tr&gt;
+&lt;/table&gt;
+
+&lt;a href=https://www.goodreads.com/book/show/16703.The_Yiddish_Policemen_s_Union&gt;&lt;img src=&#34;https://i.gr-assets.com/images/S/compressed.photo.goodreads.com/books/1557172798l/16703._SX318_.jpg&#34; alt=&#34;yid_img&#34;&gt;&lt;/a&gt;
+
+
+
+
+&lt;hr&gt;
+
+
+&lt;table style=&#34;width:100%&#34;&gt;
+  &lt;style&gt;
+      table, th, td {
+      padding: 10px;
+      border: 1px solid black; 
+      border-collapse: collapse;
+      }
+    &lt;/style&gt;
+  &lt;tr&gt;
+    &lt;th&gt;Date Finished&lt;/th&gt;
+    &lt;th&gt;Author&lt;/th&gt;
+    &lt;th&gt;Title&lt;/th&gt;
+  &lt;/tr&gt;
+  &lt;tr&gt;
+    &lt;td&gt;Sometime 2019&lt;/td&gt;
+    &lt;td&gt;Peter Thiel and Blake Masters&lt;/td&gt;
+    &lt;td&gt;&lt;a href=&#34;https://www.goodreads.com/book/show/23251016-zero-to-one&#34;&gt;	Zero to One: Notes on Start Ups, or How to Build the Future
+&lt;/a&gt;&lt;/td&gt;
+  &lt;/tr&gt;
+&lt;/table&gt;
+
+&lt;a href=https://www.goodreads.com/book/show/23251016-zero-to-one&gt;&lt;img src=&#34;https://i.gr-assets.com/images/S/compressed.photo.goodreads.com/books/1427728884l/23251016.jpg&#34; alt=&#34;01_img&#34;&gt;&lt;/a&gt;
+
+
+
+&lt;hr&gt;
+
+
+&lt;table style=&#34;width:100%&#34;&gt;
+  &lt;style&gt;
+      table, th, td {
+      padding: 10px;
+      border: 1px solid black; 
+      border-collapse: collapse;
+      }
+    &lt;/style&gt;
+  &lt;tr&gt;
+    &lt;th&gt;Date Finished&lt;/th&gt;
+    &lt;th&gt;Author&lt;/th&gt;
+    &lt;th&gt;Title&lt;/th&gt;
+  &lt;/tr&gt;
+  &lt;tr&gt;
+    &lt;td&gt;Sometime 2019&lt;/td&gt;
+    &lt;td&gt;John Kennedy Toole&lt;/td&gt;
+    &lt;td&gt;&lt;a href=&#34;https://www.goodreads.com/book/show/18162555-a-confederacy-of-dunces&#34;&gt;	A Confederacy of Dunces
+&lt;/a&gt;&lt;/td&gt;
+  &lt;/tr&gt;
+&lt;/table&gt;
+
+&lt;a href=https://www.goodreads.com/book/show/18162555-a-confederacy-of-dunces&gt;&lt;img src=&#34;https://i.gr-assets.com/images/S/compressed.photo.goodreads.com/books/1372997691l/18162555.jpg&#34; alt=&#34;dunce_img&#34;&gt;&lt;/a&gt;
+
+
+
+&lt;hr&gt;
+
+
+&lt;table style=&#34;width:100%&#34;&gt;
+  &lt;style&gt;
+      table, th, td {
+      padding: 10px;
+      border: 1px solid black; 
+      border-collapse: collapse;
+      }
+    &lt;/style&gt;
+  &lt;tr&gt;
+    &lt;th&gt;Date Finished&lt;/th&gt;
+    &lt;th&gt;Author&lt;/th&gt;
+    &lt;th&gt;Title&lt;/th&gt;
+  &lt;/tr&gt;
+  &lt;tr&gt;
+    &lt;td&gt;Sometime 2019&lt;/td&gt;
+    &lt;td&gt;Yuval Noah Harari&lt;/td&gt;
+    &lt;td&gt;&lt;a href=&#34;https://www.goodreads.com/book/show/23692271-sapiens&#34;&gt;	Sapiens: A Brief History of Humankind
+&lt;/a&gt;&lt;/td&gt;
+  &lt;/tr&gt;
+&lt;/table&gt;
+
+&lt;a href=https://www.goodreads.com/book/show/23692271-sapiens&gt;&lt;img src=&#34;https://i.gr-assets.com/images/S/compressed.photo.goodreads.com/books/1420585954l/23692271.jpg&#34; alt=&#34;sapiens_img&#34;&gt;&lt;/a&gt;
+
+
+
+
+
+&lt;hr&gt;
+
+
+&lt;table style=&#34;width:100%&#34;&gt;
+  &lt;style&gt;
+      table, th, td {
+      padding: 10px;
+      border: 1px solid black; 
+      border-collapse: collapse;
+      }
+    &lt;/style&gt;
+  &lt;tr&gt;
+    &lt;th&gt;Date Finished&lt;/th&gt;
+    &lt;th&gt;Author&lt;/th&gt;
+    &lt;th&gt;Title&lt;/th&gt;
+  &lt;/tr&gt;
+  &lt;tr&gt;
+    &lt;td&gt;Sometime 2019&lt;/td&gt;
+    &lt;td&gt;Gabriel García Márquez&lt;/td&gt;
+    &lt;td&gt;&lt;a href=&#34;https://www.goodreads.com/book/show/320.One_Hundred_Years_of_Solitude&#34;&gt;	One Hundred Years of Solitude
+&lt;/a&gt;&lt;/td&gt;
+  &lt;/tr&gt;
+&lt;/table&gt;
+
+&lt;a href=https://www.goodreads.com/book/show/320.One_Hundred_Years_of_Solitude&gt;&lt;img src=&#34;https://i.gr-assets.com/images/S/compressed.photo.goodreads.com/books/1327881361l/320.jpg&#34; alt=&#34;100yrs_img&#34;&gt;&lt;/a&gt;
+
+
+
+&lt;hr&gt;
+
+
+&lt;table style=&#34;width:100%&#34;&gt;
+  &lt;style&gt;
+      table, th, td {
+      padding: 10px;
+      border: 1px solid black; 
+      border-collapse: collapse;
+      }
+    &lt;/style&gt;
+  &lt;tr&gt;
+    &lt;th&gt;Date Finished&lt;/th&gt;
+    &lt;th&gt;Author&lt;/th&gt;
+    &lt;th&gt;Title&lt;/th&gt;
+  &lt;/tr&gt;
+  &lt;tr&gt;
+    &lt;td&gt;Sometime 2019&lt;/td&gt;
+    &lt;td&gt;Laszlo Bock&lt;/td&gt;
+    &lt;td&gt;&lt;a href=&#34;https://www.goodreads.com/book/show/22875447-work-rules?from_search=true&amp;qid=ECv2edvop0&amp;rank=2&#34;&gt;	Work Rules!: Insights from Inside Google That Will Transform How You Live and Lead
+&lt;/a&gt;&lt;/td&gt;
+  &lt;/tr&gt;
+&lt;/table&gt;
+
+&lt;a href=https://www.goodreads.com/book/show/22875447-work-rules?from_search=true&amp;qid=ECv2edvop0&amp;rank=2&gt;&lt;img src=&#34;https://i.gr-assets.com/images/S/compressed.photo.goodreads.com/books/1420790922l/22875447.jpg&#34; alt=&#34;work_rules_img&#34;&gt;&lt;/a&gt;</description>
+    </item>
+    
   </channel>
 </rss>
