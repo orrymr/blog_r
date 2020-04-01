@@ -1,0 +1,987 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    
+    <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="generator" content="Hugo 0.68.3 with theme Tranquilpeak 0.4.7-BETA">
+<meta name="author" content="Orry Messer">
+<meta name="keywords" content="">
+<meta name="description" content="In this article we describe what the nullspace is. We go on to explain how to find the nullspace.">
+
+
+<meta property="og:description" content="In this article we describe what the nullspace is. We go on to explain how to find the nullspace.">
+<meta property="og:type" content="article">
+<meta property="og:title" content="A Matrix Nullspace (Kernel) Tutorial - Finding the Nullspace">
+<meta name="twitter:title" content="A Matrix Nullspace (Kernel) Tutorial - Finding the Nullspace">
+<meta property="og:url" content="/2018/03/a-matrix-nullspace-kernel-tutorial-finding-the-nullspace/">
+<meta property="twitter:url" content="/2018/03/a-matrix-nullspace-kernel-tutorial-finding-the-nullspace/">
+<meta property="og:site_name" content="orrymr.com">
+<meta property="og:description" content="In this article we describe what the nullspace is. We go on to explain how to find the nullspace.">
+<meta name="twitter:description" content="In this article we describe what the nullspace is. We go on to explain how to find the nullspace.">
+<meta property="og:locale" content="en">
+
+  
+    <meta property="article:published_time" content="2018-03-01T20:35:21">
+  
+  
+    <meta property="article:modified_time" content="2018-03-01T20:35:21">
+  
+  
+  
+  
+    
+      <meta property="article:tag" content="linear algebra">
+    
+      <meta property="article:tag" content="18.06">
+    
+      <meta property="article:tag" content="matrices">
+    
+      <meta property="article:tag" content="nullspace">
+    
+  
+
+
+<meta name="twitter:card" content="summary">
+
+  <meta name="twitter:site" content="@orrymr">
+
+
+  <meta name="twitter:creator" content="@orrymr">
+
+
+
+
+
+
+  <meta property="og:image" content="https://res.cloudinary.com/da1gwmlvj/image/upload/v1585758073/nullspace_sbylpi.png">
+  <meta property="twitter:image" content="https://res.cloudinary.com/da1gwmlvj/image/upload/v1585758073/nullspace_sbylpi.png">
+
+
+
+
+
+  <meta property="og:image" content="https://res.cloudinary.com/da1gwmlvj/image/upload/v1585486959/me_2_wm4mmw.jpg">
+  <meta property="twitter:image" content="https://res.cloudinary.com/da1gwmlvj/image/upload/v1585486959/me_2_wm4mmw.jpg">
+
+
+    <title>A Matrix Nullspace (Kernel) Tutorial - Finding the Nullspace</title>
+
+    <link rel="icon" href="/favicon.png">
+    
+
+    
+
+    <link rel="canonical" href="/2018/03/a-matrix-nullspace-kernel-tutorial-finding-the-nullspace/">
+
+    
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css" integrity="sha256-eZrrJcwDc/3uDhsdt61sL2oOBY362qM3lon1gyExkL0=" crossorigin="anonymous" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/fancybox/2.1.4/jquery.fancybox.min.css" integrity="sha256-vuXZ9LGmmwtjqFX1F+EKin1ThZMub58gKULUyf0qECk=" crossorigin="anonymous" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/fancybox/2.1.4/helpers/jquery.fancybox-thumbs.min.css" integrity="sha256-SEa4XYAHihTcEP1f5gARTB2K26Uk8PsndQYHQC1f4jU=" crossorigin="anonymous" />
+    
+    
+    <link rel="stylesheet" href="/css/style-twzjdbqhmnnacqs0pwwdzcdbt8yhv8giawvjqjmyfoqnvazl0dalmnhdkvp7.min.css" />
+    
+    
+
+    
+      
+<script type="application/javascript">
+var doNotTrack = false;
+if (!doNotTrack) {
+	(function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+	(i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+	m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+	})(window,document,'script','https://www.google-analytics.com/analytics.js','ga');
+	ga('create', 'UA-115127992-1', 'auto');
+	
+	ga('send', 'pageview');
+}
+</script>
+
+    
+    
+  </head>
+  <body>
+    <div id="blog">
+      <header id="header" data-behavior="4">
+  <i id="btn-open-sidebar" class="fa fa-lg fa-bars"></i>
+  <div class="header-title">
+    <a class="header-title-link" href="/">orrymr.com</a>
+  </div>
+  
+    
+      <a class="header-right-picture "
+         href="/#about">
+    
+    
+    
+      
+        <img class="header-picture" src="https://res.cloudinary.com/da1gwmlvj/image/upload/v1585486959/me_2_wm4mmw.jpg" alt="" />
+      
+    
+    </a>
+  
+</header>
+
+      <nav id="sidebar" data-behavior="4">
+  <div class="sidebar-container">
+    
+      <div class="sidebar-profile">
+        <a href="/#about">
+          <img class="sidebar-profile-picture" src="https://res.cloudinary.com/da1gwmlvj/image/upload/v1585486959/me_2_wm4mmw.jpg" alt="" />
+        </a>
+        <h4 class="sidebar-profile-name">Orry Messer</h4>
+        
+          <h5 class="sidebar-profile-bio">I like to build stuff.</h5>
+        
+      </div>
+    
+    <ul class="sidebar-buttons">
+      
+  <li class="sidebar-button">
+    
+      <a class="sidebar-button-link " href="/">
+    
+      <i class="sidebar-button-icon fa fa-lg fa-home"></i>
+      
+      <span class="sidebar-button-desc">Home</span>
+    </a>
+  </li>
+
+  <li class="sidebar-button">
+    
+      <a class="sidebar-button-link " href="/books-ive-read">
+    
+      <i class="sidebar-button-icon fa fa-lg fa-bookmark"></i>
+      
+      <span class="sidebar-button-desc">Books I&#39;ve Read</span>
+    </a>
+  </li>
+
+  <li class="sidebar-button">
+    
+      <a class="sidebar-button-link " href="/categories">
+    
+      <i class="sidebar-button-icon fa fa-lg fa-bookmark"></i>
+      
+      <span class="sidebar-button-desc">Categories</span>
+    </a>
+  </li>
+
+  <li class="sidebar-button">
+    
+      <a class="sidebar-button-link " href="/tags">
+    
+      <i class="sidebar-button-icon fa fa-lg fa-tags"></i>
+      
+      <span class="sidebar-button-desc">Tags</span>
+    </a>
+  </li>
+
+  <li class="sidebar-button">
+    
+      <a class="sidebar-button-link " href="/archives">
+    
+      <i class="sidebar-button-icon fa fa-lg fa-archive"></i>
+      
+      <span class="sidebar-button-desc">Archives</span>
+    </a>
+  </li>
+
+  <li class="sidebar-button">
+    
+      <a class="sidebar-button-link " href="/#about">
+    
+      <i class="sidebar-button-icon fa fa-lg fa-question"></i>
+      
+      <span class="sidebar-button-desc">About</span>
+    </a>
+  </li>
+
+
+    </ul>
+    <ul class="sidebar-buttons">
+      
+  <li class="sidebar-button">
+    
+      <a class="sidebar-button-link " href="https://github.com/orrymr">
+    
+      <i class="sidebar-button-icon fa fa-lg fa-github"></i>
+      
+      <span class="sidebar-button-desc">GitHub</span>
+    </a>
+  </li>
+
+  <li class="sidebar-button">
+    
+      <a class="sidebar-button-link " href="https://stackoverflow.com/users/3214345/orrymr">
+    
+      <i class="sidebar-button-icon fa fa-lg fa-stack-overflow"></i>
+      
+      <span class="sidebar-button-desc">Stack Overflow</span>
+    </a>
+  </li>
+
+  <li class="sidebar-button">
+    
+      <a class="sidebar-button-link " href="/blogroll">
+    
+      <i class="sidebar-button-icon fa fa-lg fa-bookmark"></i>
+      
+      <span class="sidebar-button-desc">Blogroll</span>
+    </a>
+  </li>
+
+
+    </ul>
+    <ul class="sidebar-buttons">
+      
+  <li class="sidebar-button">
+    
+      <a class="sidebar-button-link " href="/index.xml">
+    
+      <i class="sidebar-button-icon fa fa-lg fa-rss"></i>
+      
+      <span class="sidebar-button-desc">RSS</span>
+    </a>
+  </li>
+
+
+    </ul>
+  </div>
+</nav>
+
+      
+
+      <div id="main" data-behavior="4"
+        class="
+               hasCoverMetaIn
+               ">
+        <article class="post" itemscope itemType="http://schema.org/BlogPosting">
+          
+          
+            <div class="post-header main-content-wrap text-left">
+  
+    <h1 class="post-title" itemprop="headline">
+      A Matrix Nullspace (Kernel) Tutorial - Finding the Nullspace
+    </h1>
+  
+  
+  <div class="postShorten-meta post-meta">
+    
+      <time itemprop="datePublished" datetime="2018-03-01T20:35:21&#43;02:00">
+        
+   1, 2018
+
+      </time>
+    
+    
+  </div>
+
+</div>
+          
+          <div class="post-content markdown" itemprop="articleBody">
+            <div class="main-content-wrap">
+              <p>In this article we describe <strong>what the nullspace is</strong>. We go on to explain <strong>how to find the nullspace</strong>.</p>
+
+<h1 id="table-of-contents"></h1><nav id="TableOfContents">
+<ul>
+<li><a href="#nullspace-null-space-or-kernel">Nullspace, Null Space or Kernel?</a></li>
+<li><a href="#how-to-find-the-nullspace">How To Find the Nullspace</a>
+<ul>
+<li><a href="#finding-the-pivots">Finding The Pivots</a></li>
+<li><a href="#using-back-substitution-to-find-our-nullspace">Using Back Substitution to Find our Nullspace</a></li>
+<li><a href="#another-example">Another Example</a></li>
+</ul></li>
+</ul>
+</nav>
+
+<h1 id="nullspace-null-space-or-kernel">Nullspace, Null Space or Kernel?</h1>
+
+<p>The <em>nullspace</em> (or <em>null space</em>) of a matrix is also known as the <em>kernel</em> of a matrix. <strong>These terms are interchangeable.</strong></p>
+
+<p>The nullspace is a <strong>set of vectors that when multiplied by a matrix returns $0$</strong> (well, the zero vector).</p>
+
+<h1 id="how-to-find-the-nullspace">How To Find the Nullspace</h1>
+
+<p>Have a look at this matrix:</p>
+
+<p>\[
+A
+%
+&#61;
+%
+ \begin{bmatrix}
+  1 &amp; 1 &amp; 2 &amp; 3 \newline
+  2 &amp; 2 &amp; 8 &amp; 10 \newline
+  3 &amp; 3 &amp; 10 &amp; 13
+ \end{bmatrix}
+\]</p>
+
+<p>We&rsquo;re interested in finding its nullspace: that is, all vectors such that when multiplied by our matrix $A$, return the zero vector, $ \begin{bmatrix} 0 &amp; 0 &amp; 0 \end{bmatrix} ^ {T}$.</p>
+
+<p>I happen to know that $ \begin{bmatrix} -3 &amp; 1 &amp; -2 &amp; 2 \end{bmatrix} ^ {T}$ is one such vector:</p>
+
+<p>\[
+\begin{bmatrix}
+  1 &amp; 1 &amp; 2 &amp; 3 \newline
+  2 &amp; 2 &amp; 8 &amp; 10 \newline
+  3 &amp; 3 &amp; 10 &amp; 13
+ \end{bmatrix}
+%
+\begin{bmatrix}
+ -3 \newline
+ 1 \newline
+ -2 \newline
+ 2
+\end{bmatrix}
+%
+&#61;
+%
+%
+\begin{bmatrix}
+ -3 + 1 - 4 + 6 \newline
+ -6 + 2 - 16 + 20 \newline
+ -9 + 3 - 20 + 26
+\end{bmatrix}
+%
+&#61;
+%
+\begin{bmatrix}
+ 0 \newline
+ 0 \newline
+ 0
+\end{bmatrix}
+\]</p>
+
+<p>If we set $x = \begin{bmatrix} -3 &amp; 1 &amp; -2 &amp; 2 \end{bmatrix} ^ {T}$ , then we can write out the above equation more succinctly: $Ax = 0$</p>
+
+<p>We say that <strong>$x$ is in the nullspace of $A$.</strong></p>
+
+<p>We&rsquo;re going to look at a <strong>systematic way to find all the vectors in the nullspace.</strong>
+We&rsquo;ll do this is by:</p>
+
+<ol>
+<li>Using elimination to find our pivots</li>
+<li>Using back substitution to find our solutions</li>
+</ol>
+
+<p>We can think of this as our two-step recipe to find our nullspace.</p>
+
+<h2 id="finding-the-pivots">Finding The Pivots</h2>
+
+<p>This article isn&rsquo;t about how to do Gaussian elimination on a matrix. I&rsquo;m going to assume that you already know how to do this. I hope to write an article about this in the future.</p>
+
+<p>Suppose we performed elimination on our matrix $A$, which results in our new $U$:</p>
+
+<p>\[
+U
+%
+&#61;
+%
+ \begin{bmatrix}
+  1 &amp; 1 &amp; 2 &amp; 3 \newline
+  0 &amp; 0 &amp; 4 &amp; 4 \newline
+  0 &amp; 0 &amp; 0 &amp; 0
+ \end{bmatrix}
+\]</p>
+
+<p><strong>The cool thing is that $A$ and $U$ have the same nullspace.</strong> So, if we know that $Ux = 0$, we also know that $Ax = 0$.</p>
+
+<p>Let&rsquo;s suppose that we didn&rsquo;t know that $x = \begin{bmatrix} -3 &amp; 1 &amp; -2 &amp; 2 \end{bmatrix} ^ {T}$ was in the nullspace of the matrix $A$. We know that there is some vector $x = \begin{bmatrix} x_1 &amp; x_2 &amp; x_3 &amp; x_4 \end{bmatrix} ^ {T}$ such that $Ux = 0$ (even if that vector is just $\begin{bmatrix} 0 &amp; 0 &amp; 0 &amp; 0 \end{bmatrix} ^ {T}$).</p>
+
+<p>Writing this out more explicitly:</p>
+
+<p>\[
+\tag{1}
+\label{1}
+ \begin{bmatrix}
+  1 &amp; 1 &amp; 2 &amp; 3 \newline
+  0 &amp; 0 &amp; 4 &amp; 4 \newline
+  0 &amp; 0 &amp; 0 &amp; 0
+ \end{bmatrix}
+ %
+ \begin{bmatrix}
+  x_1 \newline
+  x_2 \newline
+  x_3 \newline
+  x_4
+ \end{bmatrix}
+ %
+  &#61;
+ %
+ \begin{bmatrix}
+  0 \newline
+  0 \newline
+  0
+ \end{bmatrix}
+\]</p>
+
+<p>According to our recipe for finding the nullspace, we need to find our pivots. <strong>A pivot is simply the first non-zero element in each row of the matrix.</strong></p>
+
+<p>Looking at $U$, the first row has a pivot in the first column, with value $1$. The second row has a pivot in the third column: $4$. The third row does not have a pivot.</p>
+
+<p><strong>We call $x_1$ and $x_3$</strong> <strong><em>pivot variables</em></strong> since columns 1 and 3 contain pivots. <strong>$x_2$ and $x_4$ are called</strong> <strong><em>free variables</em></strong> since columns 2 and 4 have no pivots.</p>
+
+<p>Note that there are 4 variables in total - 2 free variables, and 2 pivot variables. This is because the nullspace vectors are in $\mathbb{R}^4$ in this case, since $A$ (and $U$) are $3 \times 4$ matrices.</p>
+
+<h2 id="using-back-substitution-to-find-our-nullspace">Using Back Substitution to Find our Nullspace</h2>
+
+<p>Now that we know what our pivots are, we want to find our <em>special solutions</em>. Special solutions are vectors in our nullspace which will eventually <strong>help us find all the vectors in our nullspace</strong>.</p>
+
+<p><strong>We will have as many special solutions as we have free variables.</strong> In this case, we have 2 free variables, so we will have 2 special solutions. The way we find the special solutions is by <em>back substitution</em>.</p>
+
+<p>Before we get to what back substition is, let&rsquo;s rewrite equation $(\ref{1})$ as a set of equations, instead of its matrix form:</p>
+
+<p>\[
+x_1 + x_2 + 2x_3 + 3x_4 = 0
+\]</p>
+
+<p>\[
+4x_3 + 4x_4 = 0
+\]</p>
+
+<p>We want to find values for $x_1$, $x_2$, $x_3$ and $x_4$ which satisfy the above set of equations.</p>
+
+<p><strong>Since $x_2$ and $x_4$ are free variables, we can give them any values we wish</strong> - they are <em>free</em> variables, after all! The simples choice for our free variables is ones or zeroes.</p>
+
+<p>Let&rsquo;s set $x_2 = 1$ and $x_4 = 0$:</p>
+
+<p>\[
+x_1 + (1) + 2x_3 + 3(0) = 0
+\]</p>
+
+<p>\[
+4x_3 + 4(0) = 0
+\]</p>
+
+<p>which gives:</p>
+
+<p>\[
+\label{2}
+\tag{2}
+x_1 + 1 + 2x_3 = 0
+\]</p>
+
+<p>\[
+\label{3}
+\tag{3}
+x_3 = 0
+\]</p>
+
+<p>Great! <strong>We now know that $x_3 = 0$</strong> (and we have values for $x_2$ and $x_4$ ). All that&rsquo;s left is for us to find $x_1$</p>
+
+<p><strong>Now, let&rsquo;s use back substitution to plug $x_3 = 0$ into equation ($\ref{2}$):</strong></p>
+
+<p>\[
+x_1 + 1 + 2(0) = 0
+\]</p>
+
+<p>so</p>
+
+<p>\[
+x_1 = -1
+\]</p>
+
+<p>We now have our first special solution:</p>
+
+<p>\[
+\begin{bmatrix}
+ x_1 \newline
+ x_2 \newline
+ x_3 \newline
+ x_4
+\end{bmatrix}
+%
+&#61;
+%
+\begin{bmatrix}
+ -1 \newline
+ 1 \newline
+ 0 \newline
+ 0
+\end{bmatrix}
+\]</p>
+
+<p>Setting $x_2 = 1$ and $x_4 = 0$ gave us our first special solution. <strong>We need to find our second special solution.</strong> The easiest way to do this is to set $x_2 = 0$ and $x_4 = 1$. Using the same procedure as we did for the first special solution we find our second special solution:</p>
+
+<p>\[
+\begin{bmatrix}
+ -1 \newline
+ 0 \newline
+ -1 \newline
+ 1
+\end{bmatrix}
+\]</p>
+
+<p>Since we had 2 free variables, we get 2 special solutions:</p>
+
+<p>\[
+\begin{bmatrix}
+  -1 \newline
+  1 \newline
+  0 \newline
+  0
+\end{bmatrix},
+\begin{bmatrix}
+  -1 \newline
+  0 \newline
+  -1 \newline
+  1
+\end{bmatrix}
+\]</p>
+
+<p>These two special solutions are <strong>in the nullspace of $U$ and therefore also $A$</strong>. This means that if you multiply the matrix $A$ or $U$ by these vectors, you will get the zero vector.</p>
+
+<p>Crucially - <strong><em>every combination of our special solutions is in the nullspace</em></strong>.</p>
+
+<p>So, the complete solution is:</p>
+
+<p>\[
+x
+%
+&#61;
+%
+ x_2
+ %
+\begin{bmatrix}
+ -1 \newline
+ 1 \newline
+ 0 \newline
+ 0
+\end{bmatrix}
+%<br />
++
+%
+ x_4
+ %
+\begin{bmatrix}
+ -1 \newline
+ 0 \newline
+ -1 \newline
+ 1
+\end{bmatrix}
+%
+&#61;
+%
+\begin{bmatrix}
+ -x_2 - x_4 \newline
+ x_2 \newline
+ -x_4 \newline
+ x_4
+\end{bmatrix}
+\]</p>
+
+<p>What does this actually mean? It means that <strong>we can pick our free variables $x_2$ and $x_4$ however we wish, and we will get a valid solution in response.</strong></p>
+
+<p>For example let&rsquo;s pick: $x_2=1$ and $x_4 = 2$. So:</p>
+
+<p>\[
+\begin{bmatrix}
+ -x_2 - x_4 \newline
+ x_2 \newline
+ -x_4 \newline
+ x_4
+\end{bmatrix}
+%
+&#61;
+%
+\begin{bmatrix}
+ -3 \newline
+ 1 \newline
+ -2 \newline
+ 2
+\end{bmatrix}
+\]</p>
+
+<p>which was my example at the beginning of the article.</p>
+
+<h2 id="another-example">Another Example</h2>
+
+<p>Say now I wish to find the nullspace of</p>
+
+<p>\[
+U
+%
+&#61;
+%
+ \begin{bmatrix}
+  1 &amp; 5 &amp; 7 \newline
+  0 &amp; 0 &amp; 9 \newline
+ \end{bmatrix}
+\]</p>
+
+<p>The second column contains our free variable. Since there is only <strong>one free variable, there will only be one special solution</strong>.</p>
+
+<p>We need to back substitute $x_2 = 1$ (no need to set zeroes this time, as there is only one free variable).</p>
+
+<p>Then
+\[
+9x_3 = 0
+\]</p>
+
+<p>gives</p>
+
+<p>\[
+x_3 = 0
+\]</p>
+
+<p>and</p>
+
+<p>\[
+x_1 + 5x_2 = 0
+\]</p>
+
+<p>so</p>
+
+<p>\[
+x_1 = -5
+\]</p>
+
+<p>since</p>
+
+<p>\[
+x_2 = 1
+\]</p>
+
+<p>So,
+\[
+x
+%
+&#61;
+%
+x_2
+%
+ \begin{bmatrix}
+  -5 \newline
+  1 \newline
+  0
+ \end{bmatrix}
+\]</p>
+
+<p>The nullspace in this case is a line in $\mathbb{R}^3$. It contains multiples of the special solution.</p>
+              
+            </div>
+          </div>
+          <div id="post-footer" class="post-footer main-content-wrap">
+            
+              
+                
+                
+                  <div class="post-footer-tags">
+                    <span class="text-color-light text-small"></span><br/>
+                    
+  <a class="tag tag--primary tag--small" href="/tags/linear-algebra/">linear algebra</a>
+
+  <a class="tag tag--primary tag--small" href="/tags/18.06/">18.06</a>
+
+  <a class="tag tag--primary tag--small" href="/tags/matrices/">matrices</a>
+
+  <a class="tag tag--primary tag--small" href="/tags/nullspace/">nullspace</a>
+
+                  </div>
+                
+              
+            
+            <div class="post-actions-wrap">
+  
+      <nav >
+        <ul class="post-actions post-action-nav">
+          
+            <li class="post-action">
+              
+                <a class="post-action-btn btn btn--default tooltip--top" href="/2018/11/rank-of-a-matrix/" data-tooltip="Rank of a Matrix">
+              
+                  <i class="fa fa-angle-left"></i>
+                  <span class="hide-xs hide-sm text-small icon-ml"></span>
+                </a>
+            </li>
+            <li class="post-action">
+              
+                <a class="post-action-btn btn btn--default tooltip--top" href="/2017/11/of-matrices-and-men-pt.-2/" data-tooltip="Of Matrices and Men (pt. 2)">
+              
+                  <span class="hide-xs hide-sm text-small icon-mr"></span>
+                  <i class="fa fa-angle-right"></i>
+                </a>
+            </li>
+          
+        </ul>
+      </nav>
+    <ul class="post-actions post-action-share" >
+      
+        <li class="post-action hide-lg hide-md hide-sm">
+          <a class="post-action-btn btn btn--default btn-open-shareoptions" href="#btn-open-shareoptions">
+            <i class="fa fa-share-alt"></i>
+          </a>
+        </li>
+        
+          <li class="post-action hide-xs">
+            <a class="post-action-btn btn btn--default" target="new" href="https://www.facebook.com/sharer/sharer.php?u=/2018/03/a-matrix-nullspace-kernel-tutorial-finding-the-nullspace/">
+              <i class="fa fa-facebook-official"></i>
+            </a>
+          </li>
+        
+          <li class="post-action hide-xs">
+            <a class="post-action-btn btn btn--default" target="new" href="https://twitter.com/intent/tweet?text=/2018/03/a-matrix-nullspace-kernel-tutorial-finding-the-nullspace/">
+              <i class="fa fa-twitter"></i>
+            </a>
+          </li>
+        
+          <li class="post-action hide-xs">
+            <a class="post-action-btn btn btn--default" target="new" href="https://plus.google.com/share?url=/2018/03/a-matrix-nullspace-kernel-tutorial-finding-the-nullspace/">
+              <i class="fa fa-google-plus"></i>
+            </a>
+          </li>
+        
+      
+      
+        <li class="post-action">
+          <a class="post-action-btn btn btn--default" href="#disqus_thread">
+            <i class="fa fa-comment-o"></i>
+          </a>
+        </li>
+      
+      <li class="post-action">
+        
+          <a class="post-action-btn btn btn--default" href="#table-of-contents">
+        
+          <i class="fa fa-list"></i>
+        </a>
+      </li>
+    </ul>
+  
+</div>
+
+            
+              
+                <div id="disqus_thread">
+  <noscript>Please enable JavaScript to view the <a href="//disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+</div>
+              
+            
+          </div>
+        </article>
+        <footer id="footer" class="main-content-wrap">
+  <span class="copyrights">
+    &copy; 2020 Orry Messer. 
+  </span>
+</footer>
+
+      </div>
+      <div id="bottom-bar" class="post-bottom-bar" data-behavior="4">
+        <div class="post-actions-wrap">
+  
+      <nav >
+        <ul class="post-actions post-action-nav">
+          
+            <li class="post-action">
+              
+                <a class="post-action-btn btn btn--default tooltip--top" href="/2018/11/rank-of-a-matrix/" data-tooltip="Rank of a Matrix">
+              
+                  <i class="fa fa-angle-left"></i>
+                  <span class="hide-xs hide-sm text-small icon-ml"></span>
+                </a>
+            </li>
+            <li class="post-action">
+              
+                <a class="post-action-btn btn btn--default tooltip--top" href="/2017/11/of-matrices-and-men-pt.-2/" data-tooltip="Of Matrices and Men (pt. 2)">
+              
+                  <span class="hide-xs hide-sm text-small icon-mr"></span>
+                  <i class="fa fa-angle-right"></i>
+                </a>
+            </li>
+          
+        </ul>
+      </nav>
+    <ul class="post-actions post-action-share" >
+      
+        <li class="post-action hide-lg hide-md hide-sm">
+          <a class="post-action-btn btn btn--default btn-open-shareoptions" href="#btn-open-shareoptions">
+            <i class="fa fa-share-alt"></i>
+          </a>
+        </li>
+        
+          <li class="post-action hide-xs">
+            <a class="post-action-btn btn btn--default" target="new" href="https://www.facebook.com/sharer/sharer.php?u=/2018/03/a-matrix-nullspace-kernel-tutorial-finding-the-nullspace/">
+              <i class="fa fa-facebook-official"></i>
+            </a>
+          </li>
+        
+          <li class="post-action hide-xs">
+            <a class="post-action-btn btn btn--default" target="new" href="https://twitter.com/intent/tweet?text=/2018/03/a-matrix-nullspace-kernel-tutorial-finding-the-nullspace/">
+              <i class="fa fa-twitter"></i>
+            </a>
+          </li>
+        
+          <li class="post-action hide-xs">
+            <a class="post-action-btn btn btn--default" target="new" href="https://plus.google.com/share?url=/2018/03/a-matrix-nullspace-kernel-tutorial-finding-the-nullspace/">
+              <i class="fa fa-google-plus"></i>
+            </a>
+          </li>
+        
+      
+      
+        <li class="post-action">
+          <a class="post-action-btn btn btn--default" href="#disqus_thread">
+            <i class="fa fa-comment-o"></i>
+          </a>
+        </li>
+      
+      <li class="post-action">
+        
+          <a class="post-action-btn btn btn--default" href="#table-of-contents">
+        
+          <i class="fa fa-list"></i>
+        </a>
+      </li>
+    </ul>
+  
+</div>
+
+      </div>
+      <div id="share-options-bar" class="share-options-bar" data-behavior="4">
+  <i id="btn-close-shareoptions" class="fa fa-close"></i>
+  <ul class="share-options">
+    
+      <li class="share-option">
+        <a class="share-option-btn" target="new" href="https://www.facebook.com/sharer/sharer.php?u=%2F2018%2F03%2Fa-matrix-nullspace-kernel-tutorial-finding-the-nullspace%2F">
+          <i class="fa fa-facebook-official"></i><span>%!(EXTRA string=Facebook)</span>
+        </a>
+      </li>
+    
+      <li class="share-option">
+        <a class="share-option-btn" target="new" href="https://twitter.com/intent/tweet?text=%2F2018%2F03%2Fa-matrix-nullspace-kernel-tutorial-finding-the-nullspace%2F">
+          <i class="fa fa-twitter"></i><span>%!(EXTRA string=Twitter)</span>
+        </a>
+      </li>
+    
+      <li class="share-option">
+        <a class="share-option-btn" target="new" href="https://plus.google.com/share?url=%2F2018%2F03%2Fa-matrix-nullspace-kernel-tutorial-finding-the-nullspace%2F">
+          <i class="fa fa-google-plus"></i><span>%!(EXTRA string=Google&#43;)</span>
+        </a>
+      </li>
+    
+  </ul>
+</div>
+<div id="share-options-mask" class="share-options-mask"></div>
+    </div>
+    
+    <div id="about">
+  <div id="about-card">
+    <div id="about-btn-close">
+      <i class="fa fa-remove"></i>
+    </div>
+    
+      <img id="about-card-picture" src="https://res.cloudinary.com/da1gwmlvj/image/upload/v1585486959/me_2_wm4mmw.jpg" alt="" />
+    
+    <h4 id="about-card-name">Orry Messer</h4>
+    
+      <div id="about-card-bio">I like to build stuff.</div>
+    
+    
+      <div id="about-card-job">
+        <i class="fa fa-briefcase"></i>
+        <br/>
+        Data Scientist
+      </div>
+    
+    
+      <div id="about-card-location">
+        <i class="fa fa-map-marker"></i>
+        <br/>
+        Johannesburg, South Africa
+      </div>
+    
+  </div>
+</div>
+    
+
+    
+  
+    <div id="cover" style="background-image:url('https://res.cloudinary.com/da1gwmlvj/image/upload/v1585487294/sunset_oyvlju.jpg');"></div>
+  
+
+
+    
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/2.2.4/jquery.min.js" integrity="sha256-BbhdlvQf/xTY9gja0Dq3HiwQF8LaCRTXxZKRutelT44=" crossorigin="anonymous"></script>
+
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.12.0/highlight.min.js" integrity="sha256-/BfiIkHlHoVihZdc6TFuj7MmJ0TWcWsMXkeDFwhi0zw=" crossorigin="anonymous"></script>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/fancybox/2.1.7/js/jquery.fancybox.min.js" integrity="sha256-GEAnjcTqVP+vBp3SSc8bEDQqvWAZMiHyUSIorrWwH50=" crossorigin="anonymous"></script>
+
+
+<script src="/js/script-pcw6v3xilnxydl1vddzazdverrnn9ctynvnxgwho987mfyqkuylcb1nlt.min.js"></script>
+
+
+<script lang="javascript">
+window.onload = updateMinWidth;
+window.onresize = updateMinWidth;
+document.getElementById("sidebar").addEventListener("transitionend", updateMinWidth);
+function updateMinWidth() {
+  var sidebar = document.getElementById("sidebar");
+  var main = document.getElementById("main");
+  main.style.minWidth = "";
+  var w1 = getComputedStyle(main).getPropertyValue("min-width");
+  var w2 = getComputedStyle(sidebar).getPropertyValue("width");
+  var w3 = getComputedStyle(sidebar).getPropertyValue("left");
+  main.style.minWidth = `calc(${w1} - ${w2} - ${w3})`;
+}
+</script>
+
+<script>
+$(document).ready(function() {
+  hljs.configure({ classPrefix: '', useBR: false });
+  $('pre.code-highlight > code, pre > code').each(function(i, block) {
+    if (!$(this).hasClass('codeblock')) {
+      $(this).addClass('codeblock');
+    }
+    hljs.highlightBlock(block);
+  });
+});
+</script>
+
+
+  
+    
+      <script>
+        var disqus_config = function () {
+          this.page.url = '\/2018\/03\/a-matrix-nullspace-kernel-tutorial-finding-the-nullspace\/';
+          
+            this.page.identifier = '\/2018\/03\/a-matrix-nullspace-kernel-tutorial-finding-the-nullspace\/'
+          
+        };
+        (function() {
+          
+          
+          if (window.location.hostname == "localhost") {
+            return;
+          }
+          var d = document, s = d.createElement('script');
+          var disqus_shortname = 'orrymr';
+          s.src = '//' + disqus_shortname + '.disqus.com/embed.js';
+
+          s.setAttribute('data-timestamp', +new Date());
+          (d.head || d.body).appendChild(s);
+        })();
+      </script>
+    
+  
+
+
+  <script type="text/javascript" async src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.4/MathJax.js?config=TeX-AMS_CHTML-full" integrity="sha256-GhM+5JHb6QUzOQPXSJLEWP7R73CbkisjzK5Eyij4U9w=" crossorigin="anonymous"></script>
+  <script type="text/x-mathjax-config">
+    MathJax.Hub.Config({
+      CommonHTML: { linebreaks: { automatic: true } },
+      tex2jax: { inlineMath: [ ['$', '$'], ['\\(','\\)'] ], displayMath: [ ['$$','$$'], ['\\[', '\\]'] ], processEscapes: false },
+      messageStyle: 'none'
+    });
+  </script>
+
+
+
+    
+  </body>
+</html>
+

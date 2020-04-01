@@ -1,0 +1,64 @@
+---
+title: r-tsne
+author: ''
+date: '2019-03-04'
+slug: r-tsne
+draft: true
+categories: []
+tags: []
+---
+
+```{r}
+library(ggplot2)
+library(dplyr)
+library(Rtsne)
+library(cluster)
+#####
+
+a_1 <- rnorm(200, mean = 20, sd = 2)
+a_2 <- rnorm(200, mean = 272, sd = 5)
+a_3 <- rnorm(200, mean = 62, sd = 3)
+a_4 <- rnorm(200, mean = 600, sd = 9)
+a_5 <- rnorm(200, mean = 209, sd = 5)
+a_y <- rep(1, 200)
+
+
+b_1 <- rnorm(200, mean = -20, sd = 32)
+b_2 <- rnorm(200, mean = 23, sd = 5)
+b_3 <- rnorm(200, mean = -32, sd = 31)
+b_4 <- rnorm(200, mean = 5670, sd = 93)
+b_5 <- rnorm(200, mean = 19283, sd = 59)
+b_y <- rep(0, 200)
+
+
+data <- data.frame(first = c(a_1, b_1),
+                   second = c(a_2, b_2),
+                   third = c(a_3, b_3),
+                   fourth = c(a_4, b_4),
+                   fifth = c(a_5, b_5),
+                   class = c(a_y, b_y))
+
+
+
+data_gower <- daisy(data %>% select(-class))
+
+set.seed(1337)
+tsne_obj_test <- Rtsne(data_gower, is_distance = TRUE)
+
+tsne_data <- tsne_obj_test$Y %>%
+  data.frame() %>%
+  setNames(c("X", "Y"))
+
+tsne_data$class <- data$class
+
+ggplot(aes(x = X, y = Y), data = tsne_data) +
+  geom_point(aes(color = class))
+
+
+
+
+
+
+
+```
+

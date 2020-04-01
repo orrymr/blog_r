@@ -1,176 +1,174 @@
-<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9"
   xmlns:xhtml="http://www.w3.org/1999/xhtml">
   
   <url>
-    <loc>/post/an-r-pipeline-for-xgboost-and-a-discussion-about-hyperparameters/</loc>
+    <loc>/2019/10/an-r-pipeline-for-xgboost-and-a-discussion-about-hyperparameters/</loc>
     <lastmod>2019-10-04T00:00:00+00:00</lastmod>
-  </url>
-  
-  <url>
-    <loc>/post/work-rules/</loc>
-    <lastmod>2019-09-03T00:00:00+00:00</lastmod>
-  </url>
-  
-  <url>
-    <loc>/post/hitchhiker-s-guide-to-data-science/</loc>
-    <lastmod>2019-06-06T00:00:00+00:00</lastmod>
-  </url>
-  
-  <url>
-    <loc>/post/r-pca/</loc>
-    <lastmod>2019-03-04T00:00:00+00:00</lastmod>
-  </url>
-  
-  <url>
-    <loc>/post/r-tsne/</loc>
-    <lastmod>2019-03-04T00:00:00+00:00</lastmod>
-  </url>
-  
-  <url>
-    <loc>/post/intro-to-h2o-using-r/</loc>
-    <lastmod>2018-12-04T00:00:00+00:00</lastmod>
-  </url>
-  
-  <url>
-    <loc>/post/inverse-matrix/</loc>
-    <lastmod>2018-11-18T00:00:00+00:00</lastmod>
-  </url>
-  
-  <url>
-    <loc>/post/rank-of-a-matrix/</loc>
-    <lastmod>2018-11-14T00:00:00+00:00</lastmod>
-  </url>
-  
-  <url>
-    <loc>/post/playing-in-the-nullspace/</loc>
-    <lastmod>2018-03-01T20:35:21+02:00</lastmod>
-  </url>
-  
-  <url>
-    <loc>/post/of-matrices-and-men-part-2/</loc>
-    <lastmod>2017-11-22T20:35:21+02:00</lastmod>
-  </url>
-  
-  <url>
-    <loc>/post/second-post/</loc>
-    <lastmod>2017-10-22T20:35:21+02:00</lastmod>
-  </url>
-  
-  <url>
-    <loc>/post/my-first-post/</loc>
-    <lastmod>2017-10-01T17:55:17+02:00</lastmod>
-  </url>
-  
-  <url>
-    <loc>/books-ive-read/</loc>
-  </url>
-  
-  <url>
-    <loc>/tags/18.06/</loc>
-    <lastmod>2018-11-18T00:00:00+00:00</lastmod>
-    <priority>0</priority>
-  </url>
-  
-  <url>
-    <loc>/tags/books/</loc>
-    <lastmod>2019-09-03T00:00:00+00:00</lastmod>
-    <priority>0</priority>
   </url>
   
   <url>
     <loc>/categories/</loc>
-    <priority>0</priority>
-  </url>
-  
-  <url>
-    <loc>/categories/data-science/</loc>
     <lastmod>2019-10-04T00:00:00+00:00</lastmod>
-    <priority>0</priority>
   </url>
   
   <url>
     <loc>/tags/data-science/</loc>
     <lastmod>2019-10-04T00:00:00+00:00</lastmod>
-    <priority>0</priority>
   </url>
   
   <url>
-    <loc>/tags/h2o/</loc>
-    <lastmod>2018-12-04T00:00:00+00:00</lastmod>
-    <priority>0</priority>
-  </url>
-  
-  <url>
-    <loc>/tags/inverse/</loc>
-    <lastmod>2018-11-18T00:00:00+00:00</lastmod>
-    <priority>0</priority>
-  </url>
-  
-  <url>
-    <loc>/tags/linear-algebra/</loc>
-    <lastmod>2018-11-18T00:00:00+00:00</lastmod>
-    <priority>0</priority>
-  </url>
-  
-  <url>
-    <loc>/tags/machine-learning/</loc>
-    <lastmod>2018-12-04T00:00:00+00:00</lastmod>
-    <priority>0</priority>
-  </url>
-  
-  <url>
-    <loc>/tags/matrices/</loc>
-    <lastmod>2018-11-18T00:00:00+00:00</lastmod>
-    <priority>0</priority>
-  </url>
-  
-  <url>
-    <loc>/tags/non-fiction/</loc>
-    <lastmod>2019-09-03T00:00:00+00:00</lastmod>
-    <priority>0</priority>
-  </url>
-  
-  <url>
-    <loc>/tags/nullspace/</loc>
-    <lastmod>2018-11-18T00:00:00+00:00</lastmod>
-    <priority>0</priority>
-  </url>
-  
-  <url>
-    <loc>/tags/pca/</loc>
-    <lastmod>2019-03-04T00:00:00+00:00</lastmod>
-    <priority>0</priority>
-  </url>
-  
-  <url>
-    <loc>/post/</loc>
+    <loc>/categories/data-science/</loc>
     <lastmod>2019-10-04T00:00:00+00:00</lastmod>
-    <priority>0</priority>
-  </url>
-  
-  <url>
-    <loc>/tags/r/</loc>
-    <lastmod>2019-10-04T00:00:00+00:00</lastmod>
-    <priority>0</priority>
-  </url>
-  
-  <url>
-    <loc>/tags/</loc>
-    <lastmod>2018-11-18T00:00:00+00:00</lastmod>
-    <priority>0</priority>
-  </url>
-  
-  <url>
-    <loc>/tags/xgboost/</loc>
-    <lastmod>2019-10-04T00:00:00+00:00</lastmod>
-    <priority>0</priority>
   </url>
   
   <url>
     <loc>/</loc>
     <lastmod>2019-10-04T00:00:00+00:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>/post/</loc>
+    <lastmod>2019-10-04T00:00:00+00:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>/tags/r/</loc>
+    <lastmod>2019-10-04T00:00:00+00:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>/tags/</loc>
+    <lastmod>2019-10-04T00:00:00+00:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>/tags/xgboost/</loc>
+    <lastmod>2019-10-04T00:00:00+00:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>/categories/book-review/</loc>
+    <lastmod>2019-09-03T00:00:00+00:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>/tags/books/</loc>
+    <lastmod>2019-09-03T00:00:00+00:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>/tags/non-fiction/</loc>
+    <lastmod>2019-09-03T00:00:00+00:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>/2019/09/work-rules/</loc>
+    <lastmod>2019-09-03T00:00:00+00:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>/2019/06/hitchhiker-s-guide-to-data-science/</loc>
+    <lastmod>2019-06-06T00:00:00+00:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>/tags/pca/</loc>
+    <lastmod>2019-03-04T00:00:00+00:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>/2019/03/r-pca/</loc>
+    <lastmod>2019-03-04T00:00:00+00:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>/2019/03/r-tsne/</loc>
+    <lastmod>2019-03-04T00:00:00+00:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>/2018/12/intro-to-h2o-using-r/</loc>
+    <lastmod>2018-12-04T00:00:00+00:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>/tags/h2o/</loc>
+    <lastmod>2018-12-04T00:00:00+00:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>/tags/machine-learning/</loc>
+    <lastmod>2018-12-04T00:00:00+00:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>/tags/18.06/</loc>
+    <lastmod>2018-11-18T00:00:00+00:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>/tags/inverse/</loc>
+    <lastmod>2018-11-18T00:00:00+00:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>/2018/11/inverse-matrix/</loc>
+    <lastmod>2018-11-18T00:00:00+00:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>/tags/linear-algebra/</loc>
+    <lastmod>2018-11-18T00:00:00+00:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>/tags/matrices/</loc>
+    <lastmod>2018-11-18T00:00:00+00:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>/tags/nullspace/</loc>
+    <lastmod>2018-11-18T00:00:00+00:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>/2018/11/rank-of-a-matrix/</loc>
+    <lastmod>2018-11-14T00:00:00+00:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>/2018/03/a-matrix-nullspace-kernel-tutorial-finding-the-nullspace/</loc>
+    <lastmod>2018-03-01T20:35:21+02:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>/2017/11/of-matrices-and-men-pt.-2/</loc>
+    <lastmod>2017-11-22T20:35:21+02:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>/2017/10/of-matrices-and-men-pt.-1/</loc>
+    <lastmod>2017-10-22T20:35:21+02:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>/2017/10/hi-there.-this-is-my-first-post.-or-linear-algebra-bra/</loc>
+    <lastmod>2017-10-01T17:55:17+02:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>/blogroll/</loc>
     <priority>0</priority>
+  </url>
+  
+  <url>
+    <loc>/books-ive-read/</loc>
+    <priority>0</priority>
+  </url>
+  
+  <url>
+    <loc>/archives/</loc>
   </url>
   
 </urlset>

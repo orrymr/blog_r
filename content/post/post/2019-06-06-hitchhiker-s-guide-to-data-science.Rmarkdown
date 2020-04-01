@@ -1,0 +1,11 @@
+---
+title: Hitchhiker's Guide to Data Science
+author: ''
+date: '2019-06-06'
+slug: hitchhiker-s-guide-to-data-science
+categories: []
+draft: true
+tags: []
+---
+
+_MapReduce_: 
