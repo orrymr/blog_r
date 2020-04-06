@@ -6,10 +6,24 @@
     <description>Recent content in Posts on orrymr.com</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en</language>
-    <lastBuildDate>Fri, 04 Oct 2019 00:00:00 +0000</lastBuildDate>
+    <lastBuildDate>Mon, 06 Apr 2020 00:00:00 +0000</lastBuildDate>
     
 	<atom:link href="/post/index.xml" rel="self" type="application/rss+xml" />
     
+    
+    <item>
+      <title>ISLR Notes</title>
+      <link>/2020/04/islr-notes/</link>
+      <pubDate>Mon, 06 Apr 2020 00:00:00 +0000</pubDate>
+      
+      <guid>/2020/04/islr-notes/</guid>
+      <description>
+
+
+&lt;p&gt;Just a place for me to keep my notes of the &lt;a href=&#34;http://faculty.marshall.usc.edu/gareth-james/ISL/&#34;&gt;Introduction to Statistical Learning&lt;/a&gt; book.&lt;/p&gt;
+&lt;p&gt;This is by no means a comprehensive summary; just a list of points I wish to remember.&lt;/p&gt;
+</description>
+    </item>
     
     <item>
       <title>An R Pipeline for XGBoost (and a discussion about hyperparameters)</title>

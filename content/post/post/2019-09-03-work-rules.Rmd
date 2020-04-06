@@ -8,8 +8,8 @@ categories: [book-review]
 tags:
   - Books
   - Non-fiction
-thumbnailImage: //d1u9biwaxjngwg.cloudfront.net/welcome-to-tranquilpeak/city-750.jpg
-thumbnailImagePosition: "top"
+thumbnailImagePosition: left
+thumbnailImage: https://res.cloudinary.com/da1gwmlvj/image/upload/v1586183333/work_rules_izx7z3.png
 ---
 
 Hello Person From The Internet who has decided to come here. Thank you for dropping by. 

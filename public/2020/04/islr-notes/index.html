@@ -7,58 +7,52 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="generator" content="Hugo 0.68.3 with theme Tranquilpeak 0.4.7-BETA">
 <meta name="author" content="Orry Messer">
-<meta name="keywords" content="">
+<meta name="keywords" content="statistical-learning">
 <meta name="description" content="
 
 
-Hello Person From The Internet who has decided to come here. Thank you for dropping by.
-Today I’m going to talk about a book I read - Work Rules!: Insights from Inside Google That Will Transform How You Live and Lead by Laszlo Bock.
+Just a place for me to keep my notes of the Introduction to Statistical Learning book.
+This is by no means a comprehensive summary; just a list of points I wish to remember.
 ">
 
 
 <meta property="og:description" content="
 
 
-Hello Person From The Internet who has decided to come here. Thank you for dropping by.
-Today I’m going to talk about a book I read - Work Rules!: Insights from Inside Google That Will Transform How You Live and Lead by Laszlo Bock.
+Just a place for me to keep my notes of the Introduction to Statistical Learning book.
+This is by no means a comprehensive summary; just a list of points I wish to remember.
 ">
 <meta property="og:type" content="article">
-<meta property="og:title" content="Work Rules! - Insights from Inside Google That Will Transform How You Live and Lead, Part 1">
-<meta name="twitter:title" content="Work Rules! - Insights from Inside Google That Will Transform How You Live and Lead, Part 1">
-<meta property="og:url" content="/2019/09/work-rules/">
-<meta property="twitter:url" content="/2019/09/work-rules/">
+<meta property="og:title" content="ISLR Notes">
+<meta name="twitter:title" content="ISLR Notes">
+<meta property="og:url" content="/2020/04/islr-notes/">
+<meta property="twitter:url" content="/2020/04/islr-notes/">
 <meta property="og:site_name" content="orrymr.com">
 <meta property="og:description" content="
 
 
-Hello Person From The Internet who has decided to come here. Thank you for dropping by.
-Today I’m going to talk about a book I read - Work Rules!: Insights from Inside Google That Will Transform How You Live and Lead by Laszlo Bock.
+Just a place for me to keep my notes of the Introduction to Statistical Learning book.
+This is by no means a comprehensive summary; just a list of points I wish to remember.
 ">
 <meta name="twitter:description" content="
 
 
-Hello Person From The Internet who has decided to come here. Thank you for dropping by.
-Today I’m going to talk about a book I read - Work Rules!: Insights from Inside Google That Will Transform How You Live and Lead by Laszlo Bock.
+Just a place for me to keep my notes of the Introduction to Statistical Learning book.
+This is by no means a comprehensive summary; just a list of points I wish to remember.
 ">
 <meta property="og:locale" content="en">
 
   
-    <meta property="article:published_time" content="2019-09-03T00:00:00">
+    <meta property="article:published_time" content="2020-04-06T00:00:00">
   
   
-    <meta property="article:modified_time" content="2019-09-03T00:00:00">
+    <meta property="article:modified_time" content="2020-04-06T00:00:00">
   
   
-  
-    
-      <meta property="article:section" content="book-review">
-    
   
   
     
-      <meta property="article:tag" content="Books">
-    
-      <meta property="article:tag" content="Non-fiction">
+      <meta property="article:tag" content="statistical-learning">
     
   
 
@@ -75,8 +69,8 @@ Today I’m going to talk about a book I read - Work Rules!: Insights from Insid
 
 
 
-  <meta property="og:image" content="https://res.cloudinary.com/da1gwmlvj/image/upload/v1586183333/work_rules_izx7z3.png">
-  <meta property="twitter:image" content="https://res.cloudinary.com/da1gwmlvj/image/upload/v1586183333/work_rules_izx7z3.png">
+  <meta property="og:image" content="//d1u9biwaxjngwg.cloudfront.net/welcome-to-tranquilpeak/city-750.jpg">
+  <meta property="twitter:image" content="//d1u9biwaxjngwg.cloudfront.net/welcome-to-tranquilpeak/city-750.jpg">
 
 
 
@@ -86,14 +80,14 @@ Today I’m going to talk about a book I read - Work Rules!: Insights from Insid
   <meta property="twitter:image" content="https://res.cloudinary.com/da1gwmlvj/image/upload/v1585486959/me_2_wm4mmw.jpg">
 
 
-    <title>Work Rules! - Insights from Inside Google That Will Transform How You Live and Lead, Part 1</title>
+    <title>ISLR Notes</title>
 
     <link rel="icon" href="/favicon.png">
     
 
     
 
-    <link rel="canonical" href="/2019/09/work-rules/">
+    <link rel="canonical" href="/2020/04/islr-notes/">
 
     
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css" integrity="sha256-eZrrJcwDc/3uDhsdt61sL2oOBY362qM3lon1gyExkL0=" crossorigin="anonymous" />
@@ -285,97 +279,105 @@ if (!doNotTrack) {
             <div class="post-header main-content-wrap text-left">
   
     <h1 class="post-title" itemprop="headline">
-      Work Rules! - Insights from Inside Google That Will Transform How You Live and Lead, Part 1
+      ISLR Notes
     </h1>
   
   
   <div class="postShorten-meta post-meta">
     
-      <time itemprop="datePublished" datetime="2019-09-03T00:00:00Z">
+      <time itemprop="datePublished" datetime="2020-04-06T00:00:00Z">
         
-   3, 2019
+   6, 2020
 
       </time>
     
     
-  
-  
-    <span></span>
-    
-      <a class="category-link" href="/categories/book-review">book-review</a>
-    
-  
-
   </div>
 
 </div>
           
           <div class="post-content markdown" itemprop="articleBody">
             <div class="main-content-wrap">
-              <h1 id="table-of-contents"></h1>
-<p>Hello Person From The Internet who has decided to come here. Thank you for dropping by.</p>
-<p>Today I’m going to talk about a book I read - <a href="https://www.amazon.com/gp/product/1455554790/ref=as_li_tl?ie=UTF8&amp;camp=1789&amp;creative=9325&amp;creativeASIN=1455554790&amp;linkCode=as2&amp;tag=orrymr-20&amp;linkId=35253fa91ca83356f3f4b863eb42b3f1">Work Rules!: Insights from Inside Google That Will Transform How You Live and Lead</a> by Laszlo Bock.</p>
-<p>Although this book is intended for people who manage teams, most human beings will be able to get valuable insight out of this worthwhile book. Our author, Laszlo, has been in various roles at some large companies, including a stint as Senior Vice President of People Operations (HR, I believe) at Google (the search engine company - keep an eye out for them).</p>
-<p>I read this book a couple of months ago, and have been procrastinating writing this post ever since. So, I’m relying on my barely legible notes and an unreliable brain (human memory is so capricious, isn’t it?).</p>
-<p>What I shall do, Dear Reader, is go through the book, chapter by chapter, divulging my meticulous notes to you.</p>
-<p>Pull yourself towards yourself, here it comes!</p>
-<div id="chapter-0-1" class="section level1">
-<h1>Chapter 0 &amp; 1</h1>
+              <div id="chapter-2-statistical-learning" class="section level1">
+<h1>Chapter 2: Statistical Learning</h1>
+<p>Least squares is a popular method of doing regression, but one of many methods.</p>
+<p>The accuracy of <span class="math inline">\(\hat{Y}\)</span> as a prediction for <span class="math inline">\(Y\)</span> depends on two quantities, which we will call the <em>reducible error</em> and the <em>irreducible error</em>.</p>
+<div class="figure">
+<img src="https://res.cloudinary.com/da1gwmlvj/image/upload/v1586180520/islr%20notes/red_ir_ibsdoc.png" />
+
+</div>
+<p>We can improve the reducible error by using an more appropriate statistical technique. We can never improve the irreducible error, as it is introduced by the <span class="math inline">\(\epsilon\)</span> term in: <span class="math inline">\(Y = f(x) + \epsilon\)</span>, where <span class="math inline">\(Y\)</span> is the true output.</p>
+<p>There is no free lunch in statistics: no one method dominates all others over all possible data sets.</p>
+<div id="inference-vs-prediction" class="section level2">
+<h2>Inference vs Prediction</h2>
+<p>Inference: to do with how the various predictors affect the output. For example, how does TV advertising spend affect sales, how does radio advertising affect, how does newspaper advertising, how does some combination of these affect sales?</p>
+<p>Prediction: Predict the output, like, at a given level of advertising spends, what will the sales be?</p>
+<p>Different models better at different things. If just interested in prediction, then a very complicated black-box model is fine. If interested in inference, simpler and more interpretable may be better.</p>
+<div id="accuracy-vs-interpretability" class="section level3">
+<h3>Accuracy vs Interpretability</h3>
+<p>Lasso less flexible, more interpretable: sets some params to 0.</p>
+<p>Generalized additive models (GAMs) extend the linear model to allow for certain non-linear relationships. GAMs are more flexible than linear regression. They are also less interpretable than linear regression.</p>
+<p>Fully non-linear methods such as bagging, boosting, and support vector machines bagging boosting with non-linear kernels, discussed in Chapters 8 and 9, are highly flexible approaches that are harder to interpret.</p>
+<div class="figure">
+<img src="https://res.cloudinary.com/da1gwmlvj/image/upload/v1586182241/islr%20notes/flex_zposfv.png" />
+
+</div>
+</div>
+</div>
+<div id="parametric-vs-non-parametric" class="section level2">
+<h2>Parametric vs Non-Parametric</h2>
+<p>Statistical learning methods can be characterized as either parametric or non-parametric.</p>
+<div id="parametric" class="section level3">
+<h3>Parametric</h3>
+<p>2 steps:</p>
 <ul>
-<li><p>Being part of an environment where people thrive starts with taking responsibility for that environment. I like that. Make a place nice. Don’t only care about output, care about what <em>kind</em> of place it is. Is it the kind of place where we yell at the new guy because he doesn’t know where the HR office is? No! We don’t do that. Because eventually he’ll find out where the HR office is, and we will get in trouble! Is it the kind of place where we show the new guy around? Yes! Because he might be smarter and more hard working than we are, and he might remember that when he is our overlord.</p></li>
-<li><p>“Act like a founder” - sayeth Bock. Again, this is great. It speaks to taking personal responsibility for the work you put out; having pride and a sense of ownership in what you put out into the world. <strong>Act like a founder.</strong> You’re spending the better part of your day at the job: own it.</p></li>
-<li><p>Talent flows to “high freedom” companies - although Laszlo does state in a later chapter that companies have been successful both in high and low freedom settings. That’s one of the things I really liked about this book; he often says “this is how we did things, it worked for us like that, but that don’t mean it ain’t gonna work for you in another way, dagnabit”. I’m paraphrasing.</p></li>
-<li><p>Managers serve the team - s/he clears roadblocks. Not literal ones, although, he doesn’t preclude managers from clearing literal roadblocks (but I don’t recommend it).</p></li>
+<li>Select a functional form (like <span class="math inline">\(y = mx + c\)</span>)</li>
+<li>fit / train the model.</li>
 </ul>
+<p>pro: assuming functional form, it may be easier (than non-parametric case) to find params. con: choosing bad functional form is… bad.</p>
 </div>
-<div id="chapter-2---culture-eats-strategy-for-breakfast" class="section level1">
-<h1>Chapter 2 - Culture Eats Strategy For Breakfast</h1>
-<p>I wonder what culture has for brunch.</p>
+<div id="non-parametric" class="section level3">
+<h3>Non-Parametric</h3>
+<p>No explict assumptions about functional form.</p>
+<p>pro: avoid danger of choosing a bad functional form con: since non-parametric do not reduce the problem to finding a fixed number of parameters, lots more training data needed.</p>
+<p>Thin-plate spline is an example of non-parametric. Set a “smoothness” parameter.</p>
+</div>
+<div id="train-vs-test-mse" class="section level3">
+<h3>Train vs Test MSE</h3>
+<p>When a given method yields a small training MSE but a large test MSE, we are said to be overfitting the data.</p>
+<p>Cross-validation is a method for estimating test MSE using the training data.</p>
+<div class="figure">
+<img src="https://res.cloudinary.com/da1gwmlvj/image/upload/v1586182404/islr%20notes/trate_pkpnaf.png" />
+
+</div>
+</div>
+<div id="bias-variance-trade-off" class="section level3">
+<h3>Bias Variance Trade-off</h3>
+<p>Expected (since, expected over value of <span class="math inline">\(\hat{f}(x_0)\)</span> over many number of training sets used to estimate <span class="math inline">\(f\)</span>) <em>test</em> MSE of a given <span class="math inline">\(x_0\)</span> can be broken down into:</p>
 <ul>
-<li><p>Google has a simple mission statement (organize the world’s information and make it universally accessible and useful). It’s easy to rally behind, but they can never really full accomplish it… so they are compelled to keep going.</p></li>
-<li><p>Google has a culture of information sharing and trust.</p></li>
+<li>The variance of <span class="math inline">\(\hat{f}(x_0)\)</span></li>
+<li>Square bias of <span class="math inline">\(\hat{f}(x_0)\)</span></li>
+<li>The variance of the <span class="math inline">\(\epsilon\)</span></li>
 </ul>
+<p>The last one, corresponds to <em>irreducible</em> error. We can control the other two somewhat by changing our choice of model.</p>
+<div class="figure">
+<img src="https://res.cloudinary.com/da1gwmlvj/image/upload/v1586182732/islr%20notes/bivar_hvi5il.png" />
+
 </div>
-<div id="chapter-3---lake-wobegon-where-all-the-hires-are-above-average" class="section level1">
-<h1>Chapter 3 - Lake Wobegon, Where all the Hires are Above Average</h1>
-<ul>
-<li><p>Only hire people who are better than you (in some meaningful way).</p></li>
-<li><p>Take your time hiring.</p></li>
-</ul>
+<p>In this context, <em>variance</em> refers to how much <span class="math inline">\(\hat{f}\)</span> would change if we used a different training set (Overfitting). <em>Bias</em> refers to the error we introduce by approximating a (possibly very complicated) real-life problem with a simpler mathemetical model (Underfitting).</p>
+<p>Generally, more flexible methods result in less bias. More flexible statistical methods have higher variance.</p>
 </div>
-<div id="chapter-4---searching-for-the-best" class="section level1">
-<h1>Chapter 4 - Searching For the Best</h1>
-<ul>
-<li>We are all biased; we may be biased towards hiring friends.. So try be objective in your hiring (read the book to learn how. What? You expect moi to tell you?)</li>
-</ul>
 </div>
-<div id="chapter-5---dont-trust-your-gut" class="section level1">
-<h1>Chapter 5 - Don’t Trust Your Gut</h1>
-<p>For me this was a tough one. If my gut says cheeseburger, I’m trusting it. Apparently hiring people and deciding what lunch to get <em>should</em> involve different cognitive processes. K.</p>
-<ul>
-<li><p><a href="https://en.wikipedia.org/wiki/Confirmation_bias">Confirmation bias</a> (my personal favourite of all the cognitive biases) - interviewees make a first impression on us… then we spend the rest of the time in the interview trying to confirm our initial impression. Well, some of us do. The more sound of mind amongst us know that if a person makes a first impression as a well put together educated young man, then they are obviously a machete wielding senile woman.</p></li>
-<li><p>Get a disinterested party to interview, for objectivity. Like, get someone from another team.</p></li>
-<li><p>Have a subordinate interview and get his/her opinion.</p></li>
-<li><p>Aggregate many interviewers’ opinions - wisdom of the crowd.</p></li>
-</ul>
+<div id="bayes-classifier" class="section level2">
+<h2>Bayes Classifier</h2>
+<p>Error rate is minimized, on average, by a very simple classifier that assigns each observation to the most likely class, given its predictor values. Obviously we don’t know the most likely class!</p>
+<p>The Bayes classifier produces the lowest possible test error rate, called the Bayes error rate.</p>
+<p>The Bayes error rate is analogous to the irreducible error, discussed earlier.</p>
 </div>
-<div id="defusing-the-exploding-offer-the-farpoint-gambit" class="section level1">
-<h1>Defusing the Exploding Offer: The Farpoint Gambit</h1>
-<p>This isn’t a chapter, but I thought it a cool enough idea to merit its own section.</p>
-<p>An exploding offer is an offer of employment which expires after a certain amount of time. This can be quite a short amount of time, intending to pressurize. The gambit is simply to accept the offer… provisionally. What you do is set out a condition of your own which causes the deadline to pass. Once the deadline passes, the credibility of the threat is destroyed.</p>
-<p>Say you have 1 week within which to accept the offer. You say: “Gee, I accept!… But I’d sure like to meet the team I’ll be working with. I can’t this week, because my aunt is getting her tonsils removed, so maybe next week?” Of course, next week is already after the deadline.</p>
+<div id="knn" class="section level2">
+<h2>KNN</h2>
+<p>KNN classifier identifies the K points in the training data that are closest to <span class="math inline">\(x_0\)</span>. Estimates class probability as proportion of these classes in the K points.</p>
 </div>
-<div id="chapter-6---let-the-inmates-run-the-asylum" class="section level1">
-<h1>Chapter 6 - Let the Inmates Run The Asylum</h1>
-<ul>
-<li><p>Eliminate status symbols - symbols and stories matter.</p></li>
-<li><p>He spends a lot of time advocating for the removal of managers’ power. However, one place he says managers should have power, is in tie breaking. When a team can’t make a decision, it can’t move forward. By having a person break the tie, we can all continue making dog food at the dog food factory. One of managers’ primary responsibilities then, is to BREAK TIES.</p></li>
-</ul>
-</div>
-<div id="im-tired-and-going-to-sleep" class="section level1">
-<h1>I’m tired and going to sleep</h1>
-<p>So I will continue this in a part 2, at some point in the future.</p>
-<p>Until then, Dear Reader, never stop learning, reading and being awesome!</p>
 </div>
 
               
@@ -389,9 +391,7 @@ if (!doNotTrack) {
                   <div class="post-footer-tags">
                     <span class="text-color-light text-small"></span><br/>
                     
-  <a class="tag tag--primary tag--small" href="/tags/books/">Books</a>
-
-  <a class="tag tag--primary tag--small" href="/tags/non-fiction/">Non-fiction</a>
+  <a class="tag tag--primary tag--small" href="/tags/statistical-learning/">statistical-learning</a>
 
                   </div>
                 
@@ -404,7 +404,7 @@ if (!doNotTrack) {
           
             <li class="post-action">
               
-                <a class="post-action-btn btn btn--default tooltip--top" href="/2019/10/an-r-pipeline-for-xgboost-and-a-discussion-about-hyperparameters/" data-tooltip="An R Pipeline for XGBoost (and a discussion about hyperparameters)">
+                <a class="post-action-btn btn btn--disabled">
               
                   <i class="fa fa-angle-left"></i>
                   <span class="hide-xs hide-sm text-small icon-ml"></span>
@@ -412,7 +412,7 @@ if (!doNotTrack) {
             </li>
             <li class="post-action">
               
-                <a class="post-action-btn btn btn--default tooltip--top" href="/2019/06/hitchhiker-s-guide-to-data-science/" data-tooltip="Hitchhiker&#39;s Guide to Data Science">
+                <a class="post-action-btn btn btn--default tooltip--top" href="/2019/10/an-r-pipeline-for-xgboost-and-a-discussion-about-hyperparameters/" data-tooltip="An R Pipeline for XGBoost (and a discussion about hyperparameters)">
               
                   <span class="hide-xs hide-sm text-small icon-mr"></span>
                   <i class="fa fa-angle-right"></i>
@@ -430,19 +430,19 @@ if (!doNotTrack) {
         </li>
         
           <li class="post-action hide-xs">
-            <a class="post-action-btn btn btn--default" target="new" href="https://www.facebook.com/sharer/sharer.php?u=/2019/09/work-rules/">
+            <a class="post-action-btn btn btn--default" target="new" href="https://www.facebook.com/sharer/sharer.php?u=/2020/04/islr-notes/">
               <i class="fa fa-facebook-official"></i>
             </a>
           </li>
         
           <li class="post-action hide-xs">
-            <a class="post-action-btn btn btn--default" target="new" href="https://twitter.com/intent/tweet?text=/2019/09/work-rules/">
+            <a class="post-action-btn btn btn--default" target="new" href="https://twitter.com/intent/tweet?text=/2020/04/islr-notes/">
               <i class="fa fa-twitter"></i>
             </a>
           </li>
         
           <li class="post-action hide-xs">
-            <a class="post-action-btn btn btn--default" target="new" href="https://plus.google.com/share?url=/2019/09/work-rules/">
+            <a class="post-action-btn btn btn--default" target="new" href="https://plus.google.com/share?url=/2020/04/islr-notes/">
               <i class="fa fa-google-plus"></i>
             </a>
           </li>
@@ -457,7 +457,7 @@ if (!doNotTrack) {
       
       <li class="post-action">
         
-          <a class="post-action-btn btn btn--default" href="#table-of-contents">
+          <a class="post-action-btn btn btn--default" href="#">
         
           <i class="fa fa-list"></i>
         </a>
@@ -490,7 +490,7 @@ if (!doNotTrack) {
           
             <li class="post-action">
               
-                <a class="post-action-btn btn btn--default tooltip--top" href="/2019/10/an-r-pipeline-for-xgboost-and-a-discussion-about-hyperparameters/" data-tooltip="An R Pipeline for XGBoost (and a discussion about hyperparameters)">
+                <a class="post-action-btn btn btn--disabled">
               
                   <i class="fa fa-angle-left"></i>
                   <span class="hide-xs hide-sm text-small icon-ml"></span>
@@ -498,7 +498,7 @@ if (!doNotTrack) {
             </li>
             <li class="post-action">
               
-                <a class="post-action-btn btn btn--default tooltip--top" href="/2019/06/hitchhiker-s-guide-to-data-science/" data-tooltip="Hitchhiker&#39;s Guide to Data Science">
+                <a class="post-action-btn btn btn--default tooltip--top" href="/2019/10/an-r-pipeline-for-xgboost-and-a-discussion-about-hyperparameters/" data-tooltip="An R Pipeline for XGBoost (and a discussion about hyperparameters)">
               
                   <span class="hide-xs hide-sm text-small icon-mr"></span>
                   <i class="fa fa-angle-right"></i>
@@ -516,19 +516,19 @@ if (!doNotTrack) {
         </li>
         
           <li class="post-action hide-xs">
-            <a class="post-action-btn btn btn--default" target="new" href="https://www.facebook.com/sharer/sharer.php?u=/2019/09/work-rules/">
+            <a class="post-action-btn btn btn--default" target="new" href="https://www.facebook.com/sharer/sharer.php?u=/2020/04/islr-notes/">
               <i class="fa fa-facebook-official"></i>
             </a>
           </li>
         
           <li class="post-action hide-xs">
-            <a class="post-action-btn btn btn--default" target="new" href="https://twitter.com/intent/tweet?text=/2019/09/work-rules/">
+            <a class="post-action-btn btn btn--default" target="new" href="https://twitter.com/intent/tweet?text=/2020/04/islr-notes/">
               <i class="fa fa-twitter"></i>
             </a>
           </li>
         
           <li class="post-action hide-xs">
-            <a class="post-action-btn btn btn--default" target="new" href="https://plus.google.com/share?url=/2019/09/work-rules/">
+            <a class="post-action-btn btn btn--default" target="new" href="https://plus.google.com/share?url=/2020/04/islr-notes/">
               <i class="fa fa-google-plus"></i>
             </a>
           </li>
@@ -543,7 +543,7 @@ if (!doNotTrack) {
       
       <li class="post-action">
         
-          <a class="post-action-btn btn btn--default" href="#table-of-contents">
+          <a class="post-action-btn btn btn--default" href="#">
         
           <i class="fa fa-list"></i>
         </a>
@@ -558,19 +558,19 @@ if (!doNotTrack) {
   <ul class="share-options">
     
       <li class="share-option">
-        <a class="share-option-btn" target="new" href="https://www.facebook.com/sharer/sharer.php?u=%2F2019%2F09%2Fwork-rules%2F">
+        <a class="share-option-btn" target="new" href="https://www.facebook.com/sharer/sharer.php?u=%2F2020%2F04%2Fislr-notes%2F">
           <i class="fa fa-facebook-official"></i><span>%!(EXTRA string=Facebook)</span>
         </a>
       </li>
     
       <li class="share-option">
-        <a class="share-option-btn" target="new" href="https://twitter.com/intent/tweet?text=%2F2019%2F09%2Fwork-rules%2F">
+        <a class="share-option-btn" target="new" href="https://twitter.com/intent/tweet?text=%2F2020%2F04%2Fislr-notes%2F">
           <i class="fa fa-twitter"></i><span>%!(EXTRA string=Twitter)</span>
         </a>
       </li>
     
       <li class="share-option">
-        <a class="share-option-btn" target="new" href="https://plus.google.com/share?url=%2F2019%2F09%2Fwork-rules%2F">
+        <a class="share-option-btn" target="new" href="https://plus.google.com/share?url=%2F2020%2F04%2Fislr-notes%2F">
           <i class="fa fa-google-plus"></i><span>%!(EXTRA string=Google&#43;)</span>
         </a>
       </li>
@@ -659,9 +659,9 @@ $(document).ready(function() {
     
       <script>
         var disqus_config = function () {
-          this.page.url = '\/2019\/09\/work-rules\/';
+          this.page.url = '\/2020\/04\/islr-notes\/';
           
-            this.page.identifier = '\/2019\/09\/work-rules\/'
+            this.page.identifier = '\/2020\/04\/islr-notes\/'
           
         };
         (function() {

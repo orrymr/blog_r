@@ -1,0 +1,100 @@
+---
+title: ISLR Notes
+author: Orry Messer
+date: '2020-04-06'
+slug: islr-notes
+draft: false
+categories: []
+tags: [statistical-learning]
+keywords:
+  - statistical-learning
+thumbnailImage: //d1u9biwaxjngwg.cloudfront.net/welcome-to-tranquilpeak/city-750.jpg
+thumbnailImagePosition: "top"
+---
+
+
+
+<p>Just a place for me to keep my notes of the <a href="http://faculty.marshall.usc.edu/gareth-james/ISL/">Introduction to Statistical Learning</a> book.</p>
+<p>This is by no means a comprehensive summary; just a list of points I wish to remember.</p>
+<!--more-->
+<div id="chapter-2-statistical-learning" class="section level1">
+<h1>Chapter 2: Statistical Learning</h1>
+<p>Least squares is a popular method of doing regression, but one of many methods.</p>
+<p>The accuracy of <span class="math inline">\(\hat{Y}\)</span> as a prediction for <span class="math inline">\(Y\)</span> depends on two quantities, which we will call the <em>reducible error</em> and the <em>irreducible error</em>.</p>
+<div class="figure">
+<img src="https://res.cloudinary.com/da1gwmlvj/image/upload/v1586180520/islr%20notes/red_ir_ibsdoc.png" />
+
+</div>
+<p>We can improve the reducible error by using an more appropriate statistical technique. We can never improve the irreducible error, as it is introduced by the <span class="math inline">\(\epsilon\)</span> term in: <span class="math inline">\(Y = f(x) + \epsilon\)</span>, where <span class="math inline">\(Y\)</span> is the true output.</p>
+<p>There is no free lunch in statistics: no one method dominates all others over all possible data sets.</p>
+<div id="inference-vs-prediction" class="section level2">
+<h2>Inference vs Prediction</h2>
+<p>Inference: to do with how the various predictors affect the output. For example, how does TV advertising spend affect sales, how does radio advertising affect, how does newspaper advertising, how does some combination of these affect sales?</p>
+<p>Prediction: Predict the output, like, at a given level of advertising spends, what will the sales be?</p>
+<p>Different models better at different things. If just interested in prediction, then a very complicated black-box model is fine. If interested in inference, simpler and more interpretable may be better.</p>
+<div id="accuracy-vs-interpretability" class="section level3">
+<h3>Accuracy vs Interpretability</h3>
+<p>Lasso less flexible, more interpretable: sets some params to 0.</p>
+<p>Generalized additive models (GAMs) extend the linear model to allow for certain non-linear relationships. GAMs are more flexible than linear regression. They are also less interpretable than linear regression.</p>
+<p>Fully non-linear methods such as bagging, boosting, and support vector machines bagging boosting with non-linear kernels, discussed in Chapters 8 and 9, are highly flexible approaches that are harder to interpret.</p>
+<div class="figure">
+<img src="https://res.cloudinary.com/da1gwmlvj/image/upload/v1586182241/islr%20notes/flex_zposfv.png" />
+
+</div>
+</div>
+</div>
+<div id="parametric-vs-non-parametric" class="section level2">
+<h2>Parametric vs Non-Parametric</h2>
+<p>Statistical learning methods can be characterized as either parametric or non-parametric.</p>
+<div id="parametric" class="section level3">
+<h3>Parametric</h3>
+<p>2 steps:</p>
+<ul>
+<li>Select a functional form (like <span class="math inline">\(y = mx + c\)</span>)</li>
+<li>fit / train the model.</li>
+</ul>
+<p>pro: assuming functional form, it may be easier (than non-parametric case) to find params. con: choosing bad functional form is… bad.</p>
+</div>
+<div id="non-parametric" class="section level3">
+<h3>Non-Parametric</h3>
+<p>No explict assumptions about functional form.</p>
+<p>pro: avoid danger of choosing a bad functional form con: since non-parametric do not reduce the problem to finding a fixed number of parameters, lots more training data needed.</p>
+<p>Thin-plate spline is an example of non-parametric. Set a “smoothness” parameter.</p>
+</div>
+<div id="train-vs-test-mse" class="section level3">
+<h3>Train vs Test MSE</h3>
+<p>When a given method yields a small training MSE but a large test MSE, we are said to be overfitting the data.</p>
+<p>Cross-validation is a method for estimating test MSE using the training data.</p>
+<div class="figure">
+<img src="https://res.cloudinary.com/da1gwmlvj/image/upload/v1586182404/islr%20notes/trate_pkpnaf.png" />
+
+</div>
+</div>
+<div id="bias-variance-trade-off" class="section level3">
+<h3>Bias Variance Trade-off</h3>
+<p>Expected (since, expected over value of <span class="math inline">\(\hat{f}(x_0)\)</span> over many number of training sets used to estimate <span class="math inline">\(f\)</span>) <em>test</em> MSE of a given <span class="math inline">\(x_0\)</span> can be broken down into:</p>
+<ul>
+<li>The variance of <span class="math inline">\(\hat{f}(x_0)\)</span></li>
+<li>Square bias of <span class="math inline">\(\hat{f}(x_0)\)</span></li>
+<li>The variance of the <span class="math inline">\(\epsilon\)</span></li>
+</ul>
+<p>The last one, corresponds to <em>irreducible</em> error. We can control the other two somewhat by changing our choice of model.</p>
+<div class="figure">
+<img src="https://res.cloudinary.com/da1gwmlvj/image/upload/v1586182732/islr%20notes/bivar_hvi5il.png" />
+
+</div>
+<p>In this context, <em>variance</em> refers to how much <span class="math inline">\(\hat{f}\)</span> would change if we used a different training set (Overfitting). <em>Bias</em> refers to the error we introduce by approximating a (possibly very complicated) real-life problem with a simpler mathemetical model (Underfitting).</p>
+<p>Generally, more flexible methods result in less bias. More flexible statistical methods have higher variance.</p>
+</div>
+</div>
+<div id="bayes-classifier" class="section level2">
+<h2>Bayes Classifier</h2>
+<p>Error rate is minimized, on average, by a very simple classifier that assigns each observation to the most likely class, given its predictor values. Obviously we don’t know the most likely class!</p>
+<p>The Bayes classifier produces the lowest possible test error rate, called the Bayes error rate.</p>
+<p>The Bayes error rate is analogous to the irreducible error, discussed earlier.</p>
+</div>
+<div id="knn" class="section level2">
+<h2>KNN</h2>
+<p>KNN classifier identifies the K points in the training data that are closest to <span class="math inline">\(x_0\)</span>. Estimates class probability as proportion of these classes in the K points.</p>
+</div>
+</div>

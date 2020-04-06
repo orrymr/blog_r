@@ -1,0 +1,111 @@
+---
+title: ISLR Notes
+author: Orry Messer
+date: '2020-04-06'
+slug: islr-notes
+draft: false
+categories: []
+tags: [statistical-learning]
+keywords:
+  - statistical-learning
+thumbnailImage: //d1u9biwaxjngwg.cloudfront.net/welcome-to-tranquilpeak/city-750.jpg
+thumbnailImagePosition: "top"
+---
+
+Just a place for me to keep my notes of the [Introduction to Statistical Learning](http://faculty.marshall.usc.edu/gareth-james/ISL/) book.
+
+This is by no means a comprehensive summary; just a list of points I wish to remember.
+
+<!--more-->
+
+# Chapter 2: Statistical Learning
+
+Least squares is a popular method of doing regression, but one of many methods.
+
+The accuracy of $\hat{Y}$ as a prediction for $Y$ depends on two quantities, which we will call the _reducible error_ and the _irreducible error_.
+
+![](https://res.cloudinary.com/da1gwmlvj/image/upload/v1586180520/islr%20notes/red_ir_ibsdoc.png)
+
+We can improve the reducible error by using an more appropriate statistical technique. We can never improve the irreducible error, as it is introduced by the $\epsilon$ term in: $Y = f(x) + \epsilon$, where $Y$ is the true output. 
+
+There is no free lunch in statistics: no one method dominates all others over all possible data sets. 
+
+## Inference vs Prediction
+
+Inference: to do with how the various predictors affect the output. For example, how does TV advertising spend affect sales, how does radio advertising affect, how does newspaper advertising, how does some combination of these affect sales?
+
+Prediction: Predict the output, like, at a given level of advertising spends, what will the sales be?
+
+Different models better at different things. If just interested in prediction, then a very complicated black-box model is fine. If interested in inference, simpler and more interpretable may be better.
+
+### Accuracy vs Interpretability
+
+Lasso less flexible, more interpretable: sets some params to 0.
+
+Generalized additive models (GAMs) extend the linear model to allow for certain non-linear relationships. GAMs are more flexible than linear regression. They are also less interpretable than linear regression.
+
+Fully non-linear methods such as bagging, boosting, and support vector machines bagging boosting with non-linear kernels, discussed in Chapters 8 and 9, are highly flexible approaches that are harder to interpret.
+
+![](https://res.cloudinary.com/da1gwmlvj/image/upload/v1586182241/islr%20notes/flex_zposfv.png)
+
+## Parametric vs Non-Parametric
+
+Statistical learning methods can be characterized as either parametric or non-parametric.
+
+### Parametric 
+
+2 steps:
+
+- Select a functional form (like $y = mx + c$)
+- fit / train the model.
+
+pro: assuming functional form, it may be easier (than non-parametric case) to find params.
+con: choosing bad functional form is... bad.
+
+### Non-Parametric 
+
+No explict assumptions about functional form.
+
+pro: avoid danger of choosing a bad functional form
+con: since non-parametric do not reduce the problem to finding a fixed number of parameters, lots more training data needed.
+
+Thin-plate spline is an example of non-parametric. Set a "smoothness" parameter.
+
+### Train vs Test MSE
+
+When a given method yields a small training MSE but a large test MSE, we are said to be overfitting the data.
+
+Cross-validation is a method for estimating test MSE using the training data.
+
+![](https://res.cloudinary.com/da1gwmlvj/image/upload/v1586182404/islr%20notes/trate_pkpnaf.png)
+
+### Bias Variance Trade-off
+
+Expected (since, expected over value of $\hat{f}(x_0)$ over many number of training sets used to estimate $f$) _test_ MSE of a given $x_0$ can be broken down into:
+
+- The variance of $\hat{f}(x_0)$
+- Square bias of $\hat{f}(x_0)$
+- The variance of the $\epsilon$
+
+The last one, corresponds to _irreducible_ error. We can control the other two somewhat by changing our choice of model.
+
+![](https://res.cloudinary.com/da1gwmlvj/image/upload/v1586182732/islr%20notes/bivar_hvi5il.png)
+
+In this context, _variance_ refers to how much $\hat{f}$ would change if we used a different training set (Overfitting).
+  _Bias_ refers to the error we introduce by approximating a (possibly very complicated) real-life problem with a simpler mathemetical model (Underfitting). 
+
+Generally, more flexible methods result in less bias. More flexible statistical methods have higher variance.
+
+## Bayes Classifier
+
+Error rate is minimized, on average, by a very simple classifier that assigns each observation to the most likely class, given its predictor values. Obviously we don't know the most likely class!
+
+The Bayes classifier produces the lowest possible test error rate, called the Bayes error rate.
+
+The Bayes error rate is analogous to the irreducible error, discussed earlier.
+
+## KNN
+
+KNN classifier identifies the K points in the training data that are closest to $x_0$. Estimates class probability as proportion of these classes in the K points.
+
+
