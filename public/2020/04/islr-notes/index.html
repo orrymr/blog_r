@@ -381,6 +381,112 @@ if (!doNotTrack) {
 <p>KNN classifier identifies the K points in the training data that are closest to <span class="math inline">\(x_0\)</span>. Estimates class probability as proportion of these classes in the K points.</p>
 </div>
 </div>
+<div id="chapter-3-linear-regression" class="section level1">
+<h1>Chapter 3: Linear Regression</h1>
+<p>New terms in this chapter:</p>
+<ul>
+<li>Interaction Effect</li>
+<li>Residual</li>
+<li>RSS</li>
+<li>population regression line</li>
+<li>least squares line</li>
+<li>biased / unbiased estimators</li>
+<li>standard error</li>
+<li>RSE</li>
+<li>confidence interval</li>
+<li>hypothesis test</li>
+<li>t-statistic</li>
+<li><span class="math inline">\(p\)</span>-value</li>
+<li><span class="math inline">\(R^2\)</span></li>
+<li>Total Sum of Squares</li>
+<li>correlation</li>
+<li><span class="math inline">\(F\)</span> statistic</li>
+</ul>
+<p>This chapter reviews ideas underlying linear regression, as well as least squares approach that is commonly used to fit this model.</p>
+<div id="simple-linear-regression" class="section level2">
+<h2>Simple Linear Regression</h2>
+<p><u>Simple</u> linear regression refers to predicting <span class="math inline">\(Y\)</span> from a <u>single</u> predictor, <span class="math inline">\(X\)</span>.</p>
+<p>Fit line that is closest to datapoints. most common measure of closeness involved minimizing least squares criterion.</p>
+<p>The <em>residual</em> is the difference between the <span class="math inline">\(i\)</span>th observed response value and the <span class="math inline">\(i\)</span>th response value predicted by the model: <span class="math inline">\(e_i = y_i-\hat{y}_i\)</span></p>
+<p>The <em>residual sum of squares</em>: RSS <span class="math inline">\(= e_1^2 + e_2^2 + ... + e_n^2\)</span></p>
+<p>The least squares approach chooses <span class="math inline">\(\hat{\beta}_1\)</span> and <span class="math inline">\(\hat{\beta}_0\)</span> to minimize the RSS.</p>
+<div class="figure">
+<img src="https://res.cloudinary.com/da1gwmlvj/image/upload/v1586345760/islr%20notes/mion_ylow1m.png" />
+
+</div>
+<p>The above define the <em>least squares coefficient estimates</em> for simple linear regression.</p>
+<div id="assessing-the-accuracy-of-coefficient-estimates" class="section level3">
+<h3>Assessing the Accuracy of Coefficient Estimates</h3>
+<p>The model defined by the <em>population regression line</em> is the <u>best</u> linear approximation to the relationship between <span class="math inline">\(X\)</span> and <span class="math inline">\(Y\)</span>. It is given by: <span class="math inline">\(Y = \beta_0 + \beta_1 + \epsilon\)</span>.</p>
+<p>The least squares coefficients define the <em>least squares line</em>.</p>
+<div class="figure">
+<img src="https://res.cloudinary.com/da1gwmlvj/image/upload/v1586346036/islr%20notes/pop_sq_mlkc0z.png" />
+
+</div>
+<div id="biased-vs-unbiased-estimators" class="section level4">
+<h4>Biased vs Unbiased Estimators</h4>
+<p>Unbiased estimator does not systematically over or under estimate the true parameter. The sample mean is an unbiased estimator: expect the sample mean to equal popln mean on average.</p>
+<p>Similar to how we try to estimate the population mean using the sample mean, we try use the least squares coefficients to estimate the coefficients of the population least squares line. Apt analogy, as <span class="math inline">\(\hat{\beta_0}\)</span> and <span class="math inline">\(\hat{\beta_1}\)</span> are <em>unbiased</em> estimators, like the sample mean.</p>
+</div>
+<div id="standard-error" class="section level4">
+<h4>Standard Error</h4>
+<p>Continuing with the example of the sample mean, we’d like to be able to comment on the accuracy of the sample mean as an estimate of the population mean. That’s where <em>standard error</em> comes in, <span class="math inline">\(SE(\hat{\mu})\)</span>.</p>
+<p><span class="math inline">\(SE(\hat{\mu})^2\)</span> = <span class="math inline">\(Var(\hat{\mu})\)</span> = <span class="math inline">\(\frac{\sigma^2}{n}\)</span></p>
+<p>where <span class="math inline">\(\sigma\)</span> is the standard deviation of each of the realizations of <span class="math inline">\(y_i\)</span> (remember, you have this, as it’s in the labeled training data). So, the standard error is a ratio of 2 quantities: the bigger the standard deviation, the bigger the standard error. The more observations you have, <span class="math inline">\(n\)</span>, the smaller the standard error. Makes sense, since if the data vary wildly, you need lots of observations to be sure of it. Similarly, if the data is super clustered together, then you probably just need a few obersvations. Of course, the more observations you have, the better (reflected by the denominator of the Standard Error).</p>
+<p>The formula for the standard error holds provided that none of the observations are correlated.</p>
+<p>We can also look at the standard errors of <span class="math inline">\(\hat{\beta_0}\)</span> and <span class="math inline">\(\hat{\beta_1}\)</span>:</p>
+<div class="figure">
+<img src="https://res.cloudinary.com/da1gwmlvj/image/upload/v1586346735/islr%20notes/se_b1_seB2_serjac.png" />
+
+</div>
+<p>Here, <span class="math inline">\(\sigma^2 = Var(\epsilon)\)</span></p>
+<p>For these formulas to be strictly valid, we need to assume that the errors <span class="math inline">\(\epsilon_i\)</span> for each observation are uncorrelated with common variance.</p>
+<p>Notice in the formula that <span class="math inline">\(SE(\hat{\beta_1})\)</span> is smaller when the <span class="math inline">\(x_i\)</span> are more spread out: intuitively we have more leverage to estimate a slope when this is the case.</p>
+<p>We also see that <span class="math inline">\(SE(\hat{β}_0)\)</span> would be the same as <span class="math inline">\(SE(\hat{μ})\)</span> if <span class="math inline">\(\bar{x}\)</span> were zero (in which case <span class="math inline">\(\hat{β}_0\)</span> would be equal to <span class="math inline">\(\bar{y}\)</span>).</p>
+<p>In the above formulae, we needed <span class="math inline">\(\sigma^2\)</span> which was equal to <span class="math inline">\(Var(\epsilon)\)</span>. In general, this quantity is not known, but it can be estimated from the data. The estimate for this is the <em>residual standard error</em></p>
+<p><span class="math inline">\(RSE = \sqrt{RSS / (n - 2)}\)</span></p>
+<p>Standard errors can be used to compute <em>confidence intervals</em> - so, you can say with 95% confidence that <span class="math inline">\(\hat{β}_0\)</span> and <span class="math inline">\(\hat{β}_1\)</span> lie within a certain range of values.</p>
+<p>Standard errors can also be used to perform <em>hypothesis tests</em>. The most common hypothesis test involves checking whether there is a relationship between <span class="math inline">\(X\)</span> and <span class="math inline">\(Y\)</span>. Mathematically, corresponding to:</p>
+<p><span class="math inline">\(H_0 : \beta_1 = 0\)</span></p>
+<p><span class="math inline">\(H_1 : \beta_1 \neq 0\)</span></p>
+<p>Note, the hypothesis test is about <span class="math inline">\(\beta_1\)</span>, but we’ll have to use <span class="math inline">\(\hat{\beta_1}\)</span>. To test this hypothesis, we need to test whether <span class="math inline">\(\hat{\beta}_1\)</span> is far away enough from zero, to conclude that <span class="math inline">\(\beta_1\)</span> is non-zero. But how far away is far enough? This depends on the accuracy of <span class="math inline">\(\hat{\beta}_1\)</span>, of course. And we were able to comment about its accuracy using <span class="math inline">\(SE(\hat{\beta}_1)\)</span>. If we are confident in our estimate of <span class="math inline">\(\hat{\beta}_1\)</span>, in other words, <span class="math inline">\(SE(\hat{\beta}_1)\)</span> is small, then even relatively small values of <span class="math inline">\(\hat{\beta}_1\)</span> can lead us to conclude that there is a relationship between <span class="math inline">\(X\)</span> and <span class="math inline">\(Y\)</span>. In contrast, if we’re not that confident in the accuracy of <span class="math inline">\(\hat{\beta}_1\)</span>, ie <span class="math inline">\(SE(\hat{\beta}_1)\)</span> is large, then we’ll need some pretty large values of <span class="math inline">\(\hat{\beta}_1\)</span> to convince us that there is a relationship between <span class="math inline">\(X\)</span> and <span class="math inline">\(Y\)</span>.</p>
+<p>In practice, we use <em>t-statistic</em>.</p>
+<p><span class="math inline">\(t = \frac{\hat{\beta_1} - 0}{SE(\hat{\beta_1})}\)</span></p>
+<p>which measures the number of standard deviations away that <span class="math inline">\(\hat{\beta_1}\)</span> is from <span class="math inline">\(0\)</span>. Look at it like this - the t-statistic is the <u>ratio</u> of the distance of the <span class="math inline">\(\hat{\beta_1}\)</span> parameter to its hypothesized value (<span class="math inline">\(0\)</span> in this case), to its standard error. The value of the t-statistic will lie somewhere on the t-distribution (with <span class="math inline">\(n-2\)</span> degrees of freedom). We want to compute the probability of observing this <span class="math inline">\(t\)</span> value, under the assumption of <span class="math inline">\(\beta_1 = 0\)</span>. What is probability of having observed this value of <span class="math inline">\(t\)</span>? We call this the <em>p-value</em>. Small p-value means it’s super unlikely to have observed it, so we reject <span class="math inline">\(H_0\)</span></p>
+</div>
+</div>
+<div id="assessing-the-accuracy-of-the-model" class="section level3">
+<h3>Assessing the Accuracy of The Model</h3>
+<p>Once we have rejected <span class="math inline">\(H_0\)</span> above, we need to comment on the accuracy of our model.</p>
+<p>The quality of a linear regression fit is typically assessed using two related quantities: the residual standard error (RSE) and the <span class="math inline">\(R^2\)</span> statistic.</p>
+<div id="rse" class="section level4">
+<h4>RSE</h4>
+<p>Recall, we’ve already met the <span class="math inline">\(RSE = \sqrt{RSS / (n - 2)}\)</span>. We used it to estimate the value of the standard deviation of the residuals (which were Gaussian, mean 0, s.d. = ?).</p>
+<p>In the advertising example, RSE was 3.26 (measured in thousands of units). So any prediction could be off by about 3260 units (if it’s within 1 standard deviation away from the line).</p>
+<p>RSE is considered a measure of the lack of fit of the model to the data - is the choice of model, namely <span class="math inline">\(Y = \beta_0 + \beta_1 + \epsilon\)</span> a good one?</p>
+</div>
+<div id="r2" class="section level4">
+<h4><span class="math inline">\(R^2\)</span></h4>
+<p>RSE is measured in units of Y, <span class="math inline">\(R^2\)</span> takes the form of a proportion. <span class="math inline">\(R^2\)</span> is the proportion of the variance explained by the model.</p>
+<p><span class="math inline">\(R^2 = \frac{TSS - RSS}{TSS} = 1 - \frac{RSS}{TSS}\)</span></p>
+<p><span class="math inline">\(0 \leq R^2 \leq 1\)</span></p>
+<p>TSS measures the total variance in the response <span class="math inline">\(Y\)</span>:</p>
+<p><span class="math inline">\(TSS = \sum(y_i - \bar{y})^2\)</span></p>
+<p>So, it’s the variance in the <u>actual, observed</u> data.</p>
+<p>RSS measures the variability that is left unexplained after performing the regression.</p>
+<p><span class="math inline">\(RSS = \sum_{i = 1}^{n}(y_i - \hat{y}_i)^2\)</span></p>
+<p>So, it’s the variance left over from the difference between the actual <span class="math inline">\(y_i\)</span> and <span class="math inline">\(\hat{y}_i\)</span>.</p>
+<p>Ergo, <span class="math inline">\(TSS - RSS\)</span> measures the amount of variability in the response that is explained by the regression. <span class="math inline">\(R^2\)</span> measures the proportion of variability in in Y that can be explained using X.</p>
+<p>In Table 3.2, the <span class="math inline">\(R^2\)</span> was 0.61, and so just under two-thirds of the variability in sales is explained by a linear regression on TV.</p>
+<p><span class="math inline">\(R^2\)</span> is a measure of the <em>linear</em> relationship between <span class="math inline">\(X\)</span> and <span class="math inline">\(Y\)</span>. <em>Correlation</em> is also a measure of the linear relationship between <span class="math inline">\(X\)</span> and <span class="math inline">\(Y\)</span>. In simple linear regression, <span class="math inline">\(r^2 = R^2\)</span>. In mutliple linear regression, though, <span class="math inline">\(R^2\)</span> is different: The concept of correlation is between 2 variables, namely <span class="math inline">\(X\)</span> and <span class="math inline">\(Y\)</span> in this case. When we have <span class="math inline">\(X_1, X_2, ... X_n\)</span>, the concept of correlation does not extend to these predictors and <span class="math inline">\(Y\)</span>, as its no longer between 2 variables (it’s between <span class="math inline">\(n + 1\)</span>). But <span class="math inline">\(R^2\)</span> still plays this same role in multiple correlation setting.</p>
+</div>
+</div>
+</div>
+<div id="additional-info-on-lm-from-r" class="section level2">
+<h2>Additional Info on lm() from R:</h2>
+<p><a href="https://stats.stackexchange.com/questions/5135/interpretation-of-rs-lm-output" class="uri">https://stats.stackexchange.com/questions/5135/interpretation-of-rs-lm-output</a></p>
+</div>
+</div>
 
               
             </div>
