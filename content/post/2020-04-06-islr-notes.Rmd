@@ -255,7 +255,45 @@ In Table 3.2, the $R^2$ was 0.61, and so just under two-thirds of the variabilit
 
 $R^2$ is a measure of the _linear_ relationship between $X$ and $Y$. _Correlation_ is also a measure of the linear relationship between $X$ and $Y$. In simple linear regression, $r^2 = R^2$. In mutliple linear regression, though, $R^2$ is different: The concept of correlation is between 2 variables, namely $X$ and $Y$ in this case. When we have $X_1, X_2, ... X_n$, the concept of correlation does not extend to these predictors and $Y$, as its no longer between 2 variables (it's between $n + 1$). But $R^2$ still plays this same role in multiple correlation setting.
 
-## Additional Info on lm() from R:
+### Additional Info on lm() from R:
 
 https://stats.stackexchange.com/questions/5135/interpretation-of-rs-lm-output
+
+## Multiple Linear Regression
+
+More than one predictor.
+
+$Y = \beta_0 + \beta_1x_1 + \beta_2x2 + ... + \beta_px_p + \epsilon$
+
+### Estimating Regression Coefficients
+
+Can use least squares (like in simple linear regression, but requires matrix algebra).
+
+NB: simple and multiple regression coefficients can be quite different:
+
+![Multiple Regression Coefficients](https://res.cloudinary.com/da1gwmlvj/image/upload/v1586427329/islr%20notes/mult_wefkis.png)
+
+![TV](https://res.cloudinary.com/da1gwmlvj/image/upload/v1586427525/islr%20notes/TV_yuqrlo.png)
+![Newspaper](https://res.cloudinary.com/da1gwmlvj/image/upload/v1586427525/islr%20notes/newspaper_idieyi.png)
+![Radio](https://res.cloudinary.com/da1gwmlvj/image/upload/v1586427524/islr%20notes/radio_fyczo7.png)
+
+Look at coefficient of Newspaper in multiple (-0.001) and simple (0.055) case. Difference stems from the fact that in the simple linear regression case, the slope term represents the average effect of a \\\$1000 increase in newspaper advertising, ignoring other predictors. In multiple regression setting, the coefficient for newspaper represents the average effect of increasing newspaper spending by \\\$1000 while holding TV and radio fixed.
+
+How can make sense for multiple regression to suggest no relationship between sales and newspaper, where in simple regression case it does?
+
+Look at the correlation matrix:
+
+![](https://res.cloudinary.com/da1gwmlvj/image/upload/v1586427957/islr%20notes/correlation_j2lazp.png)
+
+Notice that the correlation between radio and newspaper is 0.35. Reveals tendency to spend more on newspaper in markets where more is spent on radio advertising.
+
+If multiple regression is correct, then newspaper has no _direct_ impact on sales, but radio does. In markets where more spent on radio, sales will be higher AND, as correlation matrix shows, newspaper spend will also be higher. Therefore, in simple linear regression, only looking at sales vs newspaper, we observe that higher newspaper spend tends to be associated with higher sales. Even though it doesn't actually affect sales!!! Newspaper "takes the credit" in the absence of radio on sales.
+
+
+
+
+
+
+
+
 

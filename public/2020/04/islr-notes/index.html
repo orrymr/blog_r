@@ -481,10 +481,34 @@ if (!doNotTrack) {
 <p><span class="math inline">\(R^2\)</span> is a measure of the <em>linear</em> relationship between <span class="math inline">\(X\)</span> and <span class="math inline">\(Y\)</span>. <em>Correlation</em> is also a measure of the linear relationship between <span class="math inline">\(X\)</span> and <span class="math inline">\(Y\)</span>. In simple linear regression, <span class="math inline">\(r^2 = R^2\)</span>. In mutliple linear regression, though, <span class="math inline">\(R^2\)</span> is different: The concept of correlation is between 2 variables, namely <span class="math inline">\(X\)</span> and <span class="math inline">\(Y\)</span> in this case. When we have <span class="math inline">\(X_1, X_2, ... X_n\)</span>, the concept of correlation does not extend to these predictors and <span class="math inline">\(Y\)</span>, as its no longer between 2 variables (it’s between <span class="math inline">\(n + 1\)</span>). But <span class="math inline">\(R^2\)</span> still plays this same role in multiple correlation setting.</p>
 </div>
 </div>
-</div>
-<div id="additional-info-on-lm-from-r" class="section level2">
-<h2>Additional Info on lm() from R:</h2>
+<div id="additional-info-on-lm-from-r" class="section level3">
+<h3>Additional Info on lm() from R:</h3>
 <p><a href="https://stats.stackexchange.com/questions/5135/interpretation-of-rs-lm-output" class="uri">https://stats.stackexchange.com/questions/5135/interpretation-of-rs-lm-output</a></p>
+</div>
+</div>
+<div id="multiple-linear-regression" class="section level2">
+<h2>Multiple Linear Regression</h2>
+<p>More than one predictor.</p>
+<p><span class="math inline">\(Y = \beta_0 + \beta_1x_1 + \beta_2x2 + ... + \beta_px_p + \epsilon\)</span></p>
+<div id="estimating-regression-coefficients" class="section level3">
+<h3>Estimating Regression Coefficients</h3>
+<p>Can use least squares (like in simple linear regression, but requires matrix algebra).</p>
+<p>NB: simple and multiple regression coefficients can be quite different:</p>
+<div class="figure">
+<img src="https://res.cloudinary.com/da1gwmlvj/image/upload/v1586427329/islr%20notes/mult_wefkis.png" alt="Multiple Regression Coefficients" />
+<p class="caption">Multiple Regression Coefficients</p>
+</div>
+<p><img src="https://res.cloudinary.com/da1gwmlvj/image/upload/v1586427525/islr%20notes/TV_yuqrlo.png" alt="TV" /> <img src="https://res.cloudinary.com/da1gwmlvj/image/upload/v1586427525/islr%20notes/newspaper_idieyi.png" alt="Newspaper" /> <img src="https://res.cloudinary.com/da1gwmlvj/image/upload/v1586427524/islr%20notes/radio_fyczo7.png" alt="Radio" /></p>
+<p>Look at coefficient of Newspaper in multiple (-0.001) and simple (0.055) case. Difference stems from the fact that in the simple linear regression case, the slope term represents the average effect of a \$1000 increase in newspaper advertising, ignoring other predictors. In multiple regression setting, the coefficient for newspaper represents the average effect of increasing newspaper spending by \$1000 while holding TV and radio fixed.</p>
+<p>How can make sense for multiple regression to suggest no relationship between sales and newspaper, where in simple regression case it does?</p>
+<p>Look at the correlation matrix:</p>
+<div class="figure">
+<img src="https://res.cloudinary.com/da1gwmlvj/image/upload/v1586427957/islr%20notes/correlation_j2lazp.png" />
+
+</div>
+<p>Notice that the correlation between radio and newspaper is 0.35. Reveals tendency to spend more on newspaper in markets where more is spent on radio advertising.</p>
+<p>If multiple regression is correct, then newspaper has no <em>direct</em> impact on sales, but radio does. In markets where more spent on radio, sales will be higher AND, as correlation matrix shows, newspaper spend will also be higher. Therefore, in simple linear regression, only looking at sales vs newspaper, we observe that higher newspaper spend tends to be associated with higher sales. Even though it doesn’t actually affect sales!!! Newspaper “takes the credit” in the absence of radio on sales.</p>
+</div>
 </div>
 </div>
 
