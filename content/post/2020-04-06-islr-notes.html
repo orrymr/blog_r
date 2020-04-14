@@ -28,6 +28,15 @@ thumbnailImagePosition: "top"
 
 </div>
 <p>We can improve the reducible error by using an more appropriate statistical technique. We can never improve the irreducible error, as it is introduced by the <span class="math inline">\(\epsilon\)</span> term in: <span class="math inline">\(Y = f(x) + \epsilon\)</span>, where <span class="math inline">\(Y\)</span> is the true output.</p>
+<p><span class="math inline">\(Y = f(X) + \epsilon\)</span> : we assume this is the function which generated the data. It has 2 components</p>
+<ul>
+<li><span class="math inline">\(f(X) = \beta_0 + \beta_1X_1 + ... + \beta_pX_p\)</span> which we assume is <em>linear</em></li>
+<li><span class="math inline">\(\epsilon\)</span> which we assume is from a mean 0 Gaussian</li>
+</ul>
+<p>We estimate <span class="math inline">\(f\)</span> using <span class="math inline">\(\hat{f}\)</span>. The predictions we make <span class="math inline">\(\hat{Y}\)</span> are generated from <span class="math inline">\(\hat{f}\)</span>, in other words <span class="math inline">\(\hat{Y} = \hat{f}\)</span></p>
+<p><span class="math inline">\(\hat{Y} = \hat{\beta_0} + \hat{\beta_1}X_1 + ... + \hat{\beta_p}X_p\)</span></p>
+<p>is only an estimate for</p>
+<p>So, it obvisouly doesn’t take into account the error term <span class="math inline">\(\epsilon\)</span>…</p>
 <p>There is no free lunch in statistics: no one method dominates all others over all possible data sets.</p>
 <div id="inference-vs-prediction" class="section level2">
 <h2>Inference vs Prediction</h2>
@@ -120,6 +129,19 @@ thumbnailImagePosition: "top"
 <li>Total Sum of Squares</li>
 <li>correlation</li>
 <li><span class="math inline">\(F\)</span> statistic</li>
+<li>forward selection</li>
+<li>variable selection</li>
+<li>synergy / interaction effect</li>
+<li>interaction terms</li>
+<li>prediction intervals</li>
+<li>dummy variable</li>
+<li>hierarchical principle</li>
+<li>polynomial regression</li>
+<li>Residual plots</li>
+<li>heteroscedasticity</li>
+<li>studentized residuals</li>
+<li>high leverage</li>
+<li>leverage statistic</li>
 </ul>
 <p>This chapter reviews ideas underlying linear regression, as well as least squares approach that is commonly used to fit this model.</p>
 <div id="simple-linear-regression" class="section level2">
@@ -227,6 +249,56 @@ thumbnailImagePosition: "top"
 </div>
 <p>Notice that the correlation between radio and newspaper is 0.35. Reveals tendency to spend more on newspaper in markets where more is spent on radio advertising.</p>
 <p>If multiple regression is correct, then newspaper has no <em>direct</em> impact on sales, but radio does. In markets where more spent on radio, sales will be higher AND, as correlation matrix shows, newspaper spend will also be higher. Therefore, in simple linear regression, only looking at sales vs newspaper, we observe that higher newspaper spend tends to be associated with higher sales. Even though it doesn’t actually affect sales!!! Newspaper “takes the credit” in the absence of radio on sales.</p>
+</div>
+<div id="is-there-a-relationship-between-the-response-and-predictors" class="section level3">
+<h3>Is there a relationship Between The Response and Predictors?</h3>
+<p>F-statistic</p>
+<p>The hypothesis being tested here is:</p>
+<p><span class="math inline">\(H_0 : \beta_1 = \beta_2 = ... = \beta_p = 0\)</span> $H_a : $ at least one <span class="math inline">\(\beta_j\)</span> is non-zero</p>
+<p>So, we check whether or not <em>all</em> coefficients are zero.</p>
+<p>Test using the F-statistic.</p>
+<p>When there is no relationship, we expect the F-stat to take a value close to 1. If <span class="math inline">\(H_a\)</span> is true, expect it to be larger than 1. How much larger? Depends on values of <span class="math inline">\(n\)</span> and <span class="math inline">\(p\)</span> -&gt; <span class="math inline">\(n\)</span> large, (lots of data), then needs to be just a little larger. If <span class="math inline">\(n\)</span> small, (not lots of data), <span class="math inline">\(F\)</span> needs to be bigger.</p>
+<p>Each predictor gets its own t-statistic and p-value as well, so why also look at F-stat? Suppose <span class="math inline">\(p = 100\)</span>, then there will be 100 t-statistics, one for each coefficient. In this situation, 5% (so, 5 of them), will fall below the 0.05 threshold by chance. However, the F-statistic does not suffer from this problem because it adjusts for the number of predictors.</p>
+<p>If <span class="math inline">\(p &gt; n\)</span> can’t use least squares.</p>
+</div>
+<div id="deciding-on-important-variables" class="section level3">
+<h3>Deciding on Important Variables</h3>
+<p>We could look at the individual p-values of the t-statistics, but as discussed, if p is large we are likely to make some false discoveries.</p>
+<p>How choose best model? These statistics can be used to judge quality of the model:</p>
+<ul>
+<li>Mallow’s <span class="math inline">\(C_p\)</span></li>
+<li>Akaike Information criterion (AIC),</li>
+<li>Bayesian information criterion (BIC)</li>
+<li>adjusted <span class="math inline">\(R^2\)</span></li>
+</ul>
+<p>If got p vars, can fit <span class="math inline">\(2^p\)</span> models, so will have to get these statistcs for <span class="math inline">\(2^p\)</span> which is a <em>shitload</em></p>
+<p><em>variable selection</em> -</p>
+<ul>
+<li>Forward Selection</li>
+<li>Backward Selection</li>
+<li>Mixed Selection</li>
+</ul>
+</div>
+<div id="model-fit" class="section level3">
+<h3>Model Fit</h3>
+<p>Two of the most common numerical measures of model fit are the RSE and <span class="math inline">\(R^2\)</span>, the fraction of variance explained. These quantities are computed and interpreted in the same fashion as for simple linear regression.</p>
+<p>Recall that in simple regression, <span class="math inline">\(R^2\)</span> is the square of the correlation of the response and the variable: <span class="math inline">\(Cor(X, Y)^2\)</span>. In multiple linear regression, it turns out that it equals <span class="math inline">\(Cor(Y, \hat{Y} )^2\)</span>, the square of the correlation between the response and the fitted linear model.</p>
+<p>Plotting the data: overestimates when only TV or radio is spent on, under-estimates when budget split between the two media. This non-linear relationship cannot be modeled accurately using linear regression. –&gt; <em>synergy / interaction effect</em>.</p>
+<div class="figure">
+<img src="https://res.cloudinary.com/da1gwmlvj/image/upload/v1586527766/islr%20notes/quad_yefb2i.png" />
+
+</div>
+</div>
+<div id="predictions" class="section level3">
+<h3>Predictions</h3>
+<p>We can compute a confidence interval in order to determine how close <span class="math inline">\(\hat{Y}\)</span> will be to <span class="math inline">\(f(X)\)</span>.</p>
+<p>Prediction intervals to see how much <span class="math inline">\(\hat{Y}\)</span> will vary from <span class="math inline">\(Y\)</span>. Prediction intervals are always wider than confidence intervals because they incorporate both reducible and irreducible error. Confidence intervals only look at reducible error.</p>
+<p>Irreducible error arises from the fact that X doesn’t completely determine <span class="math inline">\(Y\)</span> (the error term).</p>
+<p><span class="math inline">\(\hat{Y} = \hat{\beta_0} + \hat{\beta_1}X_1 + ... + \hat{\beta_p}X_p\)</span></p>
+<p>is only an estimate for</p>
+<p><span class="math inline">\(f(X) = \beta_0 + \beta_1X_1 + ... + \beta_pX_p\)</span></p>
+<p>So, it obvisouly doesn’t take into account the error term <span class="math inline">\(\epsilon\)</span>…</p>
+<p><span class="math inline">\(Y = f(X) + \epsilon\)</span></p>
 </div>
 </div>
 </div>

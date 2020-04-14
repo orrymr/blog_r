@@ -32,6 +32,25 @@ The accuracy of $\hat{Y}$ as a prediction for $Y$ depends on two quantities, whi
 
 We can improve the reducible error by using an more appropriate statistical technique. We can never improve the irreducible error, as it is introduced by the $\epsilon$ term in: $Y = f(x) + \epsilon$, where $Y$ is the true output. 
 
+$Y = f(X) + \epsilon$ : we assume this is the function which generated the data. It has 2 components
+
+- $f(X) = \beta_0 + \beta_1X_1 + ... + \beta_pX_p$ which we assume is _linear_
+- $\epsilon$ which we assume is from a mean 0 Gaussian
+
+We estimate $f$ using $\hat{f}$. The predictions we make $\hat{Y}$ are generated from $\hat{f}$, in other words $\hat{Y} = \hat{f}$
+
+
+$\hat{Y} = \hat{\beta_0} + \hat{\beta_1}X_1 + ... + \hat{\beta_p}X_p$
+
+is only an estimate for 
+
+
+So, it obvisouly doesn't take into account the error term $\epsilon$...
+
+
+
+
+
 There is no free lunch in statistics: no one method dominates all others over all possible data sets. 
 
 ## Inference vs Prediction
@@ -132,6 +151,19 @@ New terms in this chapter:
 - Total Sum of Squares
 - correlation
 - $F$ statistic
+- forward selection
+- variable selection
+- synergy / interaction effect
+- interaction terms
+- prediction intervals
+- dummy variable
+- hierarchical principle
+- polynomial regression
+- Residual plots
+- heteroscedasticity
+- studentized residuals
+- high leverage
+- leverage statistic
 
 This chapter reviews ideas underlying linear regression, as well as least squares approach that is commonly used to fit this model.
 
@@ -290,10 +322,132 @@ Notice that the correlation between radio and newspaper is 0.35. Reveals tendenc
 If multiple regression is correct, then newspaper has no _direct_ impact on sales, but radio does. In markets where more spent on radio, sales will be higher AND, as correlation matrix shows, newspaper spend will also be higher. Therefore, in simple linear regression, only looking at sales vs newspaper, we observe that higher newspaper spend tends to be associated with higher sales. Even though it doesn't actually affect sales!!! Newspaper "takes the credit" in the absence of radio on sales.
 
 
+### Is there a relationship Between The Response and Predictors?
+
+F-statistic
+
+The hypothesis being tested here is:
+
+$H_0 : \beta_1 = \beta_2 = ... = \beta_p = 0$
+$H_a : $ at least one $\beta_j$ is non-zero
+
+So, we check whether or not _all_ coefficients are zero.
+
+Test using the F-statistic.
+
+When there is no relationship, we expect the F-stat to take a value close to 1. If $H_a$ is true, expect it to be larger than 1. How much larger? Depends on values of $n$ and $p$ -> $n$ large, (lots of data), then needs to be just a little larger. If $n$ small, (not lots of data), $F$ needs to be bigger.
+
+Each predictor gets its own t-statistic and p-value as well, so why also look at F-stat? Suppose $p = 100$, then there will be 100 t-statistics, one for each coefficient. In this situation, 5% (so, 5 of them), will fall below the 0.05 threshold by chance. However, the F-statistic does not suffer from this problem because it adjusts for the number of predictors.
+
+If $p > n$ can't use least squares.
+
+### Deciding on Important Variables
+
+We could look at the individual p-values of the t-statistics, but as discussed, if p is large we are likely to make some false discoveries.
+
+
+How choose best model? These statistics can be used to judge quality of the model:
+
+- Mallow’s $C_p$
+- Akaike Information criterion (AIC), 
+- Bayesian information criterion (BIC)
+- adjusted $R^2$
+
+If got p vars, can fit $2^p$ models, so will have to get these statistcs for $2^p$ which is a _shitload_
+
+_variable selection_ -
+
+- Forward Selection
+- Backward Selection
+- Mixed Selection
+
+### Model Fit
+
+Two of the most common numerical measures of model fit are the RSE and $R^2$, the fraction of variance explained. These quantities are computed and interpreted in the same fashion as for simple linear regression.
+
+Recall that in simple regression, $R^2$ is the square of the correlation of the response and the variable: $Cor(X, Y)^2$. In multiple linear regression, it turns out that it equals $Cor(Y, \hat{Y} )^2$, the square of the correlation between the response and the fitted linear model.
+
+Plotting the data: overestimates when only TV or radio is spent on, under-estimates when budget split between the two media. This non-linear relationship cannot be modeled accurately using linear regression. --> _synergy / interaction effect_.
+
+![](https://res.cloudinary.com/da1gwmlvj/image/upload/v1586527766/islr%20notes/quad_yefb2i.png)
+
+### Predictions
+
+We can compute a confidence interval in order to determine how close $\hat{Y}$ will be to $f(X)$.
+
+Prediction intervals to see how much $\hat{Y}$ will vary from $Y$. Prediction intervals are always wider than confidence intervals because they incorporate both reducible and irreducible error. Confidence intervals only look at reducible error.
+
+Irreducible error arises from the fact that X doesn’t completely determine $Y$ (the error term).
+
+$\hat{Y} = \hat{\beta_0} + \hat{\beta_1}X_1 + ... + \hat{\beta_p}X_p$
+
+is only an estimate for 
+
+$f(X) = \beta_0 + \beta_1X_1 + ... + \beta_pX_p$
+
+So, it obvisouly doesn't take into account the error term $\epsilon$...
+
+$Y = f(X) + \epsilon$
 
 
 
 
+# Chapter 4: Classification
 
+New Terms:
+
+- logistic function
+- maximum likelihood
+- odds
+- log odds / logit
+- Confounding
+- prior
+- discriminant function
+
+## Why not Linear Regression?
+
+Choice of encoding affects model.
+
+For example, suppose you're trying to predict $Y$:
+
+![](https://res.cloudinary.com/da1gwmlvj/image/upload/v1586866723/islr%20notes/choice_enc_d22ahc.png)
+
+This coding implies an ordering of the outcomes (in linear regression setting).
+
+If you had to code this differently, the different coding would create a different model. So... Don't use Linear Regression!
+
+2 variable case is better: 
+
+![](https://res.cloudinary.com/da1gwmlvj/image/upload/v1586866898/islr%20notes/2var_h4wtsr.png)
+
+But, could get estimates outside the $[0,1]$ range making them hard to interpret as probabilities.
+
+## Logistic Regression
+
+![](https://res.cloudinary.com/da1gwmlvj/image/upload/v1586427957/islr%20notes/correlation_j2lazp.png)
+
+### The Logistic Model
+
+To avoid this problem, we must model p(X) using a function that gives outputs between 0 and 1 for all values of X. __Many functions meet this description.__ We use the logistic function in this model:
+
+$p(X) = \frac{e^{\beta_0 + \beta_1X}}{1 + e^{\beta_0 + \beta_1X}}$
+
+To fit the model, use _Maximum Likelihood_.
+
+Can manipulate the above equation to get:
+
+$\frac{p(X)}{1 - p(X)} = e^{\beta_0 + \beta_1X}$
+
+$p(X)/[1−p(X)]$ is called the odds, and can take on any value odds between $0$ and $\infty$.
+
+Take the logarithm of both sides to get the log-odds:
+
+$\log(\frac{p(X)}{1 - p(X)}) = \beta_0 + \beta_1X$
+
+Let hand side is called the _log-odds_ or _logit_.
+
+Recall from Chapter 3 that in a linear regression model, $\beta_1$ gives the average change in $Y$ associated with a one-unit increase in $X$. In contrast, in a logistic regression model, increasing $X$ by one unit changes the _log odds_ by $\beta_1$.
+
+### Estimating the Regression Coefficients
 
 
