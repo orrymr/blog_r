@@ -302,3 +302,56 @@ thumbnailImagePosition: "top"
 </div>
 </div>
 </div>
+<div id="chapter-4-classification" class="section level1">
+<h1>Chapter 4: Classification</h1>
+<p>New Terms:</p>
+<ul>
+<li>logistic function</li>
+<li>maximum likelihood</li>
+<li>odds</li>
+<li>log odds / logit</li>
+<li>Confounding</li>
+<li>prior</li>
+<li>discriminant function</li>
+</ul>
+<div id="why-not-linear-regression" class="section level2">
+<h2>Why not Linear Regression?</h2>
+<p>Choice of encoding affects model.</p>
+<p>For example, suppose you’re trying to predict <span class="math inline">\(Y\)</span>:</p>
+<div class="figure">
+<img src="https://res.cloudinary.com/da1gwmlvj/image/upload/v1586866723/islr%20notes/choice_enc_d22ahc.png" />
+
+</div>
+<p>This coding implies an ordering of the outcomes (in linear regression setting).</p>
+<p>If you had to code this differently, the different coding would create a different model. So… Don’t use Linear Regression!</p>
+<p>2 variable case is better:</p>
+<div class="figure">
+<img src="https://res.cloudinary.com/da1gwmlvj/image/upload/v1586866898/islr%20notes/2var_h4wtsr.png" />
+
+</div>
+<p>But, could get estimates outside the <span class="math inline">\([0,1]\)</span> range making them hard to interpret as probabilities.</p>
+</div>
+<div id="logistic-regression" class="section level2">
+<h2>Logistic Regression</h2>
+<div class="figure">
+<img src="https://res.cloudinary.com/da1gwmlvj/image/upload/v1586427957/islr%20notes/correlation_j2lazp.png" />
+
+</div>
+<div id="the-logistic-model" class="section level3">
+<h3>The Logistic Model</h3>
+<p>To avoid this problem, we must model p(X) using a function that gives outputs between 0 and 1 for all values of X. <strong>Many functions meet this description.</strong> We use the logistic function in this model:</p>
+<p><span class="math inline">\(p(X) = \frac{e^{\beta_0 + \beta_1X}}{1 + e^{\beta_0 + \beta_1X}}\)</span></p>
+<p>To fit the model, use <em>Maximum Likelihood</em>.</p>
+<p>Can manipulate the above equation to get:</p>
+<p><span class="math inline">\(\frac{p(X)}{1 - p(X)} = e^{\beta_0 + \beta_1X}\)</span></p>
+<p><span class="math inline">\(p(X)/[1−p(X)]\)</span> is called the odds, and can take on any value odds between <span class="math inline">\(0\)</span> and <span class="math inline">\(\infty\)</span>.</p>
+<p>Take the logarithm of both sides to get the log-odds:</p>
+<p><span class="math inline">\(\log(\frac{p(X)}{1 - p(X)}) = \beta_0 + \beta_1X\)</span></p>
+<p>Let hand side is called the <em>log-odds</em> or <em>logit</em>.</p>
+<p>Recall from Chapter 3 that in a linear regression model, <span class="math inline">\(\beta_1\)</span> gives the average change in <span class="math inline">\(Y\)</span> associated with a one-unit increase in <span class="math inline">\(X\)</span>. In contrast, in a logistic regression model, increasing <span class="math inline">\(X\)</span> by one unit changes the <em>log odds</em> by <span class="math inline">\(\beta_1\)</span>.</p>
+</div>
+<div id="estimating-the-regression-coefficients" class="section level3">
+<h3>Estimating the Regression Coefficients</h3>
+</div>
+</div>
+</div>
