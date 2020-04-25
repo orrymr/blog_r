@@ -300,7 +300,23 @@ if (!doNotTrack) {
             <div class="main-content-wrap">
               <p>Just a place for me to keep my notes of the <a href="http://faculty.marshall.usc.edu/gareth-james/ISL/">Introduction to Statistical Learning</a> book.</p>
 <p>This is by no means a comprehensive summary; just a list of points I wish to remember.</p>
-<div id="chapter-2-statistical-learning" class="section level1">
+<ul>
+<li><a href="#ch2">Chapter 2: Statistical Learning</a>
+<ul>
+<li><a href="#inf_pred">Inference vs Prediction</a>
+<ul>
+<li><a href="#acc_int">Accuracy vs Interpretability</a></li>
+<li><a href="#Par">Parametric</a></li>
+<li><a href="#non_par">Non-Parametric</a></li>
+<li><a href="#tr_te">Train vs Test MSE</a></li>
+</ul></li>
+<li><a href="#bayes_clas">Bayes Classifier</a></li>
+<li><a href="#KNN">KNN</a></li>
+</ul></li>
+<li><a href="#ch3">Chapter 3: Linear Regression</a></li>
+<li><a href="#ch4">Chapter 4: Classification</a></li>
+</ul>
+<div id="ch2" class="section level1">
 <h1>Chapter 2: Statistical Learning</h1>
 <p>Least squares is a popular method of doing regression, but one of many methods.</p>
 <p>The accuracy of <span class="math inline">\(\hat{Y}\)</span> as a prediction for <span class="math inline">\(Y\)</span> depends on two quantities, which we will call the <em>reducible error</em> and the <em>irreducible error</em>.</p>
@@ -319,12 +335,12 @@ if (!doNotTrack) {
 <p>is only an estimate for</p>
 <p>So, it obvisouly doesn’t take into account the error term <span class="math inline">\(\epsilon\)</span>…</p>
 <p>There is no free lunch in statistics: no one method dominates all others over all possible data sets.</p>
-<div id="inference-vs-prediction" class="section level2">
+<div id="inf_pred" class="section level2">
 <h2>Inference vs Prediction</h2>
 <p>Inference: to do with how the various predictors affect the output. For example, how does TV advertising spend affect sales, how does radio advertising affect, how does newspaper advertising, how does some combination of these affect sales?</p>
 <p>Prediction: Predict the output, like, at a given level of advertising spends, what will the sales be?</p>
 <p>Different models better at different things. If just interested in prediction, then a very complicated black-box model is fine. If interested in inference, simpler and more interpretable may be better.</p>
-<div id="accuracy-vs-interpretability" class="section level3">
+<div id="acc_int" class="section level3">
 <h3>Accuracy vs Interpretability</h3>
 <p>Lasso less flexible, more interpretable: sets some params to 0.</p>
 <p>Generalized additive models (GAMs) extend the linear model to allow for certain non-linear relationships. GAMs are more flexible than linear regression. They are also less interpretable than linear regression.</p>
@@ -338,7 +354,7 @@ if (!doNotTrack) {
 <div id="parametric-vs-non-parametric" class="section level2">
 <h2>Parametric vs Non-Parametric</h2>
 <p>Statistical learning methods can be characterized as either parametric or non-parametric.</p>
-<div id="parametric" class="section level3">
+<div id="Par" class="section level3">
 <h3>Parametric</h3>
 <p>2 steps:</p>
 <ul>
@@ -347,13 +363,13 @@ if (!doNotTrack) {
 </ul>
 <p>pro: assuming functional form, it may be easier (than non-parametric case) to find params. con: choosing bad functional form is… bad.</p>
 </div>
-<div id="non-parametric" class="section level3">
+<div id="non_par" class="section level3">
 <h3>Non-Parametric</h3>
 <p>No explict assumptions about functional form.</p>
 <p>pro: avoid danger of choosing a bad functional form con: since non-parametric do not reduce the problem to finding a fixed number of parameters, lots more training data needed.</p>
 <p>Thin-plate spline is an example of non-parametric. Set a “smoothness” parameter.</p>
 </div>
-<div id="train-vs-test-mse" class="section level3">
+<div id="tr_te" class="section level3">
 <h3>Train vs Test MSE</h3>
 <p>When a given method yields a small training MSE but a large test MSE, we are said to be overfitting the data.</p>
 <p>Cross-validation is a method for estimating test MSE using the training data.</p>
@@ -379,18 +395,18 @@ if (!doNotTrack) {
 <p>Generally, more flexible methods result in less bias. More flexible statistical methods have higher variance.</p>
 </div>
 </div>
-<div id="bayes-classifier" class="section level2">
+<div id="bayes_clas" class="section level2">
 <h2>Bayes Classifier</h2>
 <p>Error rate is minimized, on average, by a very simple classifier that assigns each observation to the most likely class, given its predictor values. Obviously we don’t know the most likely class!</p>
 <p>The Bayes classifier produces the lowest possible test error rate, called the Bayes error rate.</p>
 <p>The Bayes error rate is analogous to the irreducible error, discussed earlier.</p>
 </div>
-<div id="knn" class="section level2">
+<div id="KNN" class="section level2">
 <h2>KNN</h2>
 <p>KNN classifier identifies the K points in the training data that are closest to <span class="math inline">\(x_0\)</span>. Estimates class probability as proportion of these classes in the K points.</p>
 </div>
 </div>
-<div id="chapter-3-linear-regression" class="section level1">
+<div id="ch3" class="section level1">
 <h1>Chapter 3: Linear Regression</h1>
 <p>New terms in this chapter:</p>
 <ul>
@@ -583,7 +599,7 @@ if (!doNotTrack) {
 </div>
 </div>
 </div>
-<div id="chapter-4-classification" class="section level1">
+<div id="ch4" class="section level1">
 <h1>Chapter 4: Classification</h1>
 <p>New Terms:</p>
 <ul>
@@ -633,7 +649,67 @@ if (!doNotTrack) {
 </div>
 <div id="estimating-the-regression-coefficients" class="section level3">
 <h3>Estimating the Regression Coefficients</h3>
+<p>In Chapter 3, we used the least squares approach to estimate the unknown linear regression coefficients. Although we could use (non-linear) least squares to fit the model, the more general method of maximum likelihood is preferred, since it has better statistical properties.</p>
+<p>We seek estimates of <span class="math inline">\(\beta_0\)</span> and <span class="math inline">\(\beta_1\)</span> such that the predicted probability <span class="math inline">\(\hat{p}(x_i)\)</span> corresponds as closely as possible to the observed value (for each <span class="math inline">\(i\)</span>). Mathematically, we wish to maximize the <em>likelihood function</em>.</p>
+<p>The idea: Maximize the probability of seeing the data, by tuning the coefficients.</p>
+<div class="figure">
+<img src="https://res.cloudinary.com/da1gwmlvj/image/upload/v1587822265/islr%20notes/ml_bdp4ix.png" />
+
 </div>
+<p>The estimates <span class="math inline">\(\hat{\beta}_0\)</span> and <span class="math inline">\(\hat{\beta}_1\)</span> are chosen to <em>maximize</em> the above likelihood function.</p>
+<p>In the linear regression setting, the least squares approach is in fact a special case of maximum likelihood.</p>
+<p>Let’s look at a table of coefficients in this setting (we try to predict a default based on balance of an individual):</p>
+<div class="figure">
+<img src="https://res.cloudinary.com/da1gwmlvj/image/upload/v1587822570/islr%20notes/logistic_results_zxcf30.png" />
+
+</div>
+<p>Notice how the log odds are affected by the coefficient, not the direct probability.</p>
+<p>Note that we use a Z-statistic, not a t-statistic. - In logistic and poisson regression but not in regression with gaussian errors, we know the expected variance and don’t have to estimate it separately. (<a href="https://stats.stackexchange.com/questions/60074/wald-test-for-logistic-regression" class="uri">https://stats.stackexchange.com/questions/60074/wald-test-for-logistic-regression</a>)</p>
+</div>
+<div id="making-predictions" class="section level3">
+<h3>Making Predictions</h3>
+<p>Just plug in the values… for example, a balance of $1000:</p>
+<div class="figure">
+<img src="https://res.cloudinary.com/da1gwmlvj/image/upload/v1587822888/islr%20notes/estimateing_aitwd2.png" />
+
+</div>
+<p>Can use indicator variables, like with linear regression. For example, say we wish to predict a default based on whether or not a persion is a student:</p>
+<div class="figure">
+<img src="https://res.cloudinary.com/da1gwmlvj/image/upload/v1587823064/islr%20notes/student_ezszfx.png" />
+
+</div>
+</div>
+<div id="multiple-logistic-regression" class="section level3">
+<h3>Multiple Logistic Regression</h3>
+<p>Using multiple predictors:</p>
+<div class="figure">
+<img src="https://res.cloudinary.com/da1gwmlvj/image/upload/v1587823175/islr%20notes/multiple_reg_gtzxsz.png" />
+
+</div>
+<p>So, we now try predict default based on whether or not a person is a student, <strong>and</strong> their balance.</p>
+<div class="figure">
+<img src="https://res.cloudinary.com/da1gwmlvj/image/upload/v1587823583/islr%20notes/mutliple_reg_table_vjgfgc.png" />
+
+</div>
+<p>Previously, the coefficient of student was positive (when it was the sole predictor). Now, it is negative. How can this be?</p>
+<p>Look at this:</p>
+<div class="figure">
+<img src="https://res.cloudinary.com/da1gwmlvj/image/upload/v1587825057/islr%20notes/diffs_iicmbf.png" />
+
+</div>
+<p>Basically what the left hand graph is showing, is that for a given level of balance, a student is less risky. But there are more students with higher balances (the right hand side shows this). So, in the absence of balance data, the indicator variable “student” acts as a sort of proxy for it. In general this is known as confounding.</p>
+</div>
+<div id="logistic-for-2-response-classes" class="section level3">
+<h3>Logistic for &gt;2 Response Classes</h3>
+<p>There are extensions to the 2 class classification for logistic regression (using softmax), but this book discusses Linear Discriminant Analyis instead.</p>
+</div>
+</div>
+<div id="linear-discriminant-analysis" class="section level2">
+<h2>Linear Discriminant Analysis</h2>
+<p>In logisitc regression we model <span class="math inline">\(P(y = k | X = x)\)</span>, for the 2 class case. IE, we model the conditional distribution of <span class="math inline">\(Y\)</span>, given the predictor(s), <span class="math inline">\(X\)</span>.</p>
+<p>In LDA, model the distribution of the predictors <span class="math inline">\(X\)</span> <em>in each response class</em>, and then use Bayes’ theorem to flip these into: <span class="math inline">\(P(y = k | X = x)\)</span>. It’s kind of like saying: model the distribution of the predictors in each response class, and then pick the response class where it’s most likely that the given instance of <span class="math inline">\(X\)</span> came from.</p>
+<p>When the classes are well-separated, the parameter estimates for the logistic regression model are surprisingly unstable. Linear discriminant analysis does not suffer from this problem.</p>
+<p>If n is small and the distribution of the predictors X is approximately normal in each of the classes, the linear discriminant model is again more stable than the logistic regression model.</p>
 </div>
 </div>
 

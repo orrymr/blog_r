@@ -22,7 +22,19 @@ Just a place for me to keep my notes of the [Introduction to Statistical Learnin
 
 This is by no means a comprehensive summary; just a list of points I wish to remember.
 
-# Chapter 2: Statistical Learning
+
+- [Chapter 2: Statistical Learning](#ch2)
+    - [Inference vs Prediction](#inf_pred)
+        - [Accuracy vs Interpretability](#acc_int) 
+        - [Parametric](#Par)
+        - [Non-Parametric](#non_par) 
+        - [Train vs Test MSE](#tr_te)
+      - [Bayes Classifier](#bayes_clas)
+      - [KNN](#KNN)
+- [Chapter 3: Linear Regression](#ch3)
+- [Chapter 4: Classification](#ch4)
+
+# Chapter 2: Statistical Learning {#ch2}
 
 Least squares is a popular method of doing regression, but one of many methods.
 
@@ -53,7 +65,7 @@ So, it obvisouly doesn't take into account the error term $\epsilon$...
 
 There is no free lunch in statistics: no one method dominates all others over all possible data sets. 
 
-## Inference vs Prediction
+## Inference vs Prediction {#inf_pred}
 
 Inference: to do with how the various predictors affect the output. For example, how does TV advertising spend affect sales, how does radio advertising affect, how does newspaper advertising, how does some combination of these affect sales?
 
@@ -61,7 +73,7 @@ Prediction: Predict the output, like, at a given level of advertising spends, wh
 
 Different models better at different things. If just interested in prediction, then a very complicated black-box model is fine. If interested in inference, simpler and more interpretable may be better.
 
-### Accuracy vs Interpretability
+### Accuracy vs Interpretability {#acc_int}
 
 Lasso less flexible, more interpretable: sets some params to 0.
 
@@ -75,7 +87,7 @@ Fully non-linear methods such as bagging, boosting, and support vector machines 
 
 Statistical learning methods can be characterized as either parametric or non-parametric.
 
-### Parametric 
+### Parametric {#Par}
 
 2 steps:
 
@@ -85,7 +97,7 @@ Statistical learning methods can be characterized as either parametric or non-pa
 pro: assuming functional form, it may be easier (than non-parametric case) to find params.
 con: choosing bad functional form is... bad.
 
-### Non-Parametric 
+### Non-Parametric {#non_par}
 
 No explict assumptions about functional form.
 
@@ -94,7 +106,7 @@ con: since non-parametric do not reduce the problem to finding a fixed number of
 
 Thin-plate spline is an example of non-parametric. Set a "smoothness" parameter.
 
-### Train vs Test MSE
+### Train vs Test MSE {#tr_te}
 
 When a given method yields a small training MSE but a large test MSE, we are said to be overfitting the data.
 
@@ -119,7 +131,7 @@ In this context, _variance_ refers to how much $\hat{f}$ would change if we used
 
 Generally, more flexible methods result in less bias. More flexible statistical methods have higher variance.
 
-## Bayes Classifier
+## Bayes Classifier {#bayes_clas}
 
 Error rate is minimized, on average, by a very simple classifier that assigns each observation to the most likely class, given its predictor values. Obviously we don't know the most likely class!
 
@@ -127,11 +139,11 @@ The Bayes classifier produces the lowest possible test error rate, called the Ba
 
 The Bayes error rate is analogous to the irreducible error, discussed earlier.
 
-## KNN
+## KNN {#KNN}
 
 KNN classifier identifies the K points in the training data that are closest to $x_0$. Estimates class probability as proportion of these classes in the K points.
 
-# Chapter 3: Linear Regression
+# Chapter 3: Linear Regression {#ch3}
 
 New terms in this chapter:
 
@@ -392,7 +404,7 @@ $Y = f(X) + \epsilon$
 
 
 
-# Chapter 4: Classification
+# Chapter 4: Classification {#ch4}
 
 New Terms:
 
@@ -450,4 +462,68 @@ Recall from Chapter 3 that in a linear regression model, $\beta_1$ gives the ave
 
 ### Estimating the Regression Coefficients
 
+In Chapter 3, we used the least squares approach to estimate the unknown linear regression coefficients. Although we could use (non-linear) least squares to fit the model, the more general method of maximum likelihood is preferred, since it has better statistical properties.
+
+We seek estimates of $\beta_0$ and $\beta_1$ such that the predicted probability $\hat{p}(x_i)$ corresponds as closely as possible to the observed value (for each $i$). Mathematically, we wish to maximize the _likelihood function_.
+
+The idea: Maximize the probability of seeing the data, by tuning the coefficients.
+
+![](https://res.cloudinary.com/da1gwmlvj/image/upload/v1587822265/islr%20notes/ml_bdp4ix.png)
+
+The estimates $\hat{\beta}_0$ and $\hat{\beta}_1$ are chosen to _maximize_ the above likelihood function.
+
+In the linear regression setting, the least squares approach is in fact a special case of maximum likelihood.
+
+Let's look at a table of coefficients in this setting (we try to predict a default based on balance of an individual):
+
+![](https://res.cloudinary.com/da1gwmlvj/image/upload/v1587822570/islr%20notes/logistic_results_zxcf30.png)
+
+
+Notice how the log odds are affected by the coefficient, not the direct probability.
+
+Note that we use a Z-statistic, not a t-statistic. - In logistic and poisson regression but not in regression with gaussian errors, we know the expected variance and don't have to estimate it separately. (https://stats.stackexchange.com/questions/60074/wald-test-for-logistic-regression)
+
+
+### Making Predictions
+
+Just plug in the values... for example, a balance of $1000:
+
+![](https://res.cloudinary.com/da1gwmlvj/image/upload/v1587822888/islr%20notes/estimateing_aitwd2.png)
+
+Can use indicator variables, like with linear regression. For example, say we wish to predict a default based on whether or not a persion is a student:
+
+![](https://res.cloudinary.com/da1gwmlvj/image/upload/v1587823064/islr%20notes/student_ezszfx.png)
+
+### Multiple Logistic Regression
+
+Using multiple predictors:
+
+![](https://res.cloudinary.com/da1gwmlvj/image/upload/v1587823175/islr%20notes/multiple_reg_gtzxsz.png)
+
+So, we now try predict default based on whether or not a person is a student, __and__ their balance.
+
+![](https://res.cloudinary.com/da1gwmlvj/image/upload/v1587823583/islr%20notes/mutliple_reg_table_vjgfgc.png)
+
+Previously, the coefficient of student was positive (when it was the sole predictor). Now, it is negative. How can this be?
+
+Look at this:
+
+![](https://res.cloudinary.com/da1gwmlvj/image/upload/v1587825057/islr%20notes/diffs_iicmbf.png)
+
+Basically what the left hand graph is showing, is that for a given level of balance, a student is less risky. But there are more students with higher balances (the right hand side shows this). So, in the absence of balance data, the indicator variable "student" acts as a sort of proxy for it. In general this is known as confounding.
+
+
+### Logistic for >2 Response Classes
+
+There are extensions to the 2 class classification for logistic regression (using softmax), but this book discusses Linear Discriminant Analyis instead.
+
+## Linear Discriminant Analysis
+
+In logisitc regression we model $P(y = k | X = x)$, for the 2 class case. IE, we model the conditional distribution of $Y$, given the predictor(s), $X$.
+
+In LDA, model the distribution of the predictors $X$ _in each response class_, and then use Bayes' theorem to flip these into: $P(y = k | X = x)$. It's kind of like saying: model the distribution of the predictors in each response class, and then pick the response class where it's most likely that the given instance of $X$ came from.
+
+When the classes are well-separated, the parameter estimates for the logistic regression model are surprisingly unstable. Linear discriminant analysis does not suffer from this problem.
+
+If n is small and the distribution of the predictors X is approximately normal in each of the classes, the linear discriminant model is again more stable than the logistic regression model.
 
