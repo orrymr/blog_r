@@ -104,7 +104,10 @@ g <- ggplot(roll(m = m_, n = n_),
     x = 'Mean Score'
   ) +
   geom_bar(aes(y = ..prop..), alpha = 0.4) +
-  xlim(1, 6)
+  scale_x_continuous(
+    breaks = 1:6,
+    lim =  c(0, 7)
+  )
 
 g
 
@@ -121,7 +124,10 @@ g <- ggplot(roll(m = m_, n = n_),
     x = 'Mean Score'
   ) +
   geom_bar(aes(y = ..prop..), width = 0.1, alpha = 0.4) +
-  xlim(1, 6)
+  scale_x_continuous(
+    breaks = 1:6,
+    lim =  c(0, 7)
+  )
 
 
 g
@@ -137,7 +143,10 @@ g <- ggplot(roll(m = m_, n = n_),
     x = 'Mean Score'
   ) +
   geom_bar(aes(y = ..prop..), width = 0.1, alpha = 0.4) +
-  xlim(1, 6)
+  scale_x_continuous(
+    breaks = 1:6,
+    lim =  c(0, 7)
+  )
 
 
 g
@@ -153,7 +162,10 @@ g <- ggplot(roll(m = m_, n = n_),
     x = 'Mean Score'
   ) +
   geom_bar(aes(y = ..prop..), width = 0.1, alpha = 0.4) +
-  xlim(1, 6)
+  scale_x_continuous(
+    breaks = 1:6,
+    lim =  c(0, 7)
+  )
 
 
 g
@@ -169,7 +181,10 @@ g <- ggplot(roll(m = m_, n = n_),
     x = 'Mean Score'
   ) +
   geom_bar(aes(y = ..prop..), width = 0.1, alpha = 0.4) +
-  xlim(1, 6)
+  scale_x_continuous(
+    breaks = 1:6,
+    lim =  c(0, 7)
+  )
 
 
 g
@@ -185,7 +200,10 @@ g <- ggplot(roll(m = m_, n = n_),
     x = 'Mean Score'
   ) +
   geom_bar(aes(y = ..prop..), width = 0.1, alpha = 0.4) +
-  xlim(1, 6)
+  scale_x_continuous(
+    breaks = 1:6,
+    lim =  c(0, 7)
+  )
 
 g
 
@@ -200,7 +218,10 @@ g <- ggplot(roll(m = m_, n = n_),
     x = 'Mean Score'
   ) +
   geom_bar(aes(y = ..prop..), width = 0.1, alpha = 0.4) +
-  xlim(1, 6)
+  scale_x_continuous(
+    breaks = 1:6,
+    lim =  c(0, 7)
+  )
 
 g
 
@@ -215,12 +236,24 @@ g <- ggplot(roll(m = m_, n = n_),
     x = 'Mean Score'
   ) +
   geom_bar(aes(y = ..prop..), width = 0.1, alpha = 0.4) +
-  xlim(1, 6)
+  scale_x_continuous(
+    breaks = 1:6,
+    lim =  c(0, 7)
+  )
 
 g
 ```
 
 Now, the mean of the distribution of sample means is the same as the population mean, its standard deviation is not.
+
+However, the standard deviation of the distribution of sample means _is_ related to the standard deviation of the population. But, it's also related to the sample size. In the above graphs, see how the probability distributions of the graphs get thinner, as the number of dice goes up? The bigger your sample size, the closer your sample means are to the true population mean. So we need to adjust the original population standard deviation somehow to reflect this:
+
+$\sigma_{samplingDistribution} = \frac{\sigma_{population}}{\sqrt{n}}$
+
+The standard deviation of a sampling distribution is called the _standard error_.
+
+
+Can also use sampling distributions to compare other parameters - proportions, regression coefficients, or standard deviations, which also follow the central limit theorem.
 
 # Definitions
 
@@ -228,8 +261,9 @@ Now, the mean of the distribution of sample means is the same as the population 
 - <u>Hypthesis Testing</u> - 
 - <u>Inference</u> - the process of drawing conclusions about population parameters based on a sample taken from the population.
 - <u>Sampling distribution</u> - the probability distribution of a sample statistic (like the mean, or variance).
+- <u>Standard Error</u> - 
 - <u>Type I error</u> - probability of saying null hypothesis is wrong, when it is correct
-- <u>Type II error</u> -
+- <u>Type II error</u> - The standard deviation of a sampling distribution
 - <u>Z-Distrubtion</u> - Standardized normal distribution
 - <u>Z-Score</u> - A Z-score is a numerical measurement that describes a value's relationship to the mean of a group of values. Z-score is measured in terms of standard deviations from the mean. If a Z-score is 0, it indicates that the data point's score is identical to the mean score. A Z-score of 1.0 would indicate a value that is one standard deviation from the mean. __Z scores allow us to compare things that are not on the same scale as long as they are normally distributed__.
 
