@@ -106,6 +106,13 @@ ignoreFiles = ["\\.Rmd$", "\\.Rmarkdown$", "_files$", "_cache$"]
   name = "Blogroll"
   pre = "<i class=\"sidebar-button-icon fa fa-lg fa-bookmark\"></i>"
   url = "/blogroll"
+[[menu.links]]
+  weight = 4
+  identifier = "hhguides"
+  name = "Hitchhiker's Guides"
+  pre = "<i class=\"sidebar-button-icon fa fa-lg fa-bookmark\"></i>"
+  url = "/hitchhikers-guides"
+
 
 [[menu.misc]]
   weight = 1

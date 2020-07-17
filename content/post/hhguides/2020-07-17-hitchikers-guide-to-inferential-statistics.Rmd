@@ -1,0 +1,214 @@
+---
+title: The Hitchikers Guide to Inferential Statistics
+author: ''
+date: '2020-07-17'
+slug: hitchikers-guide-to-inferential-statistics
+categories: []
+tags: []
+keywords:
+  - tech
+---
+
+<!--more-->
+
+```{r, echo = FALSE, warning = FALSE, message = FALSE}
+library(ggplot2)
+library(ggthemes)
+library(dplyr)
+library(stringr)
+theme_set(theme_economist())
+
+knitr::opts_chunk$set(echo = FALSE, warning = FALSE, message = FALSE)
+```
+
+
+# Inferential vs Descriptive stats.
+
+- Descriptive - Purely used to summarize data, like IQR, Mean. Importantly, they do not draw conclusions beyond the data we already have.
+- Inferential - Does allow us to make conclusions beyond the data we have.
+
+## Hypothesis Testing
+
+Inferential statistics is based on the premise that you can't prove something is true, but you can disprove something by finding an exception.
+
+Decide what you are trying to find evidence for (alternative hypothesis), then set up the opposite as null hypothesis, and find evidence to disprove that. 
+
+Suppose you want to show a link between studying and test results. 
+
+
+- H_0: There is no effect on test result from studying
+- H_1: There is an effect on test result from studying
+
+
+Hypotheses are always about the population parameters (like the mean).
+
+So the above should be stated mathematically:
+
+
+- H_0: $\mu_0$ = $\mu_1$
+- H_1: $\mu_0$ =/= $\mu_1$
+
+If $\mu_0$ and $\mu_1$ are the means for the "no study" and "study" groups respectively.
+
+## Standardization
+
+(Example from [here](https://www.youtube.com/watch?v=uAxyI_XfqXk&list=PL8dPuuaLjXtNM_Y-bUAhblSAdWRnmBUcr&index=19))
+
+How can we compare things that aren't the same?
+
+Suppose there are two tests: SAT and ACT.
+
+Both try measure college readiness, but SAT is out of 1600 points and ACT is out of 36. How can you compare scores across these 2 tests?
+
+ - Centre both distributions around 0 (subtract the mean) Mean of SAT is 1000, and mean of ACT is 21, so subtract those.
+ - Scales are still wrong, so divide adjusted score by standard deviation
+
+
+This adjusted score is called a Z-Score (see Definitions). $Z = \frac{x - \mu}{\sigma}$.
+
+Note the assumption that both the distribution of SAT and ACT are normally distributed!
+
+## Normal Distribution
+
+(Based on [here](https://www.youtube.com/watch?v=rBjft49MAO8&list=PL8dPuuaLjXtNM_Y-bUAhblSAdWRnmBUcr&index=20))
+
+Normal distribution is important not only because a lot of things are normally distributed, like, height, IQ etc...
+There are a lot of things like debt, blood pressure which are not normally distributed. But here's the thing - distributions of means are normally distributed, even if populations aren't. So, if you sample a lot from a population which is not distributed normally, the mean of those samples will be normally distributed!
+
+
+In order to meaningfully compare whether two means are different, we need to know something about their distribution: the sampling distribution.
+
+
+This is described formally in the __Central Limit Theorem__ (see definitions). 
+
+
+```{r}
+#roll, as in roll dice
+# m = number of times
+# n = number of dice
+
+roll <- function(m, n){
+  means <- plyr::ldply(1:m, function(x){
+    return(mean(sample(1:6, n, replace = TRUE)))
+  }) 
+}
+
+n_ = 1
+m_ = 10000
+g <- ggplot(roll(m = m_, n = n_),
+            mapping = aes(x = V1)) +
+  geom_density() +
+  geom_vline(xintercept = 3.5, colour = "tomato3") +
+  labs(
+    subtitle = str_interp('Density of means of dice rolls for ${n_} dice over ${m_} rolls.'),
+    x = 'Mean Score'
+  ) +
+  geom_bar(aes(y = ..prop..), alpha = 0.4)
+
+g
+
+
+
+n_ = 2
+m_ = 10000
+g <- ggplot(roll(m = m_, n = n_),
+            mapping = aes(x = V1)) +
+  geom_density() +
+  geom_vline(xintercept = 3.5, colour = "tomato3") +
+  labs(
+    subtitle = str_interp('Density of means of dice rolls for ${n_} dice over ${m_} rolls.'),
+    x = 'Mean Score'
+  ) +
+  geom_bar(aes(y = ..prop..), width = 0.1, alpha = 0.4)
+
+
+g
+
+n_ = 3
+m_ = 10000
+g <- ggplot(roll(m = m_, n = n_),
+            mapping = aes(x = V1)) +
+  geom_density() +
+  geom_vline(xintercept = 3.5, colour = "tomato3") +
+  labs(
+    subtitle = str_interp('Density of means of dice rolls for ${n_} dice over ${m_} rolls.'),
+    x = 'Mean Score'
+  ) +
+  geom_bar(aes(y = ..prop..), width = 0.1, alpha = 0.4)
+
+
+g
+
+n_ = 4
+m_ = 10000
+g <- ggplot(roll(m = m_, n = n_),
+            mapping = aes(x = V1)) +
+  geom_density() +
+  geom_vline(xintercept = 3.5, colour = "tomato3") +
+  labs(
+    subtitle = str_interp('Density of means of dice rolls for ${n_} dice over ${m_} rolls.'),
+    x = 'Mean Score'
+  ) +
+  geom_bar(aes(y = ..prop..), width = 0.1, alpha = 0.4)
+
+
+g
+
+n_ = 5
+m_ = 10000
+g <- ggplot(roll(m = m_, n = n_),
+            mapping = aes(x = V1)) +
+  geom_density() +
+  geom_vline(xintercept = 3.5, colour = "tomato3") +
+  labs(
+    subtitle = str_interp('Density of means of dice rolls for ${n_} dice over ${m_} rolls.'),
+    x = 'Mean Score'
+  ) +
+  geom_bar(aes(y = ..prop..), width = 0.1, alpha = 0.4)
+
+
+g
+
+n_ = 20
+m_ = 10000
+g <- ggplot(roll(m = m_, n = n_),
+            mapping = aes(x = V1)) +
+  geom_density() +
+  geom_vline(xintercept = 3.5, colour = "tomato3") +
+  labs(
+    subtitle = str_interp('Density of means of dice rolls for ${n_} dice over ${m_} rolls.'),
+    x = 'Mean Score'
+  ) +
+  geom_bar(aes(y = ..prop..), width = 0.1, alpha = 0.4)
+
+g
+
+n_ = 200
+m_ = 10000
+g <- ggplot(roll(m = m_, n = n_),
+            mapping = aes(x = V1)) +
+  geom_density() +
+  geom_vline(xintercept = 3.5, colour = "tomato3") +
+  labs(
+    subtitle = str_interp('Density of means of dice rolls for ${n_} dice over ${m_} rolls.'),
+    x = 'Mean Score'
+  ) +
+  geom_bar(aes(y = ..prop..), width = 0.1, alpha = 0.4)
+
+g
+```
+
+
+
+# Definitions
+
+- <u>Central Limit Theorem</u> - The distribution of sample means for an independent random variable will get closer and closer to a normal distribution as the size of the sample gets bigger and bigger, even if the original population distribution isn't normal. Think of independet die rolls, like in [here](https://youtu.be/rBjft49MAO8?list=PL8dPuuaLjXtNM_Y-bUAhblSAdWRnmBUcr&t=349). Twenty dice are 20 independent random variables.
+- <u>Hypthesis Testing</u> - 
+- <u>Inference</u> - the process of drawing conclusions about population parameters based on a sample taken from the population.
+- <u>Sampling distribution</u> - the probability distribution of a sample statistic (like the mean, or variance).
+- <u>Type I error</u> - probability of saying null hypothesis is wrong, when it is correct
+- <u>Type II error</u> -
+- <u>Z-Distrubtion</u> - Standardized normal distribution
+- <u>Z-Score</u> - A Z-score is a numerical measurement that describes a value's relationship to the mean of a group of values. Z-score is measured in terms of standard deviations from the mean. If a Z-score is 0, it indicates that the data point's score is identical to the mean score. A Z-score of 1.0 would indicate a value that is one standard deviation from the mean. __Z scores allow us to compare things that are not on the same scale as long as they are normally distributed__.
+
+

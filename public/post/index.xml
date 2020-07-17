@@ -6,10 +6,22 @@
     <description>Recent content in Posts on orrymr.com</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en</language>
-    <lastBuildDate>Mon, 06 Apr 2020 00:00:00 +0000</lastBuildDate>
+    <lastBuildDate>Fri, 17 Jul 2020 00:00:00 +0000</lastBuildDate>
     
 	<atom:link href="/post/index.xml" rel="self" type="application/rss+xml" />
     
+    
+    <item>
+      <title>The Hitchikers Guide to Inferential Statistics</title>
+      <link>/2020/07/hitchikers-guide-to-inferential-statistics/</link>
+      <pubDate>Fri, 17 Jul 2020 00:00:00 +0000</pubDate>
+      
+      <guid>/2020/07/hitchikers-guide-to-inferential-statistics/</guid>
+      <description>
+
+
+</description>
+    </item>
     
     <item>
       <title>ISLR Notes</title>

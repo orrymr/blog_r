@@ -1,0 +1,72 @@
+---
+title: The Hitchikers Guide to Inferential Statistics
+author: ''
+date: '2020-07-17'
+slug: hitchikers-guide-to-inferential-statistics
+categories: []
+tags: []
+keywords:
+  - tech
+---
+
+
+
+<!--more-->
+<div id="inferential-vs-descriptive-stats." class="section level1">
+<h1>Inferential vs Descriptive stats.</h1>
+<ul>
+<li>Descriptive - Purely used to summarize data, like IQR, Mean. Importantly, they do not draw conclusions beyond the data we already have.</li>
+<li>Inferential - Does allow us to make conclusions beyond the data we have.</li>
+</ul>
+<div id="hypothesis-testing" class="section level2">
+<h2>Hypothesis Testing</h2>
+<p>Inferential statistics is based on the premise that you can’t prove something is true, but you can disprove something by finding an exception.</p>
+<p>Decide what you are trying to find evidence for (alternative hypothesis), then set up the opposite as null hypothesis, and find evidence to disprove that.</p>
+<p>Suppose you want to show a link between studying and test results.</p>
+<ul>
+<li>H_0: There is no effect on test result from studying</li>
+<li>H_1: There is an effect on test result from studying</li>
+</ul>
+<p>Hypotheses are always about the population parameters (like the mean).</p>
+<p>So the above should be stated mathematically:</p>
+<ul>
+<li>H_0: <span class="math inline">\(\mu_0\)</span> = <span class="math inline">\(\mu_1\)</span></li>
+<li>H_1: <span class="math inline">\(\mu_0\)</span> =/= <span class="math inline">\(\mu_1\)</span></li>
+</ul>
+<p>If <span class="math inline">\(\mu_0\)</span> and <span class="math inline">\(\mu_1\)</span> are the means for the “no study” and “study” groups respectively.</p>
+</div>
+<div id="standardization" class="section level2">
+<h2>Standardization</h2>
+<p>(Example from <a href="https://www.youtube.com/watch?v=uAxyI_XfqXk&amp;list=PL8dPuuaLjXtNM_Y-bUAhblSAdWRnmBUcr&amp;index=19">here</a>)</p>
+<p>How can we compare things that aren’t the same?</p>
+<p>Suppose there are two tests: SAT and ACT.</p>
+<p>Both try measure college readiness, but SAT is out of 1600 points and ACT is out of 36. How can you compare scores across these 2 tests?</p>
+<ul>
+<li>Centre both distributions around 0 (subtract the mean) Mean of SAT is 1000, and mean of ACT is 21, so subtract those.</li>
+<li>Scales are still wrong, so divide adjusted score by standard deviation</li>
+</ul>
+<p>This adjusted score is called a Z-Score (see Definitions). <span class="math inline">\(Z = \frac{x - \mu}{\sigma}\)</span>.</p>
+<p>Note the assumption that both the distribution of SAT and ACT are normally distributed!</p>
+</div>
+<div id="normal-distribution" class="section level2">
+<h2>Normal Distribution</h2>
+<p>(Based on <a href="https://www.youtube.com/watch?v=rBjft49MAO8&amp;list=PL8dPuuaLjXtNM_Y-bUAhblSAdWRnmBUcr&amp;index=20">here</a>)</p>
+<p>Normal distribution is important not only because a lot of things are normally distributed, like, height, IQ etc… There are a lot of things like debt, blood pressure which are not normally distributed. But here’s the thing - distributions of means are normally distributed, even if populations aren’t. So, if you sample a lot from a population which is not distributed normally, the mean of those samples will be normally distributed!</p>
+<p>In order to meaningfully compare whether two means are different, we need to know something about their distribution: the sampling distribution.</p>
+<p>This is described formally in the <strong>Central Limit Theorem</strong> (see definitions).</p>
+<p><img src="/post/hhguides/2020-07-17-hitchikers-guide-to-inferential-statistics_files/figure-html/unnamed-chunk-2-1.png" width="672" /><img src="/post/hhguides/2020-07-17-hitchikers-guide-to-inferential-statistics_files/figure-html/unnamed-chunk-2-2.png" width="672" /><img src="/post/hhguides/2020-07-17-hitchikers-guide-to-inferential-statistics_files/figure-html/unnamed-chunk-2-3.png" width="672" /><img src="/post/hhguides/2020-07-17-hitchikers-guide-to-inferential-statistics_files/figure-html/unnamed-chunk-2-4.png" width="672" /><img src="/post/hhguides/2020-07-17-hitchikers-guide-to-inferential-statistics_files/figure-html/unnamed-chunk-2-5.png" width="672" /><img src="/post/hhguides/2020-07-17-hitchikers-guide-to-inferential-statistics_files/figure-html/unnamed-chunk-2-6.png" width="672" /><img src="/post/hhguides/2020-07-17-hitchikers-guide-to-inferential-statistics_files/figure-html/unnamed-chunk-2-7.png" width="672" /></p>
+</div>
+</div>
+<div id="definitions" class="section level1">
+<h1>Definitions</h1>
+<ul>
+<li><u>Central Limit Theorem</u> - The distribution of sample means for an independent random variable will get closer and closer to a normal distribution as the size of the sample gets bigger and bigger, even if the original population distribution isn’t normal. Think of independet die rolls, like in <a href="https://youtu.be/rBjft49MAO8?list=PL8dPuuaLjXtNM_Y-bUAhblSAdWRnmBUcr&amp;t=349">here</a>. Twenty dice are 20 independent random variables.</li>
+<li><u>Hypthesis Testing</u> -</li>
+<li><u>Inference</u> - the process of drawing conclusions about population parameters based on a sample taken from the population.</li>
+<li><u>Sampling distribution</u> - the probability distribution of a sample statistic (like the mean, or variance).</li>
+<li><u>Type I error</u> - probability of saying null hypothesis is wrong, when it is correct</li>
+<li><u>Type II error</u> -</li>
+<li><u>Z-Distrubtion</u> - Standardized normal distribution</li>
+<li><u>Z-Score</u> - A Z-score is a numerical measurement that describes a value’s relationship to the mean of a group of values. Z-score is measured in terms of standard deviations from the mean. If a Z-score is 0, it indicates that the data point’s score is identical to the mean score. A Z-score of 1.0 would indicate a value that is one standard deviation from the mean. <strong>Z scores allow us to compare things that are not on the same scale as long as they are normally distributed</strong>.</li>
+</ul>
+</div>
