@@ -103,7 +103,8 @@ g <- ggplot(roll(m = m_, n = n_),
     subtitle = str_interp('Density of means of dice rolls for ${n_} dice over ${m_} rolls.'),
     x = 'Mean Score'
   ) +
-  geom_bar(aes(y = ..prop..), alpha = 0.4)
+  geom_bar(aes(y = ..prop..), alpha = 0.4) +
+  xlim(1, 6)
 
 g
 
@@ -119,7 +120,8 @@ g <- ggplot(roll(m = m_, n = n_),
     subtitle = str_interp('Density of means of dice rolls for ${n_} dice over ${m_} rolls.'),
     x = 'Mean Score'
   ) +
-  geom_bar(aes(y = ..prop..), width = 0.1, alpha = 0.4)
+  geom_bar(aes(y = ..prop..), width = 0.1, alpha = 0.4) +
+  xlim(1, 6)
 
 
 g
@@ -134,7 +136,8 @@ g <- ggplot(roll(m = m_, n = n_),
     subtitle = str_interp('Density of means of dice rolls for ${n_} dice over ${m_} rolls.'),
     x = 'Mean Score'
   ) +
-  geom_bar(aes(y = ..prop..), width = 0.1, alpha = 0.4)
+  geom_bar(aes(y = ..prop..), width = 0.1, alpha = 0.4) +
+  xlim(1, 6)
 
 
 g
@@ -149,7 +152,8 @@ g <- ggplot(roll(m = m_, n = n_),
     subtitle = str_interp('Density of means of dice rolls for ${n_} dice over ${m_} rolls.'),
     x = 'Mean Score'
   ) +
-  geom_bar(aes(y = ..prop..), width = 0.1, alpha = 0.4)
+  geom_bar(aes(y = ..prop..), width = 0.1, alpha = 0.4) +
+  xlim(1, 6)
 
 
 g
@@ -164,7 +168,8 @@ g <- ggplot(roll(m = m_, n = n_),
     subtitle = str_interp('Density of means of dice rolls for ${n_} dice over ${m_} rolls.'),
     x = 'Mean Score'
   ) +
-  geom_bar(aes(y = ..prop..), width = 0.1, alpha = 0.4)
+  geom_bar(aes(y = ..prop..), width = 0.1, alpha = 0.4) +
+  xlim(1, 6)
 
 
 g
@@ -179,7 +184,8 @@ g <- ggplot(roll(m = m_, n = n_),
     subtitle = str_interp('Density of means of dice rolls for ${n_} dice over ${m_} rolls.'),
     x = 'Mean Score'
   ) +
-  geom_bar(aes(y = ..prop..), width = 0.1, alpha = 0.4)
+  geom_bar(aes(y = ..prop..), width = 0.1, alpha = 0.4) +
+  xlim(1, 6)
 
 g
 
@@ -193,12 +199,28 @@ g <- ggplot(roll(m = m_, n = n_),
     subtitle = str_interp('Density of means of dice rolls for ${n_} dice over ${m_} rolls.'),
     x = 'Mean Score'
   ) +
-  geom_bar(aes(y = ..prop..), width = 0.1, alpha = 0.4)
+  geom_bar(aes(y = ..prop..), width = 0.1, alpha = 0.4) +
+  xlim(1, 6)
+
+g
+
+n_ = 2000
+m_ = 10000
+g <- ggplot(roll(m = m_, n = n_),
+            mapping = aes(x = V1)) +
+  geom_density() +
+  geom_vline(xintercept = 3.5, colour = "tomato3") +
+  labs(
+    subtitle = str_interp('Density of means of dice rolls for ${n_} dice over ${m_} rolls.'),
+    x = 'Mean Score'
+  ) +
+  geom_bar(aes(y = ..prop..), width = 0.1, alpha = 0.4) +
+  xlim(1, 6)
 
 g
 ```
 
-
+Now, the mean of the distribution of sample means is the same as the population mean, its standard deviation is not.
 
 # Definitions
 
