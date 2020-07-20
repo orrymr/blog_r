@@ -3,7 +3,7 @@ title: The Hitchikers Guide to Inferential Statistics
 author: ''
 date: '2020-07-17'
 slug: hitchikers-guide-to-inferential-statistics
-categories: []
+categories: ['hitchikers_guide']
 tags: []
 keywords:
   - tech
