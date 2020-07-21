@@ -6,10 +6,19 @@
     <description>Recent content in Categories on orrymr.com</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en</language>
-    <lastBuildDate>Fri, 04 Oct 2019 00:00:00 +0000</lastBuildDate>
+    <lastBuildDate>Fri, 17 Jul 2020 00:00:00 +0000</lastBuildDate>
     
 	<atom:link href="/categories/index.xml" rel="self" type="application/rss+xml" />
     
+    
+    <item>
+      <title>hitchikers_guide</title>
+      <link>/categories/hitchikers_guide/</link>
+      <pubDate>Fri, 17 Jul 2020 00:00:00 +0000</pubDate>
+      
+      <guid>/categories/hitchikers_guide/</guid>
+      <description></description>
+    </item>
     
     <item>
       <title>data-science</title>

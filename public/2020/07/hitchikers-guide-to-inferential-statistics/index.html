@@ -42,6 +42,10 @@
   
   
   
+    
+      <meta property="article:section" content="hitchikers_guide">
+    
+  
   
 
 
@@ -287,6 +291,14 @@ if (!doNotTrack) {
       </time>
     
     
+  
+  
+    <span></span>
+    
+      <a class="category-link" href="/categories/hitchikers_guide">hitchikers_guide</a>
+    
+  
+
   </div>
 
 </div>
@@ -305,14 +317,14 @@ if (!doNotTrack) {
 <p>Decide what you are trying to find evidence for (alternative hypothesis), then set up the opposite as null hypothesis, and find evidence to disprove that.</p>
 <p>Suppose you want to show a link between studying and test results.</p>
 <ul>
-<li>H_0: There is no effect on test result from studying</li>
-<li>H_1: There is an effect on test result from studying</li>
+<li><span class="math inline">\(H_0\)</span>: There is no effect on test result from studying</li>
+<li><span class="math inline">\(H_1\)</span>: There is an effect on test result from studying</li>
 </ul>
 <p>Hypotheses are always about the population parameters (like the mean).</p>
 <p>So the above should be stated mathematically:</p>
 <ul>
-<li>H_0: <span class="math inline">\(\mu_0\)</span> = <span class="math inline">\(\mu_1\)</span></li>
-<li>H_1: <span class="math inline">\(\mu_0\)</span> =/= <span class="math inline">\(\mu_1\)</span></li>
+<li><span class="math inline">\(H_0\)</span>: <span class="math inline">\(\mu_0\)</span> = <span class="math inline">\(\mu_1\)</span></li>
+<li><span class="math inline">\(H_1\)</span>: <span class="math inline">\(\mu_0\)</span> =/= <span class="math inline">\(\mu_1\)</span></li>
 </ul>
 <p>If <span class="math inline">\(\mu_0\)</span> and <span class="math inline">\(\mu_1\)</span> are the means for the “no study” and “study” groups respectively.</p>
 </div>
@@ -337,7 +349,45 @@ if (!doNotTrack) {
 <p>This is described formally in the <strong>Central Limit Theorem</strong> (see definitions).</p>
 <p><img src="/post/hhguides/2020-07-17-hitchikers-guide-to-inferential-statistics_files/figure-html/unnamed-chunk-2-1.png" width="672" /><img src="/post/hhguides/2020-07-17-hitchikers-guide-to-inferential-statistics_files/figure-html/unnamed-chunk-2-2.png" width="672" /><img src="/post/hhguides/2020-07-17-hitchikers-guide-to-inferential-statistics_files/figure-html/unnamed-chunk-2-3.png" width="672" /><img src="/post/hhguides/2020-07-17-hitchikers-guide-to-inferential-statistics_files/figure-html/unnamed-chunk-2-4.png" width="672" /><img src="/post/hhguides/2020-07-17-hitchikers-guide-to-inferential-statistics_files/figure-html/unnamed-chunk-2-5.png" width="672" /><img src="/post/hhguides/2020-07-17-hitchikers-guide-to-inferential-statistics_files/figure-html/unnamed-chunk-2-6.png" width="672" /><img src="/post/hhguides/2020-07-17-hitchikers-guide-to-inferential-statistics_files/figure-html/unnamed-chunk-2-7.png" width="672" /><img src="/post/hhguides/2020-07-17-hitchikers-guide-to-inferential-statistics_files/figure-html/unnamed-chunk-2-8.png" width="672" /></p>
 <p>Now, the mean of the distribution of sample means is the same as the population mean, its standard deviation is not.</p>
-<p>Its standard deviation is related to</p>
+<p>However, the standard deviation of the distribution of sample means <em>is</em> related to the standard deviation of the population. But, it’s also related to the sample size. In the above graphs, see how the probability distributions of the graphs get thinner, as the number of dice goes up? The bigger your sample size, the closer your sample means are to the true population mean. So we need to adjust the original population standard deviation somehow to reflect this:</p>
+<p><span class="math inline">\(\sigma_{samplingDistribution} = \frac{\sigma_{population}}{\sqrt{n}}\)</span></p>
+<p>The standard deviation of a sampling distribution is called the <em>standard error</em>.</p>
+<p>Can also use sampling distributions to compare other parameters - proportions, regression coefficients, or standard deviations, which also follow the central limit theorem.</p>
+</div>
+<div id="z---test-vs-t---test" class="section level2">
+<h2>Z - test vs T - test</h2>
+<p>Z - tests commonly done when population standard deviation is known. T - tests commonly done when population standard deviation is unknown. We use t - distribution because the unknown population standard deviation is now a value we must estimate.</p>
+</div>
+<div id="one-sample-z---test" class="section level2">
+<h2>One Sample Z - Test</h2>
+<p><a href="https://www.youtube.com/watch?v=BWJRsY-G8u0">From here</a>.</p>
+<p>In the population the average IQ is 100 with a s.d. of 15. Give a sample of 30 participants a drug which either makes them smarter, stupider or has no effect. The sample of 30 people has a mean of 140. Did the medication affect intelligence?</p>
+<p>Note here that the population standard deviation and mean is given. Very importantly, we’re testing a mean, the sample mean. The question we’re basically asking is how probable is it that we saw a sample mean of 140? Now, recall, from the above, sample means are distributed normally. And they will be centered around the population mean. And that the sample standard deviation is related to the population standard deviation. But remember, it’s actually the sample mean standard deviation, which gets thinner as we get more observations.</p>
+<p>So, the normal distribution in the one sample Z-test is actually the distribution of sample means, under the null hypothesis. Mkay?</p>
+<p><span class="math inline">\(Z = \frac{\bar{x} - \mu}{\frac{\sigma}{\sqrt{n}}} = 14.60\)</span></p>
+<p>Let’s take an <span class="math inline">\(\alpha = 0.05\)</span> (which corresponds to Type I error happening 5% of the time - Type I error is the probability of rejecting Null Hypothesis even though the Null is correct). This is a 2 - tailed test, so rehect if Z less than -1.96 or greater than 1.96 :) HERE WE REJECT NULL HYPOTHESIS.</p>
+</div>
+<div id="one-sample-z--test-for-proportions" class="section level2">
+<h2>One Sample Z- Test for proportions</h2>
+<p><a href="https://www.youtube.com/watch?v=dH6igFVoCAw&amp;list=PL568547ACA9211CCA&amp;index=61">From here</a></p>
+<p>Survery claims 9/10 docs recommend aspirin. Survery, random sample, of 100 docs. 82 claim they recommend aspirin. At alpha = 0.05, do we believe?</p>
+<p><span class="math inline">\(H_0\)</span>: <span class="math inline">\(p = 0.9\)</span> <span class="math inline">\(H_q\)</span>: <span class="math inline">\(p \neq 0.9\)</span></p>
+<p>The test statistic:</p>
+<p><span class="math inline">\(Z = \frac{\hat{p} - p_0}{\sqrt{\frac{p_0(1-p_0)}{n}}} = -2.667\)</span></p>
+<p><span class="math inline">\(\hat{p} = 0.82\)</span> <span class="math inline">\(p_0 = 0.9\)</span> <span class="math inline">\(n = 100\)</span></p>
+<p>I think this comes from Bernoulli… Mean of Bernoulli is <span class="math inline">\(p_0 = 0.9\)</span> and variance is <span class="math inline">\(p_0(1 - p_0) = 0.9 \times 0.1 = 0.09\)</span></p>
+<p>So, really I think you can derive the test for proportions from the initial equation:</p>
+<p><span class="math inline">\(Z = \frac{\bar{x} - \mu}{\frac{\sigma}{\sqrt{n}}}\)</span></p>
+<p>Except now, the population mean under the Null Hypothesis is <span class="math inline">\(p_0\)</span>, the sample mean is <span class="math inline">\(0.82\)</span>, the population variance, under the Null is <span class="math inline">\(0.9(1 - 0.1)\)</span>, which makes the sample mean’s s.d. <span class="math inline">\(\sqrt{\frac{p_0(1-p_0)}{n}}\)</span>. The thing about the Bernoulli is that if you’ve got the mean, you’ve got the variance.</p>
+<p>Anyway, -2.667 &lt; -1.96 so reject <span class="math inline">\(H_0\)</span>.</p>
+</div>
+<div id="one-sample-t---test" class="section level2">
+<h2>One sample t - test</h2>
+<p>Population, average IQ = 100. New medication, either has negative, positive or no effect on intelligence. Sample of 30 participants have taken med, end up with a mean of 140 and s.d. of 20. Did medication affect intelligence?</p>
+<p><span class="math inline">\(H_0; \mu = 100\)</span> <span class="math inline">\(H_1; \mu \neq 100\)</span></p>
+<p>Degrees of freedom= <span class="math inline">\(n - 1 = 30 - 1 = 29\)</span>.</p>
+<p>Critical values: -2.0452 &amp; 2.0452.</p>
+<p><span class="math inline">\(t = \frac{\bar{x} - \mu}{s / \sqrt{n}} = 10.96\)</span>, reject <span class="math inline">\(H_0\)</span>.</p>
 </div>
 </div>
 <div id="definitions" class="section level1">
@@ -346,9 +396,11 @@ if (!doNotTrack) {
 <li><u>Central Limit Theorem</u> - The distribution of sample means for an independent random variable will get closer and closer to a normal distribution as the size of the sample gets bigger and bigger, even if the original population distribution isn’t normal. Think of independet die rolls, like in <a href="https://youtu.be/rBjft49MAO8?list=PL8dPuuaLjXtNM_Y-bUAhblSAdWRnmBUcr&amp;t=349">here</a>. Twenty dice are 20 independent random variables.</li>
 <li><u>Hypthesis Testing</u> -</li>
 <li><u>Inference</u> - the process of drawing conclusions about population parameters based on a sample taken from the population.</li>
+<li><u>Point Estimate </u> - a single value given as an estimate of a parameter of a population. Like the mean.</li>
 <li><u>Sampling distribution</u> - the probability distribution of a sample statistic (like the mean, or variance).</li>
+<li><u>Standard Error</u> - of a statistic (usually an estimate of a parameter - like the mean) is the standard deviation of its sampling distribution. For example, Standard error of the mean is <span class="math inline">\(\sigma_{\bar{x}} = \frac{\sigma}{\sqrt{n}}\)</span></li>
 <li><u>Type I error</u> - probability of saying null hypothesis is wrong, when it is correct</li>
-<li><u>Type II error</u> -</li>
+<li><u>Type II error</u> - The standard deviation of a sampling distribution</li>
 <li><u>Z-Distrubtion</u> - Standardized normal distribution</li>
 <li><u>Z-Score</u> - A Z-score is a numerical measurement that describes a value’s relationship to the mean of a group of values. Z-score is measured in terms of standard deviations from the mean. If a Z-score is 0, it indicates that the data point’s score is identical to the mean score. A Z-score of 1.0 would indicate a value that is one standard deviation from the mean. <strong>Z scores allow us to compare things that are not on the same scale as long as they are normally distributed</strong>.</li>
 </ul>
@@ -368,7 +420,7 @@ if (!doNotTrack) {
           
             <li class="post-action">
               
-                <a class="post-action-btn btn btn--disabled">
+                <a class="post-action-btn btn btn--default tooltip--top" href="/2020/07/zulu-article-uzoqhubeka-asebenzele-ekhaya-umantashe-osuleleke-ngecovid-19/" data-tooltip="Zulu Article | Uzoqhubeka asebenzele ekhaya uMantashe osuleleke ngeCovid-19">
               
                   <i class="fa fa-angle-left"></i>
                   <span class="hide-xs hide-sm text-small icon-ml"></span>
@@ -454,7 +506,7 @@ if (!doNotTrack) {
           
             <li class="post-action">
               
-                <a class="post-action-btn btn btn--disabled">
+                <a class="post-action-btn btn btn--default tooltip--top" href="/2020/07/zulu-article-uzoqhubeka-asebenzele-ekhaya-umantashe-osuleleke-ngecovid-19/" data-tooltip="Zulu Article | Uzoqhubeka asebenzele ekhaya uMantashe osuleleke ngeCovid-19">
               
                   <i class="fa fa-angle-left"></i>
                   <span class="hide-xs hide-sm text-small icon-ml"></span>
