@@ -36,8 +36,8 @@ Decide what you are trying to find evidence for (alternative hypothesis), then s
 Suppose you want to show a link between studying and test results. 
 
 
-- H_0: There is no effect on test result from studying
-- H_1: There is an effect on test result from studying
+- $H_0$: There is no effect on test result from studying
+- $H_1$: There is an effect on test result from studying
 
 
 Hypotheses are always about the population parameters (like the mean).
@@ -45,8 +45,8 @@ Hypotheses are always about the population parameters (like the mean).
 So the above should be stated mathematically:
 
 
-- H_0: $\mu_0$ = $\mu_1$
-- H_1: $\mu_0$ =/= $\mu_1$
+- $H_0$: $\mu_0$ = $\mu_1$
+- $H_1$: $\mu_0$ =/= $\mu_1$
 
 If $\mu_0$ and $\mu_1$ are the means for the "no study" and "study" groups respectively.
 
@@ -254,6 +254,8 @@ The standard deviation of a sampling distribution is called the _standard error_
 
 
 Can also use sampling distributions to compare other parameters - proportions, regression coefficients, or standard deviations, which also follow the central limit theorem.
+
+
 
 # Definitions
 
