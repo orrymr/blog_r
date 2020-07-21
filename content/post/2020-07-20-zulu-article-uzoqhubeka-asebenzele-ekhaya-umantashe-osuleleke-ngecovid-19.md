@@ -9,7 +9,11 @@ keywords:
   - tech
 ---
 
+The article: https://www.isolezwe.co.za/izindaba/uzoqhubeka-asebenzele-ekhaya-umantashe-osuleleke-ngecovid-19-50993356
+
 <!--more-->
+
+
 
 # New Words / Phrases
 
@@ -30,7 +34,7 @@ keywords:
 - hlolwa - tested
 - kathathu ukuqinisekisa - three times, to be certain
 - ngaleli gciwane - with this very / particular virus (like saying "ngalo nyala - this year")
-- bazivalele - they will close themselves off
+- bazivalele - they closed themselves off
 - njengamanje - presently | same as okwamanje
 - uzinikele | he will give himself (from the work nika - give) / commit himself to
 - ekuqinisekiseni - ensuring
@@ -49,20 +53,35 @@ Mantashe will continue wokring from home because he is infect w/ covid 19
 ## English
 
 1. Mantashe committed himself to ensuring that the production of electricity and oil went well.
-2. He was tested three times to ensure that he was infected with this virus
+2. It is said he was tested three times to ensure that he was infected with this virus
 3. He will continue with his work from home
 4. The statement was taken from the president's office
-5. The closed themselves off.
+5. They closed themselves off.
+6. It is said 
 
 ## isiZulu
 
 1. uMantashe uzinikele ukuqinisekiseni ukuthi ihamba kahle imikhiqizo kagesi nowoyela.
-2. Ubehlolwe kathathu ukuqiniseka ukuthi usulelekile ngaleli gciwane.
+2. Kuthiwa ubehlolwe kathathu ukuqiniseka ukuthi usulelekile ngaleli gciwane.
 3. Uzoqhubeka nomsebenzi sakho ekhaya
-4. 
+4. iSitatimendi ekhishwe yihhovisi likemongameli.
+5. Bazivalele.
 
 # Questions And Answers
 
+## Questions in English
+
+1. Who is the wife of Mantashe?
+2. Who closed themselves off?
+3. Where was the statement taken from?
+4. What is Mantashe the minister of?
+
+## Questions in isiZulu
+
+1. Ubani nkosikazi likaMantashe?
+2. Bobani bazivalele?
+3. Likuphi isitatimendi ekhishwe?
+4. uMantashe ungqongqoshe yini?
 
 
 
