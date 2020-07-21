@@ -255,15 +255,72 @@ The standard deviation of a sampling distribution is called the _standard error_
 
 Can also use sampling distributions to compare other parameters - proportions, regression coefficients, or standard deviations, which also follow the central limit theorem.
 
+## Z - test vs T - test
 
+Z - tests commonly done when population standard deviation is known. T - tests commonly done when population standard deviation is unknown. We use t - distribution because the unknown population standard deviation is now a value we must estimate.
+
+## One Sample Z - Test
+
+[From here](https://www.youtube.com/watch?v=BWJRsY-G8u0).
+
+In the population the average IQ is 100 with a s.d. of 15. Give a sample of 30 participants a drug which either makes them smarter, stupider or has no effect. The sample of 30 people has a mean of 140. Did the medication affect intelligence?
+
+Note here that the population standard deviation and mean is given. Very importantly, we're testing a mean, the sample mean. The question we're basically asking is how probable is it that we saw a sample mean of 140? Now, recall, from the above, sample means are distributed normally. And they will be centered around the population mean. And that the sample standard deviation is related to the population standard deviation. But remember, it's actually the sample mean standard deviation, which gets thinner as we get more observations.
+
+So, the normal distribution in the one sample Z-test is actually the distribution of sample means, under the null hypothesis. Mkay?
+
+$Z = \frac{\bar{x} - \mu}{\frac{\sigma}{\sqrt{n}}} = 14.60$
+
+Let's take an $\alpha = 0.05$ (which corresponds to Type I error happening 5% of the time - Type I error is the probability of rejecting Null Hypothesis even though the Null is correct). This is a 2 - tailed test, so rehect if Z less than -1.96 or greater than 1.96 :) HERE WE REJECT NULL HYPOTHESIS.
+
+## One Sample Z- Test for proportions
+
+[From here](https://www.youtube.com/watch?v=dH6igFVoCAw&list=PL568547ACA9211CCA&index=61)
+
+Survery claims 9/10 docs recommend aspirin. Survery, random sample, of 100 docs. 82 claim they recommend aspirin. At alpha = 0.05, do we believe?
+
+$H_0$: $p = 0.9$
+$H_q$: $p \neq 0.9$
+
+The test statistic:
+
+$Z = \frac{\hat{p} - p_0}{\sqrt{\frac{p_0(1-p_0)}{n}}} = -2.667$
+
+$\hat{p} = 0.82$
+$p_0 = 0.9$
+$n = 100$
+
+I think this comes from Bernoulli... Mean of Bernoulli is $p_0 = 0.9$ and variance is $p_0(1 - p_0) = 0.9 \times 0.1 = 0.09$
+
+So, really I think you can derive the test for proportions from the initial equation: 
+
+$Z = \frac{\bar{x} - \mu}{\frac{\sigma}{\sqrt{n}}}$
+
+Except now, the population mean under the Null Hypothesis is $p_0$, the sample mean is $0.82$, the population variance, under the Null is $0.9(1 - 0.1)$, which makes the sample mean's s.d. $\sqrt{\frac{p_0(1-p_0)}{n}}$. The thing about the Bernoulli is that if you've got the mean, you've got the variance.
+
+Anyway, -2.667 < -1.96 so reject $H_0$.
+
+## One sample t - test
+
+Population, average IQ = 100. New medication, either has negative, positive or no effect on intelligence. Sample of 30 participants have taken med, end up with a mean of 140 and s.d. of 20. Did medication affect intelligence?
+
+$H_0; \mu = 100$
+$H_1; \mu \neq 100$
+
+Degrees of freedom= $n - 1 = 30 - 1 = 29$.
+
+Critical values: -2.0452 & 2.0452.
+
+$t = \frac{\bar{x} - \mu}{s / \sqrt{n}} = 10.96$, reject $H_0$.
 
 # Definitions
 
 - <u>Central Limit Theorem</u> - The distribution of sample means for an independent random variable will get closer and closer to a normal distribution as the size of the sample gets bigger and bigger, even if the original population distribution isn't normal. Think of independet die rolls, like in [here](https://youtu.be/rBjft49MAO8?list=PL8dPuuaLjXtNM_Y-bUAhblSAdWRnmBUcr&t=349). Twenty dice are 20 independent random variables.
 - <u>Hypthesis Testing</u> - 
 - <u>Inference</u> - the process of drawing conclusions about population parameters based on a sample taken from the population.
+- <u>Point Estimate </u> - a single value given as an estimate of a parameter of a population. Like the mean.
 - <u>Sampling distribution</u> - the probability distribution of a sample statistic (like the mean, or variance).
-- <u>Standard Error</u> - 
+- <u>Standard Error</u> - of a statistic (usually an estimate of a parameter - like the mean) is the standard deviation of its sampling distribution. For example, Standard error of the mean is $\sigma_{\bar{x}} = \frac{\sigma}{\sqrt{n}}$
 - <u>Type I error</u> - probability of saying null hypothesis is wrong, when it is correct
 - <u>Type II error</u> - The standard deviation of a sampling distribution
 - <u>Z-Distrubtion</u> - Standardized normal distribution
