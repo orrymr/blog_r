@@ -255,11 +255,34 @@ The standard deviation of a sampling distribution is called the _standard error_
 
 Can also use sampling distributions to compare other parameters - proportions, regression coefficients, or standard deviations, which also follow the central limit theorem.
 
-## Z - test vs T - test
+
+## T-Distribution
+
+[They talk about T-dist closer to end of this vid](https://www.youtube.com/watch?v=yDEvXB6ApWc&list=PL8dPuuaLjXtNM_Y-bUAhblSAdWRnmBUcr&index=21)
+
+Continous, unimodal probability distribution that's useful to represent sampling distributions. It changes its shape based on how much information there is. It's got thicker tails for smaller sample sizes (as there is less information) - making the distribution less "tight" around the mean - showing that we're more uncertain. For bigger and bigger sample sizes the distribution gets thinner tails, and eventually becomes the same as the normal distribution. Usually, for tests about means sample sizes >= 30, it's usually the same as normal. For proportions, need at least 10 instances from each group in the proportion!
+
+## Hypothesis Testing
+
+Cool definition from [https://youtu.be/bf3egy7TQ2Q?list=PL8dPuuaLjXtNM_Y-bUAhblSAdWRnmBUcr&t=281](here):
+
+<u>Null Hypothesis Significance Testing</u> is a form of the reductio ad absurdum argument which tries to discredit an idea by assuming the idea is true, and then showing that if you make that assumption, something contradictory happens.
+
+(Just some examples of reductio ad absurdum outside of stats: The Earth cannot be flat; otherwise, we would find people falling off the edge. There is no smallest positive rational number because, if there were, then it could be divided by two to get a smaller one. It's like proof by contradiction.)
+
+### P Value
+
+A P-Value answers the question of how rare your data is, by telling you the probability of getting data that's extreme as the data you observed, if the null hypothesis were true. P-value tells you is how extreme your sample is assuming that the null is true.
+
+P-value = 0.1, then sample is in the top 10% most extreme samples we'd expect to see based on the distribution of sample means.
+
+A 2-sided p-value will tell us the probability of getting a sample mean as extreme (on either side) as the one we've seen, under the null hypothesis. A 1 sided will tell us the probability of getting a sample mean as high (or low) as the one we've seen, under the null hypothesis.
+
+### Z - test vs T - test
 
 Z - tests commonly done when population standard deviation is known. T - tests commonly done when population standard deviation is unknown. We use t - distribution because the unknown population standard deviation is now a value we must estimate.
 
-## One Sample Z - Test
+### One Sample Z - Test
 
 [From here](https://www.youtube.com/watch?v=BWJRsY-G8u0).
 
@@ -273,7 +296,7 @@ $Z = \frac{\bar{x} - \mu}{\frac{\sigma}{\sqrt{n}}} = 14.60$
 
 Let's take an $\alpha = 0.05$ (which corresponds to Type I error happening 5% of the time - Type I error is the probability of rejecting Null Hypothesis even though the Null is correct). This is a 2 - tailed test, so rehect if Z less than -1.96 or greater than 1.96 :) HERE WE REJECT NULL HYPOTHESIS.
 
-## One Sample Z- Test for proportions
+### One Sample Z- Test for proportions
 
 [From here](https://www.youtube.com/watch?v=dH6igFVoCAw&list=PL568547ACA9211CCA&index=61)
 
@@ -300,7 +323,7 @@ Except now, the population mean under the Null Hypothesis is $p_0$, the sample m
 
 Anyway, -2.667 < -1.96 so reject $H_0$.
 
-## One sample t - test
+### One sample t - test
 
 Population, average IQ = 100. New medication, either has negative, positive or no effect on intelligence. Sample of 30 participants have taken med, end up with a mean of 140 and s.d. of 20. Did medication affect intelligence?
 
@@ -313,16 +336,26 @@ Critical values: -2.0452 & 2.0452.
 
 $t = \frac{\bar{x} - \mu}{s / \sqrt{n}} = 10.96$, reject $H_0$.
 
+
+## Confidence Intervals
+
+The mean of sample distribution is the center a CI (see definition below). The way we choose the confidence range is related to the distribution of sample means (depends on standard deviation of sample means.).
+
+The 95% in a 95% confidence interva; tells us that if we calculated a confidence interval from 100 different samples, about 95% of them would contain the true population mean. Think about it, if you got 2 different samples of 40 people, both of those would have different sample means and sample standard deviations, and thus different confidence intervals. It is possible the CI we've created doesn't contain the true mean.
+
+
 # Definitions
 
 - <u>Central Limit Theorem</u> - The distribution of sample means for an independent random variable will get closer and closer to a normal distribution as the size of the sample gets bigger and bigger, even if the original population distribution isn't normal. Think of independet die rolls, like in [here](https://youtu.be/rBjft49MAO8?list=PL8dPuuaLjXtNM_Y-bUAhblSAdWRnmBUcr&t=349). Twenty dice are 20 independent random variables.
+- <u>Confidence Interval</u> - An <b>estimated range of values</b> that seem reasonable based on what we've observed. Its center is still the <b>sample mean</b>, but we've got some room  on either side for out uncertainty.
 - <u>Hypthesis Testing</u> - 
 - <u>Inference</u> - the process of drawing conclusions about population parameters based on a sample taken from the population.
+- <u>P-Value</u> - 
 - <u>Point Estimate </u> - a single value given as an estimate of a parameter of a population. Like the mean.
 - <u>Sampling distribution</u> - the probability distribution of a sample statistic (like the mean, or variance).
 - <u>Standard Error</u> - of a statistic (usually an estimate of a parameter - like the mean) is the standard deviation of its sampling distribution. For example, Standard error of the mean is $\sigma_{\bar{x}} = \frac{\sigma}{\sqrt{n}}$
 - <u>Type I error</u> - probability of saying null hypothesis is wrong, when it is correct
-- <u>Type II error</u> - The standard deviation of a sampling distribution
+- <u>Type II error</u> - probability of not saying the null hypothesis is wrong, even though it is wrong. Note, you're not actually saying it's true, just that it's not wrong.
 - <u>Z-Distrubtion</u> - Standardized normal distribution
 - <u>Z-Score</u> - A Z-score is a numerical measurement that describes a value's relationship to the mean of a group of values. Z-score is measured in terms of standard deviations from the mean. If a Z-score is 0, it indicates that the data point's score is identical to the mean score. A Z-score of 1.0 would indicate a value that is one standard deviation from the mean. __Z scores allow us to compare things that are not on the same scale as long as they are normally distributed__.
 

@@ -354,12 +354,28 @@ if (!doNotTrack) {
 <p>The standard deviation of a sampling distribution is called the <em>standard error</em>.</p>
 <p>Can also use sampling distributions to compare other parameters - proportions, regression coefficients, or standard deviations, which also follow the central limit theorem.</p>
 </div>
-<div id="z---test-vs-t---test" class="section level2">
-<h2>Z - test vs T - test</h2>
+<div id="t-distribution" class="section level2">
+<h2>T-Distribution</h2>
+<p><a href="https://www.youtube.com/watch?v=yDEvXB6ApWc&amp;list=PL8dPuuaLjXtNM_Y-bUAhblSAdWRnmBUcr&amp;index=21">They talk about T-dist closer to end of this vid</a></p>
+<p>Continous, unimodal probability distribution that’s useful to represent sampling distributions. It changes its shape based on how much information there is. It’s got thicker tails for smaller sample sizes (as there is less information) - making the distribution less “tight” around the mean - showing that we’re more uncertain. For bigger and bigger sample sizes the distribution gets thinner tails, and eventually becomes the same as the normal distribution. Usually, for tests about means sample sizes &gt;= 30, it’s usually the same as normal. For proportions, need at least 10 instances from each group in the proportion!</p>
+</div>
+<div id="hypothesis-testing-1" class="section level2">
+<h2>Hypothesis Testing</h2>
+<p>Cool definition from <a href="here">https://youtu.be/bf3egy7TQ2Q?list=PL8dPuuaLjXtNM_Y-bUAhblSAdWRnmBUcr&amp;t=281</a>:</p>
+<p><u>Null Hypothesis Significance Testing</u> is a form of the reductio ad absurdum argument which tries to discredit an idea by assuming the idea is true, and then showing that if you make that assumption, something contradictory happens.</p>
+<p>(Just some examples of reductio ad absurdum outside of stats: The Earth cannot be flat; otherwise, we would find people falling off the edge. There is no smallest positive rational number because, if there were, then it could be divided by two to get a smaller one. It’s like proof by contradiction.)</p>
+<div id="p-value" class="section level3">
+<h3>P Value</h3>
+<p>A P-Value answers the question of how rare your data is, by telling you the probability of getting data that’s extreme as the data you observed, if the null hypothesis were true. P-value tells you is how extreme your sample is assuming that the null is true.</p>
+<p>P-value = 0.1, then sample is in the top 10% most extreme samples we’d expect to see based on the distribution of sample means.</p>
+<p>A 2-sided p-value will tell us the probability of getting a sample mean as extreme (on either side) as the one we’ve seen, under the null hypothesis. A 1 sided will tell us the probability of getting a sample mean as high (or low) as the one we’ve seen, under the null hypothesis.</p>
+</div>
+<div id="z---test-vs-t---test" class="section level3">
+<h3>Z - test vs T - test</h3>
 <p>Z - tests commonly done when population standard deviation is known. T - tests commonly done when population standard deviation is unknown. We use t - distribution because the unknown population standard deviation is now a value we must estimate.</p>
 </div>
-<div id="one-sample-z---test" class="section level2">
-<h2>One Sample Z - Test</h2>
+<div id="one-sample-z---test" class="section level3">
+<h3>One Sample Z - Test</h3>
 <p><a href="https://www.youtube.com/watch?v=BWJRsY-G8u0">From here</a>.</p>
 <p>In the population the average IQ is 100 with a s.d. of 15. Give a sample of 30 participants a drug which either makes them smarter, stupider or has no effect. The sample of 30 people has a mean of 140. Did the medication affect intelligence?</p>
 <p>Note here that the population standard deviation and mean is given. Very importantly, we’re testing a mean, the sample mean. The question we’re basically asking is how probable is it that we saw a sample mean of 140? Now, recall, from the above, sample means are distributed normally. And they will be centered around the population mean. And that the sample standard deviation is related to the population standard deviation. But remember, it’s actually the sample mean standard deviation, which gets thinner as we get more observations.</p>
@@ -367,8 +383,8 @@ if (!doNotTrack) {
 <p><span class="math inline">\(Z = \frac{\bar{x} - \mu}{\frac{\sigma}{\sqrt{n}}} = 14.60\)</span></p>
 <p>Let’s take an <span class="math inline">\(\alpha = 0.05\)</span> (which corresponds to Type I error happening 5% of the time - Type I error is the probability of rejecting Null Hypothesis even though the Null is correct). This is a 2 - tailed test, so rehect if Z less than -1.96 or greater than 1.96 :) HERE WE REJECT NULL HYPOTHESIS.</p>
 </div>
-<div id="one-sample-z--test-for-proportions" class="section level2">
-<h2>One Sample Z- Test for proportions</h2>
+<div id="one-sample-z--test-for-proportions" class="section level3">
+<h3>One Sample Z- Test for proportions</h3>
 <p><a href="https://www.youtube.com/watch?v=dH6igFVoCAw&amp;list=PL568547ACA9211CCA&amp;index=61">From here</a></p>
 <p>Survery claims 9/10 docs recommend aspirin. Survery, random sample, of 100 docs. 82 claim they recommend aspirin. At alpha = 0.05, do we believe?</p>
 <p><span class="math inline">\(H_0\)</span>: <span class="math inline">\(p = 0.9\)</span> <span class="math inline">\(H_q\)</span>: <span class="math inline">\(p \neq 0.9\)</span></p>
@@ -381,8 +397,8 @@ if (!doNotTrack) {
 <p>Except now, the population mean under the Null Hypothesis is <span class="math inline">\(p_0\)</span>, the sample mean is <span class="math inline">\(0.82\)</span>, the population variance, under the Null is <span class="math inline">\(0.9(1 - 0.1)\)</span>, which makes the sample mean’s s.d. <span class="math inline">\(\sqrt{\frac{p_0(1-p_0)}{n}}\)</span>. The thing about the Bernoulli is that if you’ve got the mean, you’ve got the variance.</p>
 <p>Anyway, -2.667 &lt; -1.96 so reject <span class="math inline">\(H_0\)</span>.</p>
 </div>
-<div id="one-sample-t---test" class="section level2">
-<h2>One sample t - test</h2>
+<div id="one-sample-t---test" class="section level3">
+<h3>One sample t - test</h3>
 <p>Population, average IQ = 100. New medication, either has negative, positive or no effect on intelligence. Sample of 30 participants have taken med, end up with a mean of 140 and s.d. of 20. Did medication affect intelligence?</p>
 <p><span class="math inline">\(H_0; \mu = 100\)</span> <span class="math inline">\(H_1; \mu \neq 100\)</span></p>
 <p>Degrees of freedom= <span class="math inline">\(n - 1 = 30 - 1 = 29\)</span>.</p>
@@ -390,17 +406,25 @@ if (!doNotTrack) {
 <p><span class="math inline">\(t = \frac{\bar{x} - \mu}{s / \sqrt{n}} = 10.96\)</span>, reject <span class="math inline">\(H_0\)</span>.</p>
 </div>
 </div>
+<div id="confidence-intervals" class="section level2">
+<h2>Confidence Intervals</h2>
+<p>The mean of sample distribution is the center a CI (see definition below). The way we choose the confidence range is related to the distribution of sample means (depends on standard deviation of sample means.).</p>
+<p>The 95% in a 95% confidence interva; tells us that if we calculated a confidence interval from 100 different samples, about 95% of them would contain the true population mean. Think about it, if you got 2 different samples of 40 people, both of those would have different sample means and sample standard deviations, and thus different confidence intervals. It is possible the CI we’ve created doesn’t contain the true mean.</p>
+</div>
+</div>
 <div id="definitions" class="section level1">
 <h1>Definitions</h1>
 <ul>
 <li><u>Central Limit Theorem</u> - The distribution of sample means for an independent random variable will get closer and closer to a normal distribution as the size of the sample gets bigger and bigger, even if the original population distribution isn’t normal. Think of independet die rolls, like in <a href="https://youtu.be/rBjft49MAO8?list=PL8dPuuaLjXtNM_Y-bUAhblSAdWRnmBUcr&amp;t=349">here</a>. Twenty dice are 20 independent random variables.</li>
+<li><u>Confidence Interval</u> - An <b>estimated range of values</b> that seem reasonable based on what we’ve observed. Its center is still the <b>sample mean</b>, but we’ve got some room on either side for out uncertainty.</li>
 <li><u>Hypthesis Testing</u> -</li>
 <li><u>Inference</u> - the process of drawing conclusions about population parameters based on a sample taken from the population.</li>
+<li><u>P-Value</u> -</li>
 <li><u>Point Estimate </u> - a single value given as an estimate of a parameter of a population. Like the mean.</li>
 <li><u>Sampling distribution</u> - the probability distribution of a sample statistic (like the mean, or variance).</li>
 <li><u>Standard Error</u> - of a statistic (usually an estimate of a parameter - like the mean) is the standard deviation of its sampling distribution. For example, Standard error of the mean is <span class="math inline">\(\sigma_{\bar{x}} = \frac{\sigma}{\sqrt{n}}\)</span></li>
 <li><u>Type I error</u> - probability of saying null hypothesis is wrong, when it is correct</li>
-<li><u>Type II error</u> - The standard deviation of a sampling distribution</li>
+<li><u>Type II error</u> - probability of not saying the null hypothesis is wrong, even though it is wrong. Note, you’re not actually saying it’s true, just that it’s not wrong.</li>
 <li><u>Z-Distrubtion</u> - Standardized normal distribution</li>
 <li><u>Z-Score</u> - A Z-score is a numerical measurement that describes a value’s relationship to the mean of a group of values. Z-score is measured in terms of standard deviations from the mean. If a Z-score is 0, it indicates that the data point’s score is identical to the mean score. A Z-score of 1.0 would indicate a value that is one standard deviation from the mean. <strong>Z scores allow us to compare things that are not on the same scale as long as they are normally distributed</strong>.</li>
 </ul>
