@@ -1,0 +1,68 @@
+---
+title: Moment Generating Functions
+author: ''
+date: '2020-07-22'
+slug: moment-generating-functions
+categories:
+  - statistics
+tags:
+  - moment generating functions
+  - mgf
+keywords:
+  - tech
+---
+
+
+
+<p>What’s a moment generating function? How’s it used in stats?</p>
+<!--more-->
+<pre class="r"><code>library(ggplot2)</code></pre>
+<pre><code>## Warning: package &#39;ggplot2&#39; was built under R version 3.5.3</code></pre>
+<pre class="r"><code>library(tibble)</code></pre>
+<pre><code>## Warning: package &#39;tibble&#39; was built under R version 3.5.3</code></pre>
+<pre class="r"><code>library(ggthemes)</code></pre>
+<pre><code>## Warning: package &#39;ggthemes&#39; was built under R version 3.5.3</code></pre>
+<pre class="r"><code>theme_set(theme_economist())</code></pre>
+<div id="intro" class="section level1">
+<h1>Intro</h1>
+<p>Mean of a variable is</p>
+<p><span class="math inline">\(\mu = \sum_{x \in S}xf(x) = x_1f(x_1) + x_2f(x_2) + ... + x_kf(x_k)\)</span></p>
+<p>Now, consider an example where <span class="math inline">\(x \in \{1, 2, 3\}\)</span> and the p.m.f is given by <span class="math inline">\(f(1) = 3/6\)</span>, <span class="math inline">\(f(2) = 2/6\)</span> and <span class="math inline">\(f(3) = 1/6\)</span>.</p>
+<p>The mean of <span class="math inline">\(x\)</span> is <span class="math inline">\(1 \times \frac{3}{6} + 2 \times \frac{2}{6} + 3 \times \frac{1}{6} = \frac{10}{6}\)</span>.</p>
+<p>Or, visually:</p>
+<pre class="r"><code>pmf &lt;- tribble(
+  ~x, ~`f(x)`,
+  1, (3/6),
+  2, (2/6),
+  3, (1/6)
+)
+
+g &lt;- ggplot(pmf, mapping = aes(x = x, y = `f(x)`)) +
+  geom_point() +
+  lims(
+    y = c(0, 1),
+    x = c(0, 5)
+  )
+
+g</code></pre>
+<p><img src="/post/2020-07-22-moment-generating-functions_files/figure-html/unnamed-chunk-2-1.png" width="672" /></p>
+<p>Each <span class="math inline">\(x_i\)</span> is the distance of the i-th point from the origin. A moment is just distance x weight. In this case, the weight is proabability.</p>
+<p>A moment - distance (<span class="math inline">\(x_i\)</span>) <span class="math inline">\(\times\)</span> probability (<span class="math inline">\(f(x_i)\)</span>), <span class="math inline">\(x_if(x_i)\)</span> is a moment having arm length <span class="math inline">\(x_i\)</span>.</p>
+<p>The sum of such products is the first moment about the origin since the distances are simply to the first power and the lenghts are measured from the origin.</p>
+<div id="first-moment" class="section level2">
+<h2>First Moment</h2>
+<p>If we had to measure the first moments about the mean, instead we’d get:</p>
+<p><span class="math inline">\(\sum_{x \in S} (x - \mu)f(x) = \sum_{x \in S}xf(x) - \sum_{x \in S}\mu f(x)\)</span> $ = <em>{x S}xf(x) -</em>{x S}f(x) = - 1 = 0$</p>
+<p>First momement about <span class="math inline">\(\mu\)</span> is equal to 0.</p>
+<p>In mechanics <span class="math inline">\(\mu\)</span> is called the centroid. Last equation shows that if a fulcrum is placed at the point where the mean is, the system would balance because the sum of the mass to the left of the centroid would equal the sum of the mass to the right of the centroid. That is, the sum of the negative moments would equal the sum of the positive moments.</p>
+<p>Negative moment (from previous example):</p>
+<p><span class="math inline">\((x_1 - \mu) \times f(x_1) = (1 - \frac{10}{6}) \times \frac{3}{6} = -\frac{12}{36}\)</span></p>
+<p>Positive moments:</p>
+<p><span class="math inline">\((x_2 - \mu) \times f(x_2) = (2 - \frac{10}{6}) \times \frac{2}{6} = \frac{4}{36}\)</span> <span class="math inline">\((x_3 - \mu) \times f(x_3) = (3 - \frac{10}{6}) \times \frac{1}{6} = \frac{8}{36}\)</span></p>
+<p>So they balance.</p>
+</div>
+<div id="second-moment" class="section level2">
+<h2>Second Moment</h2>
+<p>Recall, first moment “cancels out”.</p>
+</div>
+</div>

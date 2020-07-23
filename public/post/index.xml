@@ -6,10 +6,23 @@
     <description>Recent content in Posts on orrymr.com</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en</language>
-    <lastBuildDate>Mon, 20 Jul 2020 00:00:00 +0000</lastBuildDate>
+    <lastBuildDate>Wed, 22 Jul 2020 00:00:00 +0000</lastBuildDate>
     
 	<atom:link href="/post/index.xml" rel="self" type="application/rss+xml" />
     
+    
+    <item>
+      <title>Moment Generating Functions</title>
+      <link>/2020/07/moment-generating-functions/</link>
+      <pubDate>Wed, 22 Jul 2020 00:00:00 +0000</pubDate>
+      
+      <guid>/2020/07/moment-generating-functions/</guid>
+      <description>
+
+
+&lt;p&gt;What’s a moment generating function? How’s it used in stats?&lt;/p&gt;
+</description>
+    </item>
     
     <item>
       <title>Zulu Article | Uzoqhubeka asebenzele ekhaya uMantashe osuleleke ngeCovid-19</title>

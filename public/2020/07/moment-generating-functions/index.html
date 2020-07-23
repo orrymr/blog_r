@@ -8,28 +8,54 @@
 <meta name="generator" content="Hugo 0.68.3 with theme Tranquilpeak 0.4.7-BETA">
 <meta name="author" content="Orry Messer">
 <meta name="keywords" content="tech">
-<meta name="description" content="The article: https://www.isolezwe.co.za/izindaba/uzoqhubeka-asebenzele-ekhaya-umantashe-osuleleke-ngecovid-19-50993356">
+<meta name="description" content="
 
 
-<meta property="og:description" content="The article: https://www.isolezwe.co.za/izindaba/uzoqhubeka-asebenzele-ekhaya-umantashe-osuleleke-ngecovid-19-50993356">
+What’s a moment generating function? How’s it used in stats?
+">
+
+
+<meta property="og:description" content="
+
+
+What’s a moment generating function? How’s it used in stats?
+">
 <meta property="og:type" content="article">
-<meta property="og:title" content="Zulu Article | Uzoqhubeka asebenzele ekhaya uMantashe osuleleke ngeCovid-19">
-<meta name="twitter:title" content="Zulu Article | Uzoqhubeka asebenzele ekhaya uMantashe osuleleke ngeCovid-19">
-<meta property="og:url" content="/2020/07/zulu-article-uzoqhubeka-asebenzele-ekhaya-umantashe-osuleleke-ngecovid-19/">
-<meta property="twitter:url" content="/2020/07/zulu-article-uzoqhubeka-asebenzele-ekhaya-umantashe-osuleleke-ngecovid-19/">
+<meta property="og:title" content="Moment Generating Functions">
+<meta name="twitter:title" content="Moment Generating Functions">
+<meta property="og:url" content="/2020/07/moment-generating-functions/">
+<meta property="twitter:url" content="/2020/07/moment-generating-functions/">
 <meta property="og:site_name" content="orrymr.com">
-<meta property="og:description" content="The article: https://www.isolezwe.co.za/izindaba/uzoqhubeka-asebenzele-ekhaya-umantashe-osuleleke-ngecovid-19-50993356">
-<meta name="twitter:description" content="The article: https://www.isolezwe.co.za/izindaba/uzoqhubeka-asebenzele-ekhaya-umantashe-osuleleke-ngecovid-19-50993356">
+<meta property="og:description" content="
+
+
+What’s a moment generating function? How’s it used in stats?
+">
+<meta name="twitter:description" content="
+
+
+What’s a moment generating function? How’s it used in stats?
+">
 <meta property="og:locale" content="en">
 
   
-    <meta property="article:published_time" content="2020-07-20T00:00:00">
+    <meta property="article:published_time" content="2020-07-22T00:00:00">
   
   
-    <meta property="article:modified_time" content="2020-07-20T00:00:00">
+    <meta property="article:modified_time" content="2020-07-22T00:00:00">
   
   
   
+    
+      <meta property="article:section" content="statistics">
+    
+  
+  
+    
+      <meta property="article:tag" content="moment generating functions">
+    
+      <meta property="article:tag" content="mgf">
+    
   
 
 
@@ -53,14 +79,14 @@
   <meta property="twitter:image" content="https://res.cloudinary.com/da1gwmlvj/image/upload/v1585486959/me_2_wm4mmw.jpg">
 
 
-    <title>Zulu Article | Uzoqhubeka asebenzele ekhaya uMantashe osuleleke ngeCovid-19</title>
+    <title>Moment Generating Functions</title>
 
     <link rel="icon" href="/favicon.png">
     
 
     
 
-    <link rel="canonical" href="/2020/07/zulu-article-uzoqhubeka-asebenzele-ekhaya-umantashe-osuleleke-ngecovid-19/">
+    <link rel="canonical" href="/2020/07/moment-generating-functions/">
 
     
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css" integrity="sha256-eZrrJcwDc/3uDhsdt61sL2oOBY362qM3lon1gyExkL0=" crossorigin="anonymous" />
@@ -262,109 +288,101 @@ if (!doNotTrack) {
             <div class="post-header main-content-wrap text-left">
   
     <h1 class="post-title" itemprop="headline">
-      Zulu Article | Uzoqhubeka asebenzele ekhaya uMantashe osuleleke ngeCovid-19
+      Moment Generating Functions
     </h1>
   
   
   <div class="postShorten-meta post-meta">
     
-      <time itemprop="datePublished" datetime="2020-07-20T00:00:00Z">
+      <time itemprop="datePublished" datetime="2020-07-22T00:00:00Z">
         
-   20, 2020
+   22, 2020
 
       </time>
     
     
+  
+  
+    <span></span>
+    
+      <a class="category-link" href="/categories/statistics">statistics</a>
+    
+  
+
   </div>
 
 </div>
           
           <div class="post-content markdown" itemprop="articleBody">
             <div class="main-content-wrap">
-              <p>The article: <a href="https://www.isolezwe.co.za/izindaba/uzoqhubeka-asebenzele-ekhaya-umantashe-osuleleke-ngecovid-19-50993356">https://www.isolezwe.co.za/izindaba/uzoqhubeka-asebenzele-ekhaya-umantashe-osuleleke-ngecovid-19-50993356</a></p>
+              <pre class="r"><code>library(ggplot2)</code></pre>
+<pre><code>## Warning: package &#39;ggplot2&#39; was built under R version 3.5.3</code></pre>
+<pre class="r"><code>library(tibble)</code></pre>
+<pre><code>## Warning: package &#39;tibble&#39; was built under R version 3.5.3</code></pre>
+<pre class="r"><code>library(ggthemes)</code></pre>
+<pre><code>## Warning: package &#39;ggthemes&#39; was built under R version 3.5.3</code></pre>
+<pre class="r"><code>theme_set(theme_economist())</code></pre>
+<div id="intro" class="section level1">
+<h1>Intro</h1>
+<p>Mean of a variable is</p>
+<p><span class="math inline">\(\mu = \sum_{x \in S}xf(x) = x_1f(x_1) + x_2f(x_2) + ... + x_kf(x_k)\)</span></p>
+<p>Now, consider an example where <span class="math inline">\(x \in \{1, 2, 3\}\)</span> and the p.m.f is given by <span class="math inline">\(f(1) = 3/6\)</span>, <span class="math inline">\(f(2) = 2/6\)</span> and <span class="math inline">\(f(3) = 1/6\)</span>.</p>
+<p>The mean of <span class="math inline">\(x\)</span> is <span class="math inline">\(1 \times \frac{3}{6} + 2 \times \frac{2}{6} + 3 \times \frac{1}{6} = \frac{10}{6}\)</span>.</p>
+<p>Or, visually:</p>
+<pre class="r"><code>pmf &lt;- tribble(
+  ~x, ~`f(x)`,
+  1, (3/6),
+  2, (2/6),
+  3, (1/6)
+)
 
-<h1 id="new-words-phrases">New Words / Phrases</h1>
+g &lt;- ggplot(pmf, mapping = aes(x = x, y = `f(x)`)) +
+  geom_point() +
+  lims(
+    y = c(0, 1),
+    x = c(0, 5)
+  )
 
-<ul>
-<li>subabili - together (the both of us)</li>
-<li>asebenzele ekhaya - work from home | (-ele for the location)</li>
-<li>suleleka - infect</li>
-<li>osuleleke - who is infected</li>
-<li>ungqongqoshe - minister / premier</li>
-<li>Mbiwaphansi - mining</li>
-<li>Amandla - (in this context) energy</li>
-<li><u>wezoku</u>Mbiwaphansi namandla - <u>in the affairs of</u> mining and energy</li>
-<li>haqa - infect</li>
-<li>vela - reveal</li>
-<li>khishwa - take out</li>
-<li>mongameli - president</li>
-<li>yihhovisi likamengameli - office of the president</li>
-<li>kuthiwa - it is said</li>
-<li>hlolwa - tested</li>
-<li>kathathu ukuqinisekisa - three times, to be certain</li>
-<li>ngaleli gciwane - with this very / particular virus (like saying &ldquo;ngalo nyala - this year&rdquo;)</li>
-<li>bazivalele - they closed themselves off</li>
-<li>njengamanje - presently | same as okwamanje</li>
-<li>uzinikele | he will give himself (from the work nika - give) / commit himself to</li>
-<li>ekuqinisekiseni - ensuring</li>
-<li>kuleli - in this country</li>
-<li>imikhiqizo - productions / generations / creations of something</li>
-<li>umkhiqizo - product</li>
-<li>uwoyela - oil</li>
-</ul>
+g</code></pre>
+<p><img src="/post/2020-07-22-moment-generating-functions_files/figure-html/unnamed-chunk-2-1.png" width="672" /></p>
+<p>Each <span class="math inline">\(x_i\)</span> is the distance of the i-th point from the origin. A moment is just distance x weight. In this case, the weight is proabability.</p>
+<p>A moment - distance (<span class="math inline">\(x_i\)</span>) <span class="math inline">\(\times\)</span> probability (<span class="math inline">\(f(x_i)\)</span>), <span class="math inline">\(x_if(x_i)\)</span> is a moment having arm length <span class="math inline">\(x_i\)</span>.</p>
+<p>The sum of such products is the first moment about the origin since the distances are simply to the first power and the lenghts are measured from the origin.</p>
+<div id="first-moment" class="section level2">
+<h2>First Moment</h2>
+<p>If we had to measure the first moments about the mean, instead we’d get:</p>
+<p><span class="math inline">\(\sum_{x \in S} (x - \mu)f(x) = \sum_{x \in S}xf(x) - \sum_{x \in S}\mu f(x)\)</span> $ = <em>{x S}xf(x) -</em>{x S}f(x) = - 1 = 0$</p>
+<p>First momement about <span class="math inline">\(\mu\)</span> is equal to 0.</p>
+<p>In mechanics <span class="math inline">\(\mu\)</span> is called the centroid. Last equation shows that if a fulcrum is placed at the point where the mean is, the system would balance because the sum of the mass to the left of the centroid would equal the sum of the mass to the right of the centroid. That is, the sum of the negative moments would equal the sum of the positive moments.</p>
+<p>Negative moment (from previous example):</p>
+<p><span class="math inline">\((x_1 - \mu) \times f(x_1) = (1 - \frac{10}{6}) \times \frac{3}{6} = -\frac{12}{36}\)</span></p>
+<p>Positive moments:</p>
+<p><span class="math inline">\((x_2 - \mu) \times f(x_2) = (2 - \frac{10}{6}) \times \frac{2}{6} = \frac{4}{36}\)</span> <span class="math inline">\((x_3 - \mu) \times f(x_3) = (3 - \frac{10}{6}) \times \frac{1}{6} = \frac{8}{36}\)</span></p>
+<p>So they balance.</p>
+</div>
+<div id="second-moment" class="section level2">
+<h2>Second Moment</h2>
+<p>Recall, first moment “cancels out”.</p>
+</div>
+</div>
 
-<h1 id="notes">Notes</h1>
-
-<p>Uzoqhubeka asebenzele ekhaya uMantashe osuleleke ngeCovid-19
-Mantashe will continue wokring from home because he is infect w/ covid 19</p>
-
-<h1 id="translate">Translate</h1>
-
-<h2 id="english">English</h2>
-
-<ol>
-<li>Mantashe committed himself to ensuring that the production of electricity and oil went well.</li>
-<li>It is said he was tested three times to ensure that he was infected with this virus</li>
-<li>He will continue with his work from home</li>
-<li>The statement was taken from the president&rsquo;s office</li>
-<li>They closed themselves off.</li>
-<li>It is said</li>
-</ol>
-
-<h2 id="isizulu">isiZulu</h2>
-
-<ol>
-<li>uMantashe uzinikele ukuqinisekiseni ukuthi ihamba kahle imikhiqizo kagesi nowoyela.</li>
-<li>Kuthiwa ubehlolwe kathathu ukuqiniseka ukuthi usulelekile ngaleli gciwane.</li>
-<li>Uzoqhubeka nomsebenzi sakho ekhaya</li>
-<li>iSitatimendi ekhishwe yihhovisi likemongameli.</li>
-<li>Bazivalele.</li>
-</ol>
-
-<h1 id="questions-and-answers">Questions And Answers</h1>
-
-<h2 id="questions-in-english">Questions in English</h2>
-
-<ol>
-<li>Who is the wife of Mantashe?</li>
-<li>Who closed themselves off?</li>
-<li>Where was the statement taken from?</li>
-<li>What is Mantashe the minister of?</li>
-</ol>
-
-<h2 id="questions-in-isizulu">Questions in isiZulu</h2>
-
-<ol>
-<li>Ubani nkosikazi likaMantashe?</li>
-<li>Bobani bazivalele?</li>
-<li>Likuphi isitatimendi ekhishwe?</li>
-<li>uMantashe ungqongqoshe yini?</li>
-</ol>
               
             </div>
           </div>
           <div id="post-footer" class="post-footer main-content-wrap">
             
+              
+                
+                
+                  <div class="post-footer-tags">
+                    <span class="text-color-light text-small"></span><br/>
+                    
+  <a class="tag tag--primary tag--small" href="/tags/moment-generating-functions/">moment generating functions</a>
+
+  <a class="tag tag--primary tag--small" href="/tags/mgf/">mgf</a>
+
+                  </div>
+                
               
             
             <div class="post-actions-wrap">
@@ -374,7 +392,7 @@ Mantashe will continue wokring from home because he is infect w/ covid 19</p>
           
             <li class="post-action">
               
-                <a class="post-action-btn btn btn--default tooltip--top" href="/2020/07/moment-generating-functions/" data-tooltip="Moment Generating Functions">
+                <a class="post-action-btn btn btn--disabled">
               
                   <i class="fa fa-angle-left"></i>
                   <span class="hide-xs hide-sm text-small icon-ml"></span>
@@ -382,7 +400,7 @@ Mantashe will continue wokring from home because he is infect w/ covid 19</p>
             </li>
             <li class="post-action">
               
-                <a class="post-action-btn btn btn--default tooltip--top" href="/2020/07/hitchikers-guide-to-inferential-statistics/" data-tooltip="The Hitchikers Guide to Inferential Statistics">
+                <a class="post-action-btn btn btn--default tooltip--top" href="/2020/07/zulu-article-uzoqhubeka-asebenzele-ekhaya-umantashe-osuleleke-ngecovid-19/" data-tooltip="Zulu Article | Uzoqhubeka asebenzele ekhaya uMantashe osuleleke ngeCovid-19">
               
                   <span class="hide-xs hide-sm text-small icon-mr"></span>
                   <i class="fa fa-angle-right"></i>
@@ -400,19 +418,19 @@ Mantashe will continue wokring from home because he is infect w/ covid 19</p>
         </li>
         
           <li class="post-action hide-xs">
-            <a class="post-action-btn btn btn--default" target="new" href="https://www.facebook.com/sharer/sharer.php?u=/2020/07/zulu-article-uzoqhubeka-asebenzele-ekhaya-umantashe-osuleleke-ngecovid-19/">
+            <a class="post-action-btn btn btn--default" target="new" href="https://www.facebook.com/sharer/sharer.php?u=/2020/07/moment-generating-functions/">
               <i class="fa fa-facebook-official"></i>
             </a>
           </li>
         
           <li class="post-action hide-xs">
-            <a class="post-action-btn btn btn--default" target="new" href="https://twitter.com/intent/tweet?text=/2020/07/zulu-article-uzoqhubeka-asebenzele-ekhaya-umantashe-osuleleke-ngecovid-19/">
+            <a class="post-action-btn btn btn--default" target="new" href="https://twitter.com/intent/tweet?text=/2020/07/moment-generating-functions/">
               <i class="fa fa-twitter"></i>
             </a>
           </li>
         
           <li class="post-action hide-xs">
-            <a class="post-action-btn btn btn--default" target="new" href="https://plus.google.com/share?url=/2020/07/zulu-article-uzoqhubeka-asebenzele-ekhaya-umantashe-osuleleke-ngecovid-19/">
+            <a class="post-action-btn btn btn--default" target="new" href="https://plus.google.com/share?url=/2020/07/moment-generating-functions/">
               <i class="fa fa-google-plus"></i>
             </a>
           </li>
@@ -460,7 +478,7 @@ Mantashe will continue wokring from home because he is infect w/ covid 19</p>
           
             <li class="post-action">
               
-                <a class="post-action-btn btn btn--default tooltip--top" href="/2020/07/moment-generating-functions/" data-tooltip="Moment Generating Functions">
+                <a class="post-action-btn btn btn--disabled">
               
                   <i class="fa fa-angle-left"></i>
                   <span class="hide-xs hide-sm text-small icon-ml"></span>
@@ -468,7 +486,7 @@ Mantashe will continue wokring from home because he is infect w/ covid 19</p>
             </li>
             <li class="post-action">
               
-                <a class="post-action-btn btn btn--default tooltip--top" href="/2020/07/hitchikers-guide-to-inferential-statistics/" data-tooltip="The Hitchikers Guide to Inferential Statistics">
+                <a class="post-action-btn btn btn--default tooltip--top" href="/2020/07/zulu-article-uzoqhubeka-asebenzele-ekhaya-umantashe-osuleleke-ngecovid-19/" data-tooltip="Zulu Article | Uzoqhubeka asebenzele ekhaya uMantashe osuleleke ngeCovid-19">
               
                   <span class="hide-xs hide-sm text-small icon-mr"></span>
                   <i class="fa fa-angle-right"></i>
@@ -486,19 +504,19 @@ Mantashe will continue wokring from home because he is infect w/ covid 19</p>
         </li>
         
           <li class="post-action hide-xs">
-            <a class="post-action-btn btn btn--default" target="new" href="https://www.facebook.com/sharer/sharer.php?u=/2020/07/zulu-article-uzoqhubeka-asebenzele-ekhaya-umantashe-osuleleke-ngecovid-19/">
+            <a class="post-action-btn btn btn--default" target="new" href="https://www.facebook.com/sharer/sharer.php?u=/2020/07/moment-generating-functions/">
               <i class="fa fa-facebook-official"></i>
             </a>
           </li>
         
           <li class="post-action hide-xs">
-            <a class="post-action-btn btn btn--default" target="new" href="https://twitter.com/intent/tweet?text=/2020/07/zulu-article-uzoqhubeka-asebenzele-ekhaya-umantashe-osuleleke-ngecovid-19/">
+            <a class="post-action-btn btn btn--default" target="new" href="https://twitter.com/intent/tweet?text=/2020/07/moment-generating-functions/">
               <i class="fa fa-twitter"></i>
             </a>
           </li>
         
           <li class="post-action hide-xs">
-            <a class="post-action-btn btn btn--default" target="new" href="https://plus.google.com/share?url=/2020/07/zulu-article-uzoqhubeka-asebenzele-ekhaya-umantashe-osuleleke-ngecovid-19/">
+            <a class="post-action-btn btn btn--default" target="new" href="https://plus.google.com/share?url=/2020/07/moment-generating-functions/">
               <i class="fa fa-google-plus"></i>
             </a>
           </li>
@@ -528,19 +546,19 @@ Mantashe will continue wokring from home because he is infect w/ covid 19</p>
   <ul class="share-options">
     
       <li class="share-option">
-        <a class="share-option-btn" target="new" href="https://www.facebook.com/sharer/sharer.php?u=%2F2020%2F07%2Fzulu-article-uzoqhubeka-asebenzele-ekhaya-umantashe-osuleleke-ngecovid-19%2F">
+        <a class="share-option-btn" target="new" href="https://www.facebook.com/sharer/sharer.php?u=%2F2020%2F07%2Fmoment-generating-functions%2F">
           <i class="fa fa-facebook-official"></i><span>%!(EXTRA string=Facebook)</span>
         </a>
       </li>
     
       <li class="share-option">
-        <a class="share-option-btn" target="new" href="https://twitter.com/intent/tweet?text=%2F2020%2F07%2Fzulu-article-uzoqhubeka-asebenzele-ekhaya-umantashe-osuleleke-ngecovid-19%2F">
+        <a class="share-option-btn" target="new" href="https://twitter.com/intent/tweet?text=%2F2020%2F07%2Fmoment-generating-functions%2F">
           <i class="fa fa-twitter"></i><span>%!(EXTRA string=Twitter)</span>
         </a>
       </li>
     
       <li class="share-option">
-        <a class="share-option-btn" target="new" href="https://plus.google.com/share?url=%2F2020%2F07%2Fzulu-article-uzoqhubeka-asebenzele-ekhaya-umantashe-osuleleke-ngecovid-19%2F">
+        <a class="share-option-btn" target="new" href="https://plus.google.com/share?url=%2F2020%2F07%2Fmoment-generating-functions%2F">
           <i class="fa fa-google-plus"></i><span>%!(EXTRA string=Google&#43;)</span>
         </a>
       </li>
@@ -629,9 +647,9 @@ $(document).ready(function() {
     
       <script>
         var disqus_config = function () {
-          this.page.url = '\/2020\/07\/zulu-article-uzoqhubeka-asebenzele-ekhaya-umantashe-osuleleke-ngecovid-19\/';
+          this.page.url = '\/2020\/07\/moment-generating-functions\/';
           
-            this.page.identifier = '\/2020\/07\/zulu-article-uzoqhubeka-asebenzele-ekhaya-umantashe-osuleleke-ngecovid-19\/'
+            this.page.identifier = '\/2020\/07\/moment-generating-functions\/'
           
         };
         (function() {

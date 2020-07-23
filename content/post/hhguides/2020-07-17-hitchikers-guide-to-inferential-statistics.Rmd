@@ -278,6 +278,14 @@ P-value = 0.1, then sample is in the top 10% most extreme samples we'd expect to
 
 A 2-sided p-value will tell us the probability of getting a sample mean as extreme (on either side) as the one we've seen, under the null hypothesis. A 1 sided will tell us the probability of getting a sample mean as high (or low) as the one we've seen, under the null hypothesis.
 
+NB: On Common misinterpretation of the a p-value is that it can telly ou the probability that the null hypothesis is true - [IT CAN'T!](https://youtu.be/PPD8lER8ju4?list=PL8dPuuaLjXtNM_Y-bUAhblSAdWRnmBUcr&t=234)
+Ronald Fisher said: "In general, tests of significance are based on hypothetical probabilities calculated from their null hypotheses. They do no generally lead to any probability statements about the real word, but to a rational and well-defines measure of reluctance to the acceptance of the hypotheses they test."
+So, getting a p-value of 0.1 doesn't mean there is a 10% chance the null hypothesis is true. 
+
+If P-Value is not lower than alpha, then we fail to reject $H_0$. Notice that we say fail to rehect, not accept. Null hypothesis testing doesn't allow us to "accept" or provide evidence that the null is true, instead we've only failed to provide evidence that it's false. Abscense of evidence is not the evidence of abscense. Failint to reject the null doesn't mean thtere isn't an effect or relationship, just means we didn't get enough evidence to say there definitely is one.
+
+
+
 ### Z - test vs T - test
 
 Z - tests commonly done when population standard deviation is known. T - tests commonly done when population standard deviation is unknown. We use t - distribution because the unknown population standard deviation is now a value we must estimate.
@@ -350,12 +358,13 @@ The 95% in a 95% confidence interva; tells us that if we calculated a confidence
 - <u>Confidence Interval</u> - An <b>estimated range of values</b> that seem reasonable based on what we've observed. Its center is still the <b>sample mean</b>, but we've got some room  on either side for out uncertainty.
 - <u>Hypthesis Testing</u> - 
 - <u>Inference</u> - the process of drawing conclusions about population parameters based on a sample taken from the population.
-- <u>P-Value</u> - 
+- <u>P-Value</u> - probability of obtaining test results at least as extreme as the results actually observed, assuming that the null hypothesis is correct.
 - <u>Point Estimate </u> - a single value given as an estimate of a parameter of a population. Like the mean.
 - <u>Sampling distribution</u> - the probability distribution of a sample statistic (like the mean, or variance).
 - <u>Standard Error</u> - of a statistic (usually an estimate of a parameter - like the mean) is the standard deviation of its sampling distribution. For example, Standard error of the mean is $\sigma_{\bar{x}} = \frac{\sigma}{\sqrt{n}}$
-- <u>Type I error</u> - probability of saying null hypothesis is wrong, when it is correct
-- <u>Type II error</u> - probability of not saying the null hypothesis is wrong, even though it is wrong. Note, you're not actually saying it's true, just that it's not wrong.
+- <u>Statistical Power </u> - $1 - \beta$ - chance of detecting an effect if there is one.
+- <u>Type I error</u> - $\alpha$ - probability of saying null hypothesis is wrong, when it is correct
+- <u>Type II error</u> - $\beta$ - probability of not saying the null hypothesis is wrong, even though it is wrong. Note, you're not actually saying it's true, just that it's not wrong. 
 - <u>Z-Distrubtion</u> - Standardized normal distribution
 - <u>Z-Score</u> - A Z-score is a numerical measurement that describes a value's relationship to the mean of a group of values. Z-score is measured in terms of standard deviations from the mean. If a Z-score is 0, it indicates that the data point's score is identical to the mean score. A Z-score of 1.0 would indicate a value that is one standard deviation from the mean. __Z scores allow us to compare things that are not on the same scale as long as they are normally distributed__.
 

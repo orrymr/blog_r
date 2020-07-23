@@ -1,0 +1,97 @@
+---
+title: Moment Generating Functions
+author: ''
+date: '2020-07-22'
+slug: moment-generating-functions
+categories:
+  - statistics
+tags:
+  - moment generating functions
+  - mgf
+keywords:
+  - tech
+---
+
+What's a moment generating function? How's it used in stats?
+
+<!--more-->
+
+```{r}
+library(ggplot2)
+library(tibble)
+library(ggthemes)
+theme_set(theme_economist())
+
+```
+
+# Intro
+
+Mean of a variable is
+
+$\mu = \sum_{x \in S}xf(x) = x_1f(x_1) + x_2f(x_2) + ... + x_kf(x_k)$
+
+Now, consider an example where $x \in \{1, 2, 3\}$ and the p.m.f is given by $f(1) = 3/6$, $f(2) = 2/6$ and $f(3) = 1/6$.
+
+The mean of $x$ is $1 \times \frac{3}{6} + 2 \times \frac{2}{6} + 3 \times \frac{1}{6} = \frac{10}{6}$.
+
+Or, visually:
+
+```{r}
+pmf <- tribble(
+  ~x, ~`f(x)`,
+  1, (3/6),
+  2, (2/6),
+  3, (1/6)
+)
+
+g <- ggplot(pmf, mapping = aes(x = x, y = `f(x)`)) +
+  geom_point() +
+  lims(
+    y = c(0, 1),
+    x = c(0, 5)
+  )
+
+g
+```
+
+Each $x_i$ is the distance of the i-th point from the origin. A moment is just distance x weight. In this case, the weight is proabability.
+
+A moment - distance ($x_i$) $\times$ probability ($f(x_i)$), $x_if(x_i)$ is a moment having arm length $x_i$.
+
+The sum of such products is the first moment about the origin since the distances  are simply to the first power and the lenghts are measured from the origin. 
+
+## First Moment
+
+If we had to measure the first moments about the mean, instead we'd get:
+
+$\sum_{x \in S} (x - \mu)f(x) = \sum_{x \in S}xf(x) - \sum_{x \in S}\mu f(x)$
+$ = \sum_{x \in S}xf(x) -\mu\sum_{x \in S}f(x) = \mu - \mu \times 1 = 0$
+
+First momement about $\mu$ is equal to 0.
+
+In mechanics $\mu$ is called the centroid. Last equation shows that if a fulcrum is placed at the point where the mean is, the system would balance because the sum of the mass to the left of the centroid would equal the sum of the mass to the right of the centroid. 
+That is, the sum of the negative moments would equal the sum of the positive moments.
+
+Negative moment (from previous example):
+
+$(x_1 - \mu) \times f(x_1) = (1 - \frac{10}{6}) \times \frac{3}{6} = -\frac{12}{36}$
+
+Positive moments:
+
+$(x_2 - \mu) \times f(x_2) = (2 - \frac{10}{6}) \times \frac{2}{6} = \frac{4}{36}$
+$(x_3 - \mu) \times f(x_3) = (3 - \frac{10}{6}) \times \frac{1}{6} = \frac{8}{36}$
+
+So they balance.
+
+## Second Moment
+
+Recall, first moment "cancels out".
+
+
+
+
+
+
+
+
+
