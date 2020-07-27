@@ -27,7 +27,7 @@ The article: https://www.isolezwe.co.za/izindaba/uzoqhubeka-asebenzele-ekhaya-um
 - <u>wezoku</u>Mbiwaphansi namandla - <u>in the affairs of</u> mining and energy
 - haqa - infect
 - vela - reveal
-- khishwa - take out
+- khishwa - taken out
 - mongameli - president
 - yihhovisi likamengameli - office of the president
 - kuthiwa - it is said
@@ -42,6 +42,8 @@ The article: https://www.isolezwe.co.za/izindaba/uzoqhubeka-asebenzele-ekhaya-um
 - imikhiqizo - productions / generations / creations of something
 - umkhiqizo - product
 - uwoyela - oil
+- gqugquzela - encourage
+
 
 # Notes
 
@@ -63,7 +65,7 @@ Mantashe will continue wokring from home because he is infect w/ covid 19
 
 1. uMantashe uzinikele ukuqinisekiseni ukuthi ihamba kahle imikhiqizo kagesi nowoyela.
 2. Kuthiwa ubehlolwe kathathu ukuqiniseka ukuthi usulelekile ngaleli gciwane.
-3. Uzoqhubeka nomsebenzi sakho ekhaya
+3. Uzoqhubeka nomsebenzi wakhe ekhaya
 4. iSitatimendi ekhishwe yihhovisi likemongameli.
 5. Bazivalele.
 
@@ -78,10 +80,10 @@ Mantashe will continue wokring from home because he is infect w/ covid 19
 
 ## Questions in isiZulu
 
-1. Ubani nkosikazi likaMantashe?
-2. Bobani bazivalele?
-3. Likuphi isitatimendi ekhishwe?
-4. uMantashe ungqongqoshe yini?
+1. Ubani inkosikazi yaMantashe? (possessive concords 2nd table on https://isizulu.net/grammar/)
+2. Obani bazivalele? (Plural of Ubani is Obani)
+3. Sikhishwe kuphi isitatimendi?
+4. uMantashe ungqongqoshe wani?
 
 
 

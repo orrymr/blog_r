@@ -413,10 +413,32 @@ if (!doNotTrack) {
 <p>The mean of sample distribution is the center a CI (see definition below). The way we choose the confidence range is related to the distribution of sample means (depends on standard deviation of sample means.).</p>
 <p>The 95% in a 95% confidence interva; tells us that if we calculated a confidence interval from 100 different samples, about 95% of them would contain the true population mean. Think about it, if you got 2 different samples of 40 people, both of those would have different sample means and sample standard deviations, and thus different confidence intervals. It is possible the CI we’ve created doesn’t contain the true mean.</p>
 </div>
+<div id="bayes-theorem" class="section level2">
+<h2>Bayes’ Theorem</h2>
+<p><span class="math inline">\(P(A|B) = \frac{P(B|A)P(A)}{P(B)} = \frac{P(A \cap B)}{P(B)}\)</span></p>
+<p>Updating beliefs.</p>
+<p>Suppose your sister tells you she has a friend. At this point, 50-50 chance that it’s male / female. Suppose your sister also tells you that the friend has breast cancer. Then <span class="math inline">\(P(male | BREAST CANCER) = \frac{P(BREAST CANCER | male)P(male)}{P(BREAST CANCER)}\)</span> Suppose you know <span class="math inline">\(P(BREAST CANCER | male) and P(BREAST CANCER)\)</span> from gov’t statistics, then you can calc: <span class="math inline">\(P(male | BREAST CANCER) = \frac{P(0.001)P(0.5)}{P(0.063)} = 0.79%\)</span>, so pretty low.</p>
+<p>So, in the above, we updated our belief based on new information. Rearrange the formula slightly to see this more clearly: $P(A|B) = P(A) $ <span class="math inline">\(P(male | BREAST CANCER) = \frac{P(0.001)}{P(0.063)}P(A)\)</span></p>
+<p>Updating beliefs is core to Bayesian stats.</p>
+<p>Bayes’ Factor… Say you’re trying to figure out if someone is a star wars fan. Say your <em>prior</em> belief is that 60% of people are Star Wars fans. ie, <span class="math inline">\(P(fan) = 0.6\)</span> Suppose also, that the probabilty of watching a new star wars movie that’s just come out is <span class="math inline">\(P(movie | fan) = 0.99\)</span>, as fans would rush to watch it. But suppose also that the probability of watching the movie given that a person is not a fan is <span class="math inline">\(P(movie | not fan) = 0.5\)</span>. This is because some people are just curious about it, (like me), or dragged by friends / family. So <span class="math inline">\(\frac{P(movie | fan)}{P(movie | not fan)} = \frac{0.99}{0.5} = 1.98\)</span> is the odds that a person is a fan, if they tell you that they’ve watched the movie. It’s what we’ve learned about they hypothesis from the data (in this case the data is someone telling you they’ve watched the movie). We cam multiply our <em>prior</em> with this factor to get our posterior.</p>
+<p>We can repeat this process; make the new posterior a prior for updating beliefs. In the example before, let’s say that there are 60% star wars fans and 40% not - this is your prior. So, odds you’re a fan is <span class="math inline">\(\frac{0.6}{0.4} = 1.5\)</span>. But we can update this with the data: <span class="math inline">\(\frac{0.6}{0.4} \times \frac{0.99}{0.5} = 1.5 \times 1.98 = 2.97\)</span>; so the odds have increased.</p>
+<div id="bayesian-hypothesis-testing" class="section level3">
+<h3>Bayesian Hypothesis Testing</h3>
+<p>Compare the probabilities of the 2 hypotheses: from the above, compare the probabilities of the probability that a person is a fan, given they’d seen the movie. So, compare <span class="math inline">\(P(fan | seenmovie)\)</span> and <span class="math inline">\(P(not fan | seenmovie)\)</span>.</p>
+<p>So look that the ratio: <span class="math inline">\(\frac{P(fan | seenmovie)}{P(not fan | seenmovie)}\)</span>. We look at the ratio of 2 instances of Bayes’ thm; since both the numerator and the denominator are posterior probs.</p>
+</div>
+<div id="criticism-of-bayes" class="section level3">
+<h3>Criticism of Bayes’</h3>
+<p>In Bayesian hypothesis testing (also in just applying Bayes’ thm), the result is influenced by your prior <em>belief</em>. If you throw in a different number for your belief, then you get different results.</p>
+<p>One of the main uses of statistics is science whis is supposed to be relatively “objective” and not influenced by opinion, yet here’s a method that included beliefs in its calculation.</p>
+<p>In some research, the researchers publish the Bayes Factor, for just this reason - it’s free of the prior. You could then use their calculated Bayes factor to update your own prior.</p>
+</div>
+</div>
 </div>
 <div id="definitions" class="section level1">
 <h1>Definitions</h1>
 <ul>
+<li><u>Bayes’ Factor</u> - Represents the amount of info we’ve learned about our hypotheses from the data.</li>
 <li><u>Central Limit Theorem</u> - The distribution of sample means for an independent random variable will get closer and closer to a normal distribution as the size of the sample gets bigger and bigger, even if the original population distribution isn’t normal. Think of independet die rolls, like in <a href="https://youtu.be/rBjft49MAO8?list=PL8dPuuaLjXtNM_Y-bUAhblSAdWRnmBUcr&amp;t=349">here</a>. Twenty dice are 20 independent random variables.</li>
 <li><u>Confidence Interval</u> - An <b>estimated range of values</b> that seem reasonable based on what we’ve observed. Its center is still the <b>sample mean</b>, but we’ve got some room on either side for out uncertainty.</li>
 <li><u>Hypthesis Testing</u> -</li>
