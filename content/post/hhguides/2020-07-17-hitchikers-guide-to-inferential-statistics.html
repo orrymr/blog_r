@@ -34,6 +34,7 @@ keywords:
 <li><span class="math inline">\(H_1\)</span>: <span class="math inline">\(\mu_0\)</span> =/= <span class="math inline">\(\mu_1\)</span></li>
 </ul>
 <p>If <span class="math inline">\(\mu_0\)</span> and <span class="math inline">\(\mu_1\)</span> are the means for the “no study” and “study” groups respectively.</p>
+<p>General formula for test statistics: <span class="math inline">\(\frac{(Observed Data) - (What We Expect if the null is true)}{AverageVariation}\)</span>. This formula gets adapted for all the specific cases.</p>
 </div>
 <div id="standardization" class="section level2">
 <h2>Standardization</h2>
@@ -66,8 +67,8 @@ keywords:
 <p><a href="https://www.youtube.com/watch?v=yDEvXB6ApWc&amp;list=PL8dPuuaLjXtNM_Y-bUAhblSAdWRnmBUcr&amp;index=21">They talk about T-dist closer to end of this vid</a></p>
 <p>Continous, unimodal probability distribution that’s useful to represent sampling distributions. It changes its shape based on how much information there is. It’s got thicker tails for smaller sample sizes (as there is less information) - making the distribution less “tight” around the mean - showing that we’re more uncertain. For bigger and bigger sample sizes the distribution gets thinner tails, and eventually becomes the same as the normal distribution. Usually, for tests about means sample sizes &gt;= 30, it’s usually the same as normal. For proportions, need at least 10 instances from each group in the proportion!</p>
 </div>
-<div id="hypothesis-testing-1" class="section level2">
-<h2>Hypothesis Testing</h2>
+<div id="hypothesis-testing-applied" class="section level2">
+<h2>Hypothesis Testing Applied</h2>
 <p>Cool definition from <a href="here">https://youtu.be/bf3egy7TQ2Q?list=PL8dPuuaLjXtNM_Y-bUAhblSAdWRnmBUcr&amp;t=281</a>:</p>
 <p><u>Null Hypothesis Significance Testing</u> is a form of the reductio ad absurdum argument which tries to discredit an idea by assuming the idea is true, and then showing that if you make that assumption, something contradictory happens.</p>
 <p>(Just some examples of reductio ad absurdum outside of stats: The Earth cannot be flat; otherwise, we would find people falling off the edge. There is no smallest positive rational number because, if there were, then it could be divided by two to get a smaller one. It’s like proof by contradiction.)</p>
@@ -140,6 +141,12 @@ keywords:
 <p>One of the main uses of statistics is science whis is supposed to be relatively “objective” and not influenced by opinion, yet here’s a method that included beliefs in its calculation.</p>
 <p>In some research, the researchers publish the Bayes Factor, for just this reason - it’s free of the prior. You could then use their calculated Bayes factor to update your own prior.</p>
 </div>
+<div id="bayesian-inference" class="section level3">
+<h3>Bayesian Inference</h3>
+<p>Using Bayesian methods to analyze questions allows us to “inject” <em>prior beliefs</em> into the analysis.</p>
+<p>Using Null Hypothesis significance testing, we can ask whether means of groups are likely different, or not (reject, or fail to reject null hypothesis - recall, you can only fail to reject the null hypothesis, that is, you don’t state that the means are the same, just that you haven’t seen enough evidence to show they aren’t). With Bayesian methods, you can assign a probability to the question of whether or not the means are different. It’s not just a binary outcome… (I think…)</p>
+<p>Bayesian A/B Testing: <a href="https://www.countbayesie.com/blog/2015/4/25/bayesian-ab-testing" class="uri">https://www.countbayesie.com/blog/2015/4/25/bayesian-ab-testing</a> ^^ In the above he also mentions why to use instead of using t-tests for differences of means. “Classical statistics tells us Significance, but what we’re really after is Magnitude!” - sayeth Count Bayesie.</p>
+</div>
 </div>
 </div>
 <div id="definitions" class="section level1">
@@ -155,6 +162,7 @@ keywords:
 <li><u>Sampling distribution</u> - the probability distribution of a sample statistic (like the mean, or variance).</li>
 <li><u>Standard Error</u> - of a statistic (usually an estimate of a parameter - like the mean) is the standard deviation of its sampling distribution. For example, Standard error of the mean is <span class="math inline">\(\sigma_{\bar{x}} = \frac{\sigma}{\sqrt{n}}\)</span></li>
 <li><u>Statistical Power </u> - <span class="math inline">\(1 - \beta\)</span> - chance of detecting an effect if there is one.</li>
+<li><u>Test Statistic </u> - Allow us to quantify how close things are to our expectations or theories</li>
 <li><u>Type I error</u> - <span class="math inline">\(\alpha\)</span> - probability of saying null hypothesis is wrong, when it is correct</li>
 <li><u>Type II error</u> - <span class="math inline">\(\beta\)</span> - probability of not saying the null hypothesis is wrong, even though it is wrong. Note, you’re not actually saying it’s true, just that it’s not wrong.</li>
 <li><u>Z-Distrubtion</u> - Standardized normal distribution</li>

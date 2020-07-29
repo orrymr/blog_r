@@ -43,6 +43,20 @@ The article: https://www.isolezwe.co.za/izindaba/uzoqhubeka-asebenzele-ekhaya-um
 - umkhiqizo - product
 - uwoyela - oil
 - gqugquzela - encourage
+- iyafinyelela - to reach
+- finyelela - to reach
+- emphakathini - in the community
+- umphakathi - community
+- kulesi - in this
+- nesizayo - and the following | ne + si (isikhati) + zayo | uzayo - next, unyaka ozayo - next year, 
+- yalela - instruct
+- umkakhe - wife
+- fisa - wish
+- imigomo - instructions
+- beka - to place
+- faka - put inside
+- vika - shield / defend
+- bamba - hold
 
 
 # Notes
@@ -66,7 +80,7 @@ Mantashe will continue wokring from home because he is infect w/ covid 19
 1. uMantashe uzinikele ukuqinisekiseni ukuthi ihamba kahle imikhiqizo kagesi nowoyela.
 2. Kuthiwa ubehlolwe kathathu ukuqiniseka ukuthi usulelekile ngaleli gciwane.
 3. Uzoqhubeka nomsebenzi wakhe ekhaya
-4. iSitatimendi ekhishwe yihhovisi likemongameli.
+4. iSitatimendi ekhishwe yihhovisi likamongameli.
 5. Bazivalele.
 
 # Questions And Answers
@@ -80,10 +94,12 @@ Mantashe will continue wokring from home because he is infect w/ covid 19
 
 ## Questions in isiZulu
 
-1. Ubani inkosikazi yaMantashe? (possessive concords 2nd table on https://isizulu.net/grammar/)
+1.a Ubani inkosikazi yaMantashe? (possessive concords 2nd table on https://isizulu.net/grammar/)
+1.b Ubani umfazi waMantashe?
+1.c Ubani umkakhe waManthase?
 2. Obani bazivalele? (Plural of Ubani is Obani)
 3. Sikhishwe kuphi isitatimendi?
-4. uMantashe ungqongqoshe wani?
+4. uMantashe ungqongqoshe wani? (possessive, wa+ni)
 
 
 

@@ -50,6 +50,10 @@ So the above should be stated mathematically:
 
 If $\mu_0$ and $\mu_1$ are the means for the "no study" and "study" groups respectively.
 
+General formula for test statistics: $\frac{(Observed Data) - (What We Expect if the null is true)}{AverageVariation}$.
+This formula gets adapted for all the specific cases.
+
+
 ## Standardization
 
 (Example from [here](https://www.youtube.com/watch?v=uAxyI_XfqXk&list=PL8dPuuaLjXtNM_Y-bUAhblSAdWRnmBUcr&index=19))
@@ -262,7 +266,7 @@ Can also use sampling distributions to compare other parameters - proportions, r
 
 Continous, unimodal probability distribution that's useful to represent sampling distributions. It changes its shape based on how much information there is. It's got thicker tails for smaller sample sizes (as there is less information) - making the distribution less "tight" around the mean - showing that we're more uncertain. For bigger and bigger sample sizes the distribution gets thinner tails, and eventually becomes the same as the normal distribution. Usually, for tests about means sample sizes >= 30, it's usually the same as normal. For proportions, need at least 10 instances from each group in the proportion!
 
-## Hypothesis Testing
+## Hypothesis Testing Applied
 
 Cool definition from [https://youtu.be/bf3egy7TQ2Q?list=PL8dPuuaLjXtNM_Y-bUAhblSAdWRnmBUcr&t=281](here):
 
@@ -289,6 +293,8 @@ If P-Value is not lower than alpha, then we fail to reject $H_0$. Notice that we
 ### Z - test vs T - test
 
 Z - tests commonly done when population standard deviation is known. T - tests commonly done when population standard deviation is unknown. We use t - distribution because the unknown population standard deviation is now a value we must estimate.
+
+
 
 ### One Sample Z - Test
 
@@ -390,6 +396,16 @@ One of the main uses of statistics is science whis is supposed to be relatively 
 
 In some research, the researchers publish the Bayes Factor, for just this reason - it's free of the prior. You could then use their calculated Bayes factor to update your own prior.
 
+### Bayesian Inference
+
+Using Bayesian methods to analyze questions allows us to "inject" _prior beliefs_ into the analysis.
+
+Using Null Hypothesis significance testing, we can ask whether means of groups are likely different, or not (reject, or fail to reject null hypothesis - recall, you can only fail to reject the null hypothesis, that is, you don't state that the means are the same, just that you haven't seen enough evidence to show they aren't). With Bayesian methods, you can assign a probability to the question of whether or not the means are different. It's not just a binary outcome... (I think...)
+
+Bayesian A/B Testing: https://www.countbayesie.com/blog/2015/4/25/bayesian-ab-testing
+^^ In the above he also mentions why to use instead of using t-tests for differences of means.
+"Classical statistics tells us Significance, but what we're really after is Magnitude!" - sayeth Count Bayesie.
+
 # Definitions
 
 - <u>Bayes' Factor</u> - Represents the amount of info we've learned about our hypotheses from the data.
@@ -402,6 +418,7 @@ In some research, the researchers publish the Bayes Factor, for just this reason
 - <u>Sampling distribution</u> - the probability distribution of a sample statistic (like the mean, or variance).
 - <u>Standard Error</u> - of a statistic (usually an estimate of a parameter - like the mean) is the standard deviation of its sampling distribution. For example, Standard error of the mean is $\sigma_{\bar{x}} = \frac{\sigma}{\sqrt{n}}$
 - <u>Statistical Power </u> - $1 - \beta$ - chance of detecting an effect if there is one.
+- <u>Test Statistic </u> - Allow us to quantify how close things are to our expectations or theories
 - <u>Type I error</u> - $\alpha$ - probability of saying null hypothesis is wrong, when it is correct
 - <u>Type II error</u> - $\beta$ - probability of not saying the null hypothesis is wrong, even though it is wrong. Note, you're not actually saying it's true, just that it's not wrong. 
 - <u>Z-Distrubtion</u> - Standardized normal distribution
