@@ -8,54 +8,36 @@
 <meta name="generator" content="Hugo 0.68.3 with theme Tranquilpeak 0.4.7-BETA">
 <meta name="author" content="Orry Messer">
 <meta name="keywords" content="tech">
-<meta name="description" content="
+<meta name="description" content="UCele uthi bazoboshwa abasebenzi bakahulumeni abazobanjwa benza inkohlakalo
+Cele says they will be imprisoned, the workers of the government who will be caught doing something immoral">
 
 
-What’s a moment generating function? How’s it used in stats?
-">
-
-
-<meta property="og:description" content="
-
-
-What’s a moment generating function? How’s it used in stats?
-">
+<meta property="og:description" content="UCele uthi bazoboshwa abasebenzi bakahulumeni abazobanjwa benza inkohlakalo
+Cele says they will be imprisoned, the workers of the government who will be caught doing something immoral">
 <meta property="og:type" content="article">
-<meta property="og:title" content="Moment Generating Functions">
-<meta name="twitter:title" content="Moment Generating Functions">
-<meta property="og:url" content="/2020/07/moment-generating-functions/">
-<meta property="twitter:url" content="/2020/07/moment-generating-functions/">
+<meta property="og:title" content="Zulu Article | UCele uthi bazoboshwa abasebenzi bakahulumeni abazobanjwa benza inkohlakalo">
+<meta name="twitter:title" content="Zulu Article | UCele uthi bazoboshwa abasebenzi bakahulumeni abazobanjwa benza inkohlakalo">
+<meta property="og:url" content="/2020/07/zulu-article-ucele-uthi-bazoboshwa-abasebenzi-bakahulumeni-abazobanjwa-benza-inkohlakalo/">
+<meta property="twitter:url" content="/2020/07/zulu-article-ucele-uthi-bazoboshwa-abasebenzi-bakahulumeni-abazobanjwa-benza-inkohlakalo/">
 <meta property="og:site_name" content="orrymr.com">
-<meta property="og:description" content="
-
-
-What’s a moment generating function? How’s it used in stats?
-">
-<meta name="twitter:description" content="
-
-
-What’s a moment generating function? How’s it used in stats?
-">
+<meta property="og:description" content="UCele uthi bazoboshwa abasebenzi bakahulumeni abazobanjwa benza inkohlakalo
+Cele says they will be imprisoned, the workers of the government who will be caught doing something immoral">
+<meta name="twitter:description" content="UCele uthi bazoboshwa abasebenzi bakahulumeni abazobanjwa benza inkohlakalo
+Cele says they will be imprisoned, the workers of the government who will be caught doing something immoral">
 <meta property="og:locale" content="en">
 
   
-    <meta property="article:published_time" content="2020-07-22T00:00:00">
+    <meta property="article:published_time" content="2020-07-30T00:00:00">
   
   
-    <meta property="article:modified_time" content="2020-07-22T00:00:00">
+    <meta property="article:modified_time" content="2020-07-30T00:00:00">
   
-  
-  
-    
-      <meta property="article:section" content="statistics">
-    
   
   
     
-      <meta property="article:tag" content="moment generating functions">
+      <meta property="article:section" content="isiZulu">
     
-      <meta property="article:tag" content="mgf">
-    
+  
   
 
 
@@ -79,14 +61,14 @@ What’s a moment generating function? How’s it used in stats?
   <meta property="twitter:image" content="https://res.cloudinary.com/da1gwmlvj/image/upload/v1585486959/me_2_wm4mmw.jpg">
 
 
-    <title>Moment Generating Functions</title>
+    <title>Zulu Article | UCele uthi bazoboshwa abasebenzi bakahulumeni abazobanjwa benza inkohlakalo</title>
 
     <link rel="icon" href="/favicon.png">
     
 
     
 
-    <link rel="canonical" href="/2020/07/moment-generating-functions/">
+    <link rel="canonical" href="/2020/07/zulu-article-ucele-uthi-bazoboshwa-abasebenzi-bakahulumeni-abazobanjwa-benza-inkohlakalo/">
 
     
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css" integrity="sha256-eZrrJcwDc/3uDhsdt61sL2oOBY362qM3lon1gyExkL0=" crossorigin="anonymous" />
@@ -288,15 +270,15 @@ if (!doNotTrack) {
             <div class="post-header main-content-wrap text-left">
   
     <h1 class="post-title" itemprop="headline">
-      Moment Generating Functions
+      Zulu Article | UCele uthi bazoboshwa abasebenzi bakahulumeni abazobanjwa benza inkohlakalo
     </h1>
   
   
   <div class="postShorten-meta post-meta">
     
-      <time itemprop="datePublished" datetime="2020-07-22T00:00:00Z">
+      <time itemprop="datePublished" datetime="2020-07-30T00:00:00Z">
         
-   22, 2020
+   30, 2020
 
       </time>
     
@@ -305,7 +287,7 @@ if (!doNotTrack) {
   
     <span></span>
     
-      <a class="category-link" href="/categories/statistics">statistics</a>
+      <a class="category-link" href="/categories/isizulu">isiZulu</a>
     
   
 
@@ -315,74 +297,44 @@ if (!doNotTrack) {
           
           <div class="post-content markdown" itemprop="articleBody">
             <div class="main-content-wrap">
-              <pre class="r"><code>library(ggplot2)</code></pre>
-<pre><code>## Warning: package &#39;ggplot2&#39; was built under R version 3.5.3</code></pre>
-<pre class="r"><code>library(tibble)</code></pre>
-<pre><code>## Warning: package &#39;tibble&#39; was built under R version 3.5.3</code></pre>
-<pre class="r"><code>library(ggthemes)</code></pre>
-<pre><code>## Warning: package &#39;ggthemes&#39; was built under R version 3.5.3</code></pre>
-<pre class="r"><code>theme_set(theme_economist())</code></pre>
-<div id="intro" class="section level1">
-<h1>Intro</h1>
-<p>Mean of a variable is</p>
-<p><span class="math inline">\(\mu = \sum_{x \in S}xf(x) = x_1f(x_1) + x_2f(x_2) + ... + x_kf(x_k)\)</span></p>
-<p>Now, consider an example where <span class="math inline">\(x \in \{1, 2, 3\}\)</span> and the p.m.f is given by <span class="math inline">\(f(1) = 3/6\)</span>, <span class="math inline">\(f(2) = 2/6\)</span> and <span class="math inline">\(f(3) = 1/6\)</span>.</p>
-<p>The mean of <span class="math inline">\(x\)</span> is <span class="math inline">\(1 \times \frac{3}{6} + 2 \times \frac{2}{6} + 3 \times \frac{1}{6} = \frac{10}{6}\)</span>.</p>
-<p>Or, visually:</p>
-<pre class="r"><code>pmf &lt;- tribble(
-  ~x, ~`f(x)`,
-  1, (3/6),
-  2, (2/6),
-  3, (1/6)
-)
+              <p>UCele uthi bazoboshwa abasebenzi bakahulumeni abazobanjwa benza inkohlakalo
+Cele says they will be imprisoned, the workers of the government who will be caught doing something immoral</p>
 
-g &lt;- ggplot(pmf, mapping = aes(x = x, y = `f(x)`)) +
-  geom_point() +
-  lims(
-    y = c(0, 1),
-    x = c(0, 5)
-  )
+<p>The Article: <a href="https://www.isolezwe.co.za/izindaba/ucele-uthi-bazoboshwa-abasebenzi-bakahulumeni-abazobanjwa-benza-inkohlakalo-19e5a876-2516-4316-a9cd-6287da64725f">https://www.isolezwe.co.za/izindaba/ucele-uthi-bazoboshwa-abasebenzi-bakahulumeni-abazobanjwa-benza-inkohlakalo-19e5a876-2516-4316-a9cd-6287da64725f</a></p>
 
-g</code></pre>
-<p><img src="/post/2020-07-22-moment-generating-functions_files/figure-html/unnamed-chunk-2-1.png" width="672" /></p>
-<p>Each <span class="math inline">\(x_i\)</span> is the distance of the i-th point from the origin. A moment is just distance x weight. In this case, the weight is proabability.</p>
-<p>A moment - distance (<span class="math inline">\(x_i\)</span>) <span class="math inline">\(\times\)</span> probability (<span class="math inline">\(f(x_i)\)</span>), <span class="math inline">\(x_if(x_i)\)</span> is a moment having arm length <span class="math inline">\(x_i\)</span>.</p>
-<p>The sum of such products is the first moment about the origin since the distances are simply to the first power and the lenghts are measured from the origin.</p>
-<div id="first-moment" class="section level2">
-<h2>First Moment</h2>
-<p>If we had to measure the first moments about the mean, instead we’d get:</p>
-<p><span class="math inline">\(\sum_{x \in S} (x - \mu)f(x) = \sum_{x \in S}xf(x) - \sum_{x \in S}\mu f(x)\)</span> $ = <em>{x S}xf(x) -</em>{x S}f(x) = - 1 = 0$</p>
-<p>First momement about <span class="math inline">\(\mu\)</span> is equal to 0.</p>
-<p>In mechanics <span class="math inline">\(\mu\)</span> is called the centroid. Last equation shows that if a fulcrum is placed at the point where the mean is, the system would balance because the sum of the mass to the left of the centroid would equal the sum of the mass to the right of the centroid. That is, the sum of the negative moments would equal the sum of the positive moments.</p>
-<p>Negative moment (from previous example):</p>
-<p><span class="math inline">\((x_1 - \mu) \times f(x_1) = (1 - \frac{10}{6}) \times \frac{3}{6} = -\frac{12}{36}\)</span></p>
-<p>Positive moments:</p>
-<p><span class="math inline">\((x_2 - \mu) \times f(x_2) = (2 - \frac{10}{6}) \times \frac{2}{6} = \frac{4}{36}\)</span> <span class="math inline">\((x_3 - \mu) \times f(x_3) = (3 - \frac{10}{6}) \times \frac{1}{6} = \frac{8}{36}\)</span></p>
-<p>So they balance.</p>
-</div>
-<div id="second-moment" class="section level2">
-<h2>Second Moment</h2>
-<p>Recall, first moment “cancels out”.</p>
-</div>
-</div>
+<h1 id="new-words-phrases">New Words / Phrases</h1>
 
+<p>banjwa - be caught
+memezela - announce
+usememezele - has given instruction
+(se - can mean has, like has died)
+abatholakala - that have been found
+sabalala - spread (as in gossip)
+gcoba - apply
+kade - when (like as, not the question &ldquo;when&rdquo;)
+chaza - explain
+emithonjeni - same as emithombeni which umthombo (so)
+sola - suspect
+ongumkhulumeli - that who is a speaker (umkhulumeli - speaker)
+ngokunikezwa - of being given
+umyeni - husband
+mayelana - regarding
+inkohlakalo - corruption / doing something immoral</p>
+
+<h1 id="new-concept-se">New Concept - &ldquo;se&rdquo;</h1>
+
+<p>You&rsquo;re used to seeing this word as the locative buffer: ngisekhaya (I&rsquo;m at home).
+Can also be used in conjunction with &ldquo;still&rdquo; - I&rsquo;m still at home - ngisasekhaya.</p>
+
+<p>(se - can mean has, like has died)</p>
+
+<p>usedlile - he has eaten
+useshonile - he has died</p>
               
             </div>
           </div>
           <div id="post-footer" class="post-footer main-content-wrap">
             
-              
-                
-                
-                  <div class="post-footer-tags">
-                    <span class="text-color-light text-small"></span><br/>
-                    
-  <a class="tag tag--primary tag--small" href="/tags/moment-generating-functions/">moment generating functions</a>
-
-  <a class="tag tag--primary tag--small" href="/tags/mgf/">mgf</a>
-
-                  </div>
-                
               
             
             <div class="post-actions-wrap">
@@ -392,7 +344,7 @@ g</code></pre>
           
             <li class="post-action">
               
-                <a class="post-action-btn btn btn--default tooltip--top" href="/2020/07/zulu-article-ucele-uthi-bazoboshwa-abasebenzi-bakahulumeni-abazobanjwa-benza-inkohlakalo/" data-tooltip="Zulu Article | UCele uthi bazoboshwa abasebenzi bakahulumeni abazobanjwa benza inkohlakalo">
+                <a class="post-action-btn btn btn--disabled">
               
                   <i class="fa fa-angle-left"></i>
                   <span class="hide-xs hide-sm text-small icon-ml"></span>
@@ -400,7 +352,7 @@ g</code></pre>
             </li>
             <li class="post-action">
               
-                <a class="post-action-btn btn btn--default tooltip--top" href="/2020/07/zulu-article-uzoqhubeka-asebenzele-ekhaya-umantashe-osuleleke-ngecovid-19/" data-tooltip="Zulu Article | Uzoqhubeka asebenzele ekhaya uMantashe osuleleke ngeCovid-19">
+                <a class="post-action-btn btn btn--default tooltip--top" href="/2020/07/moment-generating-functions/" data-tooltip="Moment Generating Functions">
               
                   <span class="hide-xs hide-sm text-small icon-mr"></span>
                   <i class="fa fa-angle-right"></i>
@@ -418,19 +370,19 @@ g</code></pre>
         </li>
         
           <li class="post-action hide-xs">
-            <a class="post-action-btn btn btn--default" target="new" href="https://www.facebook.com/sharer/sharer.php?u=/2020/07/moment-generating-functions/">
+            <a class="post-action-btn btn btn--default" target="new" href="https://www.facebook.com/sharer/sharer.php?u=/2020/07/zulu-article-ucele-uthi-bazoboshwa-abasebenzi-bakahulumeni-abazobanjwa-benza-inkohlakalo/">
               <i class="fa fa-facebook-official"></i>
             </a>
           </li>
         
           <li class="post-action hide-xs">
-            <a class="post-action-btn btn btn--default" target="new" href="https://twitter.com/intent/tweet?text=/2020/07/moment-generating-functions/">
+            <a class="post-action-btn btn btn--default" target="new" href="https://twitter.com/intent/tweet?text=/2020/07/zulu-article-ucele-uthi-bazoboshwa-abasebenzi-bakahulumeni-abazobanjwa-benza-inkohlakalo/">
               <i class="fa fa-twitter"></i>
             </a>
           </li>
         
           <li class="post-action hide-xs">
-            <a class="post-action-btn btn btn--default" target="new" href="https://plus.google.com/share?url=/2020/07/moment-generating-functions/">
+            <a class="post-action-btn btn btn--default" target="new" href="https://plus.google.com/share?url=/2020/07/zulu-article-ucele-uthi-bazoboshwa-abasebenzi-bakahulumeni-abazobanjwa-benza-inkohlakalo/">
               <i class="fa fa-google-plus"></i>
             </a>
           </li>
@@ -478,7 +430,7 @@ g</code></pre>
           
             <li class="post-action">
               
-                <a class="post-action-btn btn btn--default tooltip--top" href="/2020/07/zulu-article-ucele-uthi-bazoboshwa-abasebenzi-bakahulumeni-abazobanjwa-benza-inkohlakalo/" data-tooltip="Zulu Article | UCele uthi bazoboshwa abasebenzi bakahulumeni abazobanjwa benza inkohlakalo">
+                <a class="post-action-btn btn btn--disabled">
               
                   <i class="fa fa-angle-left"></i>
                   <span class="hide-xs hide-sm text-small icon-ml"></span>
@@ -486,7 +438,7 @@ g</code></pre>
             </li>
             <li class="post-action">
               
-                <a class="post-action-btn btn btn--default tooltip--top" href="/2020/07/zulu-article-uzoqhubeka-asebenzele-ekhaya-umantashe-osuleleke-ngecovid-19/" data-tooltip="Zulu Article | Uzoqhubeka asebenzele ekhaya uMantashe osuleleke ngeCovid-19">
+                <a class="post-action-btn btn btn--default tooltip--top" href="/2020/07/moment-generating-functions/" data-tooltip="Moment Generating Functions">
               
                   <span class="hide-xs hide-sm text-small icon-mr"></span>
                   <i class="fa fa-angle-right"></i>
@@ -504,19 +456,19 @@ g</code></pre>
         </li>
         
           <li class="post-action hide-xs">
-            <a class="post-action-btn btn btn--default" target="new" href="https://www.facebook.com/sharer/sharer.php?u=/2020/07/moment-generating-functions/">
+            <a class="post-action-btn btn btn--default" target="new" href="https://www.facebook.com/sharer/sharer.php?u=/2020/07/zulu-article-ucele-uthi-bazoboshwa-abasebenzi-bakahulumeni-abazobanjwa-benza-inkohlakalo/">
               <i class="fa fa-facebook-official"></i>
             </a>
           </li>
         
           <li class="post-action hide-xs">
-            <a class="post-action-btn btn btn--default" target="new" href="https://twitter.com/intent/tweet?text=/2020/07/moment-generating-functions/">
+            <a class="post-action-btn btn btn--default" target="new" href="https://twitter.com/intent/tweet?text=/2020/07/zulu-article-ucele-uthi-bazoboshwa-abasebenzi-bakahulumeni-abazobanjwa-benza-inkohlakalo/">
               <i class="fa fa-twitter"></i>
             </a>
           </li>
         
           <li class="post-action hide-xs">
-            <a class="post-action-btn btn btn--default" target="new" href="https://plus.google.com/share?url=/2020/07/moment-generating-functions/">
+            <a class="post-action-btn btn btn--default" target="new" href="https://plus.google.com/share?url=/2020/07/zulu-article-ucele-uthi-bazoboshwa-abasebenzi-bakahulumeni-abazobanjwa-benza-inkohlakalo/">
               <i class="fa fa-google-plus"></i>
             </a>
           </li>
@@ -546,19 +498,19 @@ g</code></pre>
   <ul class="share-options">
     
       <li class="share-option">
-        <a class="share-option-btn" target="new" href="https://www.facebook.com/sharer/sharer.php?u=%2F2020%2F07%2Fmoment-generating-functions%2F">
+        <a class="share-option-btn" target="new" href="https://www.facebook.com/sharer/sharer.php?u=%2F2020%2F07%2Fzulu-article-ucele-uthi-bazoboshwa-abasebenzi-bakahulumeni-abazobanjwa-benza-inkohlakalo%2F">
           <i class="fa fa-facebook-official"></i><span>%!(EXTRA string=Facebook)</span>
         </a>
       </li>
     
       <li class="share-option">
-        <a class="share-option-btn" target="new" href="https://twitter.com/intent/tweet?text=%2F2020%2F07%2Fmoment-generating-functions%2F">
+        <a class="share-option-btn" target="new" href="https://twitter.com/intent/tweet?text=%2F2020%2F07%2Fzulu-article-ucele-uthi-bazoboshwa-abasebenzi-bakahulumeni-abazobanjwa-benza-inkohlakalo%2F">
           <i class="fa fa-twitter"></i><span>%!(EXTRA string=Twitter)</span>
         </a>
       </li>
     
       <li class="share-option">
-        <a class="share-option-btn" target="new" href="https://plus.google.com/share?url=%2F2020%2F07%2Fmoment-generating-functions%2F">
+        <a class="share-option-btn" target="new" href="https://plus.google.com/share?url=%2F2020%2F07%2Fzulu-article-ucele-uthi-bazoboshwa-abasebenzi-bakahulumeni-abazobanjwa-benza-inkohlakalo%2F">
           <i class="fa fa-google-plus"></i><span>%!(EXTRA string=Google&#43;)</span>
         </a>
       </li>
@@ -647,9 +599,9 @@ $(document).ready(function() {
     
       <script>
         var disqus_config = function () {
-          this.page.url = '\/2020\/07\/moment-generating-functions\/';
+          this.page.url = '\/2020\/07\/zulu-article-ucele-uthi-bazoboshwa-abasebenzi-bakahulumeni-abazobanjwa-benza-inkohlakalo\/';
           
-            this.page.identifier = '\/2020\/07\/moment-generating-functions\/'
+            this.page.identifier = '\/2020\/07\/zulu-article-ucele-uthi-bazoboshwa-abasebenzi-bakahulumeni-abazobanjwa-benza-inkohlakalo\/'
           
         };
         (function() {

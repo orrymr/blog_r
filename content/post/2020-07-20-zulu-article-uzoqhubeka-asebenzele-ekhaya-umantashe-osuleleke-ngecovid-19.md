@@ -3,16 +3,18 @@ title: Zulu Article | Uzoqhubeka asebenzele ekhaya uMantashe osuleleke ngeCovid-
 author: ''
 date: '2020-07-20'
 slug: zulu-article-uzoqhubeka-asebenzele-ekhaya-umantashe-osuleleke-ngecovid-19
-categories: []
+categories: [isiZulu]
 tags: []
 keywords:
   - tech
 ---
 
-The article: https://www.isolezwe.co.za/izindaba/uzoqhubeka-asebenzele-ekhaya-umantashe-osuleleke-ngecovid-19-50993356
+Uzoqhubeka asebenzele ekhaya uMantashe osuleleke ngeCovid-19
+Mantashe will continue wokring from home because he is infect w/ covid 19
 
 <!--more-->
 
+The article: https://www.isolezwe.co.za/izindaba/uzoqhubeka-asebenzele-ekhaya-umantashe-osuleleke-ngecovid-19-50993356
 
 
 # New Words / Phrases

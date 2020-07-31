@@ -350,12 +350,36 @@ Critical values: -2.0452 & 2.0452.
 
 $t = \frac{\bar{x} - \mu}{s / \sqrt{n}} = 10.96$, reject $H_0$.
 
+### T Test - Degrees of Freedom and Effect Size
+
+T-Distribution is like Z-Distribution, but has fatter tails.
+
+Recall, we don't know the population standard deviation in a T-Test. So, we estimate it using the sample standard deviation. So, we don't have a perfect normal dist. But with bigger sample sizes, we're  better at estimating standard deviation, so T-Dist changes to look more and more like normal. More info means we're more accurate. Degrees of Freedom can help us choose that accuracy.
+
+Number of independent pieces of information we have in our data. If have 3 observations, and we know the mean of those 3 observations, and the value of 2 of the 3 observations, the last observations _has to_ take on a certain value, for the mean to equal what it does. The last observation is not "Free" to take on any value. By contrast, if you know the mean of 3 observations, and only know the actual value of 1, the last 2 observations are free to take on a whole range of values.
+
+In terms of t-test: When we calc the mean, we use up 1 of those degrees of freedom, or 1 piece of independent info. Amount of info we have, depends on our sample size $n$. The more data you have, the more independent info that you have - but every time you make a calc like the mean, you're using up 1 piece of independent information.
+
+
+### Effect Size and Significance
+
+You can sometimesm find that there is a statistically significant difference in 2 means, which might be what you wanted. But the effect size is so small (compared to random variation), that it may not be worth it. For example, a hair vitamin might cause your hair to grow a statistically significant extra couple of nano-meters per month, but since you hair grows 12 mm per month, and the vitamin is expensive, it may not be _practically significant_ for you to buy it.
+
+NB, recall that in your t test statistic, the denominator is scaled by the sample size; so the smaller the sample size, the smaller the scaled standard error: $\frac{SE}{\sqrt{n}}$, the bigger the t test stat. If the numerator is very small (ie, the effect size if very small), then even if there is an effect, the only way to test it might be to increase the sample size, in order to get your t-test stat to be bigger.
+
+$t = \frac{\bar{x_1} - \bar{x_2}}{\sqrt{\frac{S^2_{control}}{n_{control}} + \frac{S^2_{treatment}}{n_{treatment}}}}$ - in the 2 sample case. See how a small effect size (numerator) need much $n_{i}$s to pick up significance (that is, for t stat to be bigger)?
+
+<b>So, P values should always be looked at WITH effect size.</b>
+
+<u> <b>We need degrees of freedom to understand why smaller differences between means can be significant if you have a larger sample size! </b></u>. The more info you have, the more accurate your estiamtes are.
+
+So, fewer degrees of freedom -> the fatter the tails, and the less likely your are to reject the null. More data though, means more degrees of freedom and thinner tails, so the more confident you are in extreme values, and thus more likely to reject the null when seeing them.
 
 ## Confidence Intervals
 
 The mean of sample distribution is the center a CI (see definition below). The way we choose the confidence range is related to the distribution of sample means (depends on standard deviation of sample means.).
 
-The 95% in a 95% confidence interva; tells us that if we calculated a confidence interval from 100 different samples, about 95% of them would contain the true population mean. Think about it, if you got 2 different samples of 40 people, both of those would have different sample means and sample standard deviations, and thus different confidence intervals. It is possible the CI we've created doesn't contain the true mean.
+The 95% in a 95% confidence interval tells us that if we calculated a confidence interval from 100 different samples, about 95% of them would contain the true population mean. Think about it, if you got 2 different samples of 40 people, both of those would have different sample means and sample standard deviations, and thus different confidence intervals. It is possible the CI we've created doesn't contain the true mean.
 
 
 ## Bayes' Theorem
@@ -406,11 +430,46 @@ Bayesian A/B Testing: https://www.countbayesie.com/blog/2015/4/25/bayesian-ab-te
 ^^ In the above he also mentions why to use instead of using t-tests for differences of means.
 "Classical statistics tells us Significance, but what we're really after is Magnitude!" - sayeth Count Bayesie.
 
+
+## Chi Square Tests
+
+Model fits? Compare expectations vs observations.
+
+Discrete. Contingency tables.
+
+Test = $\frac{Observed - ExpecetedUnderNullHypothesis}{AverageVariation}$
+
+What's Average Variation?
+
+If we just take observed minus expected, we always get to 0, so we square the answers before adding.
+
+Chi sq, degrees of freedom - all the counts, minus 1 (same argument as t-test d.o.f). Can find p-val.
+
+Types of Chisq test:
+
+### Goodness of fit
+
+Only has 1 row. Expected frequency must be > 5.
+
+### Test of independence
+
+Tests whether being a member of 1 category is independent of being in another.
+
+### Test of homogeneity
+
+Tests whether it's likely thatn 2 samples come from the same population.
+
+d.o.f = (r-1)(c-1).
+
+
+
 # Definitions
 
 - <u>Bayes' Factor</u> - Represents the amount of info we've learned about our hypotheses from the data.
 - <u>Central Limit Theorem</u> - The distribution of sample means for an independent random variable will get closer and closer to a normal distribution as the size of the sample gets bigger and bigger, even if the original population distribution isn't normal. Think of independet die rolls, like in [here](https://youtu.be/rBjft49MAO8?list=PL8dPuuaLjXtNM_Y-bUAhblSAdWRnmBUcr&t=349). Twenty dice are 20 independent random variables.
 - <u>Confidence Interval</u> - An <b>estimated range of values</b> that seem reasonable based on what we've observed. Its center is still the <b>sample mean</b>, but we've got some room  on either side for out uncertainty.
+- <u>Degrees of freedom </u> Number of independent pieces of information we have
+-<u>Effect Size </u> - How big the effect we observed was, compared to random variation
 - <u>Hypthesis Testing</u> - 
 - <u>Inference</u> - the process of drawing conclusions about population parameters based on a sample taken from the population.
 - <u>P-Value</u> - probability of obtaining test results at least as extreme as the results actually observed, assuming that the null hypothesis is correct.
