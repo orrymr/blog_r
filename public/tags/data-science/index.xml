@@ -28,6 +28,19 @@
     </item>
     
     <item>
+      <title>r-pca</title>
+      <link>/2019/03/r-pca/</link>
+      <pubDate>Mon, 04 Mar 2019 00:00:00 +0000</pubDate>
+      
+      <guid>/2019/03/r-pca/</guid>
+      <description>
+
+
+&lt;p&gt;Principal Components Analysis (PCA) is a commonly used dimensionality reduction algorithm. In this post, we show how to perform PCA in R. This post will only briefly touch on the theory behind PCA; instead, we focus on intuition, implementation and interpretation.&lt;/p&gt;
+</description>
+    </item>
+    
+    <item>
       <title>An Introduction to H2O Using R</title>
       <link>/2018/12/intro-to-h2o-using-r/</link>
       <pubDate>Tue, 04 Dec 2018 00:00:00 +0000</pubDate>

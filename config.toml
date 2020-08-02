@@ -12,6 +12,13 @@
 # For developpers, if you modify this theme, put your images in `source/images` folder and
 # use grunt task `build` to synchronize assets
 
+# Colour codes - used this website: http://colormind.io/ (can also use: http://colorschemedesigner.com/csd-3.5/)
+# DDCE6D yellow
+# AFBC6F light green
+# 728666 green
+# 5C6158 green gray
+# 4F5148 darkest gray
+
 baseURL = "/"
 languageCode = "en"
 defaultContentLanguage = "en"
@@ -24,6 +31,8 @@ canonifyurls = true
 
 ignoreFiles = ["\\.Rmd$", "\\.Rmarkdown$", "_files$", "_cache$"]
 
+
+## Single [brackets] indicate a table
 [permalinks]
   post = "/:year/:month/:slug/"
 
@@ -34,9 +43,9 @@ ignoreFiles = ["\\.Rmd$", "\\.Rmarkdown$", "_files$", "_cache$"]
 
 [author]
   name = "Orry Messer"
-  bio = "I like to build stuff."
-  job = "Data Scientist"
-  location = "Johannesburg, South Africa"
+  bio = "WHERE ARE MY SHOES"
+  job = "Data Masseuse / Broke Philanthropist / Sloth Tamer / WILL CODE FOR CHIPS"
+  location = "Johannesburg, South Africa, Africa, Planet of Earth (The garbage filled one next to the red one)."
   # Your Gravatar email. Overwrite `author.picture` everywhere in the blog
   #gravatarEmail = "thibaud.lepretre@gmail.com"
   # Your profile picture
@@ -51,6 +60,7 @@ ignoreFiles = ["\\.Rmd$", "\\.Rmarkdown$", "_files$", "_cache$"]
   defaultMarkdownHandler = "blackfriday"
 
 # Menu Configuration
+## Double brackets [[thing]] indicate an array of tables
 [[menu.main]]
   weight = 1
   identifier = "home"
@@ -59,16 +69,28 @@ ignoreFiles = ["\\.Rmd$", "\\.Rmarkdown$", "_files$", "_cache$"]
   url = "/"
 [[menu.main]]
   weight = 2
+  identifier = "hhguides"
+  name = "Hitchhiker's Guides"
+  pre = "<i class=\"sidebar-button-icon fa fa-lg fa-bookmark\"></i>"
+  url = "/hitchhikers-guides"
+[[menu.main]]
+  weight = 2
+  identifier = "zulu"
+  name = "Zulu Stuff"
+  pre = "<i class=\"sidebar-button-icon fa fa-lg fa-bookmark\"></i>"
+  url = "/zulu-stuff"
+[[menu.main]]
+  weight = 2
   identifier = "books i've read"
   name = "Books I've Read"
   pre = "<i class=\"sidebar-button-icon fa fa-lg fa-bookmark\"></i>"
   url = "/books-ive-read"
-[[menu.main]]
-  weight = 3
-  identifier = "categories"
-  name = "Categories"
-  pre = "<i class=\"sidebar-button-icon fa fa-lg fa-bookmark\"></i>"
-  url = "/categories"
+# [[menu.main]]
+#  weight = 3
+#  identifier = "categories"
+#  name = "Categories"
+#  pre = "<i class=\"sidebar-button-icon fa fa-lg fa-bookmark\"></i>"
+#  url = "/categories"
 [[menu.main]]
   weight = 4
   identifier = "tags"
@@ -81,12 +103,12 @@ ignoreFiles = ["\\.Rmd$", "\\.Rmarkdown$", "_files$", "_cache$"]
   name = "Archives"
   pre = "<i class=\"sidebar-button-icon fa fa-lg fa-archive\"></i>"
   url = "/archives"
-[[menu.main]]
-  weight = 6
-  identifier = "about"
-  name = "About"
-  pre = "<i class=\"sidebar-button-icon fa fa-lg fa-question\"></i>"
-  url = "/#about"
+#[[menu.main]]
+#  weight = 6
+#  identifier = "about"
+#  name = "About"
+#  pre = "<i class=\"sidebar-button-icon fa fa-lg fa-question\"></i>"
+#  url = "/#about"
 
 [[menu.links]]
   weight = 1
@@ -106,13 +128,6 @@ ignoreFiles = ["\\.Rmd$", "\\.Rmarkdown$", "_files$", "_cache$"]
   name = "Blogroll"
   pre = "<i class=\"sidebar-button-icon fa fa-lg fa-bookmark\"></i>"
   url = "/blogroll"
-[[menu.links]]
-  weight = 4
-  identifier = "hhguides"
-  name = "Hitchhiker's Guides"
-  pre = "<i class=\"sidebar-button-icon fa fa-lg fa-bookmark\"></i>"
-  url = "/hitchhikers-guides"
-
 
 [[menu.misc]]
   weight = 1
@@ -127,7 +142,7 @@ ignoreFiles = ["\\.Rmd$", "\\.Rmarkdown$", "_files$", "_cache$"]
   # You must use date format used by Go Time package https://golang.org/pkg/time/
   # Months (not work with short month like "jan", "feb", etc) are translated if translation exists on i18n folders
   # Default format is: January 2, 2006
-  # dateFormat = "2 January 2006"
+  dateFormat = "02/01/2006"
 
   # Global keywords configuration. Following keywords will be add to every pages
   # keywords = ["development", "next-gen"]
@@ -158,8 +173,8 @@ ignoreFiles = ["\\.Rmd$", "\\.Rmarkdown$", "_files$", "_cache$"]
   #    large sidebar is swiped on all lower screens
   # 5: Display header bar on all screens and large sidebar is swiped on large screen
   # 6: Display header bar on all screens and medium sidebar is swiped
-  sidebarBehavior = 1
-
+  sidebarBehavior = 2
+  
   # Your blog cover picture. I STRONGLY recommend you to use a CDN to speed up loading of pages.
   # There is many free CDN like Cloudinary or you can also use indirectly
   # by using services like Google Photos.
@@ -183,7 +198,7 @@ ignoreFiles = ["\\.Rmd$", "\\.Rmarkdown$", "_files$", "_cache$"]
   autoThumbnailImage = true
 
   # Your favicon path, default is "/favicon.png"
-  # favicon = "/favicon.png"
+  favicon = "/favicon.png"
 
   # Header configuration
   # The link at the right of the header is customizable
@@ -199,8 +214,8 @@ ignoreFiles = ["\\.Rmd$", "\\.Rmarkdown$", "_files$", "_cache$"]
 
   # Custom CSS. Put here your custom CSS files. They are loaded after the theme CSS;
   # they have to be referred from static root. Example
-  # [[params.customCSS]]
-  #   href = "css/mystyle.css"
+    [[params.customCSS]]
+      href = "css/mystyle.css"
 
   # Custom JS. Put here your custom JS files. They are loaded after the theme JS;
   # they have to be referred from static root. Example

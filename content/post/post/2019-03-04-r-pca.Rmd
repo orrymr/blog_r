@@ -4,8 +4,8 @@ author: ''
 date: '2019-03-04'
 slug: r-pca
 draft: true
-categories: [data-science]
-tags: [R, pca]
+categories: []
+tags: [R, pca, data-science]
 thumbnailImagePosition: left
 thumbnailImage: //d1u9biwaxjngwg.cloudfront.net/cover-image-showcase/city-750.jpg
 ---

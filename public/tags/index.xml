@@ -6,37 +6,10 @@
     <description>Recent content in Tags on orrymr.com</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en</language>
-    <lastBuildDate>Wed, 22 Jul 2020 00:00:00 +0000</lastBuildDate>
+    <lastBuildDate>Fri, 04 Oct 2019 00:00:00 +0000</lastBuildDate>
     
 	<atom:link href="/tags/index.xml" rel="self" type="application/rss+xml" />
     
-    
-    <item>
-      <title>mgf</title>
-      <link>/tags/mgf/</link>
-      <pubDate>Wed, 22 Jul 2020 00:00:00 +0000</pubDate>
-      
-      <guid>/tags/mgf/</guid>
-      <description></description>
-    </item>
-    
-    <item>
-      <title>moment generating functions</title>
-      <link>/tags/moment-generating-functions/</link>
-      <pubDate>Wed, 22 Jul 2020 00:00:00 +0000</pubDate>
-      
-      <guid>/tags/moment-generating-functions/</guid>
-      <description></description>
-    </item>
-    
-    <item>
-      <title>statistical-learning</title>
-      <link>/tags/statistical-learning/</link>
-      <pubDate>Mon, 06 Apr 2020 00:00:00 +0000</pubDate>
-      
-      <guid>/tags/statistical-learning/</guid>
-      <description></description>
-    </item>
     
     <item>
       <title>data-science</title>
@@ -152,6 +125,51 @@
       <pubDate>Sun, 18 Nov 2018 00:00:00 +0000</pubDate>
       
       <guid>/tags/nullspace/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>hitchikers_guide</title>
+      <link>/tags/hitchikers_guide/</link>
+      <pubDate>Tue, 17 Jul 0001 00:00:00 +0000</pubDate>
+      
+      <guid>/tags/hitchikers_guide/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>isiZulu</title>
+      <link>/tags/isizulu/</link>
+      <pubDate>Tue, 17 Jul 0001 00:00:00 +0000</pubDate>
+      
+      <guid>/tags/isizulu/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>mgf</title>
+      <link>/tags/mgf/</link>
+      <pubDate>Tue, 17 Jul 0001 00:00:00 +0000</pubDate>
+      
+      <guid>/tags/mgf/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>moment generating functions</title>
+      <link>/tags/moment-generating-functions/</link>
+      <pubDate>Tue, 17 Jul 0001 00:00:00 +0000</pubDate>
+      
+      <guid>/tags/moment-generating-functions/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>statistics</title>
+      <link>/tags/statistics/</link>
+      <pubDate>Tue, 17 Jul 0001 00:00:00 +0000</pubDate>
+      
+      <guid>/tags/statistics/</guid>
       <description></description>
     </item>
     

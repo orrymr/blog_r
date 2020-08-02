@@ -1,15 +1,13 @@
 ---
 title: Moment Generating Functions
 author: ''
-date: '2020-07-22'
+date: '0001-07-17'
 slug: moment-generating-functions
 categories:
-  - statistics
 tags:
+  - statistics
   - moment generating functions
   - mgf
-keywords:
-  - tech
 ---
 
 What's a moment generating function? How's it used in stats?

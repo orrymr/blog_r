@@ -6,69 +6,10 @@
     <description>Recent content in Posts on orrymr.com</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en</language>
-    <lastBuildDate>Thu, 30 Jul 2020 00:00:00 +0000</lastBuildDate>
+    <lastBuildDate>Fri, 04 Oct 2019 00:00:00 +0000</lastBuildDate>
     
 	<atom:link href="/post/index.xml" rel="self" type="application/rss+xml" />
     
-    
-    <item>
-      <title>Zulu Article | UCele uthi bazoboshwa abasebenzi bakahulumeni abazobanjwa benza inkohlakalo</title>
-      <link>/2020/07/zulu-article-ucele-uthi-bazoboshwa-abasebenzi-bakahulumeni-abazobanjwa-benza-inkohlakalo/</link>
-      <pubDate>Thu, 30 Jul 2020 00:00:00 +0000</pubDate>
-      
-      <guid>/2020/07/zulu-article-ucele-uthi-bazoboshwa-abasebenzi-bakahulumeni-abazobanjwa-benza-inkohlakalo/</guid>
-      <description>&lt;p&gt;UCele uthi bazoboshwa abasebenzi bakahulumeni abazobanjwa benza inkohlakalo
-Cele says they will be imprisoned, the workers of the government who will be caught doing something immoral&lt;/p&gt;</description>
-    </item>
-    
-    <item>
-      <title>Moment Generating Functions</title>
-      <link>/2020/07/moment-generating-functions/</link>
-      <pubDate>Wed, 22 Jul 2020 00:00:00 +0000</pubDate>
-      
-      <guid>/2020/07/moment-generating-functions/</guid>
-      <description>
-
-
-&lt;p&gt;What’s a moment generating function? How’s it used in stats?&lt;/p&gt;
-</description>
-    </item>
-    
-    <item>
-      <title>Zulu Article | Uzoqhubeka asebenzele ekhaya uMantashe osuleleke ngeCovid-19</title>
-      <link>/2020/07/zulu-article-uzoqhubeka-asebenzele-ekhaya-umantashe-osuleleke-ngecovid-19/</link>
-      <pubDate>Mon, 20 Jul 2020 00:00:00 +0000</pubDate>
-      
-      <guid>/2020/07/zulu-article-uzoqhubeka-asebenzele-ekhaya-umantashe-osuleleke-ngecovid-19/</guid>
-      <description>&lt;p&gt;Uzoqhubeka asebenzele ekhaya uMantashe osuleleke ngeCovid-19
-Mantashe will continue wokring from home because he is infect w/ covid 19&lt;/p&gt;</description>
-    </item>
-    
-    <item>
-      <title>The Hitchikers Guide to Inferential Statistics</title>
-      <link>/2020/07/hitchikers-guide-to-inferential-statistics/</link>
-      <pubDate>Fri, 17 Jul 2020 00:00:00 +0000</pubDate>
-      
-      <guid>/2020/07/hitchikers-guide-to-inferential-statistics/</guid>
-      <description>
-
-
-</description>
-    </item>
-    
-    <item>
-      <title>ISLR Notes</title>
-      <link>/2020/04/islr-notes/</link>
-      <pubDate>Mon, 06 Apr 2020 00:00:00 +0000</pubDate>
-      
-      <guid>/2020/04/islr-notes/</guid>
-      <description>
-
-
-&lt;p&gt;Just a place for me to keep my notes of the &lt;a href=&#34;http://faculty.marshall.usc.edu/gareth-james/ISL/&#34;&gt;Introduction to Statistical Learning&lt;/a&gt; book.&lt;/p&gt;
-&lt;p&gt;This is by no means a comprehensive summary; just a list of points I wish to remember.&lt;/p&gt;
-</description>
-    </item>
     
     <item>
       <title>An R Pipeline for XGBoost (and a discussion about hyperparameters)</title>
@@ -98,15 +39,6 @@ Mantashe will continue wokring from home because he is infect w/ covid 19&lt;/p&
 &lt;p&gt;Hello Person From The Internet who has decided to come here. Thank you for dropping by.&lt;/p&gt;
 &lt;p&gt;Today I’m going to talk about a book I read - &lt;a href=&#34;https://www.amazon.com/gp/product/1455554790/ref=as_li_tl?ie=UTF8&amp;amp;camp=1789&amp;amp;creative=9325&amp;amp;creativeASIN=1455554790&amp;amp;linkCode=as2&amp;amp;tag=orrymr-20&amp;amp;linkId=35253fa91ca83356f3f4b863eb42b3f1&#34;&gt;Work Rules!: Insights from Inside Google That Will Transform How You Live and Lead&lt;/a&gt; by Laszlo Bock.&lt;/p&gt;
 </description>
-    </item>
-    
-    <item>
-      <title>Hitchhiker&#39;s Guide to Data Science</title>
-      <link>/2019/06/hitchhiker-s-guide-to-data-science/</link>
-      <pubDate>Thu, 06 Jun 2019 00:00:00 +0000</pubDate>
-      
-      <guid>/2019/06/hitchhiker-s-guide-to-data-science/</guid>
-      <description>MapReduce:</description>
     </item>
     
     <item>
@@ -200,6 +132,65 @@ Mantashe will continue wokring from home because he is infect w/ covid 19&lt;/p&
       
       <guid>/2017/10/hi-there.-this-is-my-first-post.-or-linear-algebra-bra/</guid>
       <description>&lt;p&gt;I need a place to document my various ideas as well as the potential results of those ideas.&lt;/p&gt;</description>
+    </item>
+    
+    <item>
+      <title>ISLR Notes</title>
+      <link>/1/07/islr-notes/</link>
+      <pubDate>Tue, 17 Jul 0001 00:00:00 +0000</pubDate>
+      
+      <guid>/1/07/islr-notes/</guid>
+      <description>
+
+
+&lt;p&gt;Just a place for me to keep my notes of the &lt;a href=&#34;http://faculty.marshall.usc.edu/gareth-james/ISL/&#34;&gt;Introduction to Statistical Learning&lt;/a&gt; book.&lt;/p&gt;
+&lt;p&gt;This is by no means a comprehensive summary; just a list of points I wish to remember.&lt;/p&gt;
+</description>
+    </item>
+    
+    <item>
+      <title>Moment Generating Functions</title>
+      <link>/1/07/moment-generating-functions/</link>
+      <pubDate>Tue, 17 Jul 0001 00:00:00 +0000</pubDate>
+      
+      <guid>/1/07/moment-generating-functions/</guid>
+      <description>
+
+
+&lt;p&gt;What’s a moment generating function? How’s it used in stats?&lt;/p&gt;
+</description>
+    </item>
+    
+    <item>
+      <title>The Hitchikers Guide to Inferential Statistics</title>
+      <link>/1/07/hitchikers-guide-to-inferential-statistics/</link>
+      <pubDate>Tue, 17 Jul 0001 00:00:00 +0000</pubDate>
+      
+      <guid>/1/07/hitchikers-guide-to-inferential-statistics/</guid>
+      <description>
+
+
+</description>
+    </item>
+    
+    <item>
+      <title>Zulu Article | UCele uthi bazoboshwa abasebenzi bakahulumeni abazobanjwa benza inkohlakalo</title>
+      <link>/1/07/zulu-article-ucele-uthi-bazoboshwa-abasebenzi-bakahulumeni-abazobanjwa-benza-inkohlakalo/</link>
+      <pubDate>Tue, 17 Jul 0001 00:00:00 +0000</pubDate>
+      
+      <guid>/1/07/zulu-article-ucele-uthi-bazoboshwa-abasebenzi-bakahulumeni-abazobanjwa-benza-inkohlakalo/</guid>
+      <description>&lt;p&gt;UCele uthi bazoboshwa abasebenzi bakahulumeni abazobanjwa benza inkohlakalo
+Cele says they will be imprisoned, the workers of the government who will be caught doing something immoral&lt;/p&gt;</description>
+    </item>
+    
+    <item>
+      <title>Zulu Article | Uzoqhubeka asebenzele ekhaya uMantashe osuleleke ngeCovid-19</title>
+      <link>/1/07/zulu-article-uzoqhubeka-asebenzele-ekhaya-umantashe-osuleleke-ngecovid-19/</link>
+      <pubDate>Tue, 17 Jul 0001 00:00:00 +0000</pubDate>
+      
+      <guid>/1/07/zulu-article-uzoqhubeka-asebenzele-ekhaya-umantashe-osuleleke-ngecovid-19/</guid>
+      <description>&lt;p&gt;Uzoqhubeka asebenzele ekhaya uMantashe osuleleke ngeCovid-19
+Mantashe will continue wokring from home because he is infect w/ covid 19&lt;/p&gt;</description>
     </item>
     
   </channel>
