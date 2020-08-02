@@ -1,0 +1,197 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>Posts on orrymr.com</title>
+    <link>/post/</link>
+    <description>Recent content in Posts on orrymr.com</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>en</language>
+    <lastBuildDate>Fri, 04 Oct 2019 00:00:00 +0000</lastBuildDate>
+    
+	<atom:link href="/post/index.xml" rel="self" type="application/rss+xml" />
+    
+    
+    <item>
+      <title>An R Pipeline for XGBoost (and a discussion about hyperparameters)</title>
+      <link>/2019/10/an-r-pipeline-for-xgboost-and-a-discussion-about-hyperparameters/</link>
+      <pubDate>Fri, 04 Oct 2019 00:00:00 +0000</pubDate>
+      
+      <guid>/2019/10/an-r-pipeline-for-xgboost-and-a-discussion-about-hyperparameters/</guid>
+      <description>
+&lt;script src=&#34;/rmarkdown-libs/kePrint/kePrint.js&#34;&gt;&lt;/script&gt;
+&lt;link href=&#34;/rmarkdown-libs/bsTable/bootstrapTable.min.css&#34; rel=&#34;stylesheet&#34; /&gt;
+
+
+&lt;p&gt;In this blog post, we discuss what XGBoost is, and demonstrate a pipeline for working with XGBoost in R.&lt;/p&gt;
+&lt;p&gt;bkaswd&lt;/p&gt;
+</description>
+    </item>
+    
+    <item>
+      <title>Work Rules! - Insights from Inside Google That Will Transform How You Live and Lead, Part 1</title>
+      <link>/2019/09/work-rules/</link>
+      <pubDate>Tue, 03 Sep 2019 00:00:00 +0000</pubDate>
+      
+      <guid>/2019/09/work-rules/</guid>
+      <description>
+
+
+&lt;p&gt;Hello Person From The Internet who has decided to come here. Thank you for dropping by.&lt;/p&gt;
+&lt;p&gt;Today I’m going to talk about a book I read - &lt;a href=&#34;https://www.amazon.com/gp/product/1455554790/ref=as_li_tl?ie=UTF8&amp;amp;camp=1789&amp;amp;creative=9325&amp;amp;creativeASIN=1455554790&amp;amp;linkCode=as2&amp;amp;tag=orrymr-20&amp;amp;linkId=35253fa91ca83356f3f4b863eb42b3f1&#34;&gt;Work Rules!: Insights from Inside Google That Will Transform How You Live and Lead&lt;/a&gt; by Laszlo Bock.&lt;/p&gt;
+</description>
+    </item>
+    
+    <item>
+      <title>r-pca</title>
+      <link>/2019/03/r-pca/</link>
+      <pubDate>Mon, 04 Mar 2019 00:00:00 +0000</pubDate>
+      
+      <guid>/2019/03/r-pca/</guid>
+      <description>
+
+
+&lt;p&gt;Principal Components Analysis (PCA) is a commonly used dimensionality reduction algorithm. In this post, we show how to perform PCA in R. This post will only briefly touch on the theory behind PCA; instead, we focus on intuition, implementation and interpretation.&lt;/p&gt;
+</description>
+    </item>
+    
+    <item>
+      <title>r-tsne</title>
+      <link>/2019/03/r-tsne/</link>
+      <pubDate>Mon, 04 Mar 2019 00:00:00 +0000</pubDate>
+      
+      <guid>/2019/03/r-tsne/</guid>
+      <description>
+
+
+&lt;p&gt;r-tsne&lt;/p&gt;
+</description>
+    </item>
+    
+    <item>
+      <title>An Introduction to H2O Using R</title>
+      <link>/2018/12/intro-to-h2o-using-r/</link>
+      <pubDate>Tue, 04 Dec 2018 00:00:00 +0000</pubDate>
+      
+      <guid>/2018/12/intro-to-h2o-using-r/</guid>
+      <description>
+
+
+&lt;p&gt;In this post we discuss the &lt;a href=&#34;https://www.h2o.ai/&#34;&gt;H2O machine learning platform.&lt;/a&gt; We talk about what H2O is, and how to get started with it, using R - we create a Random Forest which we use to classify the Iris Dataset.&lt;/p&gt;
+</description>
+    </item>
+    
+    <item>
+      <title>Inverse Matrices - A Primer</title>
+      <link>/2018/11/inverse-matrix/</link>
+      <pubDate>Sun, 18 Nov 2018 00:00:00 +0000</pubDate>
+      
+      <guid>/2018/11/inverse-matrix/</guid>
+      <description>&lt;p&gt;In this post &lt;strong&gt;we talk about the&lt;/strong&gt; &lt;strong&gt;&lt;em&gt;inverse matrix&lt;/em&gt;&lt;/strong&gt;. We discuss what it means for a matrix to be &lt;em&gt;invertible&lt;/em&gt;. We then discuss what it means for a matrix &lt;em&gt;not&lt;/em&gt; to be invertible - &lt;em&gt;singular&lt;/em&gt;. Finally, we briefly go through how to find a matrix&amp;rsquo;s inverse.&lt;/p&gt;</description>
+    </item>
+    
+    <item>
+      <title>Rank of a Matrix</title>
+      <link>/2018/11/rank-of-a-matrix/</link>
+      <pubDate>Wed, 14 Nov 2018 00:00:00 +0000</pubDate>
+      
+      <guid>/2018/11/rank-of-a-matrix/</guid>
+      <description>&lt;p&gt;The dimension of the column space of a matrix is called its rank.&lt;/p&gt;</description>
+    </item>
+    
+    <item>
+      <title>A Matrix Nullspace (Kernel) Tutorial - Finding the Nullspace</title>
+      <link>/2018/03/a-matrix-nullspace-kernel-tutorial-finding-the-nullspace/</link>
+      <pubDate>Thu, 01 Mar 2018 20:35:21 +0200</pubDate>
+      
+      <guid>/2018/03/a-matrix-nullspace-kernel-tutorial-finding-the-nullspace/</guid>
+      <description>&lt;p&gt;In this article we describe &lt;strong&gt;what the nullspace is&lt;/strong&gt;. We go on to explain &lt;strong&gt;how to find the nullspace&lt;/strong&gt;.&lt;/p&gt;</description>
+    </item>
+    
+    <item>
+      <title>Of Matrices and Men (pt. 2)</title>
+      <link>/2017/11/of-matrices-and-men-pt.-2/</link>
+      <pubDate>Wed, 22 Nov 2017 20:35:21 +0200</pubDate>
+      
+      <guid>/2017/11/of-matrices-and-men-pt.-2/</guid>
+      <description>&lt;p&gt;In my &lt;a href=&#34;/2017/10/of-matrices-and-men-pt.-1/&#34;&gt;last post&lt;/a&gt; we saw how a matrix could operate on a vector to produce a result&amp;hellip;&lt;/p&gt;</description>
+    </item>
+    
+    <item>
+      <title>Of Matrices and Men (pt. 1)</title>
+      <link>/2017/10/of-matrices-and-men-pt.-1/</link>
+      <pubDate>Sun, 22 Oct 2017 20:35:21 +0200</pubDate>
+      
+      <guid>/2017/10/of-matrices-and-men-pt.-1/</guid>
+      <description>&lt;p&gt;One of the most crucial changes in my viewpoint came when I learned that matrices, much like functions, &lt;em&gt;act&lt;/em&gt; on inputs. Until then, a matrix was just a collection of numbers and matrix multiplication was just a mechanical set of rules used to produce another collection of numbers. I knew that the result of matrix multiplication could be a scalar, a vector or another matrix&amp;hellip; but I abandoned any further investigations.&lt;/p&gt;</description>
+    </item>
+    
+    <item>
+      <title>Hi There. This is my first post. Or: Linear Algebra, bra?</title>
+      <link>/2017/10/hi-there.-this-is-my-first-post.-or-linear-algebra-bra/</link>
+      <pubDate>Sun, 01 Oct 2017 17:55:17 +0200</pubDate>
+      
+      <guid>/2017/10/hi-there.-this-is-my-first-post.-or-linear-algebra-bra/</guid>
+      <description>&lt;p&gt;I need a place to document my various ideas as well as the potential results of those ideas.&lt;/p&gt;</description>
+    </item>
+    
+    <item>
+      <title>ISLR Notes</title>
+      <link>/1/07/islr-notes/</link>
+      <pubDate>Tue, 17 Jul 0001 00:00:00 +0000</pubDate>
+      
+      <guid>/1/07/islr-notes/</guid>
+      <description>
+
+
+&lt;p&gt;Just a place for me to keep my notes of the &lt;a href=&#34;http://faculty.marshall.usc.edu/gareth-james/ISL/&#34;&gt;Introduction to Statistical Learning&lt;/a&gt; book.&lt;/p&gt;
+&lt;p&gt;This is by no means a comprehensive summary; just a list of points I wish to remember.&lt;/p&gt;
+</description>
+    </item>
+    
+    <item>
+      <title>Moment Generating Functions</title>
+      <link>/1/07/moment-generating-functions/</link>
+      <pubDate>Tue, 17 Jul 0001 00:00:00 +0000</pubDate>
+      
+      <guid>/1/07/moment-generating-functions/</guid>
+      <description>
+
+
+&lt;p&gt;What’s a moment generating function? How’s it used in stats?&lt;/p&gt;
+</description>
+    </item>
+    
+    <item>
+      <title>The Hitchikers Guide to Inferential Statistics</title>
+      <link>/1/07/hitchikers-guide-to-inferential-statistics/</link>
+      <pubDate>Tue, 17 Jul 0001 00:00:00 +0000</pubDate>
+      
+      <guid>/1/07/hitchikers-guide-to-inferential-statistics/</guid>
+      <description>
+
+
+</description>
+    </item>
+    
+    <item>
+      <title>Zulu Article | UCele uthi bazoboshwa abasebenzi bakahulumeni abazobanjwa benza inkohlakalo</title>
+      <link>/1/07/zulu-article-ucele-uthi-bazoboshwa-abasebenzi-bakahulumeni-abazobanjwa-benza-inkohlakalo/</link>
+      <pubDate>Tue, 17 Jul 0001 00:00:00 +0000</pubDate>
+      
+      <guid>/1/07/zulu-article-ucele-uthi-bazoboshwa-abasebenzi-bakahulumeni-abazobanjwa-benza-inkohlakalo/</guid>
+      <description>&lt;p&gt;UCele uthi bazoboshwa abasebenzi bakahulumeni abazobanjwa benza inkohlakalo
+Cele says they will be imprisoned, the workers of the government who will be caught doing something immoral&lt;/p&gt;</description>
+    </item>
+    
+    <item>
+      <title>Zulu Article | Uzoqhubeka asebenzele ekhaya uMantashe osuleleke ngeCovid-19</title>
+      <link>/1/07/zulu-article-uzoqhubeka-asebenzele-ekhaya-umantashe-osuleleke-ngecovid-19/</link>
+      <pubDate>Tue, 17 Jul 0001 00:00:00 +0000</pubDate>
+      
+      <guid>/1/07/zulu-article-uzoqhubeka-asebenzele-ekhaya-umantashe-osuleleke-ngecovid-19/</guid>
+      <description>&lt;p&gt;Uzoqhubeka asebenzele ekhaya uMantashe osuleleke ngeCovid-19
+Mantashe will continue wokring from home because he is infect w/ covid 19&lt;/p&gt;</description>
+    </item>
+    
+  </channel>
+</rss>

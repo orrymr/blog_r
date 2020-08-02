@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>machine-learning on orrymr.com</title>
+    <link>/tags/machine-learning/</link>
+    <description>Recent content in machine-learning on orrymr.com</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>en</language>
+    <lastBuildDate>Tue, 04 Dec 2018 00:00:00 +0000</lastBuildDate>
+    
+	<atom:link href="/tags/machine-learning/index.xml" rel="self" type="application/rss+xml" />
+    
+    
+    <item>
+      <title>An Introduction to H2O Using R</title>
+      <link>/2018/12/intro-to-h2o-using-r/</link>
+      <pubDate>Tue, 04 Dec 2018 00:00:00 +0000</pubDate>
+      
+      <guid>/2018/12/intro-to-h2o-using-r/</guid>
+      <description>
+
+
+&lt;p&gt;In this post we discuss the &lt;a href=&#34;https://www.h2o.ai/&#34;&gt;H2O machine learning platform.&lt;/a&gt; We talk about what H2O is, and how to get started with it, using R - we create a Random Forest which we use to classify the Iris Dataset.&lt;/p&gt;
+</description>
+    </item>
+    
+  </channel>
+</rss>

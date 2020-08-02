@@ -1,0 +1,1044 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    
+    <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="generator" content="Hugo 0.68.3 with theme Tranquilpeak 0.4.7-BETA">
+<meta name="author" content="Orry Messer">
+<meta name="keywords" content="statistical-learning">
+<meta name="description" content="
+
+
+Just a place for me to keep my notes of the Introduction to Statistical Learning book.
+This is by no means a comprehensive summary; just a list of points I wish to remember.
+">
+
+
+<meta property="og:description" content="
+
+
+Just a place for me to keep my notes of the Introduction to Statistical Learning book.
+This is by no means a comprehensive summary; just a list of points I wish to remember.
+">
+<meta property="og:type" content="article">
+<meta property="og:title" content="ISLR Notes">
+<meta name="twitter:title" content="ISLR Notes">
+<meta property="og:url" content="/1/07/islr-notes/">
+<meta property="twitter:url" content="/1/07/islr-notes/">
+<meta property="og:site_name" content="orrymr.com">
+<meta property="og:description" content="
+
+
+Just a place for me to keep my notes of the Introduction to Statistical Learning book.
+This is by no means a comprehensive summary; just a list of points I wish to remember.
+">
+<meta name="twitter:description" content="
+
+
+Just a place for me to keep my notes of the Introduction to Statistical Learning book.
+This is by no means a comprehensive summary; just a list of points I wish to remember.
+">
+<meta property="og:locale" content="en">
+
+  
+    <meta property="article:published_time" content="0001-07-17T00:00:00">
+  
+  
+    <meta property="article:modified_time" content="0001-07-17T00:00:00">
+  
+  
+  
+  
+    
+      <meta property="article:tag" content="statistics">
+    
+      <meta property="article:tag" content="hitchikers_guide">
+    
+  
+
+
+<meta name="twitter:card" content="summary">
+
+  <meta name="twitter:site" content="@orrymr">
+
+
+  <meta name="twitter:creator" content="@orrymr">
+
+
+
+
+
+
+
+
+
+
+  <meta property="og:image" content="https://res.cloudinary.com/da1gwmlvj/image/upload/v1585486959/me_2_wm4mmw.jpg">
+  <meta property="twitter:image" content="https://res.cloudinary.com/da1gwmlvj/image/upload/v1585486959/me_2_wm4mmw.jpg">
+
+
+    <title>ISLR Notes</title>
+
+    <link rel="icon" href="/favicon.png">
+    
+
+    
+
+    <link rel="canonical" href="/1/07/islr-notes/">
+
+    
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css" integrity="sha256-eZrrJcwDc/3uDhsdt61sL2oOBY362qM3lon1gyExkL0=" crossorigin="anonymous" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/fancybox/2.1.4/jquery.fancybox.min.css" integrity="sha256-vuXZ9LGmmwtjqFX1F+EKin1ThZMub58gKULUyf0qECk=" crossorigin="anonymous" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/fancybox/2.1.4/helpers/jquery.fancybox-thumbs.min.css" integrity="sha256-SEa4XYAHihTcEP1f5gARTB2K26Uk8PsndQYHQC1f4jU=" crossorigin="anonymous" />
+    
+    
+    <link rel="stylesheet" href="/css/style-twzjdbqhmnnacqs0pwwdzcdbt8yhv8giawvjqjmyfoqnvazl0dalmnhdkvp7.min.css" />
+    
+    
+      
+        <link rel="stylesheet"  href="/css/mystyle.css">
+      
+    
+
+    
+      
+<script type="application/javascript">
+var doNotTrack = false;
+if (!doNotTrack) {
+	(function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+	(i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+	m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+	})(window,document,'script','https://www.google-analytics.com/analytics.js','ga');
+	ga('create', 'UA-115127992-1', 'auto');
+	
+	ga('send', 'pageview');
+}
+</script>
+
+    
+    
+  </head>
+  <body>
+    <div id="blog">
+      <header id="header" data-behavior="5">
+  <i id="btn-open-sidebar" class="fa fa-lg fa-bars"></i>
+  <div class="header-title">
+    <a class="header-title-link" href="/">orrymr.com</a>
+  </div>
+  
+    
+      <a class="header-right-picture "
+         href="/#about">
+    
+    
+    
+      
+        <img class="header-picture" src="https://res.cloudinary.com/da1gwmlvj/image/upload/v1585486959/me_2_wm4mmw.jpg" alt="" />
+      
+    
+    </a>
+  
+</header>
+
+      <nav id="sidebar" data-behavior="5">
+  <div class="sidebar-container">
+    
+      <div class="sidebar-profile">
+        <a href="/#about">
+          <img class="sidebar-profile-picture" src="https://res.cloudinary.com/da1gwmlvj/image/upload/v1585486959/me_2_wm4mmw.jpg" alt="" />
+        </a>
+        <h4 class="sidebar-profile-name">Orry Messer <br/> </h4>
+        
+          <h5 class="sidebar-profile-bio">WHERE ARE MY SHOES</h5>
+        
+      </div>
+    
+    <div class="shift-down">
+      <ul class="sidebar-buttons">
+        
+  <li class="sidebar-button">
+    
+      <a class="sidebar-button-link " href="/">
+    
+      <i class="sidebar-button-icon fa fa-lg fa-home"></i>
+      
+      <span class="sidebar-button-desc">Home</span>
+    </a>
+  </li>
+
+  <li class="sidebar-button">
+    
+      <a class="sidebar-button-link " href="/books-ive-read">
+    
+      <i class="sidebar-button-icon fa fa-lg fa-bookmark"></i>
+      
+      <span class="sidebar-button-desc">Books I&#39;ve Read</span>
+    </a>
+  </li>
+
+  <li class="sidebar-button">
+    
+      <a class="sidebar-button-link " href="/hitchhikers-guides">
+    
+      <i class="sidebar-button-icon fa fa-lg fa-bookmark"></i>
+      
+      <span class="sidebar-button-desc">Hitchhiker&#39;s Guides</span>
+    </a>
+  </li>
+
+  <li class="sidebar-button">
+    
+      <a class="sidebar-button-link " href="/zulu-stuff">
+    
+      <i class="sidebar-button-icon fa fa-lg fa-bookmark"></i>
+      
+      <span class="sidebar-button-desc">Zulu Stuff</span>
+    </a>
+  </li>
+
+  <li class="sidebar-button">
+    
+      <a class="sidebar-button-link " href="/tags">
+    
+      <i class="sidebar-button-icon fa fa-lg fa-tags"></i>
+      
+      <span class="sidebar-button-desc">Tags</span>
+    </a>
+  </li>
+
+  <li class="sidebar-button">
+    
+      <a class="sidebar-button-link " href="/archives">
+    
+      <i class="sidebar-button-icon fa fa-lg fa-archive"></i>
+      
+      <span class="sidebar-button-desc">Archives</span>
+    </a>
+  </li>
+
+
+      </ul>
+      <ul class="sidebar-buttons">
+        
+  <li class="sidebar-button">
+    
+      <a class="sidebar-button-link " href="https://github.com/orrymr">
+    
+      <i class="sidebar-button-icon fa fa-lg fa-github"></i>
+      
+      <span class="sidebar-button-desc">GitHub</span>
+    </a>
+  </li>
+
+  <li class="sidebar-button">
+    
+      <a class="sidebar-button-link " href="https://stackoverflow.com/users/3214345/orrymr">
+    
+      <i class="sidebar-button-icon fa fa-lg fa-stack-overflow"></i>
+      
+      <span class="sidebar-button-desc">Stack Overflow</span>
+    </a>
+  </li>
+
+  <li class="sidebar-button">
+    
+      <a class="sidebar-button-link " href="/blogroll">
+    
+      <i class="sidebar-button-icon fa fa-lg fa-bookmark"></i>
+      
+      <span class="sidebar-button-desc">Blogroll</span>
+    </a>
+  </li>
+
+
+      </ul>
+      <ul class="sidebar-buttons">
+        
+  <li class="sidebar-button">
+    
+      <a class="sidebar-button-link " href="/index.xml">
+    
+      <i class="sidebar-button-icon fa fa-lg fa-rss"></i>
+      
+      <span class="sidebar-button-desc">RSS</span>
+    </a>
+  </li>
+
+
+      </ul>
+    </div>
+  </div>
+</nav>
+
+      
+
+      <div id="main" data-behavior="5"
+        class="
+               hasCoverMetaIn
+               ">
+        <article class="post" itemscope itemType="http://schema.org/BlogPosting">
+          
+          
+            <div class="post-header main-content-wrap text-left">
+  
+    <h1 class="post-title" itemprop="headline">
+      ISLR Notes
+    </h1>
+  
+  
+  <div class="postShorten-meta post-meta">
+    
+      <time itemprop="datePublished" datetime="0001-07-17T00:00:00Z">
+        
+  
+  
+  
+  
+    17/07/0001
+  
+
+      </time>
+    
+    
+  </div>
+
+</div>
+          
+          <div class="post-content markdown" itemprop="articleBody">
+            <div class="main-content-wrap">
+              <p>Just a place for me to keep my notes of the <a href="http://faculty.marshall.usc.edu/gareth-james/ISL/">Introduction to Statistical Learning</a> book.</p>
+<p>This is by no means a comprehensive summary; just a list of points I wish to remember.</p>
+<ul>
+<li><a href="#ch2">Chapter 2: Statistical Learning</a>
+<ul>
+<li><a href="#inf_pred">Inference vs Prediction</a>
+<ul>
+<li><a href="#acc_int">Accuracy vs Interpretability</a></li>
+<li><a href="#Par">Parametric</a></li>
+<li><a href="#non_par">Non-Parametric</a></li>
+<li><a href="#tr_te">Train vs Test MSE</a></li>
+</ul></li>
+<li><a href="#bayes_clas">Bayes Classifier</a></li>
+<li><a href="#KNN">KNN</a></li>
+</ul></li>
+<li><a href="#ch3">Chapter 3: Linear Regression</a></li>
+<li><a href="#ch4">Chapter 4: Classification</a></li>
+</ul>
+<div id="ch2" class="section level1">
+<h1>Chapter 2: Statistical Learning</h1>
+<p>Least squares is a popular method of doing regression, but one of many methods.</p>
+<p>The accuracy of <span class="math inline">\(\hat{Y}\)</span> as a prediction for <span class="math inline">\(Y\)</span> depends on two quantities, which we will call the <em>reducible error</em> and the <em>irreducible error</em>.</p>
+<div class="figure">
+<img src="https://res.cloudinary.com/da1gwmlvj/image/upload/v1586180520/islr%20notes/red_ir_ibsdoc.png" />
+
+</div>
+<p>We can improve the reducible error by using an more appropriate statistical technique. We can never improve the irreducible error, as it is introduced by the <span class="math inline">\(\epsilon\)</span> term in: <span class="math inline">\(Y = f(x) + \epsilon\)</span>, where <span class="math inline">\(Y\)</span> is the true output.</p>
+<p><span class="math inline">\(Y = f(X) + \epsilon\)</span> : we assume this is the function which generated the data. It has 2 components</p>
+<ul>
+<li><span class="math inline">\(f(X) = \beta_0 + \beta_1X_1 + ... + \beta_pX_p\)</span> which we assume is <em>linear</em></li>
+<li><span class="math inline">\(\epsilon\)</span> which we assume is from a mean 0 Gaussian</li>
+</ul>
+<p>We estimate <span class="math inline">\(f\)</span> using <span class="math inline">\(\hat{f}\)</span>. The predictions we make <span class="math inline">\(\hat{Y}\)</span> are generated from <span class="math inline">\(\hat{f}\)</span>, in other words <span class="math inline">\(\hat{Y} = \hat{f}\)</span></p>
+<p><span class="math inline">\(\hat{Y} = \hat{\beta_0} + \hat{\beta_1}X_1 + ... + \hat{\beta_p}X_p\)</span></p>
+<p>is only an estimate for</p>
+<p>So, it obvisouly doesn’t take into account the error term <span class="math inline">\(\epsilon\)</span>…</p>
+<p>There is no free lunch in statistics: no one method dominates all others over all possible data sets.</p>
+<div id="inf_pred" class="section level2">
+<h2>Inference vs Prediction</h2>
+<p>Inference: to do with how the various predictors affect the output. For example, how does TV advertising spend affect sales, how does radio advertising affect, how does newspaper advertising, how does some combination of these affect sales?</p>
+<p>Prediction: Predict the output, like, at a given level of advertising spends, what will the sales be?</p>
+<p>Different models better at different things. If just interested in prediction, then a very complicated black-box model is fine. If interested in inference, simpler and more interpretable may be better.</p>
+<div id="acc_int" class="section level3">
+<h3>Accuracy vs Interpretability</h3>
+<p>Lasso less flexible, more interpretable: sets some params to 0.</p>
+<p>Generalized additive models (GAMs) extend the linear model to allow for certain non-linear relationships. GAMs are more flexible than linear regression. They are also less interpretable than linear regression.</p>
+<p>Fully non-linear methods such as bagging, boosting, and support vector machines bagging boosting with non-linear kernels, discussed in Chapters 8 and 9, are highly flexible approaches that are harder to interpret.</p>
+<div class="figure">
+<img src="https://res.cloudinary.com/da1gwmlvj/image/upload/v1586182241/islr%20notes/flex_zposfv.png" />
+
+</div>
+</div>
+</div>
+<div id="parametric-vs-non-parametric" class="section level2">
+<h2>Parametric vs Non-Parametric</h2>
+<p>Statistical learning methods can be characterized as either parametric or non-parametric.</p>
+<div id="Par" class="section level3">
+<h3>Parametric</h3>
+<p>2 steps:</p>
+<ul>
+<li>Select a functional form (like <span class="math inline">\(y = mx + c\)</span>)</li>
+<li>fit / train the model.</li>
+</ul>
+<p>pro: assuming functional form, it may be easier (than non-parametric case) to find params. con: choosing bad functional form is… bad.</p>
+</div>
+<div id="non_par" class="section level3">
+<h3>Non-Parametric</h3>
+<p>No explict assumptions about functional form.</p>
+<p>pro: avoid danger of choosing a bad functional form con: since non-parametric do not reduce the problem to finding a fixed number of parameters, lots more training data needed.</p>
+<p>Thin-plate spline is an example of non-parametric. Set a “smoothness” parameter.</p>
+</div>
+<div id="tr_te" class="section level3">
+<h3>Train vs Test MSE</h3>
+<p>When a given method yields a small training MSE but a large test MSE, we are said to be overfitting the data.</p>
+<p>Cross-validation is a method for estimating test MSE using the training data.</p>
+<div class="figure">
+<img src="https://res.cloudinary.com/da1gwmlvj/image/upload/v1586182404/islr%20notes/trate_pkpnaf.png" />
+
+</div>
+</div>
+<div id="bias-variance-trade-off" class="section level3">
+<h3>Bias Variance Trade-off</h3>
+<p>Expected (since, expected over value of <span class="math inline">\(\hat{f}(x_0)\)</span> over many number of training sets used to estimate <span class="math inline">\(f\)</span>) <em>test</em> MSE of a given <span class="math inline">\(x_0\)</span> can be broken down into:</p>
+<ul>
+<li>The variance of <span class="math inline">\(\hat{f}(x_0)\)</span></li>
+<li>Square bias of <span class="math inline">\(\hat{f}(x_0)\)</span></li>
+<li>The variance of the <span class="math inline">\(\epsilon\)</span></li>
+</ul>
+<p>The last one, corresponds to <em>irreducible</em> error. We can control the other two somewhat by changing our choice of model.</p>
+<div class="figure">
+<img src="https://res.cloudinary.com/da1gwmlvj/image/upload/v1586182732/islr%20notes/bivar_hvi5il.png" />
+
+</div>
+<p>In this context, <em>variance</em> refers to how much <span class="math inline">\(\hat{f}\)</span> would change if we used a different training set (Overfitting). <em>Bias</em> refers to the error we introduce by approximating a (possibly very complicated) real-life problem with a simpler mathemetical model (Underfitting).</p>
+<p>Generally, more flexible methods result in less bias. More flexible statistical methods have higher variance.</p>
+</div>
+</div>
+<div id="bayes_clas" class="section level2">
+<h2>Bayes Classifier</h2>
+<p>Error rate is minimized, on average, by a very simple classifier that assigns each observation to the most likely class, given its predictor values. Obviously we don’t know the most likely class!</p>
+<p>The Bayes classifier produces the lowest possible test error rate, called the Bayes error rate.</p>
+<p>The Bayes error rate is analogous to the irreducible error, discussed earlier.</p>
+</div>
+<div id="KNN" class="section level2">
+<h2>KNN</h2>
+<p>KNN classifier identifies the K points in the training data that are closest to <span class="math inline">\(x_0\)</span>. Estimates class probability as proportion of these classes in the K points.</p>
+</div>
+</div>
+<div id="ch3" class="section level1">
+<h1>Chapter 3: Linear Regression</h1>
+<p>New terms in this chapter:</p>
+<ul>
+<li>Interaction Effect</li>
+<li>Residual</li>
+<li>RSS</li>
+<li>population regression line</li>
+<li>least squares line</li>
+<li>biased / unbiased estimators</li>
+<li>standard error</li>
+<li>RSE</li>
+<li>confidence interval</li>
+<li>hypothesis test</li>
+<li>t-statistic</li>
+<li><span class="math inline">\(p\)</span>-value</li>
+<li><span class="math inline">\(R^2\)</span></li>
+<li>Total Sum of Squares</li>
+<li>correlation</li>
+<li><span class="math inline">\(F\)</span> statistic</li>
+<li>forward selection</li>
+<li>variable selection</li>
+<li>synergy / interaction effect</li>
+<li>interaction terms</li>
+<li>prediction intervals</li>
+<li>dummy variable</li>
+<li>hierarchical principle</li>
+<li>polynomial regression</li>
+<li>Residual plots</li>
+<li>heteroscedasticity</li>
+<li>studentized residuals</li>
+<li>high leverage</li>
+<li>leverage statistic</li>
+</ul>
+<p>This chapter reviews ideas underlying linear regression, as well as least squares approach that is commonly used to fit this model.</p>
+<div id="simple-linear-regression" class="section level2">
+<h2>Simple Linear Regression</h2>
+<p><u>Simple</u> linear regression refers to predicting <span class="math inline">\(Y\)</span> from a <u>single</u> predictor, <span class="math inline">\(X\)</span>.</p>
+<p>Fit line that is closest to datapoints. most common measure of closeness involved minimizing least squares criterion.</p>
+<p>The <em>residual</em> is the difference between the <span class="math inline">\(i\)</span>th observed response value and the <span class="math inline">\(i\)</span>th response value predicted by the model: <span class="math inline">\(e_i = y_i-\hat{y}_i\)</span></p>
+<p>The <em>residual sum of squares</em>: RSS <span class="math inline">\(= e_1^2 + e_2^2 + ... + e_n^2\)</span></p>
+<p>The least squares approach chooses <span class="math inline">\(\hat{\beta}_1\)</span> and <span class="math inline">\(\hat{\beta}_0\)</span> to minimize the RSS.</p>
+<div class="figure">
+<img src="https://res.cloudinary.com/da1gwmlvj/image/upload/v1586345760/islr%20notes/mion_ylow1m.png" />
+
+</div>
+<p>The above define the <em>least squares coefficient estimates</em> for simple linear regression.</p>
+<div id="assessing-the-accuracy-of-coefficient-estimates" class="section level3">
+<h3>Assessing the Accuracy of Coefficient Estimates</h3>
+<p>The model defined by the <em>population regression line</em> is the <u>best</u> linear approximation to the relationship between <span class="math inline">\(X\)</span> and <span class="math inline">\(Y\)</span>. It is given by: <span class="math inline">\(Y = \beta_0 + \beta_1 + \epsilon\)</span>.</p>
+<p>The least squares coefficients define the <em>least squares line</em>.</p>
+<div class="figure">
+<img src="https://res.cloudinary.com/da1gwmlvj/image/upload/v1586346036/islr%20notes/pop_sq_mlkc0z.png" />
+
+</div>
+<div id="biased-vs-unbiased-estimators" class="section level4">
+<h4>Biased vs Unbiased Estimators</h4>
+<p>Unbiased estimator does not systematically over or under estimate the true parameter. The sample mean is an unbiased estimator: expect the sample mean to equal popln mean on average.</p>
+<p>Similar to how we try to estimate the population mean using the sample mean, we try use the least squares coefficients to estimate the coefficients of the population least squares line. Apt analogy, as <span class="math inline">\(\hat{\beta_0}\)</span> and <span class="math inline">\(\hat{\beta_1}\)</span> are <em>unbiased</em> estimators, like the sample mean.</p>
+</div>
+<div id="standard-error" class="section level4">
+<h4>Standard Error</h4>
+<p>Continuing with the example of the sample mean, we’d like to be able to comment on the accuracy of the sample mean as an estimate of the population mean. That’s where <em>standard error</em> comes in, <span class="math inline">\(SE(\hat{\mu})\)</span>.</p>
+<p><span class="math inline">\(SE(\hat{\mu})^2\)</span> = <span class="math inline">\(Var(\hat{\mu})\)</span> = <span class="math inline">\(\frac{\sigma^2}{n}\)</span></p>
+<p>where <span class="math inline">\(\sigma\)</span> is the standard deviation of each of the realizations of <span class="math inline">\(y_i\)</span> (remember, you have this, as it’s in the labeled training data). So, the standard error is a ratio of 2 quantities: the bigger the standard deviation, the bigger the standard error. The more observations you have, <span class="math inline">\(n\)</span>, the smaller the standard error. Makes sense, since if the data vary wildly, you need lots of observations to be sure of it. Similarly, if the data is super clustered together, then you probably just need a few obersvations. Of course, the more observations you have, the better (reflected by the denominator of the Standard Error).</p>
+<p>The formula for the standard error holds provided that none of the observations are correlated.</p>
+<p>We can also look at the standard errors of <span class="math inline">\(\hat{\beta_0}\)</span> and <span class="math inline">\(\hat{\beta_1}\)</span>:</p>
+<div class="figure">
+<img src="https://res.cloudinary.com/da1gwmlvj/image/upload/v1586346735/islr%20notes/se_b1_seB2_serjac.png" />
+
+</div>
+<p>Here, <span class="math inline">\(\sigma^2 = Var(\epsilon)\)</span></p>
+<p>For these formulas to be strictly valid, we need to assume that the errors <span class="math inline">\(\epsilon_i\)</span> for each observation are uncorrelated with common variance.</p>
+<p>Notice in the formula that <span class="math inline">\(SE(\hat{\beta_1})\)</span> is smaller when the <span class="math inline">\(x_i\)</span> are more spread out: intuitively we have more leverage to estimate a slope when this is the case.</p>
+<p>We also see that <span class="math inline">\(SE(\hat{β}_0)\)</span> would be the same as <span class="math inline">\(SE(\hat{μ})\)</span> if <span class="math inline">\(\bar{x}\)</span> were zero (in which case <span class="math inline">\(\hat{β}_0\)</span> would be equal to <span class="math inline">\(\bar{y}\)</span>).</p>
+<p>In the above formulae, we needed <span class="math inline">\(\sigma^2\)</span> which was equal to <span class="math inline">\(Var(\epsilon)\)</span>. In general, this quantity is not known, but it can be estimated from the data. The estimate for this is the <em>residual standard error</em></p>
+<p><span class="math inline">\(RSE = \sqrt{RSS / (n - 2)}\)</span></p>
+<p>Standard errors can be used to compute <em>confidence intervals</em> - so, you can say with 95% confidence that <span class="math inline">\(\hat{β}_0\)</span> and <span class="math inline">\(\hat{β}_1\)</span> lie within a certain range of values.</p>
+<p>Standard errors can also be used to perform <em>hypothesis tests</em>. The most common hypothesis test involves checking whether there is a relationship between <span class="math inline">\(X\)</span> and <span class="math inline">\(Y\)</span>. Mathematically, corresponding to:</p>
+<p><span class="math inline">\(H_0 : \beta_1 = 0\)</span></p>
+<p><span class="math inline">\(H_1 : \beta_1 \neq 0\)</span></p>
+<p>Note, the hypothesis test is about <span class="math inline">\(\beta_1\)</span>, but we’ll have to use <span class="math inline">\(\hat{\beta_1}\)</span>. To test this hypothesis, we need to test whether <span class="math inline">\(\hat{\beta}_1\)</span> is far away enough from zero, to conclude that <span class="math inline">\(\beta_1\)</span> is non-zero. But how far away is far enough? This depends on the accuracy of <span class="math inline">\(\hat{\beta}_1\)</span>, of course. And we were able to comment about its accuracy using <span class="math inline">\(SE(\hat{\beta}_1)\)</span>. If we are confident in our estimate of <span class="math inline">\(\hat{\beta}_1\)</span>, in other words, <span class="math inline">\(SE(\hat{\beta}_1)\)</span> is small, then even relatively small values of <span class="math inline">\(\hat{\beta}_1\)</span> can lead us to conclude that there is a relationship between <span class="math inline">\(X\)</span> and <span class="math inline">\(Y\)</span>. In contrast, if we’re not that confident in the accuracy of <span class="math inline">\(\hat{\beta}_1\)</span>, ie <span class="math inline">\(SE(\hat{\beta}_1)\)</span> is large, then we’ll need some pretty large values of <span class="math inline">\(\hat{\beta}_1\)</span> to convince us that there is a relationship between <span class="math inline">\(X\)</span> and <span class="math inline">\(Y\)</span>.</p>
+<p>In practice, we use <em>t-statistic</em>.</p>
+<p><span class="math inline">\(t = \frac{\hat{\beta_1} - 0}{SE(\hat{\beta_1})}\)</span></p>
+<p>which measures the number of standard deviations away that <span class="math inline">\(\hat{\beta_1}\)</span> is from <span class="math inline">\(0\)</span>. Look at it like this - the t-statistic is the <u>ratio</u> of the distance of the <span class="math inline">\(\hat{\beta_1}\)</span> parameter to its hypothesized value (<span class="math inline">\(0\)</span> in this case), to its standard error. The value of the t-statistic will lie somewhere on the t-distribution (with <span class="math inline">\(n-2\)</span> degrees of freedom). We want to compute the probability of observing this <span class="math inline">\(t\)</span> value, under the assumption of <span class="math inline">\(\beta_1 = 0\)</span>. What is probability of having observed this value of <span class="math inline">\(t\)</span>? We call this the <em>p-value</em>. Small p-value means it’s super unlikely to have observed it, so we reject <span class="math inline">\(H_0\)</span></p>
+</div>
+</div>
+<div id="assessing-the-accuracy-of-the-model" class="section level3">
+<h3>Assessing the Accuracy of The Model</h3>
+<p>Once we have rejected <span class="math inline">\(H_0\)</span> above, we need to comment on the accuracy of our model.</p>
+<p>The quality of a linear regression fit is typically assessed using two related quantities: the residual standard error (RSE) and the <span class="math inline">\(R^2\)</span> statistic.</p>
+<div id="rse" class="section level4">
+<h4>RSE</h4>
+<p>Recall, we’ve already met the <span class="math inline">\(RSE = \sqrt{RSS / (n - 2)}\)</span>. We used it to estimate the value of the standard deviation of the residuals (which were Gaussian, mean 0, s.d. = ?).</p>
+<p>In the advertising example, RSE was 3.26 (measured in thousands of units). So any prediction could be off by about 3260 units (if it’s within 1 standard deviation away from the line).</p>
+<p>RSE is considered a measure of the lack of fit of the model to the data - is the choice of model, namely <span class="math inline">\(Y = \beta_0 + \beta_1 + \epsilon\)</span> a good one?</p>
+</div>
+<div id="r2" class="section level4">
+<h4><span class="math inline">\(R^2\)</span></h4>
+<p>RSE is measured in units of Y, <span class="math inline">\(R^2\)</span> takes the form of a proportion. <span class="math inline">\(R^2\)</span> is the proportion of the variance explained by the model.</p>
+<p><span class="math inline">\(R^2 = \frac{TSS - RSS}{TSS} = 1 - \frac{RSS}{TSS}\)</span></p>
+<p><span class="math inline">\(0 \leq R^2 \leq 1\)</span></p>
+<p>TSS measures the total variance in the response <span class="math inline">\(Y\)</span>:</p>
+<p><span class="math inline">\(TSS = \sum(y_i - \bar{y})^2\)</span></p>
+<p>So, it’s the variance in the <u>actual, observed</u> data.</p>
+<p>RSS measures the variability that is left unexplained after performing the regression.</p>
+<p><span class="math inline">\(RSS = \sum_{i = 1}^{n}(y_i - \hat{y}_i)^2\)</span></p>
+<p>So, it’s the variance left over from the difference between the actual <span class="math inline">\(y_i\)</span> and <span class="math inline">\(\hat{y}_i\)</span>.</p>
+<p>Ergo, <span class="math inline">\(TSS - RSS\)</span> measures the amount of variability in the response that is explained by the regression. <span class="math inline">\(R^2\)</span> measures the proportion of variability in in Y that can be explained using X.</p>
+<p>In Table 3.2, the <span class="math inline">\(R^2\)</span> was 0.61, and so just under two-thirds of the variability in sales is explained by a linear regression on TV.</p>
+<p><span class="math inline">\(R^2\)</span> is a measure of the <em>linear</em> relationship between <span class="math inline">\(X\)</span> and <span class="math inline">\(Y\)</span>. <em>Correlation</em> is also a measure of the linear relationship between <span class="math inline">\(X\)</span> and <span class="math inline">\(Y\)</span>. In simple linear regression, <span class="math inline">\(r^2 = R^2\)</span>. In mutliple linear regression, though, <span class="math inline">\(R^2\)</span> is different: The concept of correlation is between 2 variables, namely <span class="math inline">\(X\)</span> and <span class="math inline">\(Y\)</span> in this case. When we have <span class="math inline">\(X_1, X_2, ... X_n\)</span>, the concept of correlation does not extend to these predictors and <span class="math inline">\(Y\)</span>, as its no longer between 2 variables (it’s between <span class="math inline">\(n + 1\)</span>). But <span class="math inline">\(R^2\)</span> still plays this same role in multiple correlation setting.</p>
+</div>
+</div>
+<div id="additional-info-on-lm-from-r" class="section level3">
+<h3>Additional Info on lm() from R:</h3>
+<p><a href="https://stats.stackexchange.com/questions/5135/interpretation-of-rs-lm-output" class="uri">https://stats.stackexchange.com/questions/5135/interpretation-of-rs-lm-output</a></p>
+</div>
+</div>
+<div id="multiple-linear-regression" class="section level2">
+<h2>Multiple Linear Regression</h2>
+<p>More than one predictor.</p>
+<p><span class="math inline">\(Y = \beta_0 + \beta_1x_1 + \beta_2x2 + ... + \beta_px_p + \epsilon\)</span></p>
+<div id="estimating-regression-coefficients" class="section level3">
+<h3>Estimating Regression Coefficients</h3>
+<p>Can use least squares (like in simple linear regression, but requires matrix algebra).</p>
+<p>NB: simple and multiple regression coefficients can be quite different:</p>
+<div class="figure">
+<img src="https://res.cloudinary.com/da1gwmlvj/image/upload/v1586427329/islr%20notes/mult_wefkis.png" alt="Multiple Regression Coefficients" />
+<p class="caption">Multiple Regression Coefficients</p>
+</div>
+<p><img src="https://res.cloudinary.com/da1gwmlvj/image/upload/v1586427525/islr%20notes/TV_yuqrlo.png" alt="TV" /> <img src="https://res.cloudinary.com/da1gwmlvj/image/upload/v1586427525/islr%20notes/newspaper_idieyi.png" alt="Newspaper" /> <img src="https://res.cloudinary.com/da1gwmlvj/image/upload/v1586427524/islr%20notes/radio_fyczo7.png" alt="Radio" /></p>
+<p>Look at coefficient of Newspaper in multiple (-0.001) and simple (0.055) case. Difference stems from the fact that in the simple linear regression case, the slope term represents the average effect of a \$1000 increase in newspaper advertising, ignoring other predictors. In multiple regression setting, the coefficient for newspaper represents the average effect of increasing newspaper spending by \$1000 while holding TV and radio fixed.</p>
+<p>How can make sense for multiple regression to suggest no relationship between sales and newspaper, where in simple regression case it does?</p>
+<p>Look at the correlation matrix:</p>
+<div class="figure">
+<img src="https://res.cloudinary.com/da1gwmlvj/image/upload/v1586427957/islr%20notes/correlation_j2lazp.png" />
+
+</div>
+<p>Notice that the correlation between radio and newspaper is 0.35. Reveals tendency to spend more on newspaper in markets where more is spent on radio advertising.</p>
+<p>If multiple regression is correct, then newspaper has no <em>direct</em> impact on sales, but radio does. In markets where more spent on radio, sales will be higher AND, as correlation matrix shows, newspaper spend will also be higher. Therefore, in simple linear regression, only looking at sales vs newspaper, we observe that higher newspaper spend tends to be associated with higher sales. Even though it doesn’t actually affect sales!!! Newspaper “takes the credit” in the absence of radio on sales.</p>
+</div>
+<div id="is-there-a-relationship-between-the-response-and-predictors" class="section level3">
+<h3>Is there a relationship Between The Response and Predictors?</h3>
+<p>F-statistic</p>
+<p>The hypothesis being tested here is:</p>
+<p><span class="math inline">\(H_0 : \beta_1 = \beta_2 = ... = \beta_p = 0\)</span> $H_a : $ at least one <span class="math inline">\(\beta_j\)</span> is non-zero</p>
+<p>So, we check whether or not <em>all</em> coefficients are zero.</p>
+<p>Test using the F-statistic.</p>
+<p>When there is no relationship, we expect the F-stat to take a value close to 1. If <span class="math inline">\(H_a\)</span> is true, expect it to be larger than 1. How much larger? Depends on values of <span class="math inline">\(n\)</span> and <span class="math inline">\(p\)</span> -&gt; <span class="math inline">\(n\)</span> large, (lots of data), then needs to be just a little larger. If <span class="math inline">\(n\)</span> small, (not lots of data), <span class="math inline">\(F\)</span> needs to be bigger.</p>
+<p>Each predictor gets its own t-statistic and p-value as well, so why also look at F-stat? Suppose <span class="math inline">\(p = 100\)</span>, then there will be 100 t-statistics, one for each coefficient. In this situation, 5% (so, 5 of them), will fall below the 0.05 threshold by chance. However, the F-statistic does not suffer from this problem because it adjusts for the number of predictors.</p>
+<p>If <span class="math inline">\(p &gt; n\)</span> can’t use least squares.</p>
+</div>
+<div id="deciding-on-important-variables" class="section level3">
+<h3>Deciding on Important Variables</h3>
+<p>We could look at the individual p-values of the t-statistics, but as discussed, if p is large we are likely to make some false discoveries.</p>
+<p>How choose best model? These statistics can be used to judge quality of the model:</p>
+<ul>
+<li>Mallow’s <span class="math inline">\(C_p\)</span></li>
+<li>Akaike Information criterion (AIC),</li>
+<li>Bayesian information criterion (BIC)</li>
+<li>adjusted <span class="math inline">\(R^2\)</span></li>
+</ul>
+<p>If got p vars, can fit <span class="math inline">\(2^p\)</span> models, so will have to get these statistcs for <span class="math inline">\(2^p\)</span> which is a <em>shitload</em></p>
+<p><em>variable selection</em> -</p>
+<ul>
+<li>Forward Selection</li>
+<li>Backward Selection</li>
+<li>Mixed Selection</li>
+</ul>
+</div>
+<div id="model-fit" class="section level3">
+<h3>Model Fit</h3>
+<p>Two of the most common numerical measures of model fit are the RSE and <span class="math inline">\(R^2\)</span>, the fraction of variance explained. These quantities are computed and interpreted in the same fashion as for simple linear regression.</p>
+<p>Recall that in simple regression, <span class="math inline">\(R^2\)</span> is the square of the correlation of the response and the variable: <span class="math inline">\(Cor(X, Y)^2\)</span>. In multiple linear regression, it turns out that it equals <span class="math inline">\(Cor(Y, \hat{Y} )^2\)</span>, the square of the correlation between the response and the fitted linear model.</p>
+<p>Plotting the data: overestimates when only TV or radio is spent on, under-estimates when budget split between the two media. This non-linear relationship cannot be modeled accurately using linear regression. –&gt; <em>synergy / interaction effect</em>.</p>
+<div class="figure">
+<img src="https://res.cloudinary.com/da1gwmlvj/image/upload/v1586527766/islr%20notes/quad_yefb2i.png" />
+
+</div>
+</div>
+<div id="predictions" class="section level3">
+<h3>Predictions</h3>
+<p>We can compute a confidence interval in order to determine how close <span class="math inline">\(\hat{Y}\)</span> will be to <span class="math inline">\(f(X)\)</span>.</p>
+<p>Prediction intervals to see how much <span class="math inline">\(\hat{Y}\)</span> will vary from <span class="math inline">\(Y\)</span>. Prediction intervals are always wider than confidence intervals because they incorporate both reducible and irreducible error. Confidence intervals only look at reducible error.</p>
+<p>Irreducible error arises from the fact that X doesn’t completely determine <span class="math inline">\(Y\)</span> (the error term).</p>
+<p><span class="math inline">\(\hat{Y} = \hat{\beta_0} + \hat{\beta_1}X_1 + ... + \hat{\beta_p}X_p\)</span></p>
+<p>is only an estimate for</p>
+<p><span class="math inline">\(f(X) = \beta_0 + \beta_1X_1 + ... + \beta_pX_p\)</span></p>
+<p>So, it obvisouly doesn’t take into account the error term <span class="math inline">\(\epsilon\)</span>…</p>
+<p><span class="math inline">\(Y = f(X) + \epsilon\)</span></p>
+</div>
+</div>
+</div>
+<div id="ch4" class="section level1">
+<h1>Chapter 4: Classification</h1>
+<p>New Terms:</p>
+<ul>
+<li>logistic function</li>
+<li>maximum likelihood</li>
+<li>odds</li>
+<li>log odds / logit</li>
+<li>Confounding</li>
+<li>prior</li>
+<li>discriminant function</li>
+</ul>
+<div id="why-not-linear-regression" class="section level2">
+<h2>Why not Linear Regression?</h2>
+<p>Choice of encoding affects model.</p>
+<p>For example, suppose you’re trying to predict <span class="math inline">\(Y\)</span>:</p>
+<div class="figure">
+<img src="https://res.cloudinary.com/da1gwmlvj/image/upload/v1586866723/islr%20notes/choice_enc_d22ahc.png" />
+
+</div>
+<p>This coding implies an ordering of the outcomes (in linear regression setting).</p>
+<p>If you had to code this differently, the different coding would create a different model. So… Don’t use Linear Regression!</p>
+<p>2 variable case is better:</p>
+<div class="figure">
+<img src="https://res.cloudinary.com/da1gwmlvj/image/upload/v1586866898/islr%20notes/2var_h4wtsr.png" />
+
+</div>
+<p>But, could get estimates outside the <span class="math inline">\([0,1]\)</span> range making them hard to interpret as probabilities.</p>
+</div>
+<div id="logistic-regression" class="section level2">
+<h2>Logistic Regression</h2>
+<div class="figure">
+<img src="https://res.cloudinary.com/da1gwmlvj/image/upload/v1586427957/islr%20notes/correlation_j2lazp.png" />
+
+</div>
+<div id="the-logistic-model" class="section level3">
+<h3>The Logistic Model</h3>
+<p>To avoid this problem, we must model p(X) using a function that gives outputs between 0 and 1 for all values of X. <strong>Many functions meet this description.</strong> We use the logistic function in this model:</p>
+<p><span class="math inline">\(p(X) = \frac{e^{\beta_0 + \beta_1X}}{1 + e^{\beta_0 + \beta_1X}}\)</span></p>
+<p>To fit the model, use <em>Maximum Likelihood</em>.</p>
+<p>Can manipulate the above equation to get:</p>
+<p><span class="math inline">\(\frac{p(X)}{1 - p(X)} = e^{\beta_0 + \beta_1X}\)</span></p>
+<p><span class="math inline">\(p(X)/[1−p(X)]\)</span> is called the odds, and can take on any value odds between <span class="math inline">\(0\)</span> and <span class="math inline">\(\infty\)</span>.</p>
+<p>Take the logarithm of both sides to get the log-odds:</p>
+<p><span class="math inline">\(\log(\frac{p(X)}{1 - p(X)}) = \beta_0 + \beta_1X\)</span></p>
+<p>Let hand side is called the <em>log-odds</em> or <em>logit</em>.</p>
+<p>Recall from Chapter 3 that in a linear regression model, <span class="math inline">\(\beta_1\)</span> gives the average change in <span class="math inline">\(Y\)</span> associated with a one-unit increase in <span class="math inline">\(X\)</span>. In contrast, in a logistic regression model, increasing <span class="math inline">\(X\)</span> by one unit changes the <em>log odds</em> by <span class="math inline">\(\beta_1\)</span>.</p>
+</div>
+<div id="estimating-the-regression-coefficients" class="section level3">
+<h3>Estimating the Regression Coefficients</h3>
+<p>In Chapter 3, we used the least squares approach to estimate the unknown linear regression coefficients. Although we could use (non-linear) least squares to fit the model, the more general method of maximum likelihood is preferred, since it has better statistical properties.</p>
+<p>We seek estimates of <span class="math inline">\(\beta_0\)</span> and <span class="math inline">\(\beta_1\)</span> such that the predicted probability <span class="math inline">\(\hat{p}(x_i)\)</span> corresponds as closely as possible to the observed value (for each <span class="math inline">\(i\)</span>). Mathematically, we wish to maximize the <em>likelihood function</em>.</p>
+<p>The idea: Maximize the probability of seeing the data, by tuning the coefficients.</p>
+<div class="figure">
+<img src="https://res.cloudinary.com/da1gwmlvj/image/upload/v1587822265/islr%20notes/ml_bdp4ix.png" />
+
+</div>
+<p>The estimates <span class="math inline">\(\hat{\beta}_0\)</span> and <span class="math inline">\(\hat{\beta}_1\)</span> are chosen to <em>maximize</em> the above likelihood function.</p>
+<p>In the linear regression setting, the least squares approach is in fact a special case of maximum likelihood.</p>
+<p>Let’s look at a table of coefficients in this setting (we try to predict a default based on balance of an individual):</p>
+<div class="figure">
+<img src="https://res.cloudinary.com/da1gwmlvj/image/upload/v1587822570/islr%20notes/logistic_results_zxcf30.png" />
+
+</div>
+<p>Notice how the log odds are affected by the coefficient, not the direct probability.</p>
+<p>Note that we use a Z-statistic, not a t-statistic. - In logistic and poisson regression but not in regression with gaussian errors, we know the expected variance and don’t have to estimate it separately. (<a href="https://stats.stackexchange.com/questions/60074/wald-test-for-logistic-regression" class="uri">https://stats.stackexchange.com/questions/60074/wald-test-for-logistic-regression</a>)</p>
+</div>
+<div id="making-predictions" class="section level3">
+<h3>Making Predictions</h3>
+<p>Just plug in the values… for example, a balance of $1000:</p>
+<div class="figure">
+<img src="https://res.cloudinary.com/da1gwmlvj/image/upload/v1587822888/islr%20notes/estimateing_aitwd2.png" />
+
+</div>
+<p>Can use indicator variables, like with linear regression. For example, say we wish to predict a default based on whether or not a persion is a student:</p>
+<div class="figure">
+<img src="https://res.cloudinary.com/da1gwmlvj/image/upload/v1587823064/islr%20notes/student_ezszfx.png" />
+
+</div>
+</div>
+<div id="multiple-logistic-regression" class="section level3">
+<h3>Multiple Logistic Regression</h3>
+<p>Using multiple predictors:</p>
+<div class="figure">
+<img src="https://res.cloudinary.com/da1gwmlvj/image/upload/v1587823175/islr%20notes/multiple_reg_gtzxsz.png" />
+
+</div>
+<p>So, we now try predict default based on whether or not a person is a student, <strong>and</strong> their balance.</p>
+<div class="figure">
+<img src="https://res.cloudinary.com/da1gwmlvj/image/upload/v1587823583/islr%20notes/mutliple_reg_table_vjgfgc.png" />
+
+</div>
+<p>Previously, the coefficient of student was positive (when it was the sole predictor). Now, it is negative. How can this be?</p>
+<p>Look at this:</p>
+<div class="figure">
+<img src="https://res.cloudinary.com/da1gwmlvj/image/upload/v1587825057/islr%20notes/diffs_iicmbf.png" />
+
+</div>
+<p>Basically what the left hand graph is showing, is that for a given level of balance, a student is less risky. But there are more students with higher balances (the right hand side shows this). So, in the absence of balance data, the indicator variable “student” acts as a sort of proxy for it. In general this is known as confounding.</p>
+</div>
+<div id="logistic-for-2-response-classes" class="section level3">
+<h3>Logistic for &gt;2 Response Classes</h3>
+<p>There are extensions to the 2 class classification for logistic regression (using softmax), but this book discusses Linear Discriminant Analyis instead.</p>
+</div>
+</div>
+<div id="linear-discriminant-analysis" class="section level2">
+<h2>Linear Discriminant Analysis</h2>
+<p>In logisitc regression we model <span class="math inline">\(P(y = k | X = x)\)</span>, for the 2 class case. IE, we model the conditional distribution of <span class="math inline">\(Y\)</span>, given the predictor(s), <span class="math inline">\(X\)</span>.</p>
+<p>In LDA, model the distribution of the predictors <span class="math inline">\(X\)</span> <em>in each response class</em>, and then use Bayes’ theorem to flip these into: <span class="math inline">\(P(y = k | X = x)\)</span>. It’s kind of like saying: model the distribution of the predictors in each response class, and then pick the response class where it’s most likely that the given instance of <span class="math inline">\(X\)</span> came from.</p>
+<p>When the classes are well-separated, the parameter estimates for the logistic regression model are surprisingly unstable. Linear discriminant analysis does not suffer from this problem.</p>
+<p>If n is small and the distribution of the predictors X is approximately normal in each of the classes, the linear discriminant model is again more stable than the logistic regression model.</p>
+</div>
+</div>
+
+              
+            </div>
+          </div>
+          <div id="post-footer" class="post-footer main-content-wrap">
+            
+              
+                
+                
+                  <div class="post-footer-tags">
+                    <span class="text-color-light text-small"></span><br/>
+                    
+  <a class="tag tag--primary tag--small" href="/tags/statistics/">statistics</a>
+
+  <a class="tag tag--primary tag--small" href="/tags/hitchikers_guide/">hitchikers_guide</a>
+
+                  </div>
+                
+              
+            
+            <div class="post-actions-wrap">
+  
+      <nav >
+        <ul class="post-actions post-action-nav">
+          
+            <li class="post-action">
+              
+                <a class="post-action-btn btn btn--default tooltip--top" href="/2017/10/hi-there.-this-is-my-first-post.-or-linear-algebra-bra/" data-tooltip="Hi There. This is my first post. Or: Linear Algebra, bra?">
+              
+                  <i class="fa fa-angle-left"></i>
+                  <span class="hide-xs hide-sm text-small icon-ml"></span>
+                </a>
+            </li>
+            <li class="post-action">
+              
+                <a class="post-action-btn btn btn--default tooltip--top" href="/1/07/moment-generating-functions/" data-tooltip="Moment Generating Functions">
+              
+                  <span class="hide-xs hide-sm text-small icon-mr"></span>
+                  <i class="fa fa-angle-right"></i>
+                </a>
+            </li>
+          
+        </ul>
+      </nav>
+    <ul class="post-actions post-action-share" >
+      
+        <li class="post-action hide-lg hide-md hide-sm">
+          <a class="post-action-btn btn btn--default btn-open-shareoptions" href="#btn-open-shareoptions">
+            <i class="fa fa-share-alt"></i>
+          </a>
+        </li>
+        
+          <li class="post-action hide-xs">
+            <a class="post-action-btn btn btn--default" target="new" href="https://www.facebook.com/sharer/sharer.php?u=/1/07/islr-notes/">
+              <i class="fa fa-facebook-official"></i>
+            </a>
+          </li>
+        
+          <li class="post-action hide-xs">
+            <a class="post-action-btn btn btn--default" target="new" href="https://twitter.com/intent/tweet?text=/1/07/islr-notes/">
+              <i class="fa fa-twitter"></i>
+            </a>
+          </li>
+        
+          <li class="post-action hide-xs">
+            <a class="post-action-btn btn btn--default" target="new" href="https://plus.google.com/share?url=/1/07/islr-notes/">
+              <i class="fa fa-google-plus"></i>
+            </a>
+          </li>
+        
+      
+      
+        <li class="post-action">
+          <a class="post-action-btn btn btn--default" href="#disqus_thread">
+            <i class="fa fa-comment-o"></i>
+          </a>
+        </li>
+      
+      <li class="post-action">
+        
+          <a class="post-action-btn btn btn--default" href="#">
+        
+          <i class="fa fa-list"></i>
+        </a>
+      </li>
+    </ul>
+  
+</div>
+
+            
+              
+                <div id="disqus_thread">
+  <noscript>Please enable JavaScript to view the <a href="//disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+</div>
+              
+            
+          </div>
+        </article>
+        <footer id="footer" class="main-content-wrap">
+  <span class="copyrights">
+    &copy; 2020 Orry Messer. 
+  </span>
+</footer>
+
+      </div>
+      <div id="bottom-bar" class="post-bottom-bar" data-behavior="5">
+        <div class="post-actions-wrap">
+  
+      <nav >
+        <ul class="post-actions post-action-nav">
+          
+            <li class="post-action">
+              
+                <a class="post-action-btn btn btn--default tooltip--top" href="/2017/10/hi-there.-this-is-my-first-post.-or-linear-algebra-bra/" data-tooltip="Hi There. This is my first post. Or: Linear Algebra, bra?">
+              
+                  <i class="fa fa-angle-left"></i>
+                  <span class="hide-xs hide-sm text-small icon-ml"></span>
+                </a>
+            </li>
+            <li class="post-action">
+              
+                <a class="post-action-btn btn btn--default tooltip--top" href="/1/07/moment-generating-functions/" data-tooltip="Moment Generating Functions">
+              
+                  <span class="hide-xs hide-sm text-small icon-mr"></span>
+                  <i class="fa fa-angle-right"></i>
+                </a>
+            </li>
+          
+        </ul>
+      </nav>
+    <ul class="post-actions post-action-share" >
+      
+        <li class="post-action hide-lg hide-md hide-sm">
+          <a class="post-action-btn btn btn--default btn-open-shareoptions" href="#btn-open-shareoptions">
+            <i class="fa fa-share-alt"></i>
+          </a>
+        </li>
+        
+          <li class="post-action hide-xs">
+            <a class="post-action-btn btn btn--default" target="new" href="https://www.facebook.com/sharer/sharer.php?u=/1/07/islr-notes/">
+              <i class="fa fa-facebook-official"></i>
+            </a>
+          </li>
+        
+          <li class="post-action hide-xs">
+            <a class="post-action-btn btn btn--default" target="new" href="https://twitter.com/intent/tweet?text=/1/07/islr-notes/">
+              <i class="fa fa-twitter"></i>
+            </a>
+          </li>
+        
+          <li class="post-action hide-xs">
+            <a class="post-action-btn btn btn--default" target="new" href="https://plus.google.com/share?url=/1/07/islr-notes/">
+              <i class="fa fa-google-plus"></i>
+            </a>
+          </li>
+        
+      
+      
+        <li class="post-action">
+          <a class="post-action-btn btn btn--default" href="#disqus_thread">
+            <i class="fa fa-comment-o"></i>
+          </a>
+        </li>
+      
+      <li class="post-action">
+        
+          <a class="post-action-btn btn btn--default" href="#">
+        
+          <i class="fa fa-list"></i>
+        </a>
+      </li>
+    </ul>
+  
+</div>
+
+      </div>
+      <div id="share-options-bar" class="share-options-bar" data-behavior="5">
+  <i id="btn-close-shareoptions" class="fa fa-close"></i>
+  <ul class="share-options">
+    
+      <li class="share-option">
+        <a class="share-option-btn" target="new" href="https://www.facebook.com/sharer/sharer.php?u=%2F1%2F07%2Fislr-notes%2F">
+          <i class="fa fa-facebook-official"></i><span>%!(EXTRA string=Facebook)</span>
+        </a>
+      </li>
+    
+      <li class="share-option">
+        <a class="share-option-btn" target="new" href="https://twitter.com/intent/tweet?text=%2F1%2F07%2Fislr-notes%2F">
+          <i class="fa fa-twitter"></i><span>%!(EXTRA string=Twitter)</span>
+        </a>
+      </li>
+    
+      <li class="share-option">
+        <a class="share-option-btn" target="new" href="https://plus.google.com/share?url=%2F1%2F07%2Fislr-notes%2F">
+          <i class="fa fa-google-plus"></i><span>%!(EXTRA string=Google&#43;)</span>
+        </a>
+      </li>
+    
+  </ul>
+</div>
+<div id="share-options-mask" class="share-options-mask"></div>
+    </div>
+    
+    <div id="about">
+  <div id="about-card">
+    <div id="about-btn-close">
+      <i class="fa fa-remove"></i>
+    </div>
+    
+      <img id="about-card-picture" src="https://res.cloudinary.com/da1gwmlvj/image/upload/v1585486959/me_2_wm4mmw.jpg" alt="" />
+    
+    <h4 id="about-card-name">Orry Messer</h4>
+    
+      <div id="about-card-bio">WHERE ARE MY SHOES</div>
+    
+    
+      <div id="about-card-job">
+        <i class="fa fa-briefcase"></i>
+        <br/>
+        Data Masseuse / Broke Philanthropist / Sloth Tamer / WILL CODE FOR CHIPS
+      </div>
+    
+    
+      <div id="about-card-location">
+        <i class="fa fa-map-marker"></i>
+        <br/>
+        Johannesburg, South Africa, Africa, Planet of Earth (The garbage filled one next to the red one).
+      </div>
+    
+  </div>
+</div>
+    
+
+    
+  
+    <div id="cover" style="background-image:url('https://res.cloudinary.com/da1gwmlvj/image/upload/v1585487294/sunset_oyvlju.jpg');"></div>
+  
+
+
+    
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/2.2.4/jquery.min.js" integrity="sha256-BbhdlvQf/xTY9gja0Dq3HiwQF8LaCRTXxZKRutelT44=" crossorigin="anonymous"></script>
+
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.12.0/highlight.min.js" integrity="sha256-/BfiIkHlHoVihZdc6TFuj7MmJ0TWcWsMXkeDFwhi0zw=" crossorigin="anonymous"></script>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/fancybox/2.1.7/js/jquery.fancybox.min.js" integrity="sha256-GEAnjcTqVP+vBp3SSc8bEDQqvWAZMiHyUSIorrWwH50=" crossorigin="anonymous"></script>
+
+
+<script src="/js/script-pcw6v3xilnxydl1vddzazdverrnn9ctynvnxgwho987mfyqkuylcb1nlt.min.js"></script>
+
+
+<script lang="javascript">
+window.onload = updateMinWidth;
+window.onresize = updateMinWidth;
+document.getElementById("sidebar").addEventListener("transitionend", updateMinWidth);
+function updateMinWidth() {
+  var sidebar = document.getElementById("sidebar");
+  var main = document.getElementById("main");
+  main.style.minWidth = "";
+  var w1 = getComputedStyle(main).getPropertyValue("min-width");
+  var w2 = getComputedStyle(sidebar).getPropertyValue("width");
+  var w3 = getComputedStyle(sidebar).getPropertyValue("left");
+  main.style.minWidth = `calc(${w1} - ${w2} - ${w3})`;
+}
+</script>
+
+<script>
+$(document).ready(function() {
+  hljs.configure({ classPrefix: '', useBR: false });
+  $('pre.code-highlight > code, pre > code').each(function(i, block) {
+    if (!$(this).hasClass('codeblock')) {
+      $(this).addClass('codeblock');
+    }
+    hljs.highlightBlock(block);
+  });
+});
+</script>
+
+
+  
+    
+      <script>
+        var disqus_config = function () {
+          this.page.url = '\/1\/07\/islr-notes\/';
+          
+            this.page.identifier = '\/1\/07\/islr-notes\/'
+          
+        };
+        (function() {
+          
+          
+          if (window.location.hostname == "localhost") {
+            return;
+          }
+          var d = document, s = d.createElement('script');
+          var disqus_shortname = 'orrymr';
+          s.src = '//' + disqus_shortname + '.disqus.com/embed.js';
+
+          s.setAttribute('data-timestamp', +new Date());
+          (d.head || d.body).appendChild(s);
+        })();
+      </script>
+    
+  
+
+
+  <script type="text/javascript" async src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.4/MathJax.js?config=TeX-AMS_CHTML-full" integrity="sha256-GhM+5JHb6QUzOQPXSJLEWP7R73CbkisjzK5Eyij4U9w=" crossorigin="anonymous"></script>
+  <script type="text/x-mathjax-config">
+    MathJax.Hub.Config({
+      CommonHTML: { linebreaks: { automatic: true } },
+      tex2jax: { inlineMath: [ ['$', '$'], ['\\(','\\)'] ], displayMath: [ ['$$','$$'], ['\\[', '\\]'] ], processEscapes: false },
+      messageStyle: 'none'
+    });
+  </script>
+
+
+
+    
+  </body>
+</html>
+

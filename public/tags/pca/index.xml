@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>pca on orrymr.com</title>
+    <link>/tags/pca/</link>
+    <description>Recent content in pca on orrymr.com</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>en</language>
+    <lastBuildDate>Mon, 04 Mar 2019 00:00:00 +0000</lastBuildDate>
+    
+	<atom:link href="/tags/pca/index.xml" rel="self" type="application/rss+xml" />
+    
+    
+    <item>
+      <title>r-pca</title>
+      <link>/2019/03/r-pca/</link>
+      <pubDate>Mon, 04 Mar 2019 00:00:00 +0000</pubDate>
+      
+      <guid>/2019/03/r-pca/</guid>
+      <description>
+
+
+&lt;p&gt;Principal Components Analysis (PCA) is a commonly used dimensionality reduction algorithm. In this post, we show how to perform PCA in R. This post will only briefly touch on the theory behind PCA; instead, we focus on intuition, implementation and interpretation.&lt;/p&gt;
+</description>
+    </item>
+    
+  </channel>
+</rss>
