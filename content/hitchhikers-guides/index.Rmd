@@ -6,7 +6,11 @@ date: '2020-07-17'
 
 I've started preparing these guides across various topics. I've done this at some of the places I've worked, and they seem pretty useful. I use these as a handy reference to technical topics.
 
+These are rough notes, not really meant for public consumption (but who even reads this blog?). Parts of these guides will probably end up as blog posts.
+
 Guides:
 
 
-- [The Hitchhiker's Guide to Inferential Statistics](/2020/07/hitchikers-guide-to-inferential-statistics/)
+- [The Hitchhiker's Guide to Inferential Statistics](/1/07/hitchikers-guide-to-inferential-statistics/)
+- [ISLR Notes](/1/07/islr-notes)
+- [Moment Generating Functions](/1/07/moment-generating-functions)

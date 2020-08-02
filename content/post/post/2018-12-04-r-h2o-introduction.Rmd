@@ -4,8 +4,8 @@ author: 'Orry Messer'
 date: '2018-12-04'
 slug: intro-to-h2o-using-r
 draft: false
-categories: [data-science]
-tags: [h2o, data-science, machine-learning, R]
+categories: []
+tags: [h2o, data-science, machine-learning, R, data-science]
 thumbnailImagePosition: left
 thumbnailImage: https://res.cloudinary.com/da1gwmlvj/image/upload/v1585758281/h20_lmgr5y.png
 ---

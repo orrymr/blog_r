@@ -1,0 +1,12 @@
+.preamble {
+  background-color: #4F5148;
+  color:#AFBC6F;
+}
+/*.sidebar-profile-name{
+	background-color: #4F5148;
+}*/
+
+.shift-down{
+	margin-top:100px;
+	background-color: #4F514880; /* last two characters are the alpha value */
+}
