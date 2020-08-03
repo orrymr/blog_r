@@ -45,6 +45,38 @@ Can also be used in conjunction with "still" - I'm still at home - ngisasekhaya.
 (se - can mean has, like has died)
 
 usedlile - he has eaten
+
 useshonile - he has died
+
+
+# Translations
+
+## English
+
+1. Workers of the government caught doing something immoral will be imprisoned
+
+## Zulu
+
+2. Abasebenzi bahulumeni abanjwa benza inkohlakalo bazoboshwa.
+
+
+# Questions and Answers
+
+## English
+
+1. Who is the minister of Police?
+2. What is Manatashe the minister of?
+3. What has Cele announced?
+4. Who will be imprisoned?
+
+## Zulu
+
+1. Ubani ungqongqoshe waPhoyisa?
+2. u-Mantashe ungqongqoshe wani?
+3. u-Mantashe usememezele yini?
+4. Obani bazoboshwa?
+
+
+
 
 

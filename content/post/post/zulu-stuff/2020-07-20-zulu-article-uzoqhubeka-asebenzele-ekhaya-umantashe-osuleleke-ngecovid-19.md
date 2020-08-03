@@ -93,18 +93,24 @@ Mantashe will continue wokring from home because he is infect w/ covid 19
 2. Who closed themselves off?
 3. Where was the statement taken from?
 4. What is Mantashe the minister of?
+5. How do we know Mantashe is infected with covid?
 
 ## Questions in isiZulu
 
-1.a Ubani inkosikazi yaMantashe? (possessive concords 2nd table on https://isizulu.net/grammar/)
-1.b Ubani umfazi waMantashe?
-1.c Ubani umkakhe waManthase?
+1. Ubani inkosikazi yaMantashe? (possessive concords 2nd table on https://isizulu.net/grammar/) /  Ubani umfazi waMantashe? / Ubani umkakhe waManthase?
 2. Obani bazivalele? (Plural of Ubani is Obani)
 3. Sikhishwe kuphi isitatimendi?
 4. uMantashe ungqongqoshe wani? (possessive, wa+ni)
+5. Siyazi kanjani uMantashe uhaqeke ngeCovid-19?
 
 
+## Answers in English
 
+5. It is said in the statement taken from the president's office
+
+## Answers in Zulu
+
+5. Kuthiwa esitatimendi esikhishwe yihhovisi likamongameli
 
 
 

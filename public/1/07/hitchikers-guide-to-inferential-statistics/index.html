@@ -348,6 +348,8 @@ if (!doNotTrack) {
 <p>However, the standard deviation of the distribution of sample means <em>is</em> related to the standard deviation of the population. But, it’s also related to the sample size. In the above graphs, see how the probability distributions of the graphs get thinner, as the number of dice goes up? The bigger your sample size, the closer your sample means are to the true population mean. So we need to adjust the original population standard deviation somehow to reflect this:</p>
 <p><span class="math inline">\(\sigma_{samplingDistribution} = \frac{\sigma_{population}}{\sqrt{n}}\)</span></p>
 <p>The standard deviation of a sampling distribution is called the <em>standard error</em>.</p>
+<p>Note here that the number of rolls does not affect the shape of the distribution, only how accurately we approximate it. Think about it, the true shape is determined by the number of dice we have. If we have fewer dice, we expect the mean value we get for them to fluctuate more wildly.</p>
+<p><img src="/post/post/hhguides/2020-07-17-hitchikers-guide-to-inferential-statistics_files/figure-html/unnamed-chunk-3-1.png" width="672" /><img src="/post/post/hhguides/2020-07-17-hitchikers-guide-to-inferential-statistics_files/figure-html/unnamed-chunk-3-2.png" width="672" /></p>
 <p>Can also use sampling distributions to compare other parameters - proportions, regression coefficients, or standard deviations, which also follow the central limit theorem.</p>
 </div>
 <div id="t-distribution" class="section level2">
@@ -475,6 +477,33 @@ if (!doNotTrack) {
 <p>d.o.f = (r-1)(c-1).</p>
 </div>
 </div>
+<div id="glm---general-linear-model" class="section level2">
+<h2>GLM - General Linear Model</h2>
+<p>Allow us to create many different models, like the regression model.</p>
+<p>GLM overview: Data = Model + Error.</p>
+<p>ie, <span class="math inline">\(y = b + mx\)</span>. (error is b; model part is mx)</p>
+<p>Error is a deviation in model.</p>
+<div id="linear-regression" class="section level3">
+<h3>Linear Regression</h3>
+<p>Assumption is that data is linear. Regression line is the line that’s as close as possible to all data points at once. Ie, minimizes Sum of squared distances from line.</p>
+<p>Residual plot - plot the errors.</p>
+<p>F-Test -&gt; quantify how well we think our data fit a distribution, like the null distribution.</p>
+<p>Recall, in general, a Test Stat = <span class="math inline">\(\frac{ObservedData - WhatWeExpectIfTheNullIsTrue}{AverageVariation}\)</span>.</p>
+<p>F-stat = <span class="math inline">\(\frac{ObservedModel - ModelIfNullIsTrue}{AverageVariation}\)</span>.</p>
+<p>Consider total sum of squares: <span class="math inline">\(\sum(y_i -\bar{y}) ^ 2\)</span> &lt;- total variation in the dataset. We want to know how much of that variation is accounted for in our model, and how much is just error. (good explanation)[<a href="https://youtu.be/WWqE7YHR4Jc?list=PL8dPuuaLjXtNM_Y-bUAhblSAdWRnmBUcr&amp;t=424" class="uri">https://youtu.be/WWqE7YHR4Jc?list=PL8dPuuaLjXtNM_Y-bUAhblSAdWRnmBUcr&amp;t=424</a>] - but the idea is, that from the data we calculate some slope coefficient, <span class="math inline">\(\hat{\beta}\)</span>, let’s say <span class="math inline">\(\hat{\beta} = 6.468\)</span>. We want to know what the difference would be if we assumed no relationship, ie <span class="math inline">\(\hat{\beta} = 0\)</span>.</p>
+<p><span class="math inline">\(F-stat = \frac{SSR}{Average Variation}\)</span> - numerator, sum of squares for regression, is the difference between the models using the calculated slope, and a slope of 0. Bottom part is SSE.</p>
+<p><b>F statistic allows us to directly compare the amount of variation can and cannot explain</b>.</p>
+<p><span class="math inline">\(t^2 = F\)</span></p>
+</div>
+<div id="anova" class="section level3">
+<h3>ANOVA</h3>
+<p>Test the difference between multiple groups.</p>
+<p>Similar to regression, except use a categorical to predict an outcome. Like using degree studied for vs salary.</p>
+<p>Note, Anova can tell you that there is a statistically significant difference between the groups, but not where it is. So follow up with multiple t-tests (Bonferroni).</p>
+<p>The ANOVA makes an assumption about the world which it tests: that the best prediction for a variable is the mean rating of the group it belongs to!</p>
+<p>RA Fisher.</p>
+</div>
+</div>
 </div>
 <div id="definitions" class="section level1">
 <h1>Definitions</h1>
@@ -487,6 +516,7 @@ if (!doNotTrack) {
 <li><u>Inference</u> - the process of drawing conclusions about population parameters based on a sample taken from the population.</li>
 <li><u>P-Value</u> - probability of obtaining test results at least as extreme as the results actually observed, assuming that the null hypothesis is correct.</li>
 <li><u>Point Estimate </u> - a single value given as an estimate of a parameter of a population. Like the mean.</li>
+<li><u>Regression Line </u> - Regression line is the line that’s as close as possible to all data points at once.</li>
 <li><u>Sampling distribution</u> - the probability distribution of a sample statistic (like the mean, or variance).</li>
 <li><u>Standard Error</u> - of a statistic (usually an estimate of a parameter - like the mean) is the standard deviation of its sampling distribution. For example, Standard error of the mean is <span class="math inline">\(\sigma_{\bar{x}} = \frac{\sigma}{\sqrt{n}}\)</span></li>
 <li><u>Statistical Power </u> - <span class="math inline">\(1 - \beta\)</span> - chance of detecting an effect if there is one.</li>

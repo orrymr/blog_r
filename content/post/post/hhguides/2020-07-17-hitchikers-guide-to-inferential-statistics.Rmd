@@ -92,6 +92,7 @@ This is described formally in the __Central Limit Theorem__ (see definitions).
 # n = number of dice
 
 roll <- function(m, n){
+  set.seed(1234)
   means <- plyr::ldply(1:m, function(x){
     return(mean(sample(1:6, n, replace = TRUE)))
   }) 
@@ -255,6 +256,46 @@ However, the standard deviation of the distribution of sample means _is_ related
 $\sigma_{samplingDistribution} = \frac{\sigma_{population}}{\sqrt{n}}$
 
 The standard deviation of a sampling distribution is called the _standard error_.
+
+Note here that the number of rolls does not affect the shape of the distribution, only how accurately we approximate it. Think about it, the true shape is determined by the number of dice we have. If we have fewer dice, we expect the mean value we get for them to fluctuate more wildly. 
+
+```{r}
+n_ = 20
+m_ = 10
+g <- ggplot(roll(m = m_, n = n_),
+            mapping = aes(x = V1)) +
+  geom_density() +
+  geom_vline(xintercept = 3.5, colour = "tomato3") +
+  labs(
+    subtitle = str_interp('Density of means of dice rolls for ${n_} dice over ${m_} rolls.'),
+    x = 'Mean Score'
+  ) +
+  geom_bar(aes(y = ..prop..), width = 0.1, alpha = 0.4) +
+  scale_x_continuous(
+    breaks = 1:6,
+    lim =  c(0, 7)
+  )
+
+g
+
+n_ = 20
+m_ = 10000
+g <- ggplot(roll(m = m_, n = n_),
+            mapping = aes(x = V1)) +
+  geom_density() +
+  geom_vline(xintercept = 3.5, colour = "tomato3") +
+  labs(
+    subtitle = str_interp('Density of means of dice rolls for ${n_} dice over ${m_} rolls.'),
+    x = 'Mean Score'
+  ) +
+  geom_bar(aes(y = ..prop..), width = 0.1, alpha = 0.4) +
+  scale_x_continuous(
+    breaks = 1:6,
+    lim =  c(0, 7)
+  )
+
+g
+```
 
 
 Can also use sampling distributions to compare other parameters - proportions, regression coefficients, or standard deviations, which also follow the central limit theorem.
@@ -463,6 +504,50 @@ d.o.f = (r-1)(c-1).
 
 
 
+
+## GLM - General Linear Model
+
+Allow us to create many different models, like the regression model.
+
+GLM overview: Data = Model + Error.
+
+ie, $y = b + mx$. (error is b; model part is mx)
+
+Error is a deviation in model.
+
+### Linear Regression
+
+Assumption is that data is linear. Regression line is the line that's as close as possible to all data points at once. Ie, minimizes Sum of squared distances from line.
+
+Residual plot - plot the errors. 
+
+F-Test -> quantify how well we think our data fit a distribution, like the null distribution.
+
+Recall, in general, a Test Stat = $\frac{ObservedData - WhatWeExpectIfTheNullIsTrue}{AverageVariation}$.
+
+F-stat = $\frac{ObservedModel - ModelIfNullIsTrue}{AverageVariation}$.
+
+Consider total sum of squares: $\sum(y_i -\bar{y}) ^ 2$ <- total variation in the dataset. We want to know how much of that variation is accounted for in our model, and how much is just error. (good explanation)[https://youtu.be/WWqE7YHR4Jc?list=PL8dPuuaLjXtNM_Y-bUAhblSAdWRnmBUcr&t=424] - but the idea is, that from the data we calculate some slope coefficient, $\hat{\beta}$, let's say $\hat{\beta} = 6.468$. We want to know what the difference would be if we assumed no relationship, ie $\hat{\beta} = 0$.
+
+$F-stat = \frac{SSR}{Average Variation}$ - numerator, sum of squares for regression, is the difference between the models using the calculated slope, and a slope of 0. Bottom part is SSE.
+
+<b>F statistic allows us to directly compare the amount of variation can and cannot explain</b>.
+
+$t^2 = F$
+
+
+### ANOVA
+
+Test the difference between multiple groups.
+
+Similar to regression, except use a categorical to predict an outcome. Like using degree studied for vs salary. 
+
+Note, Anova can tell you that there is a statistically significant difference between the groups, but not where it is. So follow up with multiple t-tests (Bonferroni). 
+
+The ANOVA makes an assumption about the world which it tests: that the best prediction for a variable is the mean rating of the group it belongs to!
+
+RA Fisher.
+
 # Definitions
 
 - <u>Bayes' Factor</u> - Represents the amount of info we've learned about our hypotheses from the data.
@@ -474,6 +559,7 @@ d.o.f = (r-1)(c-1).
 - <u>Inference</u> - the process of drawing conclusions about population parameters based on a sample taken from the population.
 - <u>P-Value</u> - probability of obtaining test results at least as extreme as the results actually observed, assuming that the null hypothesis is correct.
 - <u>Point Estimate </u> - a single value given as an estimate of a parameter of a population. Like the mean.
+- <u>Regression Line </u> - Regression line is the line that's as close as possible to all data points at once.
 - <u>Sampling distribution</u> - the probability distribution of a sample statistic (like the mean, or variance).
 - <u>Standard Error</u> - of a statistic (usually an estimate of a parameter - like the mean) is the standard deviation of its sampling distribution. For example, Standard error of the mean is $\sigma_{\bar{x}} = \frac{\sigma}{\sqrt{n}}$
 - <u>Statistical Power </u> - $1 - \beta$ - chance of detecting an effect if there is one.
