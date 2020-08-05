@@ -8,35 +8,37 @@
 <meta name="generator" content="Hugo 0.68.3 with theme Tranquilpeak 0.4.7-BETA">
 <meta name="author" content="Orry Messer">
 <meta name="keywords" content="tech">
-<meta name="description" content="UCele uthi bazoboshwa abasebenzi bakahulumeni abazobanjwa benza inkohlakalo
-Cele says they will be imprisoned, the workers of the government who will be caught doing something immoral">
+<meta name="description" content="In this post we&rsquo;ll talk about what the Central Limit Theorem is, why it&rsquo;s important, and how we can see it in action, using R.
+\(\mu\)">
 
 
-<meta property="og:description" content="UCele uthi bazoboshwa abasebenzi bakahulumeni abazobanjwa benza inkohlakalo
-Cele says they will be imprisoned, the workers of the government who will be caught doing something immoral">
+<meta property="og:description" content="In this post we&rsquo;ll talk about what the Central Limit Theorem is, why it&rsquo;s important, and how we can see it in action, using R.
+\(\mu\)">
 <meta property="og:type" content="article">
-<meta property="og:title" content="Zulu Article | UCele uthi bazoboshwa abasebenzi bakahulumeni abazobanjwa benza inkohlakalo">
-<meta name="twitter:title" content="Zulu Article | UCele uthi bazoboshwa abasebenzi bakahulumeni abazobanjwa benza inkohlakalo">
-<meta property="og:url" content="/1/07/zulu-article-ucele-uthi-bazoboshwa-abasebenzi-bakahulumeni-abazobanjwa-benza-inkohlakalo/">
-<meta property="twitter:url" content="/1/07/zulu-article-ucele-uthi-bazoboshwa-abasebenzi-bakahulumeni-abazobanjwa-benza-inkohlakalo/">
+<meta property="og:title" content="The Central Limit Theorem (and how to demonstrate it in R)">
+<meta name="twitter:title" content="The Central Limit Theorem (and how to demonstrate it in R)">
+<meta property="og:url" content="/2020/08/the-central-limit-theorem-and-how-to-demonstrate-it-in-r/">
+<meta property="twitter:url" content="/2020/08/the-central-limit-theorem-and-how-to-demonstrate-it-in-r/">
 <meta property="og:site_name" content="orrymr.com">
-<meta property="og:description" content="UCele uthi bazoboshwa abasebenzi bakahulumeni abazobanjwa benza inkohlakalo
-Cele says they will be imprisoned, the workers of the government who will be caught doing something immoral">
-<meta name="twitter:description" content="UCele uthi bazoboshwa abasebenzi bakahulumeni abazobanjwa benza inkohlakalo
-Cele says they will be imprisoned, the workers of the government who will be caught doing something immoral">
+<meta property="og:description" content="In this post we&rsquo;ll talk about what the Central Limit Theorem is, why it&rsquo;s important, and how we can see it in action, using R.
+\(\mu\)">
+<meta name="twitter:description" content="In this post we&rsquo;ll talk about what the Central Limit Theorem is, why it&rsquo;s important, and how we can see it in action, using R.
+\(\mu\)">
 <meta property="og:locale" content="en">
 
   
-    <meta property="article:published_time" content="0001-07-17T00:00:00">
+    <meta property="article:published_time" content="2020-08-03T00:00:00">
   
   
-    <meta property="article:modified_time" content="0001-07-17T00:00:00">
+    <meta property="article:modified_time" content="2020-08-03T00:00:00">
   
   
   
   
     
-      <meta property="article:tag" content="isiZulu">
+      <meta property="article:tag" content="R">
+    
+      <meta property="article:tag" content="statistics">
     
   
 
@@ -61,14 +63,14 @@ Cele says they will be imprisoned, the workers of the government who will be cau
   <meta property="twitter:image" content="https://res.cloudinary.com/da1gwmlvj/image/upload/v1585486959/me_2_wm4mmw.jpg">
 
 
-    <title>Zulu Article | UCele uthi bazoboshwa abasebenzi bakahulumeni abazobanjwa benza inkohlakalo</title>
+    <title>The Central Limit Theorem (and how to demonstrate it in R)</title>
 
     <link rel="icon" href="/favicon.png">
     
 
     
 
-    <link rel="canonical" href="/1/07/zulu-article-ucele-uthi-bazoboshwa-abasebenzi-bakahulumeni-abazobanjwa-benza-inkohlakalo/">
+    <link rel="canonical" href="/2020/08/the-central-limit-theorem-and-how-to-demonstrate-it-in-r/">
 
     
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css" integrity="sha256-eZrrJcwDc/3uDhsdt61sL2oOBY362qM3lon1gyExkL0=" crossorigin="anonymous" />
@@ -266,19 +268,19 @@ if (!doNotTrack) {
             <div class="post-header main-content-wrap text-left">
   
     <h1 class="post-title" itemprop="headline">
-      Zulu Article | UCele uthi bazoboshwa abasebenzi bakahulumeni abazobanjwa benza inkohlakalo
+      The Central Limit Theorem (and how to demonstrate it in R)
     </h1>
   
   
   <div class="postShorten-meta post-meta">
     
-      <time itemprop="datePublished" datetime="0001-07-17T00:00:00Z">
+      <time itemprop="datePublished" datetime="2020-08-03T00:00:00Z">
         
   
   
   
   
-    17/07/0001
+    03/08/2020
   
 
       </time>
@@ -290,83 +292,24 @@ if (!doNotTrack) {
           
           <div class="post-content markdown" itemprop="articleBody">
             <div class="main-content-wrap">
-              <p>UCele uthi bazoboshwa abasebenzi bakahulumeni abazobanjwa benza inkohlakalo
-Cele says they will be imprisoned, the workers of the government who will be caught doing something immoral</p>
+              <p>In this post we&rsquo;ll talk about what the Central Limit Theorem is, why it&rsquo;s important, and how we can see it in action, using R.
+<code>\(\mu\)</code></p>
 
-<p>The Article: <a href="https://www.isolezwe.co.za/izindaba/ucele-uthi-bazoboshwa-abasebenzi-bakahulumeni-abazobanjwa-benza-inkohlakalo-19e5a876-2516-4316-a9cd-6287da64725f">https://www.isolezwe.co.za/izindaba/ucele-uthi-bazoboshwa-abasebenzi-bakahulumeni-abazobanjwa-benza-inkohlakalo-19e5a876-2516-4316-a9cd-6287da64725f</a></p>
+<h1 id="1-introduction-what-is-the-central-limit-theorem">1. Introduction - What is the Central Limit Theorem?</h1>
 
-<h1 id="new-words-phrases">New Words / Phrases</h1>
+<p>The normal distribution is famous and important because many natural phenomena are thus distributed. Heights, weight, and IQ scores are all distributed according to this bell shaped curve:</p>
 
-<ul>
-<li>banjwa - be caught</li>
-<li>memezela - announce</li>
-<li>usememezele - has given instruction</li>
-<li>(se - can mean has, like has died)</li>
-<li>abatholakala - that have been found</li>
-<li>sabalala - spread (as in gossip)</li>
-<li>gcoba - apply</li>
-<li>kade - when (like as, not the question &ldquo;when&rdquo;)</li>
-<li>chaza - explain</li>
-<li>emithonjeni - same as emithombeni which umthombo (so)</li>
-<li>umthombo - source (like a source of information or of a river)</li>
-<li>sola - suspect</li>
-<li>ongumkhulumeli - that who is a speaker (umkhulumeli - speaker)</li>
-<li>ngokunikezwa - of being given</li>
-<li>umyeni - husband</li>
-<li>mayelana - regarding</li>
-<li>inkohlakalo - corruption / doing something immoral</li>
-</ul>
+<p><img src="/post/2020-08-03-the-central-limit-theorem-and-how-to-demonstrate-it-in-r_files/figure-html/unnamed-chunk-2-1.png" width="672" /></p>
 
-<h1 id="explanations">explanations</h1>
+<p>But the normal distribution (or Gaussian distribution as it is referred to by statisticians without lisps), is important for another reason: the distribution of means are themselves normally distributed! The means of samples, that is. And here&rsquo;s the kicker - the original population can be distributed in any which way. The original population need not be normally distributed for its sample means to be normally distributed.</p>
 
-<p>He said this while explaining reports spread in new sources suspecting (it, the reports were suspecting) the speaker of the president, CR, Khusela Diko of being given a tender with her husband of R125 regarding with coivd assistance.</p>
+<p>Let&rsquo;s try make this less abstract. Suppose I have a die (as in the singular of dice). Each time I roll it, I can expect to see a value between 1 and 6. The expected value, that is, the sum of the values multiplied by the probability of seeing each value is calculated as follows:</p>
 
-<p>(echaza - like a locative, like, at the time he was explaining - &ldquo;during At the explaining&rdquo;)</p>
+<p><code>\(Expected Value = \frac{1}{6} \times 1 + \frac{1}{6} \times 2 + \frac{1}{6} \times 3 + \frac{1}{6} \times 4 + \frac{1}{6} \times 5 + \frac{1}{6} \times 6\)</code></p>
 
-<h1 id="new-concept-se">New Concept - &ldquo;se&rdquo;</h1>
+<h1 id="2-why-is-it-important">2. Why is it important?</h1>
 
-<p>You&rsquo;re used to seeing this word as the locative buffer: ngisekhaya (I&rsquo;m at home).
-Can also be used in conjunction with &ldquo;still&rdquo; - I&rsquo;m still at home - ngisasekhaya.</p>
-
-<p>(se - can mean has, like has died)</p>
-
-<p>usedlile - he has eaten</p>
-
-<p>useshonile - he has died</p>
-
-<h1 id="translations">Translations</h1>
-
-<h2 id="english">English</h2>
-
-<ol>
-<li>Workers of the government caught doing something immoral will be imprisoned</li>
-</ol>
-
-<h2 id="zulu">Zulu</h2>
-
-<ol>
-<li>Abasebenzi bahulumeni abazobanjwa benza inkohlakalo bazoboshwa.</li>
-</ol>
-
-<h1 id="questions-and-answers">Questions and Answers</h1>
-
-<h2 id="english-1">English</h2>
-
-<ol>
-<li>Who is the minister of Police?</li>
-<li>What is Cele the minister of?</li>
-<li>What has Cele announced?</li>
-<li>Who will be imprisoned? (Who is it that will be imprisoned)</li>
-</ol>
-
-<h2 id="zulu-1">Zulu</h2>
-
-<ol>
-<li>Ubani ungqongqoshe wamaPhoyisa?</li>
-<li>u-Cele ungqongqoshe wani?</li>
-<li>u-Cele usememezele yini?</li>
-<li>Obani abazoboshwa?</li>
-</ol>
+<h1 id="3-let-s-see-it-in-action">3. Let&rsquo;s see it in action</h1>
               
             </div>
           </div>
@@ -378,7 +321,9 @@ Can also be used in conjunction with &ldquo;still&rdquo; - I&rsquo;m still at ho
                   <div class="post-footer-tags">
                     <span class="text-color-light text-small"></span><br/>
                     
-  <a class="tag tag--primary tag--small" href="/tags/isizulu/">isiZulu</a>
+  <a class="tag tag--primary tag--small" href="/tags/r/">R</a>
+
+  <a class="tag tag--primary tag--small" href="/tags/statistics/">statistics</a>
 
                   </div>
                 
@@ -391,7 +336,7 @@ Can also be used in conjunction with &ldquo;still&rdquo; - I&rsquo;m still at ho
           
             <li class="post-action">
               
-                <a class="post-action-btn btn btn--default tooltip--top" href="/1/07/hitchikers-guide-to-inferential-statistics/" data-tooltip="The Hitchikers Guide to Inferential Statistics">
+                <a class="post-action-btn btn btn--disabled">
               
                   <i class="fa fa-angle-left"></i>
                   <span class="hide-xs hide-sm text-small icon-ml"></span>
@@ -399,7 +344,7 @@ Can also be used in conjunction with &ldquo;still&rdquo; - I&rsquo;m still at ho
             </li>
             <li class="post-action">
               
-                <a class="post-action-btn btn btn--default tooltip--top" href="/1/07/zulu-article-uzoqhubeka-asebenzele-ekhaya-umantashe-osuleleke-ngecovid-19/" data-tooltip="Zulu Article | Uzoqhubeka asebenzele ekhaya uMantashe osuleleke ngeCovid-19">
+                <a class="post-action-btn btn btn--default tooltip--top" href="/2019/10/an-r-pipeline-for-xgboost-and-a-discussion-about-hyperparameters/" data-tooltip="An R Pipeline for XGBoost (and a discussion about hyperparameters)">
               
                   <span class="hide-xs hide-sm text-small icon-mr"></span>
                   <i class="fa fa-angle-right"></i>
@@ -417,19 +362,19 @@ Can also be used in conjunction with &ldquo;still&rdquo; - I&rsquo;m still at ho
         </li>
         
           <li class="post-action hide-xs">
-            <a class="post-action-btn btn btn--default" target="new" href="https://www.facebook.com/sharer/sharer.php?u=/1/07/zulu-article-ucele-uthi-bazoboshwa-abasebenzi-bakahulumeni-abazobanjwa-benza-inkohlakalo/">
+            <a class="post-action-btn btn btn--default" target="new" href="https://www.facebook.com/sharer/sharer.php?u=/2020/08/the-central-limit-theorem-and-how-to-demonstrate-it-in-r/">
               <i class="fa fa-facebook-official"></i>
             </a>
           </li>
         
           <li class="post-action hide-xs">
-            <a class="post-action-btn btn btn--default" target="new" href="https://twitter.com/intent/tweet?text=/1/07/zulu-article-ucele-uthi-bazoboshwa-abasebenzi-bakahulumeni-abazobanjwa-benza-inkohlakalo/">
+            <a class="post-action-btn btn btn--default" target="new" href="https://twitter.com/intent/tweet?text=/2020/08/the-central-limit-theorem-and-how-to-demonstrate-it-in-r/">
               <i class="fa fa-twitter"></i>
             </a>
           </li>
         
           <li class="post-action hide-xs">
-            <a class="post-action-btn btn btn--default" target="new" href="https://plus.google.com/share?url=/1/07/zulu-article-ucele-uthi-bazoboshwa-abasebenzi-bakahulumeni-abazobanjwa-benza-inkohlakalo/">
+            <a class="post-action-btn btn btn--default" target="new" href="https://plus.google.com/share?url=/2020/08/the-central-limit-theorem-and-how-to-demonstrate-it-in-r/">
               <i class="fa fa-google-plus"></i>
             </a>
           </li>
@@ -477,7 +422,7 @@ Can also be used in conjunction with &ldquo;still&rdquo; - I&rsquo;m still at ho
           
             <li class="post-action">
               
-                <a class="post-action-btn btn btn--default tooltip--top" href="/1/07/hitchikers-guide-to-inferential-statistics/" data-tooltip="The Hitchikers Guide to Inferential Statistics">
+                <a class="post-action-btn btn btn--disabled">
               
                   <i class="fa fa-angle-left"></i>
                   <span class="hide-xs hide-sm text-small icon-ml"></span>
@@ -485,7 +430,7 @@ Can also be used in conjunction with &ldquo;still&rdquo; - I&rsquo;m still at ho
             </li>
             <li class="post-action">
               
-                <a class="post-action-btn btn btn--default tooltip--top" href="/1/07/zulu-article-uzoqhubeka-asebenzele-ekhaya-umantashe-osuleleke-ngecovid-19/" data-tooltip="Zulu Article | Uzoqhubeka asebenzele ekhaya uMantashe osuleleke ngeCovid-19">
+                <a class="post-action-btn btn btn--default tooltip--top" href="/2019/10/an-r-pipeline-for-xgboost-and-a-discussion-about-hyperparameters/" data-tooltip="An R Pipeline for XGBoost (and a discussion about hyperparameters)">
               
                   <span class="hide-xs hide-sm text-small icon-mr"></span>
                   <i class="fa fa-angle-right"></i>
@@ -503,19 +448,19 @@ Can also be used in conjunction with &ldquo;still&rdquo; - I&rsquo;m still at ho
         </li>
         
           <li class="post-action hide-xs">
-            <a class="post-action-btn btn btn--default" target="new" href="https://www.facebook.com/sharer/sharer.php?u=/1/07/zulu-article-ucele-uthi-bazoboshwa-abasebenzi-bakahulumeni-abazobanjwa-benza-inkohlakalo/">
+            <a class="post-action-btn btn btn--default" target="new" href="https://www.facebook.com/sharer/sharer.php?u=/2020/08/the-central-limit-theorem-and-how-to-demonstrate-it-in-r/">
               <i class="fa fa-facebook-official"></i>
             </a>
           </li>
         
           <li class="post-action hide-xs">
-            <a class="post-action-btn btn btn--default" target="new" href="https://twitter.com/intent/tweet?text=/1/07/zulu-article-ucele-uthi-bazoboshwa-abasebenzi-bakahulumeni-abazobanjwa-benza-inkohlakalo/">
+            <a class="post-action-btn btn btn--default" target="new" href="https://twitter.com/intent/tweet?text=/2020/08/the-central-limit-theorem-and-how-to-demonstrate-it-in-r/">
               <i class="fa fa-twitter"></i>
             </a>
           </li>
         
           <li class="post-action hide-xs">
-            <a class="post-action-btn btn btn--default" target="new" href="https://plus.google.com/share?url=/1/07/zulu-article-ucele-uthi-bazoboshwa-abasebenzi-bakahulumeni-abazobanjwa-benza-inkohlakalo/">
+            <a class="post-action-btn btn btn--default" target="new" href="https://plus.google.com/share?url=/2020/08/the-central-limit-theorem-and-how-to-demonstrate-it-in-r/">
               <i class="fa fa-google-plus"></i>
             </a>
           </li>
@@ -545,19 +490,19 @@ Can also be used in conjunction with &ldquo;still&rdquo; - I&rsquo;m still at ho
   <ul class="share-options">
     
       <li class="share-option">
-        <a class="share-option-btn" target="new" href="https://www.facebook.com/sharer/sharer.php?u=%2F1%2F07%2Fzulu-article-ucele-uthi-bazoboshwa-abasebenzi-bakahulumeni-abazobanjwa-benza-inkohlakalo%2F">
+        <a class="share-option-btn" target="new" href="https://www.facebook.com/sharer/sharer.php?u=%2F2020%2F08%2Fthe-central-limit-theorem-and-how-to-demonstrate-it-in-r%2F">
           <i class="fa fa-facebook-official"></i><span>%!(EXTRA string=Facebook)</span>
         </a>
       </li>
     
       <li class="share-option">
-        <a class="share-option-btn" target="new" href="https://twitter.com/intent/tweet?text=%2F1%2F07%2Fzulu-article-ucele-uthi-bazoboshwa-abasebenzi-bakahulumeni-abazobanjwa-benza-inkohlakalo%2F">
+        <a class="share-option-btn" target="new" href="https://twitter.com/intent/tweet?text=%2F2020%2F08%2Fthe-central-limit-theorem-and-how-to-demonstrate-it-in-r%2F">
           <i class="fa fa-twitter"></i><span>%!(EXTRA string=Twitter)</span>
         </a>
       </li>
     
       <li class="share-option">
-        <a class="share-option-btn" target="new" href="https://plus.google.com/share?url=%2F1%2F07%2Fzulu-article-ucele-uthi-bazoboshwa-abasebenzi-bakahulumeni-abazobanjwa-benza-inkohlakalo%2F">
+        <a class="share-option-btn" target="new" href="https://plus.google.com/share?url=%2F2020%2F08%2Fthe-central-limit-theorem-and-how-to-demonstrate-it-in-r%2F">
           <i class="fa fa-google-plus"></i><span>%!(EXTRA string=Google&#43;)</span>
         </a>
       </li>
@@ -646,9 +591,9 @@ $(document).ready(function() {
     
       <script>
         var disqus_config = function () {
-          this.page.url = '\/1\/07\/zulu-article-ucele-uthi-bazoboshwa-abasebenzi-bakahulumeni-abazobanjwa-benza-inkohlakalo\/';
+          this.page.url = '\/2020\/08\/the-central-limit-theorem-and-how-to-demonstrate-it-in-r\/';
           
-            this.page.identifier = '\/1\/07\/zulu-article-ucele-uthi-bazoboshwa-abasebenzi-bakahulumeni-abazobanjwa-benza-inkohlakalo\/'
+            this.page.identifier = '\/2020\/08\/the-central-limit-theorem-and-how-to-demonstrate-it-in-r\/'
           
         };
         (function() {

@@ -12,6 +12,19 @@
     
     
     <item>
+      <title>Demonstrating The Central Limit Theorem in R</title>
+      <link>/2020/08/demonstrating-the-central-limit-theorem-in-r/</link>
+      <pubDate>Tue, 04 Aug 2020 00:00:00 +0000</pubDate>
+      
+      <guid>/2020/08/demonstrating-the-central-limit-theorem-in-r/</guid>
+      <description>
+
+
+&lt;p&gt;In this post we’ll talk about what the Central Limit Theorem is, why it’s important, and how we can see it in action, using R.&lt;/p&gt;
+</description>
+    </item>
+    
+    <item>
       <title>Zulu Stuff</title>
       <link>/zulu-stuff/</link>
       <pubDate>Sat, 01 Aug 2020 00:00:00 +0000</pubDate>

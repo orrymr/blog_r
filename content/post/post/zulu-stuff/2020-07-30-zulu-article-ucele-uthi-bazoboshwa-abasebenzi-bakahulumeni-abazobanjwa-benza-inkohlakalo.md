@@ -30,12 +30,19 @@ The Article: https://www.isolezwe.co.za/izindaba/ucele-uthi-bazoboshwa-abasebenz
 - kade - when (like as, not the question "when")
 - chaza - explain
 - emithonjeni - same as emithombeni which umthombo (so)
+- umthombo - source (like a source of information or of a river)
 - sola - suspect
 - ongumkhulumeli - that who is a speaker (umkhulumeli - speaker)
 - ngokunikezwa - of being given
 - umyeni - husband
 - mayelana - regarding
 - inkohlakalo - corruption / doing something immoral 
+
+# explanations
+
+He said this while explaining reports spread in new sources suspecting (it, the reports were suspecting) the speaker of the president, CR, Khusela Diko of being given a tender with her husband of R125 regarding with coivd assistance.
+
+(echaza - like a locative, like, at the time he was explaining - "during At the explaining")
 
 # New Concept - "se"
 
@@ -57,7 +64,7 @@ useshonile - he has died
 
 ## Zulu
 
-2. Abasebenzi bahulumeni abanjwa benza inkohlakalo bazoboshwa.
+2. Abasebenzi bahulumeni abazobanjwa benza inkohlakalo bazoboshwa.
 
 
 # Questions and Answers
@@ -65,16 +72,16 @@ useshonile - he has died
 ## English
 
 1. Who is the minister of Police?
-2. What is Manatashe the minister of?
+2. What is Cele the minister of?
 3. What has Cele announced?
-4. Who will be imprisoned?
+4. Who will be imprisoned? (Who is it that will be imprisoned)
 
 ## Zulu
 
-1. Ubani ungqongqoshe waPhoyisa?
-2. u-Mantashe ungqongqoshe wani?
-3. u-Mantashe usememezele yini?
-4. Obani bazoboshwa?
+1. Ubani ungqongqoshe wamaPhoyisa?
+2. u-Cele ungqongqoshe wani?
+3. u-Cele usememezele yini?
+4. Obani abazoboshwa?
 
 
 

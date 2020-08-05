@@ -6,10 +6,23 @@
     <description>Recent content in Posts on orrymr.com</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en</language>
-    <lastBuildDate>Fri, 04 Oct 2019 00:00:00 +0000</lastBuildDate>
+    <lastBuildDate>Tue, 04 Aug 2020 00:00:00 +0000</lastBuildDate>
     
 	<atom:link href="/post/index.xml" rel="self" type="application/rss+xml" />
     
+    
+    <item>
+      <title>Demonstrating The Central Limit Theorem in R</title>
+      <link>/2020/08/demonstrating-the-central-limit-theorem-in-r/</link>
+      <pubDate>Tue, 04 Aug 2020 00:00:00 +0000</pubDate>
+      
+      <guid>/2020/08/demonstrating-the-central-limit-theorem-in-r/</guid>
+      <description>
+
+
+&lt;p&gt;In this post we’ll talk about what the Central Limit Theorem is, why it’s important, and how we can see it in action, using R.&lt;/p&gt;
+</description>
+    </item>
     
     <item>
       <title>An R Pipeline for XGBoost (and a discussion about hyperparameters)</title>

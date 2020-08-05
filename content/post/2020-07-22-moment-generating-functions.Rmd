@@ -3,6 +3,7 @@ title: Moment Generating Functions
 author: ''
 date: '0001-07-17'
 slug: moment-generating-functions
+draft: true
 categories:
 tags:
   - statistics

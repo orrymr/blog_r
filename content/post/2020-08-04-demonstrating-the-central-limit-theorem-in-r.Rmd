@@ -1,0 +1,296 @@
+---
+title: Demonstrating The Central Limit Theorem in R
+author: ''
+date: '2020-08-04'
+slug: demonstrating-the-central-limit-theorem-in-r
+draft: true
+categories: []
+tags:
+  - R
+  - statistics
+keywords:
+  - tech
+---
+
+In this post we'll talk about what the Central Limit Theorem is, why it's important, and how we can see it in action, using R. 
+
+<!--more-->
+
+In this post we'll talk about what the Central Limit Theorem is, why it's important, and how we can see it in action, using R. 
+
+```{r, warning = FALSE}
+# Libraries used in this article:
+library(ggplot2)
+library(ggthemes)
+library(stringr)
+
+# Theme used for graphing:
+theme_set(theme_economist())
+```
+
+
+
+```{r, echo = FALSE, message = FALSE}
+library(ggplot2)
+library(ggthemes)
+library(stringr)
+theme_set(theme_economist())
+
+knitr::opts_chunk$set(echo = FALSE, warning = FALSE, message = FALSE)
+```
+
+# Table of Contents
+1. [Introduction - What is the Central Limit Theorem?](#introduction)
+2. [Why is it important?](#why)
+3. [Let's see it in action](#action)
+
+
+
+# 1. Introduction - What is the Central Limit Theorem? <a name="introduction"></a>
+
+The normal distribution is famous and important because many natural phenomena are thus distributed. Heights, weight, and IQ scores are all distributed according to this bell shaped curve:
+
+```{r}
+x <- seq(55, 145, length = 1000)
+y <- dnorm(x, mean = 100, sd = 15)
+df <- data.frame(IQ = x, y = y)
+
+
+g <- ggplot(df, aes(x = IQ, y =y)) +
+  geom_line(colour = 'steelblue') +
+  geom_vline(xintercept = 100, linetype = 5) +
+  labs(
+    title = "IQ Distribution (mean = 100, sd = 15)"
+  )
+
+g
+```
+
+But the normal distribution (or Gaussian distribution as it is referred to by statisticians without lisps), is important for another reason: the distribution of means are themselves normally distributed! The means of samples, that is. And here's the kicker - the original population can be distributed in any which way. The original population need not be normally distributed for its sample means to be normally distributed.
+
+Let's try make this less abstract. Suppose I have a die (as in the singular of dice). Each time I roll it, I can expect to see a value between 1 and 6. The mean value, that is, the sum of the values multiplied by the probability of seeing each value is calculated as follows:
+
+$Mean Value = \frac{1}{6} \times 1 + \frac{1}{6} \times 2 + \frac{1}{6} \times 3 + \frac{1}{6} \times 4 + \frac{1}{6} \times 5 + \frac{1}{6} \times 6 = 3.5$
+
+Let's run this bit of code to check:
+
+```{r, echo = TRUE}
+mean_value <- sum(seq(1:6) * (1 / 6))
+mean_value
+```
+
+Ok, not very interesting, I admit. Let's now use 2 dice. If the first die lands a 3, and the second die lands a 1, then the mean value will be $\frac{1}{2} \times 1 + \frac{1}{2} \times 3 = 2$, wouldn't you agree? We can create a matrix which will give us the mean value for any combination of dice rolls:
+
+```{r}
+row1 <- c(2, 3, 4, 5, 6, 7) / 2
+row2 <- c(3, 4, 5, 6, 7, 8) / 2
+row3 <- c(4, 5, 6, 7, 8, 9) / 2
+row4 <- c(5, 6, 7, 8, 9, 10) / 2
+row5 <- c(6, 7, 8, 9, 10, 11) / 2
+row6 <- c(7, 8, 9, 10, 11, 12) / 2
+
+dice <- matrix(c(row1, row2, row3, row4, row5, row6), nrow = 6, byrow = TRUE)
+dice
+```
+
+(The above code was modified from (here)[https://rpubs.com/careybaldwin/346995])
+
+In the above matrix, the average score of the 2 dice ranges from 1 to 6. Importantly, we only see the values 1 and 6 _once_ in the above matrix. This is because the only way to get an average score of 1 is to roll a 1 on our first die, and to roll a 1 on our second die as well. There is no other way to get an average score of 1. Similarly, getting an average score of 6 means we have to roll a 6 on both dice, yielding an average score of $\frac{6 + 6}{2} = 6$.
+
+Compare this with an average score of 1.5. There are two ways to obtain this score. We could roll a 1 on our first die and a 2 on our second die, _or_ we could roll a 2 on our first die and a 1 on our second die! So, there are more ways to get a 1.5 than to get a 1 (look at how many times 1.5 appears in the above matrix compared to 1).
+
+In fact, the probability of getting a certain value tends to "swell" as we get closer to 3.5 (which is the true mean of the population). Just look at the diagonal entries of the matrix: 3.5 appears 6 times in our matrix, compared to the measly two times 1.5 or 5.5 appear.
+
+Ok, let's hold this thought for now.
+
+# 2. Why is it important? <a name="why"></a>
+
+Hopefully we're starting to get a feel for what this Central Limit Theorem is trying to tell us. From the above, we know that when we roll a die, the average score over the long run will be 3.5. Even though 3.5 isn't an actual value that appears on the die's face, over the long run if we took the average of the values from multiple rolls, we'd get very close to 3.5. Let's try:
+
+```{r}
+number_of_rolls <- 1000000 # Or, we could manually roll a die 1 million times. Nah, let's let the computer do it.
+mean(sample(1:6, number_of_rolls, replace = TRUE))
+```
+
+When we looked at the average score when we rolled 2 dice, we saw that getting a mean score of 3.5 was most likely. And this trend continues, as we add more dice. What's amazing here, is that the underlying distribution is _not normal_, it's _uniform_: there's a $\frac{1}{6}$ chance of seeing each face of a particular die. But the means of the samples _are_ normally distributed. We'll see this effect in action in the next section, so don't stress too much if you don't fully grasp this yet.
+
+The fact that means are normally distributed lets us understand why we can test for differences in means between groups using t-tests (or Z-tests if we have enough information). Essentially, this is because we can ask if an observed mean is significantly different to what we'd expect to have seen under the null hypothesis. Under the null hypothesis, we make a statement about what the mean of a population is equal to. We then observe a sample mean. Since these sample means are normally distributed we can ask about the probability is of having seen our observed sample mean. If it's super unlikely to have seen that sample mean, we can reject our null (not accept the alternative, just reject the null).
+
+# 3. Let's see it in action <a name="action"></a>
+
+Enough talk, time for code and pictures.
+
+We know that when rolling a fair single die, we will see a value between 1 and 6 with probability $\frac{1}{6}$. We can simulate rolling dice with this piece of code:
+
+```{r}
+#roll, as in roll di(c)e
+# m = number of times
+# n = number of dice
+
+roll <- function(m, n){
+  set.seed(1234)
+  means <- plyr::ldply(1:m, function(x){
+    return(mean(sample(1:6, n, replace = TRUE)))
+  }) 
+}
+```
+
+We can call the function `roll()` to simulate rolling a single die `10000` times as follows: `roll(10000, 1)`. We can then draw a bar graph of our observed values: 
+
+```{r}
+n_ = 1
+m_ = 10000
+g <- ggplot(roll(m = m_, n = n_),
+            mapping = aes(x = V1)) +
+  geom_vline(xintercept = 3.5, colour = "tomato3") +
+  labs(
+    subtitle = str_interp('Density of means of dice rolls for ${n_} dice over ${m_} rolls.'),
+    x = 'Mean Score',
+    y = 'Proportion of the time the value was observed'
+  ) +
+  geom_bar(aes(y = ..prop..), alpha = 0.4) +
+  scale_x_continuous(
+    breaks = 1:6,
+    lim =  c(0, 7)
+  ) +
+  lims(
+    y = c(0, 1)
+  )
+
+g
+```
+
+The above shouldn't be too surprising: we observed each value more or less the same proportion of the time.
+
+Let's slap a `geom_density()` on top of this:
+
+```{r}
+g <- g +
+  geom_density()
+
+g
+```
+
+Don't worry about the density function not going all the way down to `0` in the space between the values `1, 2, 3, 4, 5`  and `6`: this is just due to the curve being smoothed. Really, this is putting a continuous density function over something which should be discrete.
+
+Technically, we have just produced `10000` samples of size `1` (we rolled `1` die `10000` times). Let's produce `10000` samples of size `2` (roll `2` dice `10000` and plot the means of these samples):
+
+```{r}
+n_ = 2
+m_ = 10000
+g <- ggplot(roll(m = m_, n = n_),
+            mapping = aes(x = V1)) +
+  geom_vline(xintercept = 3.5, colour = "tomato3") +
+  labs(
+    subtitle = str_interp('Density of means of dice rolls for ${n_} dice over ${m_} rolls.'),
+    x = 'Mean Score',
+    y = 'Proportion of the time the value was observed'
+  ) +
+  geom_bar(aes(y = ..prop..), alpha = 0.4) +
+  scale_x_continuous(
+    breaks = 1:6,
+    lim =  c(0, 7)
+  ) +
+  lims(
+    y = c(0, 1)
+  ) +
+  geom_density()
+
+g
+```
+
+The above is starting to look a bit more bell-shaped. And it's centered around the vertical red line, which has the x-intercept of `3.5` - the true population mean.
+
+Let's increase our sample size to 4:
+
+```{r}
+n_ = 4
+m_ = 10000
+g <- ggplot(roll(m = m_, n = n_),
+            mapping = aes(x = V1)) +
+  geom_vline(xintercept = 3.5, colour = "tomato3") +
+  labs(
+    subtitle = str_interp('Density of means of dice rolls for ${n_} dice over ${m_} rolls.'),
+    x = 'Mean Score',
+    y = 'Proportion of the time the value was observed'
+  ) +
+  geom_bar(aes(y = ..prop..), alpha = 0.4) +
+  scale_x_continuous(
+    breaks = 1:6,
+    lim =  c(0, 7)
+  ) +
+  lims(
+    y = c(0, 1)
+  ) +
+  geom_density()
+
+g
+```
+
+Not only is the curve starting to look more normal, but the tails of the distribution are starting to flatten out: that is, the extreme mean values of `1` and `6` have become less probable.
+
+Let's increase the sample size to 20:
+
+```{r}
+n_ = 20
+m_ = 10000
+g <- ggplot(roll(m = m_, n = n_),
+            mapping = aes(x = V1)) +
+  geom_vline(xintercept = 3.5, colour = "tomato3") +
+  labs(
+    subtitle = str_interp('Density of means of dice rolls for ${n_} dice over ${m_} rolls.'),
+    x = 'Mean Score',
+    y = 'Proportion of the time the value was observed'
+  ) +
+  geom_bar(aes(y = ..prop..), alpha = 0.4) +
+  scale_x_continuous(
+    breaks = 1:6,
+    lim =  c(0, 7)
+  ) +
+  lims(
+    y = c(0, 1.2)
+  ) +
+  geom_density()
+
+g
+```
+
+Now we see the classic bell shaped curve. Notice that the peak of the distribution is taller than in the previous graph (the y-axis runs from `0` to `1.25` in this graph as opposed to `0` to `1` in the previous). The extreme mean values around `1` and `6` seem _very_ unlikely. In fact getting a mean score around `2` or `5` also rarely happens. Seems like the distribution is getting "tighter" around the true mean value of `3.5` the larger our sample size grows.
+
+Let's go wild and simulate `10000` samples of `2000` dice being rolled! Hold on to your monocles!
+
+```{r}
+n_ = 2000
+m_ = 10000
+g <- ggplot(roll(m = m_, n = n_),
+            mapping = aes(x = V1)) +
+  geom_vline(xintercept = 3.5, colour = "tomato3") +
+  labs(
+    subtitle = str_interp('Density of means of dice rolls for ${n_} dice over ${m_} rolls.'),
+    x = 'Mean Score',
+    y = 'Proportion of the time the value was observed'
+  ) +
+  geom_bar(aes(y = ..prop..), alpha = 0.4) +
+  scale_x_continuous(
+    breaks = 1:6,
+    lim =  c(0, 7)
+  ) +
+  geom_density()
+
+g
+```
+
+This is a very thin normal distribution. It's super tight around `3.5`. Doesn't this make sense though? It's hard to image rolling `2000` dice `10000` times. But let's imagine you and `1999` of your closest friends each rolled one die, only once, rather than the `10000` times required. Does it not seem likely that if you added up everyone's value and divided by `2000` that you'd get pretty close to `3.5`, the true population mean?
+
+Saying that the sample distribution is super tight around `3.5` can be expressed in a more mathematical way: 
+
+$\sigma_{samplingDistribution} = \frac{\sigma_{population}}{\sqrt{n}}$
+
+Where $\sigma$ is the standard deviation.
+
+Where $n$ is the size of your sample. So if the sample size is very large, say `2000`, we can expect the sampling distribution's standard deviation to be rather small, resulting in "thinner" normal curves. Crucially, the mean of the sampling distribution is the same as the population's mean. But the standard deviation is not.
+
+The sample standard deviation _is_ related to the population standard deviation, though (just look at the numerator in the above). The more the original population varies (that is, the higher its standard deviation), the larger the sample size needs to be before we can get "thinner" normal curves.
+
+
+

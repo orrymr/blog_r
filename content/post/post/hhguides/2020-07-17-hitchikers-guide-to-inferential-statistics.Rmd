@@ -548,6 +548,10 @@ The ANOVA makes an assumption about the world which it tests: that the best pred
 
 RA Fisher.
 
+ANOVAS can include more than one grouping variable - [_intersectional groups_.](https://www.youtube.com/watch?v=wo1xlefg5KI&list=PL8dPuuaLjXtNM_Y-bUAhblSAdWRnmBUcr&t=0s) Factorial ANOVA. 
+So, for example, say you are wondering if there is a difference in means of car prices as they are grouped by both Manufacturer and Colour... $PRICE = BASELINE + \beta{MAN} \ times MANUFACTURER + \beta{COL} \times COLOUR + \epsilon$.
+
+
 # Definitions
 
 - <u>Bayes' Factor</u> - Represents the amount of info we've learned about our hypotheses from the data.

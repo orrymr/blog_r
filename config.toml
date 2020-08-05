@@ -19,7 +19,7 @@
 # 5C6158 green gray
 # 4F5148 darkest gray
 
-baseURL = "/"
+baseURL = "http://www.orrymr.com/"
 languageCode = "en"
 defaultContentLanguage = "en"
 title = "orrymr.com"
