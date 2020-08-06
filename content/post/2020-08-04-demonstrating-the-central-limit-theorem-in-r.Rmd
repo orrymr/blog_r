@@ -10,6 +10,8 @@ tags:
   - statistics
 keywords:
   - tech
+thumbnailImagePosition: left
+thumbnailImage: https://res.cloudinary.com/da1gwmlvj/image/upload/v1596734738/normal_ulbnrv.png
 ---
 
 In this post we'll talk about what the Central Limit Theorem is, why it's important, and how we can see it in action, using R. 
