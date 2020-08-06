@@ -11,14 +11,14 @@
 <meta name="description" content="
 
 
-In this post we’ll talk about what the Central Limit Theorem is, why it’s important, and how we can see it in action, using R.
+In this post we&#39;ll talk about what the Central Limit Theorem is, why it&#39;s important, and how we can see it in action, using R.
 ">
 
 
 <meta property="og:description" content="
 
 
-In this post we’ll talk about what the Central Limit Theorem is, why it’s important, and how we can see it in action, using R.
+In this post we&#39;ll talk about what the Central Limit Theorem is, why it&#39;s important, and how we can see it in action, using R.
 ">
 <meta property="og:type" content="article">
 <meta property="og:title" content="Demonstrating The Central Limit Theorem in R">
@@ -29,12 +29,12 @@ In this post we’ll talk about what the Central Limit Theorem is, why it’s im
 <meta property="og:description" content="
 
 
-In this post we’ll talk about what the Central Limit Theorem is, why it’s important, and how we can see it in action, using R.
+In this post we&#39;ll talk about what the Central Limit Theorem is, why it&#39;s important, and how we can see it in action, using R.
 ">
 <meta name="twitter:description" content="
 
 
-In this post we’ll talk about what the Central Limit Theorem is, why it’s important, and how we can see it in action, using R.
+In this post we&#39;ll talk about what the Central Limit Theorem is, why it&#39;s important, and how we can see it in action, using R.
 ">
 <meta property="og:locale" content="en">
 
@@ -220,6 +220,16 @@ if (!doNotTrack) {
         
   <li class="sidebar-button">
     
+      <a class="sidebar-button-link " href="https://twitter.com/orrymr">
+    
+      <i class="sidebar-button-icon fa fa-lg fa-twitter"></i>
+      
+      <span class="sidebar-button-desc">Twitter</span>
+    </a>
+  </li>
+
+  <li class="sidebar-button">
+    
       <a class="sidebar-button-link " href="https://github.com/orrymr">
     
       <i class="sidebar-button-icon fa fa-lg fa-github"></i>
@@ -304,7 +314,7 @@ if (!doNotTrack) {
           
           <div class="post-content markdown" itemprop="articleBody">
             <div class="main-content-wrap">
-              <p>In this post we’ll talk about what the Central Limit Theorem is, why it’s important, and how we can see it in action, using R.</p>
+              <p>In this post we'll talk about what the Central Limit Theorem is, why it's important, and how we can see it in action, using R.</p>
 <pre class="r"><code># Libraries used in this article:
 library(ggplot2)
 library(ggthemes)
@@ -317,21 +327,21 @@ theme_set(theme_economist())</code></pre>
 <ol style="list-style-type: decimal">
 <li><a href="#introduction">Introduction - What is the Central Limit Theorem?</a></li>
 <li><a href="#why">Why is it important?</a></li>
-<li><a href="#action">Let’s see it in action</a></li>
+<li><a href="#action">Let's see it in action</a></li>
 </ol>
 </div>
 <div id="introduction---what-is-the-central-limit-theorem" class="section level1">
 <h1>1. Introduction - What is the Central Limit Theorem? <a name="introduction"></a></h1>
 <p>The normal distribution is famous and important because many natural phenomena are thus distributed. Heights, weight, and IQ scores are all distributed according to this bell shaped curve:</p>
 <p><img src="/post/2020-08-04-demonstrating-the-central-limit-theorem-in-r_files/figure-html/unnamed-chunk-3-1.png" width="672" /></p>
-<p>But the normal distribution (or Gaussian distribution as it is referred to by statisticians without lisps), is important for another reason: the distribution of means are themselves normally distributed! The means of samples, that is. And here’s the kicker - the original population can be distributed in any which way. The original population need not be normally distributed for its sample means to be normally distributed.</p>
-<p>Let’s try make this less abstract. Suppose I have a die (as in the singular of dice). Each time I roll it, I can expect to see a value between 1 and 6. The mean value, that is, the sum of the values multiplied by the probability of seeing each value is calculated as follows:</p>
+<p>But the normal distribution (or Gaussian distribution as it is referred to by statisticians without lisps), is important for another reason: the distributions of means are themselves normally distributed! The means of samples, that is. And here's the kicker - the original population can be distributed in any which way. The original population need not be normally distributed for its sample means to be normally distributed.</p>
+<p>Let's try make this less abstract. Suppose I have a die (as in the singular of dice). Each time I roll it, I can expect to see a value between <code>1</code> and <code>6</code>. The mean value, that is, the sum of the values multiplied by the probability of seeing each value is calculated as follows:</p>
 <p><span class="math inline">\(Mean Value = \frac{1}{6} \times 1 + \frac{1}{6} \times 2 + \frac{1}{6} \times 3 + \frac{1}{6} \times 4 + \frac{1}{6} \times 5 + \frac{1}{6} \times 6 = 3.5\)</span></p>
-<p>Let’s run this bit of code to check:</p>
+<p>Let's run this bit of code to check:</p>
 <pre class="r"><code>mean_value &lt;- sum(seq(1:6) * (1 / 6))
-mean_value</code></pre>
+print(mean_value)</code></pre>
 <pre><code>## [1] 3.5</code></pre>
-<p>Ok, not very interesting, I admit. Let’s now use 2 dice. If the first die lands a 3, and the second die lands a 1, then the mean value will be <span class="math inline">\(\frac{1}{2} \times 1 + \frac{1}{2} \times 3 = 2\)</span>, wouldn’t you agree? We can create a matrix which will give us the mean value for any combination of dice rolls:</p>
+<p>Ok, not very interesting, I admit. Let's now use two dice. If the first die lands a <code>3</code>, and the second die lands a <code>1</code>, then the mean value will be <span class="math inline">\(\frac{1}{2} \times 1 + \frac{1}{2} \times 3 = 2\)</span>, wouldn't you agree? We can create a matrix which will give us the mean value for any combination of dice rolls (the values in the square brackets, [], refer to the values obtained from each die):</p>
 <pre><code>##      [,1] [,2] [,3] [,4] [,5] [,6]
 ## [1,]  1.0  1.5  2.0  2.5  3.0  3.5
 ## [2,]  1.5  2.0  2.5  3.0  3.5  4.0
@@ -339,46 +349,62 @@ mean_value</code></pre>
 ## [4,]  2.5  3.0  3.5  4.0  4.5  5.0
 ## [5,]  3.0  3.5  4.0  4.5  5.0  5.5
 ## [6,]  3.5  4.0  4.5  5.0  5.5  6.0</code></pre>
-<p>(The above code was modified from (here)[<a href="https://rpubs.com/careybaldwin/346995" class="uri">https://rpubs.com/careybaldwin/346995</a>])</p>
-<p>In the above matrix, the average score of the 2 dice ranges from 1 to 6. Importantly, we only see the values 1 and 6 <em>once</em> in the above matrix. This is because the only way to get an average score of 1 is to roll a 1 on our first die, and to roll a 1 on our second die as well. There is no other way to get an average score of 1. Similarly, getting an average score of 6 means we have to roll a 6 on both dice, yielding an average score of <span class="math inline">\(\frac{6 + 6}{2} = 6\)</span>.</p>
-<p>Compare this with an average score of 1.5. There are two ways to obtain this score. We could roll a 1 on our first die and a 2 on our second die, <em>or</em> we could roll a 2 on our first die and a 1 on our second die! So, there are more ways to get a 1.5 than to get a 1 (look at how many times 1.5 appears in the above matrix compared to 1).</p>
-<p>In fact, the probability of getting a certain value tends to “swell” as we get closer to 3.5 (which is the true mean of the population). Just look at the diagonal entries of the matrix: 3.5 appears 6 times in our matrix, compared to the measly two times 1.5 or 5.5 appear.</p>
-<p>Ok, let’s hold this thought for now.</p>
+<p>(The above code was modified from <a href="https://rpubs.com/careybaldwin/346995">here</a>)</p>
+<p>In the above matrix, the average score of the two dice ranges from <code>1</code> to <code>6</code>. Importantly, we only see the values <code>1</code> and <code>6</code> <em>once</em> in the above matrix. This is because the only way to get an average score of <code>1</code> is to roll a <code>1</code> on our first die, and to roll a <code>1</code> on our second die as well. There is no other way to get an average score of <code>1</code>. Similarly, getting an average score of <code>6</code> means we have to roll a <code>6</code> on both dice, yielding an average score of <span class="math inline">\(\frac{6 + 6}{2} = 6\)</span>.</p>
+<p>Compare this with an average score of <code>1.5</code>. There are two ways to obtain this score. We could roll a <code>1</code> on our first die and a <code>2</code> on our second die, <em>or</em> we could roll a <code>2</code> on our first die and a <code>1</code> on our second die! So, there are more ways to get a <code>1.5</code> than to get a <code>1</code> (look at how many times <code>1.5</code> appears in the above matrix compared to <code>1</code>).</p>
+<p>In fact, the probability of getting a certain value tends to &quot;swell&quot; as we get closer to <code>3.5</code> (which is the true mean of the population). Just look at the diagonal entries of the matrix: <code>3.5</code> appears six times in our matrix, compared to the measly two times <code>1.5</code> or <code>5.5</code> appear.</p>
+<p>Ok, let's hold this thought for now.</p>
 </div>
 <div id="why-is-it-important" class="section level1">
 <h1>2. Why is it important? <a name="why"></a></h1>
-<p>Hopefully we’re starting to get a feel for what this Central Limit Theorem is trying to tell us. From the above, we know that when we roll a die, the average score over the long run will be 3.5. Even though 3.5 isn’t an actual value that appears on the die’s face, over the long run if we took the average of the values from multiple rolls, we’d get very close to 3.5. Let’s try:</p>
-<pre><code>## [1] 3.503004</code></pre>
-<p>When we looked at the average score when we rolled 2 dice, we saw that getting a mean score of 3.5 was most likely. And this trend continues, as we add more dice. What’s amazing here, is that the underlying distribution is <em>not normal</em>, it’s <em>uniform</em>: there’s a <span class="math inline">\(\frac{1}{6}\)</span> chance of seeing each face of a particular die. But the means of the samples <em>are</em> normally distributed. We’ll see this effect in action in the next section, so don’t stress too much if you don’t fully grasp this yet.</p>
-<p>The fact that means are normally distributed lets us understand why we can test for differences in means between groups using t-tests (or Z-tests if we have enough information). Essentially, this is because we can ask if an observed mean is significantly different to what we’d expect to have seen under the null hypothesis. Under the null hypothesis, we make a statement about what the mean of a population is equal to. We then observe a sample mean. Since these sample means are normally distributed we can ask about the probability is of having seen our observed sample mean. If it’s super unlikely to have seen that sample mean, we can reject our null (not accept the alternative, just reject the null).</p>
+<p>Hopefully we're starting to get a feel for what this Central Limit Theorem is trying to tell us. From the above, we know that when we roll a die, the average score over the long run will be <code>3.5</code>. Even though <code>3.5</code> isn't an actual value that appears on the die's face, over the long run if we took the average of the values from multiple rolls, we'd get very close to <code>3.5</code>. Let's try:</p>
+<pre class="r"><code>number_of_rolls &lt;- 1000000 # Or, we could manually roll a die 1 million times. Nah, let&#39;s let the computer do it.
+mean(sample(1:6, number_of_rolls, replace = TRUE))</code></pre>
+<pre><code>## [1] 3.496805</code></pre>
+<p>When we looked at the average score when we rolled two dice, we saw that getting a mean score of <code>3.5</code> was most likely. And this trend continues, as we add more dice. What's amazing here, is that the underlying distribution is <em>not normal</em>, it's <em>uniform</em>: there's a <span class="math inline">\(\frac{1}{6}\)</span> chance of seeing each face of a particular die. But the means of the samples <em>are</em> normally distributed. We'll see this effect in action in the next section, so don't stress too much if you don't fully grasp this yet.</p>
+<p>The fact that means are normally distributed lets us understand why we can test for differences in means between groups using t-tests (or Z-tests if we have enough information). Essentially, this is because we can ask if an observed mean is significantly different to what we'd expect to have seen under the null hypothesis. Under the null hypothesis, we make a statement about what the mean of a population is equal to. We then observe a sample mean. Since these sample means are normally distributed we can ask about the probability is of having seen our observed sample mean. If it's super unlikely to have seen that sample mean, we can reject our null (not accept the alternative, just reject the null).</p>
 </div>
 <div id="lets-see-it-in-action" class="section level1">
-<h1>3. Let’s see it in action <a name="action"></a></h1>
+<h1>3. Let's see it in action <a name="action"></a></h1>
 <p>Enough talk, time for code and pictures.</p>
 <p>We know that when rolling a fair single die, we will see a value between 1 and 6 with probability <span class="math inline">\(\frac{1}{6}\)</span>. We can simulate rolling dice with this piece of code:</p>
+<pre class="r"><code>#roll, as in roll di(c)e
+# m = number of times
+# n = number of dice
+
+roll &lt;- function(m, n){
+  set.seed(1234)
+  means &lt;- plyr::ldply(1:m, function(x){
+    return(mean(sample(1:6, n, replace = TRUE)))
+  }) 
+}</code></pre>
 <p>We can call the function <code>roll()</code> to simulate rolling a single die <code>10000</code> times as follows: <code>roll(10000, 1)</code>. We can then draw a bar graph of our observed values:</p>
 <p><img src="/post/2020-08-04-demonstrating-the-central-limit-theorem-in-r_files/figure-html/unnamed-chunk-8-1.png" width="672" /></p>
-<p>The above shouldn’t be too surprising: we observed each value more or less the same proportion of the time.</p>
-<p>Let’s slap a <code>geom_density()</code> on top of this:</p>
+<p>The above shouldn't be too surprising: we observed each value more or less the same proportion of the time.</p>
+<p>Let's slap a <code>geom_density()</code> on top of this:</p>
 <p><img src="/post/2020-08-04-demonstrating-the-central-limit-theorem-in-r_files/figure-html/unnamed-chunk-9-1.png" width="672" /></p>
-<p>Don’t worry about the density function not going all the way down to <code>0</code> in the space between the values <code>1, 2, 3, 4, 5</code> and <code>6</code>: this is just due to the curve being smoothed. Really, this is putting a continuous density function over something which should be discrete.</p>
-<p>Technically, we have just produced <code>10000</code> samples of size <code>1</code> (we rolled <code>1</code> die <code>10000</code> times). Let’s produce <code>10000</code> samples of size <code>2</code> (roll <code>2</code> dice <code>10000</code> and plot the means of these samples):</p>
+<p>Don't worry about the density function not going all the way down to <code>0</code> in the space between the values <code>1, 2, 3, 4, 5</code> and <code>6</code>: this is just due to the curve being smoothed. Really, this is putting a continuous density function over something which should be discrete.</p>
+<p>Technically, we have just produced <code>10000</code> samples of size <code>1</code> (we rolled <code>1</code> die <code>10000</code> times). Let's produce <code>10000</code> samples of size <code>2</code> (roll <code>2</code> dice <code>10000</code> and plot the means of these samples):</p>
 <p><img src="/post/2020-08-04-demonstrating-the-central-limit-theorem-in-r_files/figure-html/unnamed-chunk-10-1.png" width="672" /></p>
-<p>The above is starting to look a bit more bell-shaped. And it’s centered around the vertical red line, which has the x-intercept of <code>3.5</code> - the true population mean.</p>
-<p>Let’s increase our sample size to 4:</p>
+<p>The above is starting to look a bit more bell-shaped. And it's centered around the vertical red line, which has the x-intercept of <code>3.5</code> - the true population mean.</p>
+<p>Let's increase our sample size to 4:</p>
 <p><img src="/post/2020-08-04-demonstrating-the-central-limit-theorem-in-r_files/figure-html/unnamed-chunk-11-1.png" width="672" /></p>
 <p>Not only is the curve starting to look more normal, but the tails of the distribution are starting to flatten out: that is, the extreme mean values of <code>1</code> and <code>6</code> have become less probable.</p>
-<p>Let’s increase the sample size to 20:</p>
+<p>Let's increase the sample size to 20:</p>
 <p><img src="/post/2020-08-04-demonstrating-the-central-limit-theorem-in-r_files/figure-html/unnamed-chunk-12-1.png" width="672" /></p>
-<p>Now we see the classic bell shaped curve. Notice that the peak of the distribution is taller than in the previous graph (the y-axis runs from <code>0</code> to <code>1.25</code> in this graph as opposed to <code>0</code> to <code>1</code> in the previous). The extreme mean values around <code>1</code> and <code>6</code> seem <em>very</em> unlikely. In fact getting a mean score around <code>2</code> or <code>5</code> also rarely happens. Seems like the distribution is getting “tighter” around the true mean value of <code>3.5</code> the larger our sample size grows.</p>
-<p>Let’s go wild and simulate <code>10000</code> samples of <code>2000</code> dice being rolled! Hold on to your monocles!</p>
+<p>Now we see the classic bell shaped curve. Notice that the peak of the distribution is taller than in the previous graph (the y-axis runs from <code>0</code> to <code>1.25</code> in this graph as opposed to <code>0</code> to <code>1</code> in the previous). The extreme mean values around <code>1</code> and <code>6</code> seem <em>very</em> unlikely. In fact getting a mean score around <code>2</code> or <code>5</code> also rarely happens. Seems like the distribution is getting &quot;tighter&quot; around the true mean value of <code>3.5</code> the larger our sample size grows.</p>
+<p>Let's go wild and simulate <code>10000</code> samples of <code>2000</code> dice being rolled! Hold on to your monocles!</p>
 <p><img src="/post/2020-08-04-demonstrating-the-central-limit-theorem-in-r_files/figure-html/unnamed-chunk-13-1.png" width="672" /></p>
-<p>This is a very thin normal distribution. It’s super tight around <code>3.5</code>. Doesn’t this make sense though? It’s hard to image rolling <code>2000</code> dice <code>10000</code> times. But let’s imagine you and <code>1999</code> of your closest friends each rolled one die, only once, rather than the <code>10000</code> times required. Does it not seem likely that if you added up everyone’s value and divided by <code>2000</code> that you’d get pretty close to <code>3.5</code>, the true population mean?</p>
+<p>This is a very thin normal distribution. It's super tight around <code>3.5</code>. Doesn't this make sense though? It's hard to image rolling <code>2000</code> dice <code>10000</code> times. But let's imagine you and <code>1999</code> of your closest friends each rolled one die, only once, rather than the <code>10000</code> times required. Does it not seem likely that if you added up everyone's value and divided by <code>2000</code> that you'd get pretty close to <code>3.5</code>, the true population mean?</p>
 <p>Saying that the sample distribution is super tight around <code>3.5</code> can be expressed in a more mathematical way:</p>
 <p><span class="math inline">\(\sigma_{samplingDistribution} = \frac{\sigma_{population}}{\sqrt{n}}\)</span></p>
 <p>Where <span class="math inline">\(\sigma\)</span> is the standard deviation.</p>
-<p>Where <span class="math inline">\(n\)</span> is the size of your sample. So if the sample size is very large, say <code>2000</code>, we can expect the sampling distribution’s standard deviation to be rather small, resulting in “thinner” normal curves. Crucially, the mean of the sampling distribution is the same as the population’s mean. But the standard deviation is not.</p>
-<p>The sample standard deviation <em>is</em> related to the population standard deviation, though (just look at the numerator in the above). The more the original population varies (that is, the higher its standard deviation), the larger the sample size needs to be before we can get “thinner” normal curves.</p>
+<p>Where <span class="math inline">\(n\)</span> is the size of your sample. So if the sample size is very large, say <code>2000</code>, we can expect the sampling distribution's standard deviation to be rather small, resulting in &quot;thinner&quot; normal curves. Crucially, the mean of the sampling distribution is the same as the population's mean. But the standard deviation is not.</p>
+<p>The sample standard deviation <em>is</em> related to the population standard deviation, though (just look at the numerator in the above). The more the original population varies (that is, the higher its standard deviation), the larger the sample size needs to be before we can get &quot;thinner&quot; normal curves.</p>
+</div>
+<div id="if-youve-made-it-this-far..." class="section level1">
+<h1>4. If you've made it this far...</h1>
+<p>Well done - I hope that made some modicum of sense and that it was useful. If you have any suggestions for improvements or (*gasp*) find any errors in the above, <em>please</em> let me know... it will come much appreciated!</p>
 </div>
 
               

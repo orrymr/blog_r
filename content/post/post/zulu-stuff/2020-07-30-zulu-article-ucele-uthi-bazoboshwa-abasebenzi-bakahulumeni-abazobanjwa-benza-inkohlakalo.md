@@ -60,7 +60,7 @@ useshonile - he has died
 
 ## English
 
-1. Workers of the government caught doing something immoral will be imprisoned
+1. Workers of the government who will be caught doing something immoral will be imprisoned
 
 ## Zulu
 
@@ -73,7 +73,7 @@ useshonile - he has died
 
 1. Who is the minister of Police?
 2. What is Cele the minister of?
-3. What has Cele announced?
+3. What _has_ Cele announced?
 4. Who will be imprisoned? (Who is it that will be imprisoned)
 
 ## Zulu

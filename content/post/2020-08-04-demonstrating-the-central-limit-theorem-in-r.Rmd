@@ -3,7 +3,7 @@ title: Demonstrating The Central Limit Theorem in R
 author: ''
 date: '2020-08-04'
 slug: demonstrating-the-central-limit-theorem-in-r
-draft: true
+draft: false
 categories: []
 tags:
   - R
@@ -66,9 +66,9 @@ g <- ggplot(df, aes(x = IQ, y =y)) +
 g
 ```
 
-But the normal distribution (or Gaussian distribution as it is referred to by statisticians without lisps), is important for another reason: the distribution of means are themselves normally distributed! The means of samples, that is. And here's the kicker - the original population can be distributed in any which way. The original population need not be normally distributed for its sample means to be normally distributed.
+But the normal distribution (or Gaussian distribution as it is referred to by statisticians without lisps), is important for another reason: the distributions of means are themselves normally distributed! The means of samples, that is. And here's the kicker - the original population can be distributed in any which way. The original population need not be normally distributed for its sample means to be normally distributed.
 
-Let's try make this less abstract. Suppose I have a die (as in the singular of dice). Each time I roll it, I can expect to see a value between 1 and 6. The mean value, that is, the sum of the values multiplied by the probability of seeing each value is calculated as follows:
+Let's try make this less abstract. Suppose I have a die (as in the singular of dice). Each time I roll it, I can expect to see a value between `1` and `6`. The mean value, that is, the sum of the values multiplied by the probability of seeing each value is calculated as follows:
 
 $Mean Value = \frac{1}{6} \times 1 + \frac{1}{6} \times 2 + \frac{1}{6} \times 3 + \frac{1}{6} \times 4 + \frac{1}{6} \times 5 + \frac{1}{6} \times 6 = 3.5$
 
@@ -76,10 +76,10 @@ Let's run this bit of code to check:
 
 ```{r, echo = TRUE}
 mean_value <- sum(seq(1:6) * (1 / 6))
-mean_value
+print(mean_value)
 ```
 
-Ok, not very interesting, I admit. Let's now use 2 dice. If the first die lands a 3, and the second die lands a 1, then the mean value will be $\frac{1}{2} \times 1 + \frac{1}{2} \times 3 = 2$, wouldn't you agree? We can create a matrix which will give us the mean value for any combination of dice rolls:
+Ok, not very interesting, I admit. Let's now use two dice. If the first die lands a `3`, and the second die lands a `1`, then the mean value will be $\frac{1}{2} \times 1 + \frac{1}{2} \times 3 = 2$, wouldn't you agree? We can create a matrix which will give us the mean value for any combination of dice rolls (the values in the square brackets, [], refer to the values obtained from each die):
 
 ```{r}
 row1 <- c(2, 3, 4, 5, 6, 7) / 2
@@ -93,26 +93,26 @@ dice <- matrix(c(row1, row2, row3, row4, row5, row6), nrow = 6, byrow = TRUE)
 dice
 ```
 
-(The above code was modified from (here)[https://rpubs.com/careybaldwin/346995])
+(The above code was modified from [here](https://rpubs.com/careybaldwin/346995))
 
-In the above matrix, the average score of the 2 dice ranges from 1 to 6. Importantly, we only see the values 1 and 6 _once_ in the above matrix. This is because the only way to get an average score of 1 is to roll a 1 on our first die, and to roll a 1 on our second die as well. There is no other way to get an average score of 1. Similarly, getting an average score of 6 means we have to roll a 6 on both dice, yielding an average score of $\frac{6 + 6}{2} = 6$.
+In the above matrix, the average score of the two dice ranges from `1` to `6`. Importantly, we only see the values `1` and `6` _once_ in the above matrix. This is because the only way to get an average score of `1` is to roll a `1` on our first die, and to roll a `1` on our second die as well. There is no other way to get an average score of `1`. Similarly, getting an average score of `6` means we have to roll a `6` on both dice, yielding an average score of $\frac{6 + 6}{2} = 6$.
 
-Compare this with an average score of 1.5. There are two ways to obtain this score. We could roll a 1 on our first die and a 2 on our second die, _or_ we could roll a 2 on our first die and a 1 on our second die! So, there are more ways to get a 1.5 than to get a 1 (look at how many times 1.5 appears in the above matrix compared to 1).
+Compare this with an average score of `1.5`. There are two ways to obtain this score. We could roll a `1` on our first die and a `2` on our second die, _or_ we could roll a `2` on our first die and a `1` on our second die! So, there are more ways to get a `1.5` than to get a `1` (look at how many times `1.5` appears in the above matrix compared to `1`).
 
-In fact, the probability of getting a certain value tends to "swell" as we get closer to 3.5 (which is the true mean of the population). Just look at the diagonal entries of the matrix: 3.5 appears 6 times in our matrix, compared to the measly two times 1.5 or 5.5 appear.
+In fact, the probability of getting a certain value tends to "swell" as we get closer to `3.5` (which is the true mean of the population). Just look at the diagonal entries of the matrix: `3.5` appears six times in our matrix, compared to the measly two times `1.5` or `5.5` appear.
 
 Ok, let's hold this thought for now.
 
 # 2. Why is it important? <a name="why"></a>
 
-Hopefully we're starting to get a feel for what this Central Limit Theorem is trying to tell us. From the above, we know that when we roll a die, the average score over the long run will be 3.5. Even though 3.5 isn't an actual value that appears on the die's face, over the long run if we took the average of the values from multiple rolls, we'd get very close to 3.5. Let's try:
+Hopefully we're starting to get a feel for what this Central Limit Theorem is trying to tell us. From the above, we know that when we roll a die, the average score over the long run will be `3.5`. Even though `3.5` isn't an actual value that appears on the die's face, over the long run if we took the average of the values from multiple rolls, we'd get very close to `3.5`. Let's try:
 
-```{r}
+```{r, echo=TRUE}
 number_of_rolls <- 1000000 # Or, we could manually roll a die 1 million times. Nah, let's let the computer do it.
 mean(sample(1:6, number_of_rolls, replace = TRUE))
 ```
 
-When we looked at the average score when we rolled 2 dice, we saw that getting a mean score of 3.5 was most likely. And this trend continues, as we add more dice. What's amazing here, is that the underlying distribution is _not normal_, it's _uniform_: there's a $\frac{1}{6}$ chance of seeing each face of a particular die. But the means of the samples _are_ normally distributed. We'll see this effect in action in the next section, so don't stress too much if you don't fully grasp this yet.
+When we looked at the average score when we rolled two dice, we saw that getting a mean score of `3.5` was most likely. And this trend continues, as we add more dice. What's amazing here, is that the underlying distribution is _not normal_, it's _uniform_: there's a $\frac{1}{6}$ chance of seeing each face of a particular die. But the means of the samples _are_ normally distributed. We'll see this effect in action in the next section, so don't stress too much if you don't fully grasp this yet.
 
 The fact that means are normally distributed lets us understand why we can test for differences in means between groups using t-tests (or Z-tests if we have enough information). Essentially, this is because we can ask if an observed mean is significantly different to what we'd expect to have seen under the null hypothesis. Under the null hypothesis, we make a statement about what the mean of a population is equal to. We then observe a sample mean. Since these sample means are normally distributed we can ask about the probability is of having seen our observed sample mean. If it's super unlikely to have seen that sample mean, we can reject our null (not accept the alternative, just reject the null).
 
@@ -122,7 +122,7 @@ Enough talk, time for code and pictures.
 
 We know that when rolling a fair single die, we will see a value between 1 and 6 with probability $\frac{1}{6}$. We can simulate rolling dice with this piece of code:
 
-```{r}
+```{r, echo=TRUE}
 #roll, as in roll di(c)e
 # m = number of times
 # n = number of dice
@@ -292,5 +292,6 @@ Where $n$ is the size of your sample. So if the sample size is very large, say `
 
 The sample standard deviation _is_ related to the population standard deviation, though (just look at the numerator in the above). The more the original population varies (that is, the higher its standard deviation), the larger the sample size needs to be before we can get "thinner" normal curves.
 
+# 4. If you've made it this far...  
 
-
+Well done - I hope that made some modicum of sense and that it was useful. If you have any suggestions for improvements or (\*gasp\*) find any errors in the above, _please_ let me know... it will come much appreciated!
