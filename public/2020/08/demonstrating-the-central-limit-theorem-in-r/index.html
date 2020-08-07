@@ -363,7 +363,7 @@ print(mean_value)</code></pre>
 <p>Hopefully we're starting to get a feel for what this Central Limit Theorem is trying to tell us. From the above, we know that when we roll a die, the average score over the long run will be <code>3.5</code>. Even though <code>3.5</code> isn't an actual value that appears on the die's face, over the long run if we took the average of the values from multiple rolls, we'd get very close to <code>3.5</code>. Let's try:</p>
 <pre class="r"><code>number_of_rolls &lt;- 1000000 # Or, we could manually roll a die 1 million times. Nah, let&#39;s let the computer do it.
 mean(sample(1:6, number_of_rolls, replace = TRUE))</code></pre>
-<pre><code>## [1] 3.500909</code></pre>
+<pre><code>## [1] 3.497842</code></pre>
 <p>When we looked at the average score when we rolled two dice, we saw that getting a mean score of <code>3.5</code> was most likely. And this trend continues, as we add more dice. What's amazing here, is that the underlying distribution is <em>not normal</em>, it's <em>uniform</em>: there's a <span class="math inline">\(\frac{1}{6}\)</span> chance of seeing each face of a particular die. But the means of the samples <em>are</em> normally distributed. We'll see this effect in action in the next section, so don't stress too much if you don't fully grasp this yet.</p>
 <p>The fact that means are normally distributed lets us understand why we can test for differences in means between groups using t-tests (or Z-tests if we have enough information). Essentially, this is because we can ask if an observed mean is significantly different to what we'd expect to have seen under the null hypothesis. Under the null hypothesis, we make a statement about what the mean of a population is equal to. We then observe a sample mean. Since these sample means are normally distributed we can ask about the probability is of having seen our observed sample mean. If it's super unlikely to have seen that sample mean, we can reject our null (not accept the alternative, just reject the null).</p>
 </div>
@@ -382,21 +382,131 @@ roll &lt;- function(m, n){
   }) 
 }</code></pre>
 <p>We can call the function <code>roll()</code> to simulate rolling a single die <code>10000</code> times as follows: <code>roll(10000, 1)</code>. We can then draw a bar graph of our observed values:</p>
+<pre class="r"><code>n_ &lt;- 1
+m_ &lt;- 10000
+g &lt;- ggplot(roll(m = m_, n = n_),
+            mapping = aes(x = V1)) +
+  geom_vline(xintercept = 3.5, colour = &quot;tomato3&quot;) +
+  labs(
+    subtitle = str_interp(&#39;Density of means of dice
+                          rolls for ${n_} dice over ${m_} rolls.&#39;),
+    x = &#39;Mean Score&#39;,
+    y = &#39;Proportion of the time the value was observed&#39;
+  ) +
+  geom_bar(aes(y = ..prop..), alpha = 0.4) +
+  scale_x_continuous(
+    breaks = 1:6,
+    lim =  c(0, 7)
+  ) +
+  lims(
+    y = c(0, 1)
+  )
+
+g</code></pre>
 <p><img src="/post/2020-08-04-demonstrating-the-central-limit-theorem-in-r_files/figure-html/unnamed-chunk-8-1.png" width="672" /></p>
 <p>The above shouldn't be too surprising: we observed each value more or less the same proportion of the time.</p>
 <p>Let's slap a <code>geom_density()</code> on top of this:</p>
+<pre class="r"><code>g &lt;- g +
+  geom_density()
+
+g</code></pre>
 <p><img src="/post/2020-08-04-demonstrating-the-central-limit-theorem-in-r_files/figure-html/unnamed-chunk-9-1.png" width="672" /></p>
 <p>Don't worry about the density function not going all the way down to <code>0</code> in the space between the values <code>1, 2, 3, 4, 5</code> and <code>6</code>: this is just due to the curve being smoothed. Really, this is putting a continuous density function over something which should be discrete.</p>
 <p>Technically, we have just produced <code>10000</code> samples of size <code>1</code> (we rolled <code>1</code> die <code>10000</code> times). Let's produce <code>10000</code> samples of size <code>2</code> (roll <code>2</code> dice <code>10000</code> and plot the means of these samples):</p>
+<pre class="r"><code>n_ &lt;- 2
+m_ &lt;- 10000
+g &lt;- ggplot(roll(m = m_, n = n_),
+            mapping = aes(x = V1)) +
+  geom_vline(xintercept = 3.5, colour = &quot;tomato3&quot;) +
+  labs(
+    subtitle = str_interp(&#39;Density of means of dice
+                          rolls for ${n_} dice over ${m_} rolls.&#39;),
+    x = &#39;Mean Score&#39;,
+    y = &#39;Proportion of the time the value was observed&#39;
+  ) +
+  geom_bar(aes(y = ..prop..), alpha = 0.4) +
+  scale_x_continuous(
+    breaks = 1:6,
+    lim =  c(0, 7)
+  ) +
+  lims(
+    y = c(0, 1)
+  ) +
+  geom_density()
+
+g</code></pre>
 <p><img src="/post/2020-08-04-demonstrating-the-central-limit-theorem-in-r_files/figure-html/unnamed-chunk-10-1.png" width="672" /></p>
 <p>The above is starting to look a bit more bell-shaped. And it's centered around the vertical red line, which has the x-intercept of <code>3.5</code> - the true population mean.</p>
 <p>Let's increase our sample size to 4:</p>
+<pre class="r"><code>n_ &lt;- 4
+m_ &lt;- 10000
+g &lt;- ggplot(roll(m = m_, n = n_),
+            mapping = aes(x = V1)) +
+  geom_vline(xintercept = 3.5, colour = &quot;tomato3&quot;) +
+  labs(
+    subtitle = str_interp(&#39;Density of means of dice
+                          rolls for ${n_} dice over ${m_} rolls.&#39;),
+    x = &#39;Mean Score&#39;,
+    y = &#39;Proportion of the time the value was observed&#39;
+  ) +
+  geom_bar(aes(y = ..prop..), alpha = 0.4) +
+  scale_x_continuous(
+    breaks = 1:6,
+    lim =  c(0, 7)
+  ) +
+  lims(
+    y = c(0, 1)
+  ) +
+  geom_density()
+
+g</code></pre>
 <p><img src="/post/2020-08-04-demonstrating-the-central-limit-theorem-in-r_files/figure-html/unnamed-chunk-11-1.png" width="672" /></p>
 <p>Not only is the curve starting to look more normal, but the tails of the distribution are starting to flatten out: that is, the extreme mean values of <code>1</code> and <code>6</code> have become less probable.</p>
 <p>Let's increase the sample size to 20:</p>
+<pre class="r"><code>n_ &lt;- 20
+m_ &lt;- 10000
+g &lt;- ggplot(roll(m = m_, n = n_),
+            mapping = aes(x = V1)) +
+  geom_vline(xintercept = 3.5, colour = &quot;tomato3&quot;) +
+  labs(
+    subtitle = str_interp(&#39;Density of means of dice
+                          rolls for ${n_} dice over ${m_} rolls.&#39;),
+    x = &#39;Mean Score&#39;,
+    y = &#39;Proportion of the time the value was observed&#39;
+  ) +
+  geom_bar(aes(y = ..prop..), alpha = 0.4) +
+  scale_x_continuous(
+    breaks = 1:6,
+    lim =  c(0, 7)
+  ) +
+  lims(
+    y = c(0, 1.2)
+  ) +
+  geom_density()
+
+g</code></pre>
 <p><img src="/post/2020-08-04-demonstrating-the-central-limit-theorem-in-r_files/figure-html/unnamed-chunk-12-1.png" width="672" /></p>
 <p>Now we see the classic bell shaped curve. Notice that the peak of the distribution is taller than in the previous graph (the y-axis runs from <code>0</code> to <code>1.25</code> in this graph as opposed to <code>0</code> to <code>1</code> in the previous). The extreme mean values around <code>1</code> and <code>6</code> seem <em>very</em> unlikely. In fact getting a mean score around <code>2</code> or <code>5</code> also rarely happens. Seems like the distribution is getting &quot;tighter&quot; around the true mean value of <code>3.5</code> the larger our sample size grows.</p>
 <p>Let's go wild and simulate <code>10000</code> samples of <code>2000</code> dice being rolled! Hold on to your monocles!</p>
+<pre class="r"><code>n_ &lt;- 2000
+m_ &lt;- 10000
+g &lt;- ggplot(roll(m = m_, n = n_),
+            mapping = aes(x = V1)) +
+  geom_vline(xintercept = 3.5, colour = &quot;tomato3&quot;) +
+  labs(
+    subtitle = str_interp(&#39;Density of means of dice 
+                          rolls for ${n_} dice over ${m_} rolls.&#39;),
+    x = &#39;Mean Score&#39;,
+    y = &#39;Proportion of the time the value was observed&#39;
+  ) +
+  geom_bar(aes(y = ..prop..), alpha = 0.4) +
+  scale_x_continuous(
+    breaks = 1:6,
+    lim =  c(0, 7)
+  ) +
+  geom_density()
+
+g</code></pre>
 <p><img src="/post/2020-08-04-demonstrating-the-central-limit-theorem-in-r_files/figure-html/unnamed-chunk-13-1.png" width="672" /></p>
 <p>This is a very thin normal distribution. It's super tight around <code>3.5</code>. Doesn't this make sense though? It's hard to image rolling <code>2000</code> dice <code>10000</code> times. But let's imagine you and <code>1999</code> of your closest friends each rolled one die, only once, rather than the <code>10000</code> times required. Does it not seem likely that if you added up everyone's value and divided by <code>2000</code> that you'd get pretty close to <code>3.5</code>, the true population mean?</p>
 <p>Saying that the sample distribution is super tight around <code>3.5</code> can be expressed in a more mathematical way:</p>

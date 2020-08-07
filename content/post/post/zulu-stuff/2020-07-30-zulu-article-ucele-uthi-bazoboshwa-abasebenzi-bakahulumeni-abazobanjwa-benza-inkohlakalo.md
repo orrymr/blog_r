@@ -37,6 +37,13 @@ The Article: https://www.isolezwe.co.za/izindaba/ucele-uthi-bazoboshwa-abasebenz
 - umyeni - husband
 - mayelana - regarding
 - inkohlakalo - corruption / doing something immoral 
+- kuhlomula - being rewarded with / having gotten
+- ngokungemthetho  - that is not legal
+- umthetho - rule / law / polcy
+- imithetho - plural
+- ethinta - relating to
+- izinsiza - the assistances 
+- zokuzivikela - of the protection
 
 # explanations
 
@@ -61,11 +68,16 @@ useshonile - he has died
 ## English
 
 1. Workers of the government who will be caught doing something immoral will be imprisoned
+2. Nkk Diko was given a tender with her husband of R125 million
+3. These reports were spread in the news
+4. Workers of the government found doing immoral activities will be impisoned
 
 ## Zulu
 
-2. Abasebenzi bahulumeni abazobanjwa benza inkohlakalo bazoboshwa.
-
+1. Abasebenzi bahulumeni abazobanjwa benza inkohlakalo bazoboshwa.
+2. Nkk Diko ubenikwe nomyeni wakhe ithenda kaR125 Million
+3. Le mibiko isabalale kwizindaba
+4. Abasebenzi bakahulumeni abatholakala benza inkohlakalo bazoboshwa
 
 # Questions and Answers
 
@@ -75,6 +87,7 @@ useshonile - he has died
 2. What is Cele the minister of?
 3. What _has_ Cele announced?
 4. Who will be imprisoned? (Who is it that will be imprisoned)
+5. Who is the speaker of the president?
 
 ## Zulu
 
@@ -82,6 +95,7 @@ useshonile - he has died
 2. u-Cele ungqongqoshe wani?
 3. u-Cele usememezele yini?
 4. Obani abazoboshwa?
+5. Ubani ongumkhulumeni waMongameli?
 
 
 

@@ -139,14 +139,15 @@ roll <- function(m, n){
 
 We can call the function `roll()` to simulate rolling a single die `10000` times as follows: `roll(10000, 1)`. We can then draw a bar graph of our observed values: 
 
-```{r}
-n_ = 1
-m_ = 10000
+```{r, echo = TRUE}
+n_ <- 1
+m_ <- 10000
 g <- ggplot(roll(m = m_, n = n_),
             mapping = aes(x = V1)) +
   geom_vline(xintercept = 3.5, colour = "tomato3") +
   labs(
-    subtitle = str_interp('Density of means of dice rolls for ${n_} dice over ${m_} rolls.'),
+    subtitle = str_interp('Density of means of dice
+                          rolls for ${n_} dice over ${m_} rolls.'),
     x = 'Mean Score',
     y = 'Proportion of the time the value was observed'
   ) +
@@ -166,7 +167,7 @@ The above shouldn't be too surprising: we observed each value more or less the s
 
 Let's slap a `geom_density()` on top of this:
 
-```{r}
+```{r, echo = TRUE}
 g <- g +
   geom_density()
 
@@ -177,14 +178,15 @@ Don't worry about the density function not going all the way down to `0` in the 
 
 Technically, we have just produced `10000` samples of size `1` (we rolled `1` die `10000` times). Let's produce `10000` samples of size `2` (roll `2` dice `10000` and plot the means of these samples):
 
-```{r}
-n_ = 2
-m_ = 10000
+```{r, echo = TRUE}
+n_ <- 2
+m_ <- 10000
 g <- ggplot(roll(m = m_, n = n_),
             mapping = aes(x = V1)) +
   geom_vline(xintercept = 3.5, colour = "tomato3") +
   labs(
-    subtitle = str_interp('Density of means of dice rolls for ${n_} dice over ${m_} rolls.'),
+    subtitle = str_interp('Density of means of dice
+                          rolls for ${n_} dice over ${m_} rolls.'),
     x = 'Mean Score',
     y = 'Proportion of the time the value was observed'
   ) +
@@ -205,14 +207,15 @@ The above is starting to look a bit more bell-shaped. And it's centered around t
 
 Let's increase our sample size to 4:
 
-```{r}
-n_ = 4
-m_ = 10000
+```{r, echo = TRUE}
+n_ <- 4
+m_ <- 10000
 g <- ggplot(roll(m = m_, n = n_),
             mapping = aes(x = V1)) +
   geom_vline(xintercept = 3.5, colour = "tomato3") +
   labs(
-    subtitle = str_interp('Density of means of dice rolls for ${n_} dice over ${m_} rolls.'),
+    subtitle = str_interp('Density of means of dice
+                          rolls for ${n_} dice over ${m_} rolls.'),
     x = 'Mean Score',
     y = 'Proportion of the time the value was observed'
   ) +
@@ -233,14 +236,15 @@ Not only is the curve starting to look more normal, but the tails of the distrib
 
 Let's increase the sample size to 20:
 
-```{r}
-n_ = 20
-m_ = 10000
+```{r, echo = TRUE}
+n_ <- 20
+m_ <- 10000
 g <- ggplot(roll(m = m_, n = n_),
             mapping = aes(x = V1)) +
   geom_vline(xintercept = 3.5, colour = "tomato3") +
   labs(
-    subtitle = str_interp('Density of means of dice rolls for ${n_} dice over ${m_} rolls.'),
+    subtitle = str_interp('Density of means of dice
+                          rolls for ${n_} dice over ${m_} rolls.'),
     x = 'Mean Score',
     y = 'Proportion of the time the value was observed'
   ) +
@@ -261,14 +265,15 @@ Now we see the classic bell shaped curve. Notice that the peak of the distributi
 
 Let's go wild and simulate `10000` samples of `2000` dice being rolled! Hold on to your monocles!
 
-```{r}
-n_ = 2000
-m_ = 10000
+```{r, echo = TRUE}
+n_ <- 2000
+m_ <- 10000
 g <- ggplot(roll(m = m_, n = n_),
             mapping = aes(x = V1)) +
   geom_vline(xintercept = 3.5, colour = "tomato3") +
   labs(
-    subtitle = str_interp('Density of means of dice rolls for ${n_} dice over ${m_} rolls.'),
+    subtitle = str_interp('Density of means of dice 
+                          rolls for ${n_} dice over ${m_} rolls.'),
     x = 'Mean Score',
     y = 'Proportion of the time the value was observed'
   ) +
