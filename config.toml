@@ -30,7 +30,7 @@ paginate = 7
 canonifyurls = true
 
 ignoreFiles = ["\\.Rmd$", "\\.Rmarkdown$", "_files$", "_cache$"]
-
+rssLimit = 10
 
 ## Single [brackets] indicate a table
 [permalinks]

@@ -1,4 +1,3 @@
-<?xml version="1.0" encoding="utf-8" standalone="yes"?>
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
     <title>mgf on orrymr.com</title>
@@ -8,7 +7,7 @@
     <language>en</language>
     <lastBuildDate>Tue, 17 Jul 0001 00:00:00 +0000</lastBuildDate>
     
-	<atom:link href="/tags/mgf/index.xml" rel="self" type="application/rss+xml" />
+        <atom:link href="/tags/mgf/index.xml" rel="self" type="application/rss+xml" />
     
     
     <item>
@@ -17,11 +16,64 @@
       <pubDate>Tue, 17 Jul 0001 00:00:00 +0000</pubDate>
       
       <guid>/1/07/moment-generating-functions/</guid>
-      <description>
+      <description>&lt;pre class=&#34;r&#34;&gt;&lt;code&gt;library(ggplot2)
+library(tibble)&lt;/code&gt;&lt;/pre&gt;
+&lt;pre&gt;&lt;code&gt;## Warning: package &amp;#39;tibble&amp;#39; was built under R version 3.5.3&lt;/code&gt;&lt;/pre&gt;
+&lt;pre class=&#34;r&#34;&gt;&lt;code&gt;library(ggthemes)&lt;/code&gt;&lt;/pre&gt;
+&lt;pre&gt;&lt;code&gt;## Warning: package &amp;#39;ggthemes&amp;#39; was built under R version 3.5.3&lt;/code&gt;&lt;/pre&gt;
+&lt;pre class=&#34;r&#34;&gt;&lt;code&gt;theme_set(theme_economist())&lt;/code&gt;&lt;/pre&gt;
+&lt;div id=&#34;intro&#34; class=&#34;section level1&#34;&gt;
+&lt;h1&gt;Intro&lt;/h1&gt;
+&lt;p&gt;Mean of a variable is&lt;/p&gt;
+&lt;p&gt;&lt;span class=&#34;math inline&#34;&gt;\(\mu = \sum_{x \in S}xf(x) = x_1f(x_1) + x_2f(x_2) + ... + x_kf(x_k)\)&lt;/span&gt;&lt;/p&gt;
+&lt;p&gt;Now, consider an example where &lt;span class=&#34;math inline&#34;&gt;\(x \in \{1, 2, 3\}\)&lt;/span&gt; and the p.m.f is given by &lt;span class=&#34;math inline&#34;&gt;\(f(1) = 3/6\)&lt;/span&gt;, &lt;span class=&#34;math inline&#34;&gt;\(f(2) = 2/6\)&lt;/span&gt; and &lt;span class=&#34;math inline&#34;&gt;\(f(3) = 1/6\)&lt;/span&gt;.&lt;/p&gt;
+&lt;p&gt;The mean of &lt;span class=&#34;math inline&#34;&gt;\(x\)&lt;/span&gt; is &lt;span class=&#34;math inline&#34;&gt;\(1 \times \frac{3}{6} + 2 \times \frac{2}{6} + 3 \times \frac{1}{6} = \frac{10}{6}\)&lt;/span&gt;.&lt;/p&gt;
+&lt;p&gt;Or, visually:&lt;/p&gt;
+&lt;pre class=&#34;r&#34;&gt;&lt;code&gt;pmf &amp;lt;- tribble(
+  ~x, ~`f(x)`,
+  1, (3/6),
+  2, (2/6),
+  3, (1/6)
+)
 
+g &amp;lt;- ggplot(pmf, mapping = aes(x = x, y = `f(x)`)) +
+  geom_point() +
+  lims(
+    y = c(0, 1),
+    x = c(0, 5)
+  )
 
-&lt;p&gt;What’s a moment generating function? How’s it used in stats?&lt;/p&gt;
+g&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;&lt;img src=&#34;/post/2020-07-22-moment-generating-functions_files/figure-html/unnamed-chunk-2-1.png&#34; width=&#34;672&#34; /&gt;&lt;/p&gt;
+&lt;p&gt;Each &lt;span class=&#34;math inline&#34;&gt;\(x_i\)&lt;/span&gt; is the distance of the i-th point from the origin. A moment is just distance x weight. In this case, the weight is proabability.&lt;/p&gt;
+&lt;p&gt;A moment - distance (&lt;span class=&#34;math inline&#34;&gt;\(x_i\)&lt;/span&gt;) &lt;span class=&#34;math inline&#34;&gt;\(\times\)&lt;/span&gt; probability (&lt;span class=&#34;math inline&#34;&gt;\(f(x_i)\)&lt;/span&gt;), &lt;span class=&#34;math inline&#34;&gt;\(x_if(x_i)\)&lt;/span&gt; is a moment having arm length &lt;span class=&#34;math inline&#34;&gt;\(x_i\)&lt;/span&gt;.&lt;/p&gt;
+&lt;p&gt;The sum of such products is the first moment about the origin since the distances are simply to the first power and the lenghts are measured from the origin.&lt;/p&gt;
+&lt;div id=&#34;first-moment&#34; class=&#34;section level2&#34;&gt;
+&lt;h2&gt;First Moment&lt;/h2&gt;
+&lt;p&gt;If we had to measure the first moments about the mean, instead we’d get:&lt;/p&gt;
+&lt;p&gt;&lt;span class=&#34;math inline&#34;&gt;\(\sum_{x \in S} (x - \mu)f(x) = \sum_{x \in S}xf(x) - \sum_{x \in S}\mu f(x)\)&lt;/span&gt; $ = &lt;em&gt;{x S}xf(x) -&lt;/em&gt;{x S}f(x) = - 1 = 0$&lt;/p&gt;
+&lt;p&gt;First momement about &lt;span class=&#34;math inline&#34;&gt;\(\mu\)&lt;/span&gt; is equal to 0.&lt;/p&gt;
+&lt;p&gt;In mechanics &lt;span class=&#34;math inline&#34;&gt;\(\mu\)&lt;/span&gt; is called the centroid. Last equation shows that if a fulcrum is placed at the point where the mean is, the system would balance because the sum of the mass to the left of the centroid would equal the sum of the mass to the right of the centroid. That is, the sum of the negative moments would equal the sum of the positive moments.&lt;/p&gt;
+&lt;p&gt;Negative moment (from previous example):&lt;/p&gt;
+&lt;p&gt;&lt;span class=&#34;math inline&#34;&gt;\((x_1 - \mu) \times f(x_1) = (1 - \frac{10}{6}) \times \frac{3}{6} = -\frac{12}{36}\)&lt;/span&gt;&lt;/p&gt;
+&lt;p&gt;Positive moments:&lt;/p&gt;
+&lt;p&gt;&lt;span class=&#34;math inline&#34;&gt;\((x_2 - \mu) \times f(x_2) = (2 - \frac{10}{6}) \times \frac{2}{6} = \frac{4}{36}\)&lt;/span&gt; &lt;span class=&#34;math inline&#34;&gt;\((x_3 - \mu) \times f(x_3) = (3 - \frac{10}{6}) \times \frac{1}{6} = \frac{8}{36}\)&lt;/span&gt;&lt;/p&gt;
+&lt;p&gt;So they balance.&lt;/p&gt;
+&lt;/div&gt;
+&lt;div id=&#34;second-moment&#34; class=&#34;section level2&#34;&gt;
+&lt;h2&gt;Second Moment&lt;/h2&gt;
+&lt;p&gt;Recall, first moment “cancels out”.&lt;/p&gt;
+&lt;/div&gt;
+&lt;/div&gt;
 </description>
+      
+            <category>statistics</category>
+      
+            <category>moment generating functions</category>
+      
+            <category>mgf</category>
+      
+      
     </item>
     
   </channel>

@@ -1,4 +1,3 @@
-<?xml version="1.0" encoding="utf-8" standalone="yes"?>
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
     <title>xgboost on orrymr.com</title>
@@ -8,7 +7,7 @@
     <language>en</language>
     <lastBuildDate>Fri, 04 Oct 2019 00:00:00 +0000</lastBuildDate>
     
-	<atom:link href="/tags/xgboost/index.xml" rel="self" type="application/rss+xml" />
+        <atom:link href="/tags/xgboost/index.xml" rel="self" type="application/rss+xml" />
     
     
     <item>
@@ -17,14 +16,242 @@
       <pubDate>Fri, 04 Oct 2019 00:00:00 +0000</pubDate>
       
       <guid>/2019/10/an-r-pipeline-for-xgboost-and-a-discussion-about-hyperparameters/</guid>
-      <description>
-&lt;script src=&#34;/rmarkdown-libs/kePrint/kePrint.js&#34;&gt;&lt;/script&gt;
-&lt;link href=&#34;/rmarkdown-libs/bsTable/bootstrapTable.min.css&#34; rel=&#34;stylesheet&#34; /&gt;
+      <description>&lt;div id=&#34;introduction&#34; class=&#34;section level1&#34;&gt;
+&lt;h1&gt;&lt;span class=&#34;header-section-number&#34;&gt;1&lt;/span&gt; Introduction&lt;/h1&gt;
+&lt;p&gt;&lt;a href=&#34;https://xgboost.readthedocs.io/en/latest/&#34;&gt;XGBoost&lt;/a&gt; is an implementation of a machine learning technique known as &lt;a href=&#34;https://en.wikipedia.org/wiki/Gradient_boosting&#34;&gt;gradient boosting&lt;/a&gt;. In this blog post, we discuss what XGBoost is, and demonstrate a pipeline for working with it in R.&lt;/p&gt;
+&lt;/div&gt;
+&lt;div id=&#34;xgboost---an-implementation-of-gradient-boosting&#34; class=&#34;section level1&#34;&gt;
+&lt;h1&gt;&lt;span class=&#34;header-section-number&#34;&gt;2&lt;/span&gt; XGBoost - An Implementation of Gradient Boosting&lt;/h1&gt;
+&lt;p&gt;Gradient boosting is part of a class of machine learning techniques known as ensemble methods. An ensemble method leverages the output of many &lt;u&gt;weak learners&lt;/u&gt; in order to make a prediction. Typically, these weak learners are implemented as decision trees. While each individual weak learner might not get the answer right, on average, their combined answers should be pretty decent. What makes gradient boosting different from another popular ensemble method - &lt;a href=&#34;https://en.wikipedia.org/wiki/Random_forest&#34;&gt;Random Forest&lt;/a&gt;, is that the construction of the weak learners depend on the previously constructed learners.&lt;/p&gt;
+&lt;p&gt;In gradient boosting, each weak learner is chosen iteratively in a greedy manner, so as to minimize the loss function.&lt;/p&gt;
+&lt;p&gt;XGBoost is a highly optimized implementation of gradient boosting. The original paper describing XGBoost can be found &lt;a href=&#34;https://arxiv.org/pdf/1603.02754.pdf&#34;&gt;here&lt;/a&gt;. Although XGBoost is written in C++, it can be interfaced from R using the &lt;code&gt;xgboost&lt;/code&gt; package.&lt;/p&gt;
+&lt;p&gt;To install the package:&lt;/p&gt;
+&lt;p&gt;&lt;code&gt;install.packages(&amp;quot;xgboost&amp;quot;)&lt;/code&gt;&lt;/p&gt;
+&lt;/div&gt;
+&lt;div id=&#34;load-and-explore-the-data&#34; class=&#34;section level1&#34;&gt;
+&lt;h1&gt;&lt;span class=&#34;header-section-number&#34;&gt;3&lt;/span&gt; Load And Explore The Data&lt;/h1&gt;
+&lt;p&gt;We will use the &lt;a href=&#34;https://www.kaggle.com/c/titanic/data&#34;&gt;Titanic Dataset&lt;/a&gt; which we get from Kaggle. Basically, we try predict whether a passenger survived or not (so this is a binary classification problem).&lt;/p&gt;
+&lt;p&gt;Let’s load up the data:&lt;/p&gt;
+&lt;pre class=&#34;r&#34;&gt;&lt;code&gt;titanic_train &amp;lt;- read_csv(directoryWhichContainsTrainingData)
+titanic_test &amp;lt;- read_csv(directoryWhichContaintsTestData)&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;For the sake of brevity, I’ll only keep some of the features:&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;Pclass&lt;/li&gt;
+&lt;li&gt;Sex&lt;/li&gt;
+&lt;li&gt;Age&lt;/li&gt;
+&lt;li&gt;Embarked&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;I’ll use dplyr’s select() to do this:&lt;/p&gt;
+&lt;pre class=&#34;r&#34;&gt;&lt;code&gt;titanic_train &amp;lt;- titanic_train %&amp;gt;%
+  select(Survived,
+         Pclass,
+         Sex,
+         Age,
+         Embarked)
 
+titanic_test &amp;lt;- titanic_test %&amp;gt;%
+  select(Pclass,
+         Sex,
+         Age,
+         Embarked)&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;Let’s have a look at our data after discarding a few features:&lt;/p&gt;
+&lt;pre class=&#34;r&#34;&gt;&lt;code&gt;str(titanic_train, give.attr = FALSE)&lt;/code&gt;&lt;/pre&gt;
+&lt;pre&gt;&lt;code&gt;## Classes &amp;#39;spec_tbl_df&amp;#39;, &amp;#39;tbl_df&amp;#39;, &amp;#39;tbl&amp;#39; and &amp;#39;data.frame&amp;#39;: 891 obs. of  5 variables:
+##  $ Survived: num  0 1 1 1 0 0 0 0 1 1 ...
+##  $ Pclass  : num  3 1 3 1 3 3 1 3 3 2 ...
+##  $ Sex     : chr  &amp;quot;male&amp;quot; &amp;quot;female&amp;quot; &amp;quot;female&amp;quot; &amp;quot;female&amp;quot; ...
+##  $ Age     : num  22 38 26 35 35 NA 54 2 27 14 ...
+##  $ Embarked: chr  &amp;quot;S&amp;quot; &amp;quot;C&amp;quot; &amp;quot;S&amp;quot; &amp;quot;S&amp;quot; ...&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;XGBoost will only take numeric data as input. Let’s convert our character features to factors, and one-hot encode. We will use sparse.model.matrix() to create a sparse matrix which will be used as input for our model. XGBoost has been written to take advantage of sparse matrices, so we want to make sure that we’re using this feature.&lt;/p&gt;
+&lt;p&gt;Unfortunately, in using R at least, sparse.model.matrix() will drop rows which contain NA’s if the global option &lt;code&gt;options(&#39;na.action&#39;)&lt;/code&gt; is set to &lt;code&gt;&amp;quot;na.omit&amp;quot;&lt;/code&gt;.&lt;/p&gt;
+&lt;p&gt;So we use a fix outlined &lt;a href=&#34;https://stackoverflow.com/questions/29732720/sparse-model-matrix-loses-rows-in-r&#34;&gt;here&lt;/a&gt;:&lt;/p&gt;
+&lt;pre class=&#34;r&#34;&gt;&lt;code&gt;previous_na_action &amp;lt;- options(&amp;#39;na.action&amp;#39;)
+options(na.action=&amp;#39;na.pass&amp;#39;)
 
-&lt;p&gt;In this blog post, we discuss what XGBoost is, and demonstrate a pipeline for working with XGBoost in R.&lt;/p&gt;
-&lt;p&gt;bkaswd&lt;/p&gt;
+titanic_train$Sex &amp;lt;- as.factor(titanic_train$Sex)
+titanic_train$Embarked &amp;lt;- as.factor(titanic_train$Embarked)
+
+titanic_train_sparse &amp;lt;- sparse.model.matrix(Survived~., data = titanic_train)[,-1]
+
+options(na.action=previous_na_action$na.action)&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;Alternatively, we could have just used a sentinel value to replace the NA’s.&lt;/p&gt;
+&lt;div id=&#34;interacting-with-the-sparse-matrix-object&#34; class=&#34;section level2&#34;&gt;
+&lt;h2&gt;&lt;span class=&#34;header-section-number&#34;&gt;3.1&lt;/span&gt; Interacting with the Sparse Matrix Object&lt;/h2&gt;
+&lt;p&gt;The data are in the format of a &lt;strong&gt;dgCMatrix&lt;/strong&gt; class - this is the Matrix package’s implementation of sparse matrix:&lt;/p&gt;
+&lt;pre class=&#34;r&#34;&gt;&lt;code&gt;str(titanic_train_sparse)&lt;/code&gt;&lt;/pre&gt;
+&lt;pre&gt;&lt;code&gt;## Formal class &amp;#39;dgCMatrix&amp;#39; [package &amp;quot;Matrix&amp;quot;] with 6 slots
+##   ..@ i       : int [1:3080] 0 1 2 3 4 5 6 7 8 9 ...
+##   ..@ p       : int [1:6] 0 891 1468 2359 2436 3080
+##   ..@ Dim     : int [1:2] 891 5
+##   ..@ Dimnames:List of 2
+##   .. ..$ : chr [1:891] &amp;quot;1&amp;quot; &amp;quot;2&amp;quot; &amp;quot;3&amp;quot; &amp;quot;4&amp;quot; ...
+##   .. ..$ : chr [1:5] &amp;quot;Pclass&amp;quot; &amp;quot;Sexmale&amp;quot; &amp;quot;Age&amp;quot; &amp;quot;EmbarkedQ&amp;quot; ...
+##   ..@ x       : num [1:3080] 3 1 3 1 3 3 1 3 3 2 ...
+##   ..@ factors : list()&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;We can check the dimension of the matrix directly:&lt;/p&gt;
+&lt;pre class=&#34;r&#34;&gt;&lt;code&gt;dim(titanic_train_sparse)&lt;/code&gt;&lt;/pre&gt;
+&lt;pre&gt;&lt;code&gt;## [1] 891   5&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;The names are the features are given by &lt;code&gt;titanic_train_sparse@Dimnames[[2]]&lt;/code&gt;:&lt;/p&gt;
+&lt;pre class=&#34;r&#34;&gt;&lt;code&gt;head(titanic_train_sparse@Dimnames[[2]])&lt;/code&gt;&lt;/pre&gt;
+&lt;pre&gt;&lt;code&gt;## [1] &amp;quot;Pclass&amp;quot;    &amp;quot;Sexmale&amp;quot;   &amp;quot;Age&amp;quot;       &amp;quot;EmbarkedQ&amp;quot; &amp;quot;EmbarkedS&amp;quot;&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;If needed, you can convert this data (back) into a dataframe, thusly:&lt;/p&gt;
+&lt;pre class=&#34;r&#34;&gt;&lt;code&gt;train_data_as_df &amp;lt;- as.data.frame(as.matrix(titanic_train_sparse))&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;div id=&#34;hyperparameters&#34; class=&#34;section level1&#34;&gt;
+&lt;h1&gt;&lt;span class=&#34;header-section-number&#34;&gt;4&lt;/span&gt; Hyperparameters&lt;/h1&gt;
+&lt;p&gt;Tuning hyperparameters is a vast topic. Without going into too much depth, I’ll outline some of the more commonly used hyperparameters:&lt;/p&gt;
+&lt;p&gt;Full reference: &lt;a href=&#34;https://xgboost.readthedocs.io/en/latest/parameter.html&#34; class=&#34;uri&#34;&gt;https://xgboost.readthedocs.io/en/latest/parameter.html&lt;/a&gt; ### Tree booster params…####&lt;/p&gt;
+&lt;table class=&#34;table table-striped table-hover&#34; style=&#34;margin-left: auto; margin-right: auto;&#34;&gt;
+&lt;caption&gt;
+&lt;span id=&#34;tab:unnamed-chunk-10&#34;&gt;Table 4.1: &lt;/span&gt;Parameters
+&lt;/caption&gt;
+&lt;thead&gt;
+&lt;tr&gt;
+&lt;th style=&#34;text-align:left;&#34;&gt;
+Parameter
+&lt;/th&gt;
+&lt;th style=&#34;text-align:left;&#34;&gt;
+Explanation
+&lt;/th&gt;
+&lt;/tr&gt;
+&lt;/thead&gt;
+&lt;tbody&gt;
+&lt;tr&gt;
+&lt;td style=&#34;text-align:left;&#34;&gt;
+eta
+&lt;/td&gt;
+&lt;td style=&#34;text-align:left;&#34;&gt;
+default = 0.3 learning rate / shrinkage. Scales the contribution of each try by a factor of 0 &amp;lt; eta &amp;lt; 1
+&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td style=&#34;text-align:left;&#34;&gt;
+gamma
+&lt;/td&gt;
+&lt;td style=&#34;text-align:left;&#34;&gt;
+default = 0 minimum loss reduction needed to make another partition in a given tree. larger the value, the more conservative the tree will be (as it will need to make a bigger reduction to split) So, conservative in the sense of willingness to split.
+&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td style=&#34;text-align:left;&#34;&gt;
+max_depth
+&lt;/td&gt;
+&lt;td style=&#34;text-align:left;&#34;&gt;
+default = 6 max depth of each tree…
+&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td style=&#34;text-align:left;&#34;&gt;
+subsample
+&lt;/td&gt;
+&lt;td style=&#34;text-align:left;&#34;&gt;
+1 (ie, no subsampling) fraction of training samples to use in each “boosting iteration”
+&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td style=&#34;text-align:left;&#34;&gt;
+colsample_bytree
+&lt;/td&gt;
+&lt;td style=&#34;text-align:left;&#34;&gt;
+default = 1 (ie, no sampling) Fraction of columns to be used when constructing each tree. This is an idea used in RandomForests
+&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td style=&#34;text-align:left;&#34;&gt;
+min_child_weight
+&lt;/td&gt;
+&lt;td style=&#34;text-align:left;&#34;&gt;
+default = 1 This is the minimum number of instances that have to been in a node. It’s a regularization parameter So, if it’s set to 10, each leaf has to have at least 10 instances assigned to it. The higher the value, the more conservative the tree will be.
+&lt;/td&gt;
+&lt;/tr&gt;
+&lt;/tbody&gt;
+&lt;/table&gt;
+&lt;pre class=&#34;r&#34;&gt;&lt;code&gt;# Full reference: https://xgboost.readthedocs.io/en/latest/parameter.html
+# ### Tree booster params...####
+# eta:                              default = 0.3
+#                                   learning rate / shrinkage. Scales the contribution of each try by a factor of 0 &amp;lt; eta &amp;lt; 1
+# gamma:                            default = 0
+#                                   minimum loss reduction needed to make another partition in a given tree.
+#                                   larger the value, the more conservative the tree will be (as it will need to make a bigger reduction to split)
+#                                   So, conservative in the sense of willingness to split.
+# max_depth:                        default = 6
+#                                   max depth of each tree...
+# subsample:                        1 (ie, no subsampling)
+#                                   fraction of training samples to use in each &amp;quot;boosting iteration&amp;quot;
+# colsample_bytree:     default = 1 (ie, no sampling)
+#                       Fraction of columns to be used when constructing each tree. This is an idea used in RandomForests
+# min_child_weight:     default = 1
+#                       This is the minimum number of instances that have to been in a node. It&amp;#39;s a regularization parameter
+#                       So, if it&amp;#39;s set to 10, each leaf has to have at least 10 instances assigned to it.
+#                       The higher the value, the more conservative the tree will be.&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;(I’ve left it as commented code, as I like to past this into my scripts as a quick reference.)&lt;/p&gt;
+&lt;p&gt;Let’s create the hyper-parameters list:&lt;/p&gt;
+&lt;pre class=&#34;r&#34;&gt;&lt;code&gt;params_booster &amp;lt;- list(
+  booster = &amp;#39;gbtree&amp;#39;, # Possible to also have linear boosters as your weak learners.
+  eta = 1, 
+  gamma = 0,
+  max.depth = 2, 
+  subsample = 1, 
+  colsample_bytree = 1,
+  min_child_weight = 1, 
+  objective = &amp;quot;binary:logistic&amp;quot;
+)
+
+bstSparse &amp;lt;- xgboost(data = titanic_train_sparse, 
+                     label = titanic_train$Survived, 
+                     nrounds = 100,  
+                     params = params_booster)&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
+&lt;div id=&#34;training-the-model&#34; class=&#34;section level1&#34;&gt;
+&lt;h1&gt;&lt;span class=&#34;header-section-number&#34;&gt;5&lt;/span&gt; Training The Model&lt;/h1&gt;
+&lt;p&gt;The xgb.train() and xgboost() functions are used to train the boosting model, and both return an object of class xgb.Booster. Before we do that, let’s first use xgb.cv() to get some understanding of our performance before we evaluate against our final hold our test set. Important to not that xgb.cv() returns an object of type xgb.cv.synchronous, not xgb.Booster. So you won’t be able to call functions like xgb.importance() on it, as xgb.importance() takes object of class xgb.Booster &lt;strong&gt;not&lt;/strong&gt; xgb.cv.synchronous.&lt;/p&gt;
+&lt;pre class=&#34;r&#34;&gt;&lt;code&gt;# NB: keep in mind xgb.cv() is used to select the correct hyperparams.
+# Once you have them, train using xgb.train() or xgboost() to get the final model.
+
+bst.cv &amp;lt;- xgb.cv(data = titanic_train_sparse, 
+              label = titanic_train$Survived, 
+              params = params_booster,
+              nrounds = 300, 
+              nfold = 5,
+              print_every_n = 20,
+              verbose = 2)&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;Note, we can also implement early-stopping: early_stopping_rounds = 3, so that if there has been no improvement in test accuracy for a specified number of rounds, the algorithm stops.&lt;/p&gt;
+&lt;pre class=&#34;r&#34;&gt;&lt;code&gt;res_df &amp;lt;- data.frame(tr = bst.cv$evaluation_log$train_error_mean, 
+                     val = bst.cv$evaluation_log$test_error_mean,
+                     iter = bst.cv$evaluation_log$iter)
+
+g &amp;lt;- ggplot(res_df, aes(x=iter)) +        # Look @ it overfit.
+  geom_line(aes(y=tr), color = &amp;quot;blue&amp;quot;) +
+  geom_line(aes(y=val), colour = &amp;quot;green&amp;quot;)
+
+g&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;&lt;img src=&#34;/post/post/2019-10-04-an-r-pipeline-for-xgboost-and-a-discussion-about-hyperparameters_files/figure-html/unnamed-chunk-14-1.png&#34; width=&#34;672&#34; /&gt;&lt;/p&gt;
+&lt;blockquote&gt;
+&lt;blockquote&gt;
+&lt;blockquote&gt;
+&lt;blockquote&gt;
+&lt;blockquote&gt;
+&lt;blockquote&gt;
+&lt;blockquote&gt;
+&lt;p&gt;3b9e6eb27cdc54f3e4e214759cb5130dfd4780c5&lt;/p&gt;
+&lt;/blockquote&gt;
+&lt;/blockquote&gt;
+&lt;/blockquote&gt;
+&lt;/blockquote&gt;
+&lt;/blockquote&gt;
+&lt;/blockquote&gt;
+&lt;/blockquote&gt;
+&lt;/div&gt;
 </description>
+      
+            <category>R</category>
+      
+            <category>data-science</category>
+      
+            <category>xgboost</category>
+      
+      
     </item>
     
   </channel>

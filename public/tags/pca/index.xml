@@ -1,4 +1,3 @@
-<?xml version="1.0" encoding="utf-8" standalone="yes"?>
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
     <title>pca on orrymr.com</title>
@@ -8,7 +7,7 @@
     <language>en</language>
     <lastBuildDate>Mon, 04 Mar 2019 00:00:00 +0000</lastBuildDate>
     
-	<atom:link href="/tags/pca/index.xml" rel="self" type="application/rss+xml" />
+        <atom:link href="/tags/pca/index.xml" rel="self" type="application/rss+xml" />
     
     
     <item>
@@ -17,11 +16,102 @@
       <pubDate>Mon, 04 Mar 2019 00:00:00 +0000</pubDate>
       
       <guid>/2019/03/r-pca/</guid>
-      <description>
-
-
+      <description>&lt;p&gt;Principal Components Analysis (PCA) is a commonly used dimensionality reduction algorithm. In this post, we show how to perform PCA in R. This post will only briefly touch on the theory behind PCA; instead, we focus on intuition, implementation and interpretation.&lt;/p&gt;
+&lt;div id=&#34;introduction&#34; class=&#34;section level1&#34;&gt;
+&lt;h1&gt;1. Introduction&lt;/h1&gt;
 &lt;p&gt;Principal Components Analysis (PCA) is a commonly used dimensionality reduction algorithm. In this post, we show how to perform PCA in R. This post will only briefly touch on the theory behind PCA; instead, we focus on intuition, implementation and interpretation.&lt;/p&gt;
+&lt;/div&gt;
+&lt;div id=&#34;pca---a-brief-introduction&#34; class=&#34;section level1&#34;&gt;
+&lt;h1&gt;2. PCA - A Brief Introduction&lt;/h1&gt;
+&lt;p&gt;PCA dates back to the early 20th century, and is used to reduce the dimensionality of data (technically, it’s a &lt;em&gt;linear&lt;/em&gt; dimensionality reduction procedure. We won’t get into what that means in this post).&lt;/p&gt;
+&lt;p&gt;The reason you might want to do this is because high dimensional data might lie in a low dimensional subspace. We want to “re-state” this data in that lower dimensional space; that is, we want to get rid of those superfluous extra dimensions.&lt;/p&gt;
+&lt;/div&gt;
+&lt;div id=&#34;intuition&#34; class=&#34;section level1&#34;&gt;
+&lt;h1&gt;3. Intuition&lt;/h1&gt;
+&lt;p&gt;A simple example could be collecting data about houses in your neighbourhood; you collect features such as:&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;Number of windows&lt;/li&gt;
+&lt;li&gt;Number of bedrooms&lt;/li&gt;
+&lt;li&gt;House price&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;Each one of these is another dimension in your dataset. Say you mistakenly collect the area of your house both in square meters &lt;em&gt;and&lt;/em&gt; in square feet. You now have 5 dimensional data, but really, it only lies in a 4 dimensional subspace.&lt;/p&gt;
+&lt;p&gt;This is obviously a contrived example, but hopefully you get the picture.&lt;/p&gt;
+&lt;/div&gt;
+&lt;div id=&#34;implementation-in-r&#34; class=&#34;section level1&#34;&gt;
+&lt;h1&gt;3. Implementation in R&lt;/h1&gt;
+&lt;p&gt;Let’s generate data which simulates some marks in two tests, a maths test and a physics test:&lt;/p&gt;
+&lt;pre class=&#34;r&#34;&gt;&lt;code&gt;set.seed(1337)
+mathScore &amp;lt;- runif(100) * 100
+physicsScore &amp;lt;- mathScore + rnorm(100, sd = 8)
+
+#Let&amp;#39;s make sure that there are no negative marks:
+physicsScore &amp;lt;- pmax(0, physicsScore)
+
+#And let&amp;#39;s make sure that there are no marks greater than 100:
+physicsScore &amp;lt;- pmin(100, physicsScore)
+
+allTestResults &amp;lt;- data.frame(math = mathScore, physics = physicsScore)
+plot(allTestResults$math, allTestResults$physics, xlab = &amp;quot;Math&amp;quot;, ylab = &amp;quot;Physics&amp;quot;)&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;&lt;img src=&#34;/post/post/2019-03-04-r-pca_files/figure-html/unnamed-chunk-1-1.png&#34; width=&#34;672&#34; /&gt;&lt;/p&gt;
+&lt;p&gt;We can see from the picture above that the data are pretty correlated:&lt;/p&gt;
+&lt;pre class=&#34;r&#34;&gt;&lt;code&gt;cor(allTestResults$math, allTestResults$physics)&lt;/code&gt;&lt;/pre&gt;
+&lt;pre&gt;&lt;code&gt;## [1] 0.9725437&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;Maybe there is some underlying, latent “smartness” dimension upon which the data truly lie. Let us attempt to determine&lt;/p&gt;
+&lt;pre class=&#34;r&#34;&gt;&lt;code&gt;pca_results &amp;lt;- prcomp(allTestResults, center = TRUE) #Don&amp;#39;t need to scale, since both axes already on same scale, but centering is NB
+
+print (pca_results)&lt;/code&gt;&lt;/pre&gt;
+&lt;pre&gt;&lt;code&gt;## Standard deviations (1, .., p=2):
+## [1] 42.769762  5.045888
+## 
+## Rotation (n x k) = (2 x 2):
+##                PC1        PC2
+## math    -0.7050443  0.7091633
+## physics -0.7091633 -0.7050443&lt;/code&gt;&lt;/pre&gt;
+&lt;pre class=&#34;r&#34;&gt;&lt;code&gt;plot(pca_results$x)&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;&lt;img src=&#34;/post/post/2019-03-04-r-pca_files/figure-html/unnamed-chunk-3-1.png&#34; width=&#34;672&#34; /&gt;&lt;/p&gt;
+&lt;pre class=&#34;r&#34;&gt;&lt;code&gt;# Let&amp;#39;s scale the plot:
+plot(pca_results$x, xlim = c(-60, 80), ylim = c(-60, 80))&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;&lt;img src=&#34;/post/post/2019-03-04-r-pca_files/figure-html/unnamed-chunk-4-1.png&#34; width=&#34;672&#34; /&gt;&lt;/p&gt;
+&lt;pre class=&#34;r&#34;&gt;&lt;code&gt;screeplot(pca_results)&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;&lt;img src=&#34;/post/post/2019-03-04-r-pca_files/figure-html/unnamed-chunk-5-1.png&#34; width=&#34;672&#34; /&gt;&lt;/p&gt;
+&lt;pre class=&#34;r&#34;&gt;&lt;code&gt;pov &amp;lt;- pca_results$sdev^2/sum(pca_results$sdev^2)&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;Percentage of variance explained by the first principal component: 98.6272283%&lt;/p&gt;
+&lt;pre class=&#34;r&#34;&gt;&lt;code&gt;biplot(pca_results)&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;&lt;img src=&#34;/post/post/2019-03-04-r-pca_files/figure-html/unnamed-chunk-7-1.png&#34; width=&#34;672&#34; /&gt;&lt;/p&gt;
+&lt;pre class=&#34;r&#34;&gt;&lt;code&gt;# allTestResults[8, ]
+# allTestResults[34, ]
+# allTestResults[100, ]
+# allTestResults[57, ]
+# allTestResults[84, ]
+# allTestResults[39, ]&lt;/code&gt;&lt;/pre&gt;
+&lt;pre class=&#34;r&#34;&gt;&lt;code&gt;allTestResults[8, ]&lt;/code&gt;&lt;/pre&gt;
+&lt;pre&gt;&lt;code&gt;##       math  physics
+## 8 28.11173 32.83384&lt;/code&gt;&lt;/pre&gt;
+&lt;pre class=&#34;r&#34;&gt;&lt;code&gt;allTestResults[34, ]&lt;/code&gt;&lt;/pre&gt;
+&lt;pre&gt;&lt;code&gt;##        math  physics
+## 34 22.91205 22.28855&lt;/code&gt;&lt;/pre&gt;
+&lt;pre class=&#34;r&#34;&gt;&lt;code&gt;allTestResults[100, ]&lt;/code&gt;&lt;/pre&gt;
+&lt;pre&gt;&lt;code&gt;##         math physics
+## 100 97.10537     100&lt;/code&gt;&lt;/pre&gt;
+&lt;pre class=&#34;r&#34;&gt;&lt;code&gt;allTestResults[57, ]&lt;/code&gt;&lt;/pre&gt;
+&lt;pre&gt;&lt;code&gt;##        math  physics
+## 57 14.12764 7.651867&lt;/code&gt;&lt;/pre&gt;
+&lt;pre class=&#34;r&#34;&gt;&lt;code&gt;allTestResults[84, ]&lt;/code&gt;&lt;/pre&gt;
+&lt;pre&gt;&lt;code&gt;##       math  physics
+## 84 18.4879 15.14439&lt;/code&gt;&lt;/pre&gt;
+&lt;pre class=&#34;r&#34;&gt;&lt;code&gt;allTestResults[39, ]&lt;/code&gt;&lt;/pre&gt;
+&lt;pre&gt;&lt;code&gt;##        math  physics
+## 39 29.27543 36.10048&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
 </description>
+      
+            <category>R</category>
+      
+            <category>pca</category>
+      
+            <category>data-science</category>
+      
+      
     </item>
     
   </channel>
