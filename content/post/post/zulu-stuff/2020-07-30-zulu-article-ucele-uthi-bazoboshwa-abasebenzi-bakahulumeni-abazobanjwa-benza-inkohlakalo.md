@@ -146,6 +146,8 @@ useshonile - he has died
 2. Nkk Diko was given a tender with her husband of R125 million
 3. These reports were spread in the news
 4. Workers of the government found doing immoral activities will be impisoned
+5. Cele said this during the time (when) he explained in the reports
+6. These reports say what uNkk Diko did
 
 ## Zulu
 
@@ -153,6 +155,8 @@ useshonile - he has died
 2. Nkk Diko ubenikwe nomyeni wakhe ithenda kaR125 Million
 3. Le mibiko isabalale kwizindaba
 4. Abasebenzi bakahulumeni abatholakala benza inkohlakalo bazoboshwa
+5. uCele usho lokhu ngesikhati echaza ngemibiko
+6. Lemibiko ithi wenzeni uNkk Diko
 
 # Questions and Answers
 
@@ -164,6 +168,8 @@ useshonile - he has died
 4. Who will be imprisoned? (Who is it that will be imprisoned)
 5. Who is the speaker of the president?
 6. Who is the head of the department?
+7. Where are these reports? These reports are in the news
+8. These reports suspect who?
 
 ## Zulu
 
@@ -173,6 +179,19 @@ useshonile - he has died
 4. Obani abazoboshwa?
 5. Ubani ongumkhulumeni waMongameli?
 6. Ubani oyisikhulu somyango?
+7. Iphi lemibiko? Lemibiko ezindabeni / kwizindaba
+8. Lemibiko isola ubani?
+
+# Misc.
+
+Looking at translation number 5 above, the same past tense pattern can be seen here:
+
+He did this while he walked his dog (past tense)
+wenze lokhu ngesikhati ehamba nenja
+
+He does this while walking his dog (present tense)
+wenza lokhu ngesikhati uhamba nenja
+
 
 
 
