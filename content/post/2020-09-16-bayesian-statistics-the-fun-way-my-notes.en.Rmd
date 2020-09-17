@@ -1,0 +1,58 @@
+---
+title: Bayesian Statistics the Fun Way (My Notes)
+author: ''
+date: '2020-09-16'
+slug: bayesian-statistics-the-fun-way-my-notes
+draft: true
+categories: []
+tags:
+  - statistics
+keywords:
+  - tech
+---
+
+My notes on [https://www.amazon.com/dp/B07J461Q2K/ref=dp-kindle-redirect?_encoding=UTF8&btkr=1](https://www.amazon.com/dp/B07J461Q2K/ref=dp-kindle-redirect?_encoding=UTF8&btkr=1)
+
+<!--more-->
+
+These notes are by no means (or medians) comprehensive. These are just key points in the book that I want to document and ultimately remember. I'm sure I missed some important points, but hey, I probably picked up on some important ones too.
+
+# Introduction
+
+Distinction made between Frequentists and Bayesians. 
+<u>Frequentists</u> - probability represents frequency.
+<u>Bayesian</u> - probability represents how uncertain we are about a piece of information.
+
+The point is made that for coin tosses, each approach seems reasonable, but for "one-offs", like elections, Bayesian approach makes more sense; The example of looking at probabilities associated with election results (for a given year) - Viewing the probability from a Bayesian perspective tells you about your uncertainty regarding who will win. From a Frequentist perspective, you're making a comment about how frequently a candidate wins the 2020 election... which seems weird.
+
+
+# 1. Bayesian Thinking and Everyday Reasoning
+
+- Discussion about the Bayesian process, of updating your beliefes given more data.
+- When thinking of hypotheses in Bayesian stats, we are usually concerned about how well they predict the data we observe.
+- The true heart of Bayesian analysis: <i>the test of your beliefs is how well they explain the real world.</i>
+- Distinction made between $P(D|H,X)$ and $P(H| D, X)$, where $H$ your hypothesis, $D$ is your data, and $X$ is your experience of the world. I'm going to assume that your experience of the world is implied, so really we are talking about the distinction between $P(D|H)$ and $P(H|D)$. This point is a little tricky for me to get my head around. In the $P(D|H)$ case, we change our beliefs according to the data we gather. I guess it's kind of like: if $P(D|H_1)$ > $P(D|H_2)$, then pick $H_1$ as your hypothesis. So, we check how well the data makes sense, given a bunch of hypotheses. Quote the book: "The data we observe is all that is real, so our beliefs ultimately need to shift until they align with the data". Consider the other formulation: $P(H|D)$ - we're basically saying, "probability of my beliefs ($H$), given the data." Or, how well does what I observe support what I believe? Seems kind of confirmation bias-y? Not sure.
+- So, it's a question of "How well does what I observe support what I believe ($P(H|D)$)" vs "How well does what I believe support what I observe ($P(D|H)$)". Great, now I have a headache. But seriously, the latter case seems more amenable to changing beliefs, while the former to changing data.
+
+# 2. Measuring Uncertainty
+
+- The previous chapter was more conceptual (where we just thumb sucked probabilities, like the probability of seeing an alien is "very low"), but in this chapter, try to actually quantify
+- Some axiomatic stuff about probability - like should add to 1, etc...
+- Counting outcomes of events - combinatorics.
+- Counting outcomes good for things like poker, coin tosses, etc, but what about things like "what's the probabilty it'll rain tomorrow?", "Is that a UFO?"
+- Using odds to solve above porblem. Say you don't believe that a certain article exists on Wikipedia, but your annoying friend does. You reckon it's so unlikely, you'll give the schmuck \$100 if the article exists, and he'll give you \$5 if it does. $\frac{100}{5} = 20$. $P(H_{no\_article}) = 20 \times P(H_{article})$ so $P(H_{no\_article}) = \frac{20}{21}$. 
+- In general $P(H) = \frac{O(H)}{1 + O(H)}$, where $O$ is odds.
+- This chapter explored 2 different twpes of probabilities: those of events and those of beliefs.
+
+# 3. The Logic of Uncertainty
+
+- "AND", leads to product rule $P(A, B) = P(A) \times P(B)$ (note, there is no discssion of independence yet...)
+- "OR", $P(A or B) = P(A) + P(B) - P(A \cap	B)$, keeping in mind $P(A \cap	B)$ will be zero when A, B mutually exclusive
+- Nice example to illustrate this point. Say you get pulled over by the cops... You need both your registration and insurance card. You're confident that you've got registration, so $P(registration) = 0.7$, not so confident about having insurance card so: $P(insurace) = 0.2$.
+So, $P(Missing_{reg}) = 0.3$ and $P(Missing_{ins}) = 0.8$. You are worried that <u>either</u> is missing, so use the sum rule (this is an "OR" case...) Then get: $P(Missing_{reg}) + P(Missing_{ins}) = 1.1$. Great, we fucking broke statistics. But wait... are these events mutually exclusive? Does the occurence of one mean the other cannot occur? Hell no! So, we need to subtract last term... $P(Missing_{reg}, Missing_{ins})$ = $0.3 \times 0.8 = 0.24$, so final result $0.86$. Note, when calculating $P(Missing_{reg}, Missing_{ins})$ we are assuming that they are independent.
+
+# 4. Creating a Binomial Probability Distribution
+
+
+
+
