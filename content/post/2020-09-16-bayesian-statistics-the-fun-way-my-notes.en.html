@@ -1,0 +1,84 @@
+---
+title: Bayesian Statistics the Fun Way (My Notes)
+author: ''
+date: '2020-09-16'
+slug: bayesian-statistics-the-fun-way-my-notes
+draft: true
+categories: []
+tags:
+  - statistics
+keywords:
+  - tech
+---
+
+
+
+<p>My notes on <a href="https://www.amazon.com/dp/B07J461Q2K/ref=dp-kindle-redirect?_encoding=UTF8&amp;btkr=1">https://www.amazon.com/dp/B07J461Q2K/ref=dp-kindle-redirect?_encoding=UTF8&amp;btkr=1</a></p>
+<!--more-->
+<p>These notes are by no means (or medians) comprehensive. These are just key points in the book that I want to document and ultimately remember. I’m sure I missed some important points, but hey, I probably picked up on some important ones too.</p>
+<div id="introduction" class="section level1">
+<h1>Introduction</h1>
+<p>Distinction made between Frequentists and Bayesians.
+<u>Frequentists</u> - probability represents frequency.
+<u>Bayesian</u> - probability represents how uncertain we are about a piece of information.</p>
+<p>The point is made that for coin tosses, each approach seems reasonable, but for “one-offs”, like elections, Bayesian approach makes more sense; The example of looking at probabilities associated with election results (for a given year) - Viewing the probability from a Bayesian perspective tells you about your uncertainty regarding who will win. From a Frequentist perspective, you’re making a comment about how frequently a candidate wins the 2020 election… which seems weird.</p>
+</div>
+<div id="bayesian-thinking-and-everyday-reasoning" class="section level1">
+<h1>1. Bayesian Thinking and Everyday Reasoning</h1>
+<ul>
+<li>Discussion about the Bayesian process, of updating your beliefes given more data.</li>
+<li>When thinking of hypotheses in Bayesian stats, we are usually concerned about how well they predict the data we observe.</li>
+<li>The true heart of Bayesian analysis: <i>the test of your beliefs is how well they explain the real world.</i></li>
+<li>Distinction made between <span class="math inline">\(P(D|H,X)\)</span> and <span class="math inline">\(P(H| D, X)\)</span>, where <span class="math inline">\(H\)</span> your hypothesis, <span class="math inline">\(D\)</span> is your data, and <span class="math inline">\(X\)</span> is your experience of the world. I’m going to assume that your experience of the world is implied, so really we are talking about the distinction between <span class="math inline">\(P(D|H)\)</span> and <span class="math inline">\(P(H|D)\)</span>. This point is a little tricky for me to get my head around. In the <span class="math inline">\(P(D|H)\)</span> case, we change our beliefs according to the data we gather. I guess it’s kind of like: if <span class="math inline">\(P(D|H_1)\)</span> &gt; <span class="math inline">\(P(D|H_2)\)</span>, then pick <span class="math inline">\(H_1\)</span> as your hypothesis. So, we check how well the data makes sense, given a bunch of hypotheses. Quote the book: “The data we observe is all that is real, so our beliefs ultimately need to shift until they align with the data”. Consider the other formulation: <span class="math inline">\(P(H|D)\)</span> - we’re basically saying, “probability of my beliefs (<span class="math inline">\(H\)</span>), given the data.” Or, how well does what I observe support what I believe? Seems kind of confirmation bias-y? Not sure.</li>
+<li>So, it’s a question of “How well does what I observe support what I believe (<span class="math inline">\(P(H|D)\)</span>)” vs “How well does what I believe support what I observe (<span class="math inline">\(P(D|H)\)</span>)”. Great, now I have a headache. But seriously, the latter case seems more amenable to changing beliefs, while the former to changing data.</li>
+</ul>
+</div>
+<div id="measuring-uncertainty" class="section level1">
+<h1>2. Measuring Uncertainty</h1>
+<ul>
+<li>The previous chapter was more conceptual (where we just thumb sucked probabilities, like the probability of seeing an alien is “very low”), but in this chapter, try to actually quantify</li>
+<li>Some axiomatic stuff about probability - like should add to 1, etc…</li>
+<li>Counting outcomes of events - combinatorics.</li>
+<li>Counting outcomes good for things like poker, coin tosses, etc, but what about things like “what’s the probabilty it’ll rain tomorrow?”, “Is that a UFO?”</li>
+<li>Using odds to solve above problem. Say you don’t believe that a certain article exists on Wikipedia, but your annoying friend does. You reckon it’s so unlikely, you’ll give the schmuck \$100 if the article exists, and he’ll give you \$5 if it does. <span class="math inline">\(\frac{100}{5} = 20\)</span>. <span class="math inline">\(P(H_{no\_article}) = 20 \times P(H_{article})\)</span></li>
+<li>$P(H_{no_article}) = 20 (1- P(H_{no_article})) $</li>
+<li>$P(H_{no_article}) = 20 - 20 P(H_{no_article})) $</li>
+<li>so <span class="math inline">\(P(H_{no\_article}) = \frac{20}{21}\)</span>.</li>
+<li>In general <span class="math inline">\(P(H) = \frac{O(H)}{1 + O(H)}\)</span>, where <span class="math inline">\(O\)</span> is odds.</li>
+<li>This chapter explored 2 different twpes of probabilities: those of events and those of beliefs.</li>
+</ul>
+</div>
+<div id="the-logic-of-uncertainty" class="section level1">
+<h1>3. The Logic of Uncertainty</h1>
+<ul>
+<li>“AND”, leads to product rule <span class="math inline">\(P(A, B) = P(A) \times P(B)\)</span> (note, there is no discussion of independence yet…)</li>
+<li>“OR”, <span class="math inline">\(P(A or B) = P(A) + P(B) - P(A \cap B)\)</span>, keeping in mind <span class="math inline">\(P(A \cap B)\)</span> will be zero when A, B mutually exclusive</li>
+<li>Nice example to illustrate this point. Say you get pulled over by the cops… You need both your registration and insurance card. You’re confident that you’ve got registration, so <span class="math inline">\(P(registration) = 0.7\)</span>, not so confident about having insurance card so: <span class="math inline">\(P(insurace) = 0.2\)</span>.
+So, <span class="math inline">\(P(Missing_{reg}) = 0.3\)</span> and <span class="math inline">\(P(Missing_{ins}) = 0.8\)</span>. You are worried that <u>either</u> is missing, so use the sum rule (this is an “OR” case…) Then get: <span class="math inline">\(P(Missing_{reg}) + P(Missing_{ins}) = 1.1\)</span>. Great, we fucking broke statistics. But wait… are these events mutually exclusive? Does the occurence of one mean the other cannot occur? Hell no! So, we need to subtract last term… <span class="math inline">\(P(Missing_{reg}, Missing_{ins})\)</span> = <span class="math inline">\(0.3 \times 0.8 = 0.24\)</span>, so final result <span class="math inline">\(0.86\)</span>. Note, when calculating <span class="math inline">\(P(Missing_{reg}, Missing_{ins})\)</span> we are assuming that they are independent.</li>
+</ul>
+</div>
+<div id="creating-a-binomial-probability-distribution" class="section level1">
+<h1>4. Creating a Binomial Probability Distribution</h1>
+<ul>
+<li>In this chapter create our first probability distribution.</li>
+<li>That is, a way of describing all possible events and the probability of each one happening.</li>
+<li>The “bi” part refers to 2 possible outcomes. If more than 2, then distribution is called multinomial.</li>
+<li><span class="math inline">\(B(k; n, p)\)</span>. <span class="math inline">\(k\)</span>, total number of outcomes we care about, <span class="math inline">\(n\)</span> total number of trials, <span class="math inline">\(p\)</span>, probability of the event happening.</li>
+<li><span class="math inline">\(B(k; n, p) = {n\choose k} \times p^k \times (1-p)^{n-k}\)</span> - this is the PMF (the pprobability mass function).</li>
+<li>The binomial coefficient part of the above pmf is there to account for the number of ways you could choose k successes from n trials.</li>
+<li>For example, if looking at 2 heads in 5 coin tosses, then <span class="math inline">\(5 \choose 2\)</span> is the number of ways this could happen. Could be HHTTT, HTHTT, etc…</li>
+<li>Exmaple - <i>Gacha Games</i>. Purchase virtual cards with in-game currency.</li>
+<li>Get a card of Bayes with p = 0.00721, Jaynes with p = 0.00720, etc… want a Jaynes card.</li>
+<li>Cost 1 Bayes Buck to pull a card, can purchase 100 Bayes Bucks for \$10. Willing to buy this if you have an even chance of pulling the card you want, namely Jaynes (p = 0.00720),</li>
+<li>Plug into above PMF : <span class="math inline">\({100 \choose 1} \times 0.0072^1 \times (1-0.0072)^{99}\)</span>. But, this is only for getting exactly 1 Jaynes card.</li>
+<li>We need <span class="math inline">\(\sum^{100}_{k = 1} \times 0.0072 \times (1 - 0.0072)^{n-k}\)</span></li>
+<li>We ain’t gonna do that by hand. If only we had some sort of device that could <em>compute</em> this for us. A computer of sorts.</li>
+<li>use <code>pbinom()</code> function, can use <code>pbinom(0, 100, 0.0072, lower.tail = FALSE)</code> = 0.5145138. SO BUY THE BAYES BUCKS.</li>
+<li><code>pbinom(0, 100, 0.0072, lower.tail = TRUE) + pbinom(0, 100, 0.0072, lower.tail = FALSE) = 1</code>.</li>
+<li>When <code>lower.tail</code> is <code>TRUE</code>, sums up all probs less than or equal to first argument.</li>
+<li>When <code>lower.tail</code> is <code>FALSE</code>, it sums up the probs scrictly greater than first argument.</li>
+</ul>
+</div>
+<div id="the-beta-distribution" class="section level1">
+<h1>5. The Beta Distribution</h1>
+</div>

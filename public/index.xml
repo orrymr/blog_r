@@ -8,6 +8,82 @@
     <language>en</language>
     <lastBuildDate>Sat, 01 Aug 2020 00:00:00 +0000</lastBuildDate><atom:link href="/index.xml" rel="self" type="application/rss+xml" />
     <item>
+      <title>Bayesian Statistics the Fun Way (My Notes)</title>
+      <link>/2020/09/bayesian-statistics-the-fun-way-my-notes/</link>
+      <pubDate>Wed, 16 Sep 2020 00:00:00 +0000</pubDate>
+      
+      <guid>/2020/09/bayesian-statistics-the-fun-way-my-notes/</guid>
+      <description>&lt;p&gt;These notes are by no means (or medians) comprehensive. These are just key points in the book that I want to document and ultimately remember. I’m sure I missed some important points, but hey, I probably picked up on some important ones too.&lt;/p&gt;
+&lt;div id=&#34;introduction&#34; class=&#34;section level1&#34;&gt;
+&lt;h1&gt;Introduction&lt;/h1&gt;
+&lt;p&gt;Distinction made between Frequentists and Bayesians.
+&lt;u&gt;Frequentists&lt;/u&gt; - probability represents frequency.
+&lt;u&gt;Bayesian&lt;/u&gt; - probability represents how uncertain we are about a piece of information.&lt;/p&gt;
+&lt;p&gt;The point is made that for coin tosses, each approach seems reasonable, but for “one-offs”, like elections, Bayesian approach makes more sense; The example of looking at probabilities associated with election results (for a given year) - Viewing the probability from a Bayesian perspective tells you about your uncertainty regarding who will win. From a Frequentist perspective, you’re making a comment about how frequently a candidate wins the 2020 election… which seems weird.&lt;/p&gt;
+&lt;/div&gt;
+&lt;div id=&#34;bayesian-thinking-and-everyday-reasoning&#34; class=&#34;section level1&#34;&gt;
+&lt;h1&gt;1. Bayesian Thinking and Everyday Reasoning&lt;/h1&gt;
+&lt;ul&gt;
+&lt;li&gt;Discussion about the Bayesian process, of updating your beliefes given more data.&lt;/li&gt;
+&lt;li&gt;When thinking of hypotheses in Bayesian stats, we are usually concerned about how well they predict the data we observe.&lt;/li&gt;
+&lt;li&gt;The true heart of Bayesian analysis: &lt;i&gt;the test of your beliefs is how well they explain the real world.&lt;/i&gt;&lt;/li&gt;
+&lt;li&gt;Distinction made between &lt;span class=&#34;math inline&#34;&gt;\(P(D|H,X)\)&lt;/span&gt; and &lt;span class=&#34;math inline&#34;&gt;\(P(H| D, X)\)&lt;/span&gt;, where &lt;span class=&#34;math inline&#34;&gt;\(H\)&lt;/span&gt; your hypothesis, &lt;span class=&#34;math inline&#34;&gt;\(D\)&lt;/span&gt; is your data, and &lt;span class=&#34;math inline&#34;&gt;\(X\)&lt;/span&gt; is your experience of the world. I’m going to assume that your experience of the world is implied, so really we are talking about the distinction between &lt;span class=&#34;math inline&#34;&gt;\(P(D|H)\)&lt;/span&gt; and &lt;span class=&#34;math inline&#34;&gt;\(P(H|D)\)&lt;/span&gt;. This point is a little tricky for me to get my head around. In the &lt;span class=&#34;math inline&#34;&gt;\(P(D|H)\)&lt;/span&gt; case, we change our beliefs according to the data we gather. I guess it’s kind of like: if &lt;span class=&#34;math inline&#34;&gt;\(P(D|H_1)\)&lt;/span&gt; &amp;gt; &lt;span class=&#34;math inline&#34;&gt;\(P(D|H_2)\)&lt;/span&gt;, then pick &lt;span class=&#34;math inline&#34;&gt;\(H_1\)&lt;/span&gt; as your hypothesis. So, we check how well the data makes sense, given a bunch of hypotheses. Quote the book: “The data we observe is all that is real, so our beliefs ultimately need to shift until they align with the data”. Consider the other formulation: &lt;span class=&#34;math inline&#34;&gt;\(P(H|D)\)&lt;/span&gt; - we’re basically saying, “probability of my beliefs (&lt;span class=&#34;math inline&#34;&gt;\(H\)&lt;/span&gt;), given the data.” Or, how well does what I observe support what I believe? Seems kind of confirmation bias-y? Not sure.&lt;/li&gt;
+&lt;li&gt;So, it’s a question of “How well does what I observe support what I believe (&lt;span class=&#34;math inline&#34;&gt;\(P(H|D)\)&lt;/span&gt;)” vs “How well does what I believe support what I observe (&lt;span class=&#34;math inline&#34;&gt;\(P(D|H)\)&lt;/span&gt;)”. Great, now I have a headache. But seriously, the latter case seems more amenable to changing beliefs, while the former to changing data.&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/div&gt;
+&lt;div id=&#34;measuring-uncertainty&#34; class=&#34;section level1&#34;&gt;
+&lt;h1&gt;2. Measuring Uncertainty&lt;/h1&gt;
+&lt;ul&gt;
+&lt;li&gt;The previous chapter was more conceptual (where we just thumb sucked probabilities, like the probability of seeing an alien is “very low”), but in this chapter, try to actually quantify&lt;/li&gt;
+&lt;li&gt;Some axiomatic stuff about probability - like should add to 1, etc…&lt;/li&gt;
+&lt;li&gt;Counting outcomes of events - combinatorics.&lt;/li&gt;
+&lt;li&gt;Counting outcomes good for things like poker, coin tosses, etc, but what about things like “what’s the probabilty it’ll rain tomorrow?”, “Is that a UFO?”&lt;/li&gt;
+&lt;li&gt;Using odds to solve above problem. Say you don’t believe that a certain article exists on Wikipedia, but your annoying friend does. You reckon it’s so unlikely, you’ll give the schmuck \$100 if the article exists, and he’ll give you \$5 if it does. &lt;span class=&#34;math inline&#34;&gt;\(\frac{100}{5} = 20\)&lt;/span&gt;. &lt;span class=&#34;math inline&#34;&gt;\(P(H_{no\_article}) = 20 \times P(H_{article})\)&lt;/span&gt;&lt;/li&gt;
+&lt;li&gt;$P(H_{no_article}) = 20 (1- P(H_{no_article})) $&lt;/li&gt;
+&lt;li&gt;$P(H_{no_article}) = 20 - 20 P(H_{no_article})) $&lt;/li&gt;
+&lt;li&gt;so &lt;span class=&#34;math inline&#34;&gt;\(P(H_{no\_article}) = \frac{20}{21}\)&lt;/span&gt;.&lt;/li&gt;
+&lt;li&gt;In general &lt;span class=&#34;math inline&#34;&gt;\(P(H) = \frac{O(H)}{1 + O(H)}\)&lt;/span&gt;, where &lt;span class=&#34;math inline&#34;&gt;\(O\)&lt;/span&gt; is odds.&lt;/li&gt;
+&lt;li&gt;This chapter explored 2 different twpes of probabilities: those of events and those of beliefs.&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/div&gt;
+&lt;div id=&#34;the-logic-of-uncertainty&#34; class=&#34;section level1&#34;&gt;
+&lt;h1&gt;3. The Logic of Uncertainty&lt;/h1&gt;
+&lt;ul&gt;
+&lt;li&gt;“AND”, leads to product rule &lt;span class=&#34;math inline&#34;&gt;\(P(A, B) = P(A) \times P(B)\)&lt;/span&gt; (note, there is no discussion of independence yet…)&lt;/li&gt;
+&lt;li&gt;“OR”, &lt;span class=&#34;math inline&#34;&gt;\(P(A or B) = P(A) + P(B) - P(A \cap B)\)&lt;/span&gt;, keeping in mind &lt;span class=&#34;math inline&#34;&gt;\(P(A \cap B)\)&lt;/span&gt; will be zero when A, B mutually exclusive&lt;/li&gt;
+&lt;li&gt;Nice example to illustrate this point. Say you get pulled over by the cops… You need both your registration and insurance card. You’re confident that you’ve got registration, so &lt;span class=&#34;math inline&#34;&gt;\(P(registration) = 0.7\)&lt;/span&gt;, not so confident about having insurance card so: &lt;span class=&#34;math inline&#34;&gt;\(P(insurace) = 0.2\)&lt;/span&gt;.
+So, &lt;span class=&#34;math inline&#34;&gt;\(P(Missing_{reg}) = 0.3\)&lt;/span&gt; and &lt;span class=&#34;math inline&#34;&gt;\(P(Missing_{ins}) = 0.8\)&lt;/span&gt;. You are worried that &lt;u&gt;either&lt;/u&gt; is missing, so use the sum rule (this is an “OR” case…) Then get: &lt;span class=&#34;math inline&#34;&gt;\(P(Missing_{reg}) + P(Missing_{ins}) = 1.1\)&lt;/span&gt;. Great, we fucking broke statistics. But wait… are these events mutually exclusive? Does the occurence of one mean the other cannot occur? Hell no! So, we need to subtract last term… &lt;span class=&#34;math inline&#34;&gt;\(P(Missing_{reg}, Missing_{ins})\)&lt;/span&gt; = &lt;span class=&#34;math inline&#34;&gt;\(0.3 \times 0.8 = 0.24\)&lt;/span&gt;, so final result &lt;span class=&#34;math inline&#34;&gt;\(0.86\)&lt;/span&gt;. Note, when calculating &lt;span class=&#34;math inline&#34;&gt;\(P(Missing_{reg}, Missing_{ins})\)&lt;/span&gt; we are assuming that they are independent.&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/div&gt;
+&lt;div id=&#34;creating-a-binomial-probability-distribution&#34; class=&#34;section level1&#34;&gt;
+&lt;h1&gt;4. Creating a Binomial Probability Distribution&lt;/h1&gt;
+&lt;ul&gt;
+&lt;li&gt;In this chapter create our first probability distribution.&lt;/li&gt;
+&lt;li&gt;That is, a way of describing all possible events and the probability of each one happening.&lt;/li&gt;
+&lt;li&gt;The “bi” part refers to 2 possible outcomes. If more than 2, then distribution is called multinomial.&lt;/li&gt;
+&lt;li&gt;&lt;span class=&#34;math inline&#34;&gt;\(B(k; n, p)\)&lt;/span&gt;. &lt;span class=&#34;math inline&#34;&gt;\(k\)&lt;/span&gt;, total number of outcomes we care about, &lt;span class=&#34;math inline&#34;&gt;\(n\)&lt;/span&gt; total number of trials, &lt;span class=&#34;math inline&#34;&gt;\(p\)&lt;/span&gt;, probability of the event happening.&lt;/li&gt;
+&lt;li&gt;&lt;span class=&#34;math inline&#34;&gt;\(B(k; n, p) = {n\choose k} \times p^k \times (1-p)^{n-k}\)&lt;/span&gt; - this is the PMF (the pprobability mass function).&lt;/li&gt;
+&lt;li&gt;The binomial coefficient part of the above pmf is there to account for the number of ways you could choose k successes from n trials.&lt;/li&gt;
+&lt;li&gt;For example, if looking at 2 heads in 5 coin tosses, then &lt;span class=&#34;math inline&#34;&gt;\(5 \choose 2\)&lt;/span&gt; is the number of ways this could happen. Could be HHTTT, HTHTT, etc…&lt;/li&gt;
+&lt;li&gt;Exmaple - &lt;i&gt;Gacha Games&lt;/i&gt;. Purchase virtual cards with in-game currency.&lt;/li&gt;
+&lt;li&gt;Get a card of Bayes with p = 0.00721, Jaynes with p = 0.00720, etc… want a Jaynes card.&lt;/li&gt;
+&lt;li&gt;Cost 1 Bayes Buck to pull a card, can purchase 100 Bayes Bucks for \$10. Willing to buy this if you have an even chance of pulling the card you want, namely Jaynes (p = 0.00720),&lt;/li&gt;
+&lt;li&gt;Plug into above PMF : &lt;span class=&#34;math inline&#34;&gt;\({100 \choose 1} \times 0.0072^1 \times (1-0.0072)^{99}\)&lt;/span&gt;. But, this is only for getting exactly 1 Jaynes card.&lt;/li&gt;
+&lt;li&gt;We need &lt;span class=&#34;math inline&#34;&gt;\(\sum^{100}_{k = 1} \times 0.0072 \times (1 - 0.0072)^{n-k}\)&lt;/span&gt;&lt;/li&gt;
+&lt;li&gt;We ain’t gonna do that by hand. If only we had some sort of device that could &lt;em&gt;compute&lt;/em&gt; this for us. A computer of sorts.&lt;/li&gt;
+&lt;li&gt;use &lt;code&gt;pbinom()&lt;/code&gt; function, can use &lt;code&gt;pbinom(0, 100, 0.0072, lower.tail = FALSE)&lt;/code&gt; = 0.5145138. SO BUY THE BAYES BUCKS.&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;pbinom(0, 100, 0.0072, lower.tail = TRUE) + pbinom(0, 100, 0.0072, lower.tail = FALSE) = 1&lt;/code&gt;.&lt;/li&gt;
+&lt;li&gt;When &lt;code&gt;lower.tail&lt;/code&gt; is &lt;code&gt;TRUE&lt;/code&gt;, sums up all probs less than or equal to first argument.&lt;/li&gt;
+&lt;li&gt;When &lt;code&gt;lower.tail&lt;/code&gt; is &lt;code&gt;FALSE&lt;/code&gt;, it sums up the probs scrictly greater than first argument.&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/div&gt;
+&lt;div id=&#34;the-beta-distribution&#34; class=&#34;section level1&#34;&gt;
+&lt;h1&gt;5. The Beta Distribution&lt;/h1&gt;
+&lt;/div&gt;
+</description>
+    </item>
+    
+    <item>
       <title>Demonstrating The Central Limit Theorem in R</title>
       <link>/2020/08/demonstrating-the-central-limit-theorem-in-r/</link>
       <pubDate>Tue, 04 Aug 2020 00:00:00 +0000</pubDate>
@@ -1210,28 +1286,6 @@ A^{-1}
 \]&lt;/p&gt;
 
 &lt;p&gt;We can then apply the same sort of calculations that we did for the $2 \times 2$ case, and test that this is indeed the inverse matrix. If you don&amp;rsquo;t believe that this is in fact the inverse, then feel free to do so :) I&amp;rsquo;m going to stop right here, though!&lt;/p&gt;</description>
-    </item>
-    
-    <item>
-      <title>Rank of a Matrix</title>
-      <link>/2018/11/rank-of-a-matrix/</link>
-      <pubDate>Wed, 14 Nov 2018 00:00:00 +0000</pubDate>
-      
-      <guid>/2018/11/rank-of-a-matrix/</guid>
-      <description>&lt;p&gt;The dimension of the column space of a matrix is called its rank.&lt;/p&gt;
-
-&lt;p&gt;rank of a matrix
-10K – 100K
-Low&lt;/p&gt;
-
-&lt;p&gt;The dimension of the column space of a matrix is called its rank.
-- rank of 1 - when the output of the matrix multiplication is a line (for next article)
-  - rank of 2 - when all the outputs of the matrix mult land in 2-D, then matrix has a rank of 2.
-  - etc&amp;hellip;&lt;/p&gt;
-
-&lt;p&gt;It is the number of linearly independent columns&lt;/p&gt;
-
-&lt;p&gt;It is the number of pivots of a matrix&lt;/p&gt;</description>
     </item>
     
   </channel>

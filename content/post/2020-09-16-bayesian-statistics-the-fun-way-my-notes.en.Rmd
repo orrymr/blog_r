@@ -27,7 +27,7 @@ The point is made that for coin tosses, each approach seems reasonable, but for 
 
 
 # 1. Bayesian Thinking and Everyday Reasoning
-
+ 
 - Discussion about the Bayesian process, of updating your beliefes given more data.
 - When thinking of hypotheses in Bayesian stats, we are usually concerned about how well they predict the data we observe.
 - The true heart of Bayesian analysis: <i>the test of your beliefs is how well they explain the real world.</i>
@@ -40,18 +40,47 @@ The point is made that for coin tosses, each approach seems reasonable, but for 
 - Some axiomatic stuff about probability - like should add to 1, etc...
 - Counting outcomes of events - combinatorics.
 - Counting outcomes good for things like poker, coin tosses, etc, but what about things like "what's the probabilty it'll rain tomorrow?", "Is that a UFO?"
-- Using odds to solve above porblem. Say you don't believe that a certain article exists on Wikipedia, but your annoying friend does. You reckon it's so unlikely, you'll give the schmuck \$100 if the article exists, and he'll give you \$5 if it does. $\frac{100}{5} = 20$. $P(H_{no\_article}) = 20 \times P(H_{article})$ so $P(H_{no\_article}) = \frac{20}{21}$. 
+- Using odds to solve above problem. Say you don't believe that a certain article exists on Wikipedia, but your annoying friend does. You reckon it's so unlikely, you'll give the schmuck \\\$100 if the article exists, and he'll give you \\\$5 if it does. $\frac{100}{5} = 20$. $P(H_{no\_article}) = 20 \times P(H_{article})$ 
+- $P(H_{no\_article}) = 20 \times (1- P(H_{no\_article})) $
+- $P(H_{no\_article}) = 20 - 20 \times P(H_{no\_article})) $
+- so $P(H_{no\_article}) = \frac{20}{21}$. 
 - In general $P(H) = \frac{O(H)}{1 + O(H)}$, where $O$ is odds.
 - This chapter explored 2 different twpes of probabilities: those of events and those of beliefs.
 
 # 3. The Logic of Uncertainty
 
-- "AND", leads to product rule $P(A, B) = P(A) \times P(B)$ (note, there is no discssion of independence yet...)
+- "AND", leads to product rule $P(A, B) = P(A) \times P(B)$ (note, there is no discussion of independence yet...)
 - "OR", $P(A or B) = P(A) + P(B) - P(A \cap	B)$, keeping in mind $P(A \cap	B)$ will be zero when A, B mutually exclusive
 - Nice example to illustrate this point. Say you get pulled over by the cops... You need both your registration and insurance card. You're confident that you've got registration, so $P(registration) = 0.7$, not so confident about having insurance card so: $P(insurace) = 0.2$.
 So, $P(Missing_{reg}) = 0.3$ and $P(Missing_{ins}) = 0.8$. You are worried that <u>either</u> is missing, so use the sum rule (this is an "OR" case...) Then get: $P(Missing_{reg}) + P(Missing_{ins}) = 1.1$. Great, we fucking broke statistics. But wait... are these events mutually exclusive? Does the occurence of one mean the other cannot occur? Hell no! So, we need to subtract last term... $P(Missing_{reg}, Missing_{ins})$ = $0.3 \times 0.8 = 0.24$, so final result $0.86$. Note, when calculating $P(Missing_{reg}, Missing_{ins})$ we are assuming that they are independent.
 
 # 4. Creating a Binomial Probability Distribution
+
+- In this chapter create our first probability distribution.
+- That is, a way of describing all possible events and the probability of each one happening.
+- The "bi" part refers to 2 possible outcomes. If more than 2, then distribution is called multinomial.
+- $B(k; n, p)$. $k$, total number of outcomes we care about, $n$ total number of trials, $p$, probability of the event happening.
+- $B(k; n, p) = {n\choose k} \times p^k \times (1-p)^{n-k}$ - this is the PMF (the pprobability mass function).
+- The binomial coefficient part of the above pmf is there to account for the number of ways you could choose k successes from n trials.
+- For example, if looking at 2 heads in 5 coin tosses, then $5 \choose 2$ is the number of ways this could happen. Could be HHTTT, HTHTT, etc...
+- Exmaple - <i>Gacha Games</i>. Purchase virtual cards with in-game currency.
+- Get a card of Bayes with p = 0.00721, Jaynes with p = 0.00720, etc... want a Jaynes card.
+- Cost 1 Bayes Buck to pull a card,  can purchase 100 Bayes Bucks for \\\$10. Willing to buy this if you have an even chance of pulling the card you want, namely Jaynes (p = 0.00720), 
+- Plug into above PMF : ${100 \choose 1} \times 0.0072^1 \times (1-0.0072)^{99}$. But, this is only for getting exactly 1 Jaynes card.
+- We need $\sum^{100}_{k = 1} \times 0.0072 \times (1 - 0.0072)^{n-k}$
+- We ain't gonna do that by hand. If only we had some sort of device that could _compute_ this for us. A computer of sorts.
+- use `pbinom()` function, can use `pbinom(0, 100, 0.0072, lower.tail = FALSE)` = 0.5145138. SO BUY THE BAYES BUCKS.
+- `pbinom(0, 100, 0.0072, lower.tail = TRUE) + pbinom(0, 100, 0.0072, lower.tail = FALSE) = 1`.
+- When `lower.tail` is `TRUE`, sums up all probs less than or equal to first argument.
+- When `lower.tail` is `FALSE`, it sums up the probs scrictly greater than first argument.
+
+# 5. The Beta Distribution
+
+
+
+
+
+
 
 
 
