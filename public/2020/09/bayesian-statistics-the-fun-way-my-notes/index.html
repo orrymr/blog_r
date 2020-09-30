@@ -313,14 +313,23 @@ if (!doNotTrack) {
           <div class="post-content markdown" itemprop="articleBody">
             <div class="main-content-wrap">
               <p>These notes are by no means (or medians) comprehensive. These are just key points in the book that I want to document and ultimately remember. I’m sure I missed some important points, but hey, I probably picked up on some important ones too.</p>
-<div id="introduction" class="section level1">
+<ul>
+<li><a href="#intro">Introduction</a></li>
+<li><a href="#ch1">Chapter 1 - Bayesian Thinking and Everyday Reasoning</a></li>
+<li><a href="#ch2">Chapter 2 - Measuring Uncertainty</a></li>
+<li><a href="#ch3">Chapter 3 - The Logic of Uncertainty</a></li>
+<li><a href="#ch4">Chapter 4 - Creating a Binomial Probability Distribution</a></li>
+<li><a href="#ch5">Chapter 5 - The Beta Distribution</a></li>
+<li><a href="#ch6">Chapter 6 - Conditional Probability</a></li>
+</ul>
+<div id="intro" class="section level1">
 <h1>Introduction</h1>
 <p>Distinction made between Frequentists and Bayesians.
 <u>Frequentists</u> - probability represents frequency.
 <u>Bayesian</u> - probability represents how uncertain we are about a piece of information.</p>
 <p>The point is made that for coin tosses, each approach seems reasonable, but for “one-offs”, like elections, Bayesian approach makes more sense; The example of looking at probabilities associated with election results (for a given year) - Viewing the probability from a Bayesian perspective tells you about your uncertainty regarding who will win. From a Frequentist perspective, you’re making a comment about how frequently a candidate wins the 2020 election… which seems weird.</p>
 </div>
-<div id="bayesian-thinking-and-everyday-reasoning" class="section level1">
+<div id="ch1" class="section level1">
 <h1>1. Bayesian Thinking and Everyday Reasoning</h1>
 <ul>
 <li>Discussion about the Bayesian process, of updating your beliefes given more data.</li>
@@ -330,7 +339,7 @@ if (!doNotTrack) {
 <li>So, it’s a question of “How well does what I observe support what I believe (<span class="math inline">\(P(H|D)\)</span>)” vs “How well does what I believe support what I observe (<span class="math inline">\(P(D|H)\)</span>)”. Great, now I have a headache. But seriously, the latter case seems more amenable to changing beliefs, while the former to changing data.</li>
 </ul>
 </div>
-<div id="measuring-uncertainty" class="section level1">
+<div id="ch2" class="section level1">
 <h1>2. Measuring Uncertainty</h1>
 <ul>
 <li>The previous chapter was more conceptual (where we just thumb sucked probabilities, like the probability of seeing an alien is “very low”), but in this chapter, try to actually quantify</li>
@@ -345,7 +354,7 @@ if (!doNotTrack) {
 <li>This chapter explored 2 different twpes of probabilities: those of events and those of beliefs.</li>
 </ul>
 </div>
-<div id="the-logic-of-uncertainty" class="section level1">
+<div id="ch3" class="section level1">
 <h1>3. The Logic of Uncertainty</h1>
 <ul>
 <li>“AND”, leads to product rule <span class="math inline">\(P(A, B) = P(A) \times P(B)\)</span> (note, there is no discussion of independence yet…)</li>
@@ -354,7 +363,7 @@ if (!doNotTrack) {
 So, <span class="math inline">\(P(Missing_{reg}) = 0.3\)</span> and <span class="math inline">\(P(Missing_{ins}) = 0.8\)</span>. You are worried that <u>either</u> is missing, so use the sum rule (this is an “OR” case…) Then get: <span class="math inline">\(P(Missing_{reg}) + P(Missing_{ins}) = 1.1\)</span>. Great, we fucking broke statistics. But wait… are these events mutually exclusive? Does the occurence of one mean the other cannot occur? Hell no! So, we need to subtract last term… <span class="math inline">\(P(Missing_{reg}, Missing_{ins})\)</span> = <span class="math inline">\(0.3 \times 0.8 = 0.24\)</span>, so final result <span class="math inline">\(0.86\)</span>. Note, when calculating <span class="math inline">\(P(Missing_{reg}, Missing_{ins})\)</span> we are assuming that they are independent.</li>
 </ul>
 </div>
-<div id="creating-a-binomial-probability-distribution" class="section level1">
+<div id="ch4" class="section level1">
 <h1>4. Creating a Binomial Probability Distribution</h1>
 <ul>
 <li>In this chapter create our first probability distribution.</li>
@@ -376,8 +385,52 @@ So, <span class="math inline">\(P(Missing_{reg}) = 0.3\)</span> and <span class=
 <li>When <code>lower.tail</code> is <code>FALSE</code>, it sums up the probs scrictly greater than first argument.</li>
 </ul>
 </div>
-<div id="the-beta-distribution" class="section level1">
+<div id="ch5" class="section level1">
 <h1>5. The Beta Distribution</h1>
+<ul>
+<li>Use beta distribution to estimtate the probability of an event for which you’ve already observed a number of trials and the number of successful outcomes.</li>
+<li>For example, you would use it to estimate the probability of flipping a heads when so far you’ve observed 100 tosses of a coint, and 40 of those were heads.</li>
+<li>This chapter also discusses the difference between probability, statistics and inference.</li>
+<li>Division between probability and statistics - with probabilities, you have the exact figure which you use as the probability. With probability, what we’re concerned with is how likely observations are. For example, could be a 0.5 chance of getting heads - what’s the probability of getting 7 heads out of 20?</li>
+<li>In statistics, look at this problem backwards - assuming you observe 7 heads in 20 coin tosses, what is the probability of getting heads in a single coin toss?</li>
+<li><i>Inference</i> is the task of figuring out probabilities given the data.</li>
+<li>Example: black box. Put a quarter in, sometimes 2 quarters come out, sometimes it just eats your quarter. What’s the probability of getting 2 quarters? IS it 50-50? Is it something else?</li>
+<li>Try 41 quarters, get 14 wins, 27 losses.</li>
+<li>Do we say <span class="math inline">\(H_1: P(two coins) = \frac{1}{2}\)</span> or <span class="math inline">\(H_2: P(two coins) = \frac{14}{41}\)</span>?</li>
+<li>We can use the binomial distribution for this:</li>
+<li><span class="math inline">\(P(D | H_1) = B(14;41,\frac{1}{2}) \approx 0.016\)</span></li>
+<li><span class="math inline">\(P(D | H_2) = B(14;41,\frac{14}{41}) \approx 0.130\)</span></li>
+<li>So, <span class="math inline">\(H_2\)</span> is almost 10x more likely, though neither is impossible.</li>
+<li>We could also pick different probabilities to test:</li>
+</ul>
+<p><img src="https://res.cloudinary.com/da1gwmlvj/image/upload/v1601482159/bayesian_stats_fun_way/bin_at_diff_p_wdgxwv.png" /></p>
+<ul>
+<li>Doing this at a finer grain:</li>
+</ul>
+<p><img src="https://res.cloudinary.com/da1gwmlvj/image/upload/v1601483909/bayesian_stats_fun_way/bin_at_diff_p_finer_bzahpc.png" /></p>
+<ul>
+<li>Formalize this notion with the beta distribution.</li>
+<li>Beta distribution has a probability density function (pdf) rather than pmf (like binomial), because beta is continuous.</li>
+</ul>
+<div class="figure">
+<img src="https://res.cloudinary.com/da1gwmlvj/image/upload/v1601484058/bayesian_stats_fun_way/beta_tm4fgk.png" alt="" />
+<p class="caption">Beta Distribution</p>
+</div>
+<ul>
+<li><p><span class="math inline">\(p\)</span> - probability of an event. Corresponds to our different hypotheses for the possible probabilities of our black box.</p></li>
+<li><p><span class="math inline">\(\alpha\)</span> - How many times we observe an event we care about. Like getting 2 quarters in our black box.</p></li>
+<li><p><span class="math inline">\(\beta\)</span> - How many times the event we care about didn’t happen. Like number of times black box ate a quarter.</p></li>
+<li><p>denominator - beta function, to normalize.
+<img src="https://res.cloudinary.com/da1gwmlvj/image/upload/v1601484310/bayesian_stats_fun_way/beta_graph_sb87gj.png" /></p></li>
+<li><p>Plot shows that it’s very unlikely the black box will return 2 quarters at least half the time, our break even point.</p></li>
+<li><p>If we want to quantify, we need to integrate: <code>integrate(function(p) dbeta(p, 14, 27), 0, 0.5)</code> -&gt; 0.9807613 with absolute error &lt; 5.9e-06</p></li>
+<li><p>Absolute error just because computers can’t perfectly calculate integrals, usually leads to a very, negligible error.</p></li>
+<li><p>This result tells us that, given our evidence, there is 0.98 probability that the true probability of getting two coinds out of the black box is less than 0.5.</p></li>
+<li><p>We mostly never know true probabilities for events - that’s why beta distribution is one of the most powerful tools for understanding our data.</p></li>
+</ul>
+</div>
+<div id="ch6" class="section level1">
+<h1>6. Conditional Probability</h1>
 </div>
 
               

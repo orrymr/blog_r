@@ -17,7 +17,15 @@ My notes on [https://www.amazon.com/dp/B07J461Q2K/ref=dp-kindle-redirect?_encodi
 
 These notes are by no means (or medians) comprehensive. These are just key points in the book that I want to document and ultimately remember. I'm sure I missed some important points, but hey, I probably picked up on some important ones too.
 
-# Introduction
+- [Introduction](#intro)
+- [Chapter 1 - Bayesian Thinking and Everyday Reasoning](#ch1)
+- [Chapter 2 - Measuring Uncertainty](#ch2)
+- [Chapter 3 - The Logic of Uncertainty](#ch3)
+- [Chapter 4 - Creating a Binomial Probability Distribution](#ch4)
+- [Chapter 5 - The Beta Distribution](#ch5)
+- [Chapter 6 - Conditional Probability](#ch6)
+
+# Introduction {#intro}
 
 Distinction made between Frequentists and Bayesians. 
 <u>Frequentists</u> - probability represents frequency.
@@ -26,7 +34,7 @@ Distinction made between Frequentists and Bayesians.
 The point is made that for coin tosses, each approach seems reasonable, but for "one-offs", like elections, Bayesian approach makes more sense; The example of looking at probabilities associated with election results (for a given year) - Viewing the probability from a Bayesian perspective tells you about your uncertainty regarding who will win. From a Frequentist perspective, you're making a comment about how frequently a candidate wins the 2020 election... which seems weird.
 
 
-# 1. Bayesian Thinking and Everyday Reasoning
+# 1. Bayesian Thinking and Everyday Reasoning {#ch1}
  
 - Discussion about the Bayesian process, of updating your beliefes given more data.
 - When thinking of hypotheses in Bayesian stats, we are usually concerned about how well they predict the data we observe.
@@ -34,7 +42,7 @@ The point is made that for coin tosses, each approach seems reasonable, but for 
 - Distinction made between $P(D|H,X)$ and $P(H| D, X)$, where $H$ your hypothesis, $D$ is your data, and $X$ is your experience of the world. I'm going to assume that your experience of the world is implied, so really we are talking about the distinction between $P(D|H)$ and $P(H|D)$. This point is a little tricky for me to get my head around. In the $P(D|H)$ case, we change our beliefs according to the data we gather. I guess it's kind of like: if $P(D|H_1)$ > $P(D|H_2)$, then pick $H_1$ as your hypothesis. So, we check how well the data makes sense, given a bunch of hypotheses. Quote the book: "The data we observe is all that is real, so our beliefs ultimately need to shift until they align with the data". Consider the other formulation: $P(H|D)$ - we're basically saying, "probability of my beliefs ($H$), given the data." Or, how well does what I observe support what I believe? Seems kind of confirmation bias-y? Not sure.
 - So, it's a question of "How well does what I observe support what I believe ($P(H|D)$)" vs "How well does what I believe support what I observe ($P(D|H)$)". Great, now I have a headache. But seriously, the latter case seems more amenable to changing beliefs, while the former to changing data.
 
-# 2. Measuring Uncertainty
+# 2. Measuring Uncertainty {#ch2}
 
 - The previous chapter was more conceptual (where we just thumb sucked probabilities, like the probability of seeing an alien is "very low"), but in this chapter, try to actually quantify
 - Some axiomatic stuff about probability - like should add to 1, etc...
@@ -47,14 +55,14 @@ The point is made that for coin tosses, each approach seems reasonable, but for 
 - In general $P(H) = \frac{O(H)}{1 + O(H)}$, where $O$ is odds.
 - This chapter explored 2 different twpes of probabilities: those of events and those of beliefs.
 
-# 3. The Logic of Uncertainty
+# 3. The Logic of Uncertainty {#ch3}
 
 - "AND", leads to product rule $P(A, B) = P(A) \times P(B)$ (note, there is no discussion of independence yet...)
 - "OR", $P(A or B) = P(A) + P(B) - P(A \cap	B)$, keeping in mind $P(A \cap	B)$ will be zero when A, B mutually exclusive
 - Nice example to illustrate this point. Say you get pulled over by the cops... You need both your registration and insurance card. You're confident that you've got registration, so $P(registration) = 0.7$, not so confident about having insurance card so: $P(insurace) = 0.2$.
 So, $P(Missing_{reg}) = 0.3$ and $P(Missing_{ins}) = 0.8$. You are worried that <u>either</u> is missing, so use the sum rule (this is an "OR" case...) Then get: $P(Missing_{reg}) + P(Missing_{ins}) = 1.1$. Great, we fucking broke statistics. But wait... are these events mutually exclusive? Does the occurence of one mean the other cannot occur? Hell no! So, we need to subtract last term... $P(Missing_{reg}, Missing_{ins})$ = $0.3 \times 0.8 = 0.24$, so final result $0.86$. Note, when calculating $P(Missing_{reg}, Missing_{ins})$ we are assuming that they are independent.
 
-# 4. Creating a Binomial Probability Distribution
+# 4. Creating a Binomial Probability Distribution {#ch4}
 
 - In this chapter create our first probability distribution.
 - That is, a way of describing all possible events and the probability of each one happening.
@@ -74,7 +82,47 @@ So, $P(Missing_{reg}) = 0.3$ and $P(Missing_{ins}) = 0.8$. You are worried that 
 - When `lower.tail` is `TRUE`, sums up all probs less than or equal to first argument.
 - When `lower.tail` is `FALSE`, it sums up the probs scrictly greater than first argument.
 
-# 5. The Beta Distribution
+# 5. The Beta Distribution {#ch5}
+
+- Use beta distribution to estimtate the probability of an event for which you've already observed a number of trials and the number of successful outcomes.
+- For example, you would use it to estimate the probability of flipping a heads when so far you've observed 100 tosses of a coint, and 40 of those were heads.
+- This chapter also discusses the difference between probability, statistics and inference.
+- Division between probability and statistics - with probabilities, you have the exact figure which you use as the probability. With probability, what we're concerned with is how likely observations are. For example, could be a 0.5 chance of getting heads - what's the probability of getting 7 heads out of 20?
+- In statistics, look at this problem backwards - assuming you observe 7 heads in 20 coin tosses, what is the probability of getting heads in a single coin toss?
+- <i>Inference</i> is the task of figuring out probabilities given the data.
+- Example: black box. Put a quarter in, sometimes 2 quarters come out, sometimes it just eats your quarter. What's the probability of getting 2 quarters? IS it 50-50? Is it something else?
+- Try 41 quarters, get 14 wins, 27 losses.
+- Do we say $H_1: P(two coins) = \frac{1}{2}$ or $H_2: P(two coins) = \frac{14}{41}$?
+- We can use the binomial distribution for this:
+- $P(D | H_1) = B(14;41,\frac{1}{2}) \approx 0.016$
+- $P(D | H_2) = B(14;41,\frac{14}{41}) \approx 0.130$
+- So, $H_2$ is almost 10x more likely, though neither is impossible. 
+- We could also pick different probabilities to test:
+
+![](https://res.cloudinary.com/da1gwmlvj/image/upload/v1601482159/bayesian_stats_fun_way/bin_at_diff_p_wdgxwv.png)
+
+- Doing this at a finer grain:
+
+![](https://res.cloudinary.com/da1gwmlvj/image/upload/v1601483909/bayesian_stats_fun_way/bin_at_diff_p_finer_bzahpc.png)
+
+- Formalize this notion with the beta distribution.
+- Beta distribution has a probability density function (pdf) rather than pmf (like binomial), because beta is continuous.
+
+![Beta Distribution](https://res.cloudinary.com/da1gwmlvj/image/upload/v1601484058/bayesian_stats_fun_way/beta_tm4fgk.png)
+
+- $p$ - probability of an event.  Corresponds to our different hypotheses for the possible probabilities of our black box.
+- $\alpha$ - How many times we observe an event we care about. Like getting 2 quarters in our black box.
+- $\beta$ - How many times the event we care about didn't happen. Like number of times black box ate a quarter.
+- denominator - beta function, to normalize.
+![](https://res.cloudinary.com/da1gwmlvj/image/upload/v1601484310/bayesian_stats_fun_way/beta_graph_sb87gj.png)
+- Plot shows that it's very unlikely the black box will return 2 quarters at least half the time, our break even point.
+- If we want to quantify, we need to integrate: `integrate(function(p) dbeta(p, 14, 27), 0, 0.5)` -> 0.9807613 with absolute error < 5.9e-06
+- Absolute error just because computers can't perfectly calculate integrals, usually leads to a very, negligible error.
+- This result tells us that, given our evidence, there is 0.98 probability that the true probability of getting two coinds out of the black box is less than 0.5.
+
+- We mostly never know true probabilities for events - that's why beta distribution is one of the most powerful tools for understanding our data.
+
+# 6. Conditional Probability {#ch6}
 
 
 
