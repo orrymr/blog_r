@@ -1,11 +1,11 @@
 ---
-title: An R Pipeline for XGBoost (and a discussion about hyperparameters)
+title: An R Pipeline for XGBoost Part I
 output:
   blogdown::html_page:
     number_sections: true
 author: 'Orry Messer'
 date: '2019-10-04'
-slug: an-r-pipeline-for-xgboost-and-a-discussion-about-hyperparameters
+slug: an-r-pipeline-for-xgboost-and-a-discussion-about-hyperparameters-part-i
 draft: true
 categories: []
 tags:
@@ -14,65 +14,75 @@ tags:
   - xgboost
 ---
 
-```{r, echo = FALSE, results = 'hide', warning = FALSE, include = FALSE}
-knitr::opts_chunk$set(echo = TRUE, message = FALSE)
-options(kableExtra.html.bsTable = TRUE)
-
-library(Matrix)
-library(xgboost)
-library(ggplot2)
-library(readr)
-library(dplyr)
-library(knitr)
-library(kableExtra)
-
-directoryWhichContainsTrainingData <-  "./xg_boost_data/train.csv"
-directoryWhichContaintsTestData <- "./xg_boost_data//test.csv"
-```
 In this blog post, we discuss what XGBoost is, and demonstrate a pipeline for working with XGBoost in R.
-
-bkaswd
 
 <!--more-->
 
-# Introduction
+```{r, echo = FALSE, results = 'hide', warning = FALSE, include = FALSE}
+library(knitr)
+library(kableExtra)
+
+knitr::opts_chunk$set(echo = TRUE, message = FALSE)
+options(kableExtra.html.bsTable = TRUE)
+```
+
+Contents:
+
+- [Introduction](#intro)
+- [XGBoost - An Implementation of Gradient Boosting](#xgimpl)
+
+# Introduction {#intro}
 
 [XGBoost](https://xgboost.readthedocs.io/en/latest/) is an implementation of a machine learning technique known as [gradient boosting](https://en.wikipedia.org/wiki/Gradient_boosting).
-In this blog post, we discuss what XGBoost is, and demonstrate a pipeline for working with it in R.
+<b>In this blog post, we discuss what XGBoost is, and demonstrate a pipeline for working with it in R.</b> We won't go into too much theoretical detail. Rather, we'll focus on application.
 
-# XGBoost - An Implementation of Gradient Boosting
+# XGBoost - An Implementation of Gradient Boosting {#xgimpl}
 
-Gradient boosting is part of a class of machine learning techniques known as ensemble methods. An ensemble method leverages the output of many <u>weak learners</u> in order to make a prediction. Typically, these weak learners are implemented as decision trees. While each individual weak learner might not get the answer right, on average, their combined answers should be pretty decent. What makes gradient boosting different from another popular ensemble method - [Random Forest](https://en.wikipedia.org/wiki/Random_forest), is that the construction of the weak learners depend on the previously constructed learners. 
+<b>Gradient boosting is part of a class of machine learning techniques known as ensemble methods.</b> An ensemble method leverages the output of many <u>weak learners</u> in order to make a prediction. Typically, these weak learners are implemented as decision trees. While each individual weak learner might not get the answer right, on average, their combined answers should be pretty decent. What makes gradient boosting different from another popular ensemble method - [Random Forest](https://en.wikipedia.org/wiki/Random_forest), is that the construction of the weak learners depend on the previously constructed learners. 
 
-In gradient boosting, each weak learner is chosen iteratively in a greedy manner, so as to minimize the loss function.
-
-XGBoost is a highly optimized implementation of gradient boosting. The original paper describing XGBoost can be found [here](https://arxiv.org/pdf/1603.02754.pdf). Although XGBoost is written in C++, it can be interfaced from R using the `xgboost` package.
+In gradient boosting, each weak learner is chosen iteratively in a greedy manner, so as to minimize the loss function. <b>XGBoost is a highly optimized implementation of gradient boosting.</b> The original paper describing XGBoost can be found [here](https://arxiv.org/pdf/1603.02754.pdf). Although XGBoost is written in C++, it can be interfaced from R using the `xgboost` package.
 
 To install the package:
 
 `install.packages("xgboost")`
 
+In this tutorial we use the following packages: 
+
+```{r, echo = TRUE, results = 'hide', warning = FALSE, include = TRUE}
+library(Matrix)
+library(xgboost)
+library(ggplot2)
+library(readr)
+library(dplyr)
+```
+
+
 # Load And Explore The Data
 
-We will use the [Titanic Dataset](https://www.kaggle.com/c/titanic/data) which we get from Kaggle. Basically, we try predict whether a passenger survived or not (so this is a binary classification problem).
+<b>We will use the [Titanic Dataset](https://www.kaggle.com/c/titanic/data) which we get from Kaggle.</b> Basically, we try predict whether a passenger survived or not (so this is a binary classification problem).
 
 Let's load up the data:
 
 ```{r, echo=TRUE, message = FALSE}
 
+# Replace directoryWhichContainsTrainingData and directoryWhichContaintsTestData 
+# with your path to your training and test data, respectively.
+# For example mine looks like this:
+directoryWhichContainsTrainingData <-  "./xg_boost_data/train.csv"
+directoryWhichContaintsTestData <- "./xg_boost_data//test.csv"
+
 titanic_train <- read_csv(directoryWhichContainsTrainingData)
 titanic_test <- read_csv(directoryWhichContaintsTestData)
-
 ```
 
-For the sake of brevity, I'll only keep some of the features:
+For the sake of brevity (and my laziness), I'll only keep some of the features:
 
-- Pclass
+- Pclass: this refers to passenger class (1st, 2nd or 3rd)
 - Sex
 - Age
-- Embarked
+- Embarked: Port of Embarkation	- C = Cherbourg, Q = Queenstown, S = Southampton
 
-I'll use dplyr's select() to do this:
+I'll use dplyr's `select()` to do this:
 
 ```{r}
 titanic_train <- titanic_train %>%
@@ -89,28 +99,25 @@ titanic_test <- titanic_test %>%
          Embarked)
 ```
 
-
 Let's have a look at our data after discarding a few features:
 
 ```{r, message = TRUE}
 str(titanic_train, give.attr = FALSE)
 ```
-XGBoost will only take numeric data as input. Let's convert our character features to factors, and one-hot encode. We will use sparse.model.matrix() to create a sparse matrix which will be used as input for our model. XGBoost has been written to take advantage of sparse matrices, so we want to make sure that we're using this feature.
+<b>XGBoost will only take numeric data as input.</b> Let's convert our character features to factors, and one-hot encode. Since we're one-hot encoding, we expect our matrix to be filled with lots of zeroes - in other words, we expect it to be sparse. We will use `sparse.model.matrix()` to create a sparse matrix which will be used as input for our model. XGBoost has been written to take advantage of sparse matrices, so we want to make sure that we're using this feature. 
 
-Unfortunately, in using R at least, sparse.model.matrix() will drop rows which contain NA's if the global option `options('na.action')` is set to `"na.omit"`.
-
-So we use a fix outlined [here](https://stackoverflow.com/questions/29732720/sparse-model-matrix-loses-rows-in-r):
+<b>Unfortunately, in using R at least, sparse.model.matrix() will drop rows which contain NA's</b> if the global option `options('na.action')` is set to `"na.omit"`. So we use a fix outlined [here](https://stackoverflow.com/questions/29732720/sparse-model-matrix-loses-rows-in-r):
 
 ```{r}
-previous_na_action <- options('na.action')
-options(na.action='na.pass')
+previous_na_action <- options('na.action') #store the current na.action
+options(na.action='na.pass') #change the na.action
 
 titanic_train$Sex <- as.factor(titanic_train$Sex)
 titanic_train$Embarked <- as.factor(titanic_train$Embarked)
 
-titanic_train_sparse <- sparse.model.matrix(Survived~., data = titanic_train)[,-1]
+titanic_train_sparse <- sparse.model.matrix(Survived~., data = titanic_train)[,-1] #create the sparse matrix
 
-options(na.action=previous_na_action$na.action)
+options(na.action=previous_na_action$na.action) #reset the na.action
 
 ```
 
@@ -136,7 +143,7 @@ The names are the features are given by `titanic_train_sparse@Dimnames[[2]]`:
 head(titanic_train_sparse@Dimnames[[2]])
 ```
 
-If needed, you can convert this data (back) into a dataframe, thusly:
+If needed, you can convert this data (back) into a data frame, thusly:
 
 ```{r, results='hide'}
 train_data_as_df <- as.data.frame(as.matrix(titanic_train_sparse))
@@ -147,7 +154,6 @@ train_data_as_df <- as.data.frame(as.matrix(titanic_train_sparse))
 Tuning hyperparameters is a vast topic. Without going into too much depth, I'll outline some of the more commonly used hyperparameters:
 
 Full reference: https://xgboost.readthedocs.io/en/latest/parameter.html
-### Tree booster params...####
 
 ```{r, echo=FALSE, message = FALSE}
 param_df <- data.frame(Parameter = c("eta", 
@@ -159,8 +165,9 @@ kable(param_df, caption = "Parameters") %>%
   kable_styling(bootstrap_options = c("striped", "hover"))
 
 ```
+<b>Note that the above hyperparameters are in the case of the weak learner being a tree.</b> It is possible to have linear models as your weak learners. 
 
-```{r}
+```{r, echo=FALSE}
 # Full reference: https://xgboost.readthedocs.io/en/latest/parameter.html
 # ### Tree booster params...####
 # eta:       						default = 0.3
@@ -184,8 +191,6 @@ kable(param_df, caption = "Parameters") %>%
 
 ```
 
-(I've left it as commented code, as I like to past this into my scripts as a quick reference.)
-
 Let's create the hyper-parameters list:
 
 ```{r, results='hide'}
@@ -207,10 +212,12 @@ bstSparse <- xgboost(data = titanic_train_sparse,
 
 ```
 
+One day, I shall write a blog post about various ways to tune your hyperparameters. But, today is not that day. If you are like me, and believe in serendipitous machine learning, then try a random search of the hyperparameters (within reason, of course. Don't set `max.depth = 9999999999`. Or do, I'm not telling you how to live your life). You get surprisignly decent results. 
+
 # Training The Model
 
-The xgb.train() and xgboost() functions are used to train the boosting model, and both return an object of class xgb.Booster.
-Before we do that, let's first use xgb.cv() to get some understanding of our performance before we evaluate against our final hold our test set. Important to not that xgb.cv() returns an object of type xgb.cv.synchronous, not xgb.Booster. So you won't be able to call functions like xgb.importance() on it, as xgb.importance() takes object of class xgb.Booster __not__ xgb.cv.synchronous.
+The `xgb.train()` and `xgboost()` functions are used to train the boosting model, and both return an object of class xgb.Booster. `xgboost()` is a simple wrapper for `xgb.train()`. `xgb.train()` is an advanced interface for training the xgboost model. We're going to use `xgboost()` to train our model. Yay.
+Before we do that, let's first use xgb.cv() to get some understanding of our performance before we evaluate against our final hold our test set. Important to note that xgb.cv() returns an object of type xgb.cv.synchronous, not xgb.Booster. So you won't be able to call functions like xgb.importance() on it, as xgb.importance() takes object of class xgb.Booster __not__ xgb.cv.synchronous.
 
 
 ```{r, results='hide'}
@@ -244,4 +251,10 @@ g
 
 ```
 
->>>>>>> 3b9e6eb27cdc54f3e4e214759cb5130dfd4780c5
+# Wait, What is this xgb.cv() function?
+
+# Conclusion
+
+In this blog post we saw how to...
+We hinted that we could use `xgb.cv()` to mitigate over-fitting. Part II of this blog post will discuss how to do so.
+
