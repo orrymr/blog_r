@@ -135,6 +135,41 @@ So, &lt;span class=&#34;math inline&#34;&gt;\(P(Missing_{reg}) = 0.3\)&lt;/span&
 &lt;/div&gt;
 &lt;div id=&#34;ch6&#34; class=&#34;section level1&#34;&gt;
 &lt;h1&gt;6. Conditional Probability&lt;/h1&gt;
+&lt;ul&gt;
+&lt;li&gt;In this chapter learn how to reason about conditional probabilities - where probs are not independent.&lt;/li&gt;
+&lt;li&gt;Also learn about Bayes’ theorem.&lt;/li&gt;
+&lt;li&gt;Guillane Barre Syndrome (GBS) as incidence of 2 in 100,000&lt;/li&gt;
+&lt;li&gt;This can be increased if you get a flu vaccine so,
+&lt;ul&gt;
+&lt;li&gt;usually &lt;span class=&#34;math inline&#34;&gt;\(P(GBS) = \frac{2}{100000}\)&lt;/span&gt;&lt;/li&gt;
+&lt;li&gt;but &lt;span class=&#34;math inline&#34;&gt;\(P(GBS) = \frac{3}{100000}\)&lt;/span&gt;&lt;/li&gt;
+&lt;/ul&gt;&lt;/li&gt;
+&lt;li&gt;Conditional probabilities allow us to demonstrate how information changes our beliefs.&lt;/li&gt;
+&lt;li&gt;Consider colour blindness - 4.25% of people are colour blind. Caused by defective gene in X chromosome.&lt;/li&gt;
+&lt;li&gt;Males only have 1 X chromosome, so about 16 times more likely to be colour blind.
+&lt;ul&gt;
+&lt;li&gt;&lt;span class=&#34;math inline&#34;&gt;\(P(\textrm{colour blind}) = 0.0425\)&lt;/span&gt;&lt;/li&gt;
+&lt;li&gt;&lt;span class=&#34;math inline&#34;&gt;\(P(\textrm{colour blind | female}) = 0.005\)&lt;/span&gt;&lt;/li&gt;
+&lt;li&gt;&lt;span class=&#34;math inline&#34;&gt;\(P(\textrm{colour blind | male }) = 0.08\)&lt;/span&gt;&lt;/li&gt;
+&lt;/ul&gt;&lt;/li&gt;
+&lt;li&gt;Assume male/female are split 50-50&lt;/li&gt;
+&lt;li&gt;&lt;span class=&#34;math inline&#34;&gt;\(P(\textrm{male, colour bline}) = p(\textrm{male}) \times p(\textrm{colour blind} = 0.5 \times 0.0425 = 0.02125\)&lt;/span&gt;… problem… clearer if we try product rule with females.&lt;/li&gt;
+&lt;li&gt;&lt;span class=&#34;math inline&#34;&gt;\(P(\textrm{female, colour bline}) = p(\textrm{female}) \times p(\textrm{colour blind} = 0.5 \times 0.0425 = 0.02125\)&lt;/span&gt;&lt;/li&gt;
+&lt;li&gt;Can’t be right that the two probs are the same?!?!&lt;/li&gt;
+&lt;li&gt;This is because we failed failed to account for dependence between gender and colour blindness!!!&lt;/li&gt;
+&lt;li&gt;&lt;span class=&#34;math inline&#34;&gt;\(P(\textrm{male, colour bline}) = p(\textrm{male}) \times p(\textrm{colour blind | male} = 0.5 \times 0.08 = 0.04\)&lt;/span&gt;&lt;/li&gt;
+&lt;li&gt;Thus, generalize the product rule: &lt;span class=&#34;math inline&#34;&gt;\(P(A, B) = P(A) \times P(B|A)\)&lt;/span&gt;&lt;/li&gt;
+&lt;li&gt;Also, update the sum rule: &lt;span class=&#34;math inline&#34;&gt;\(P(A \textrm{ or } B) = P(A) + P(B) - P(A) \times P(B|A)\)&lt;/span&gt;&lt;/li&gt;
+&lt;li&gt;How can we determine &lt;span class=&#34;math inline&#34;&gt;\(P(\textrm{male | colour blind})\)&lt;/span&gt; ? Bayes’!&lt;/li&gt;
+&lt;li&gt;THe heart of Bayesian statistics is data - and right now we have 1 piece of data: that the person we’re interested in, is indeed colour blind.&lt;/li&gt;
+&lt;li&gt;Let &lt;span class=&#34;math inline&#34;&gt;\(N\)&lt;/span&gt; represent the total propulation of people.&lt;/li&gt;
+&lt;li&gt;We know the person is colour blind, so we restrict to poeple who are colour blind, thus, &lt;span class=&#34;math inline&#34;&gt;\(P(\textrm{male | colour blind}) = \frac{\textrm{?}}{P(\textrm{colour blind} \times N)}\)&lt;/span&gt;.&lt;/li&gt;
+&lt;li&gt;For the numerator, we want to calculate people who are male &lt;i&gt; and &lt;/i&gt; colour blind: &lt;span class=&#34;math inline&#34;&gt;\(P(\textrm{male}) \times P(\textrm{colour blind | male}) \times N\)&lt;/span&gt;&lt;/li&gt;
+&lt;li&gt;So: &lt;span class=&#34;math inline&#34;&gt;\(P(\textrm{male | colour blind}) = \frac{P(\textrm{male}) \times P(\textrm{colour blind | male}) \times N}{P(\textrm{colour blind} \times N)} = 0.941\)&lt;/span&gt; (the N’s cancel)&lt;/li&gt;
+&lt;li&gt;In general, Bayes’: &lt;span class=&#34;math inline&#34;&gt;\(P(A | B) = \frac{P(A)P(B|A)}{P(B)} = \frac{P(A \cap B)}{P(B)}\)&lt;/span&gt;&lt;/li&gt;
+&lt;li&gt;Think about it - the &lt;span class=&#34;math inline&#34;&gt;\(P(B)\)&lt;/span&gt; goes in the denominator, because it’s the part of the world we’re restricting to. Like in the colour blind example, we only care about &lt;span class=&#34;math inline&#34;&gt;\(P(\textrm{colour blind})\)&lt;/span&gt; because we &lt;i&gt;condition&lt;/i&gt; on it!&lt;/li&gt;
+&lt;li&gt;The key takeaway here is that Bayes’ allows evidence to change the strength of our beliefs. Again, think of the colour blind example. We knew the person was colour blind. Before we knew that, we reckoned a 50% chance of them being male… but after we knew this info? 94.1% chance of them being male. Hot damn!&lt;/li&gt;
+&lt;/ul&gt;
 &lt;/div&gt;
 </description>
       

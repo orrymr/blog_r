@@ -431,6 +431,41 @@ So, <span class="math inline">\(P(Missing_{reg}) = 0.3\)</span> and <span class=
 </div>
 <div id="ch6" class="section level1">
 <h1>6. Conditional Probability</h1>
+<ul>
+<li>In this chapter learn how to reason about conditional probabilities - where probs are not independent.</li>
+<li>Also learn about Bayes’ theorem.</li>
+<li>Guillane Barre Syndrome (GBS) as incidence of 2 in 100,000</li>
+<li>This can be increased if you get a flu vaccine so,
+<ul>
+<li>usually <span class="math inline">\(P(GBS) = \frac{2}{100000}\)</span></li>
+<li>but <span class="math inline">\(P(GBS) = \frac{3}{100000}\)</span></li>
+</ul></li>
+<li>Conditional probabilities allow us to demonstrate how information changes our beliefs.</li>
+<li>Consider colour blindness - 4.25% of people are colour blind. Caused by defective gene in X chromosome.</li>
+<li>Males only have 1 X chromosome, so about 16 times more likely to be colour blind.
+<ul>
+<li><span class="math inline">\(P(\textrm{colour blind}) = 0.0425\)</span></li>
+<li><span class="math inline">\(P(\textrm{colour blind | female}) = 0.005\)</span></li>
+<li><span class="math inline">\(P(\textrm{colour blind | male }) = 0.08\)</span></li>
+</ul></li>
+<li>Assume male/female are split 50-50</li>
+<li><span class="math inline">\(P(\textrm{male, colour bline}) = p(\textrm{male}) \times p(\textrm{colour blind} = 0.5 \times 0.0425 = 0.02125\)</span>… problem… clearer if we try product rule with females.</li>
+<li><span class="math inline">\(P(\textrm{female, colour bline}) = p(\textrm{female}) \times p(\textrm{colour blind} = 0.5 \times 0.0425 = 0.02125\)</span></li>
+<li>Can’t be right that the two probs are the same?!?!</li>
+<li>This is because we failed failed to account for dependence between gender and colour blindness!!!</li>
+<li><span class="math inline">\(P(\textrm{male, colour bline}) = p(\textrm{male}) \times p(\textrm{colour blind | male} = 0.5 \times 0.08 = 0.04\)</span></li>
+<li>Thus, generalize the product rule: <span class="math inline">\(P(A, B) = P(A) \times P(B|A)\)</span></li>
+<li>Also, update the sum rule: <span class="math inline">\(P(A \textrm{ or } B) = P(A) + P(B) - P(A) \times P(B|A)\)</span></li>
+<li>How can we determine <span class="math inline">\(P(\textrm{male | colour blind})\)</span> ? Bayes’!</li>
+<li>THe heart of Bayesian statistics is data - and right now we have 1 piece of data: that the person we’re interested in, is indeed colour blind.</li>
+<li>Let <span class="math inline">\(N\)</span> represent the total propulation of people.</li>
+<li>We know the person is colour blind, so we restrict to poeple who are colour blind, thus, <span class="math inline">\(P(\textrm{male | colour blind}) = \frac{\textrm{?}}{P(\textrm{colour blind} \times N)}\)</span>.</li>
+<li>For the numerator, we want to calculate people who are male <i> and </i> colour blind: <span class="math inline">\(P(\textrm{male}) \times P(\textrm{colour blind | male}) \times N\)</span></li>
+<li>So: <span class="math inline">\(P(\textrm{male | colour blind}) = \frac{P(\textrm{male}) \times P(\textrm{colour blind | male}) \times N}{P(\textrm{colour blind} \times N)} = 0.941\)</span> (the N’s cancel)</li>
+<li>In general, Bayes’: <span class="math inline">\(P(A | B) = \frac{P(A)P(B|A)}{P(B)} = \frac{P(A \cap B)}{P(B)}\)</span></li>
+<li>Think about it - the <span class="math inline">\(P(B)\)</span> goes in the denominator, because it’s the part of the world we’re restricting to. Like in the colour blind example, we only care about <span class="math inline">\(P(\textrm{colour blind})\)</span> because we <i>condition</i> on it!</li>
+<li>The key takeaway here is that Bayes’ allows evidence to change the strength of our beliefs. Again, think of the colour blind example. We knew the person was colour blind. Before we knew that, we reckoned a 50% chance of them being male… but after we knew this info? 94.1% chance of them being male. Hot damn!</li>
+</ul>
 </div>
 
               
