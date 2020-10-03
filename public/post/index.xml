@@ -38,11 +38,11 @@
     </item>
     
     <item>
-      <title>An R Pipeline for XGBoost (and a discussion about hyperparameters)</title>
-      <link>/2019/10/an-r-pipeline-for-xgboost-and-a-discussion-about-hyperparameters/</link>
+      <title>An R Pipeline for XGBoost Part I</title>
+      <link>/2019/10/an-r-pipeline-for-xgboost-and-a-discussion-about-hyperparameters-part-i/</link>
       <pubDate>Fri, 04 Oct 2019 00:00:00 +0000</pubDate>
       
-      <guid>/2019/10/an-r-pipeline-for-xgboost-and-a-discussion-about-hyperparameters/</guid>
+      <guid>/2019/10/an-r-pipeline-for-xgboost-and-a-discussion-about-hyperparameters-part-i/</guid>
       <description>
 &lt;script src=&#34;/rmarkdown-libs/kePrint/kePrint.js&#34;&gt;&lt;/script&gt;
 &lt;link href=&#34;/rmarkdown-libs/bsTable/bootstrapTable.min.css&#34; rel=&#34;stylesheet&#34; /&gt;

@@ -30,6 +30,10 @@ Contents:
 
 - [Introduction](#intro)
 - [XGBoost - An Implementation of Gradient Boosting](#xgimpl)
+- [Load And Explore The Data](#loadxplor)
+- [Hyperparameters](#hyperprm)
+- [Training The Model: Or, how I learned to stop overfitting and love the cross-validation](#trn)
+- [Conclusion](#conc)
 
 # Introduction {#intro}
 
@@ -52,12 +56,19 @@ In this tutorial we use the following packages:
 library(Matrix)
 library(xgboost)
 library(ggplot2)
+library(ggthemes)
 library(readr)
 library(dplyr)
+library(tidyr)
+library(stringr)
+
+theme_set(theme_economist())
+
+set.seed(1234) # For reproducibility.
 ```
 
 
-# Load And Explore The Data
+# Load And Explore The Data {#loadxplor}
 
 <b>We will use the [Titanic Dataset](https://www.kaggle.com/c/titanic/data) which we get from Kaggle.</b> Basically, we try predict whether a passenger survived or not (so this is a binary classification problem).
 
@@ -149,7 +160,7 @@ If needed, you can convert this data (back) into a data frame, thusly:
 train_data_as_df <- as.data.frame(as.matrix(titanic_train_sparse))
 ```
 
-# Hyperparameters
+# Hyperparameters {#hyperprm}
 
 Tuning hyperparameters is a vast topic. Without going into too much depth, I'll outline some of the more commonly used hyperparameters:
 
@@ -204,24 +215,21 @@ params_booster <- list(
   min_child_weight = 1, 
   objective = "binary:logistic"
 )
-
-bstSparse <- xgboost(data = titanic_train_sparse, 
-                     label = titanic_train$Survived, 
-                     nrounds = 100,  
-                     params = params_booster)
-
 ```
 
-One day, I shall write a blog post about various ways to tune your hyperparameters. But, today is not that day. If you are like me, and believe in serendipitous machine learning, then try a random search of the hyperparameters (within reason, of course. Don't set `max.depth = 9999999999`. Or do, I'm not telling you how to live your life). You get surprisignly decent results. 
+One day, I shall write a blog post about various ways to tune your hyperparameters. But, today is not that day. If you are like me, and believe in serendipitous machine learning, then <b>try a random search of the hyperparameters</b> (within reason, of course. Don't set `max.depth = 9999999999`. Or do, I'm not telling you how to live your life). You get surprisingly decent results. 
 
-# Training The Model
+# Training The Model: Or, how I learned to stop overfitting and love the cross-validation {#trn}
 
-The `xgb.train()` and `xgboost()` functions are used to train the boosting model, and both return an object of class xgb.Booster. `xgboost()` is a simple wrapper for `xgb.train()`. `xgb.train()` is an advanced interface for training the xgboost model. We're going to use `xgboost()` to train our model. Yay.
-Before we do that, let's first use xgb.cv() to get some understanding of our performance before we evaluate against our final hold our test set. Important to note that xgb.cv() returns an object of type xgb.cv.synchronous, not xgb.Booster. So you won't be able to call functions like xgb.importance() on it, as xgb.importance() takes object of class xgb.Booster __not__ xgb.cv.synchronous.
+<b>The `xgb.train()` and `xgboost()` functions are used to train the boosting model</b>, and both return an object of class xgb.Booster. `xgboost()` is a simple wrapper for `xgb.train()`. `xgb.train()` is an advanced interface for training the xgboost model. We're going to use `xgboost()` to train our model. Yay. 
 
+One of the parameters we set in the `xgboost()` function is `nrounds` - the maximum number of boosting iterations. So, how many weak learners get added to our ensemble. If we set this parameter too low, we won't be able to model the complexity of our dataset very well. If we set it too high, we run the risk of overfitting. <b>We always need to be wary of overfitting our model to our training data. </b>
+
+This leads us to the `xgb.cv()` function. <b>Let's use xgb.cv() to determine how many rounds we should use for training.</b> Important to note that xgb.cv() returns an object of type xgb.cv.synchronous, not xgb.Booster. So you won't be able to call functions like xgb.importance() on it, as xgb.importance() takes object of class xgb.Booster __not__ xgb.cv.synchronous.
 
 ```{r, results='hide'}
 # NB: keep in mind xgb.cv() is used to select the correct hyperparams.
+# Here I'm only looking for a decent value for nrounds; We won't do full hyperparameter tuning.
 # Once you have them, train using xgb.train() or xgboost() to get the final model.
 
 bst.cv <- xgb.cv(data = titanic_train_sparse, 
@@ -232,28 +240,55 @@ bst.cv <- xgb.cv(data = titanic_train_sparse,
               print_every_n = 20,
               verbose = 2)
 
-
+# Note, we can also implement early-stopping: early_stopping_rounds = 3, so that if there has been no improvement in test accuracy for a specified number of rounds, the algorithm stops.
 
 ```
 
-Note, we can also implement early-stopping: early_stopping_rounds = 3, so that if there has been no improvement in test accuracy for a specified number of rounds, the algorithm stops.
-
 ```{r}
-res_df <- data.frame(tr = bst.cv$evaluation_log$train_error_mean, 
-                     val = bst.cv$evaluation_log$test_error_mean,
-                     iter = bst.cv$evaluation_log$iter)
+res_df <- data.frame(TRAINING_ERROR = bst.cv$evaluation_log$train_error_mean, 
+                     VALIDATION_ERROR = bst.cv$evaluation_log$test_error_mean, # Don't confuse this with the test data set. 
+                     ITERATION = bst.cv$evaluation_log$iter) %>%
+  mutate(MIN = VALIDATION_ERROR == min(VALIDATION_ERROR))
 
-g <- ggplot(res_df, aes(x=iter)) +        # Look @ it overfit.
-  geom_line(aes(y=tr), color = "blue") +
-  geom_line(aes(y=val), colour = "green")
+best_nrounds <- res_df %>%
+  filter(MIN) %>%
+  pull(ITERATION)
+
+res_df_longer <- pivot_longer(data = res_df, 
+                              cols = c(TRAINING_ERROR, VALIDATION_ERROR), 
+                              names_to = "ERROR_TYPE",
+                              values_to = "ERROR")
+
+g <- ggplot(res_df_longer, aes(x = ITERATION)) +        # Look @ it overfit.
+  geom_line(aes(y = ERROR, group = ERROR_TYPE, colour = ERROR_TYPE)) +
+  geom_vline(xintercept = best_nrounds, colour = "green") +
+  geom_label(aes(label = str_interp("${best_nrounds} iterations gives minimum validation error"), y = 0.2, x = best_nrounds, hjust = 0.1)) +
+  labs(
+    x = "Iteration",
+    y = "Error",
+    title = "Test & Train Errors",
+    subtitle = str_interp("Note how the training error keeps decreasing after ${best_nrounds} iterations, but the validation error starts \ncreeping up. This is a sign of overfitting.")
+  ) +
+  scale_colour_discrete("Error Type: ")
 
 g
 
 ```
+This leads us to believe that we should use `r best_nrounds` as the value for `nrounds`. Let's train our XGBoost model:
 
-# Wait, What is this xgb.cv() function?
+```{r}
+bstSparse <- xgboost(data = titanic_train_sparse, 
+                     label = titanic_train$Survived, 
+                     nrounds = best_nrounds,  
+                     params = params_booster)
 
-# Conclusion
+
+
+```
+
+# Making Predictions
+
+# Conclusion {#conc}
 
 In this blog post we saw how to...
 We hinted that we could use `xgb.cv()` to mitigate over-fitting. Part II of this blog post will discuss how to do so.

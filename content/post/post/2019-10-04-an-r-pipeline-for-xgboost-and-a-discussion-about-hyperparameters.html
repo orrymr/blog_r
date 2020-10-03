@@ -1,11 +1,11 @@
 ---
-title: An R Pipeline for XGBoost (and a discussion about hyperparameters)
+title: An R Pipeline for XGBoost Part I
 output:
   blogdown::html_page:
     number_sections: true
 author: 'Orry Messer'
 date: '2019-10-04'
-slug: an-r-pipeline-for-xgboost-and-a-discussion-about-hyperparameters
+slug: an-r-pipeline-for-xgboost-and-a-discussion-about-hyperparameters-part-i
 draft: true
 categories: []
 tags:
@@ -40,28 +40,36 @@ tags:
 <pre class="r"><code>library(Matrix)
 library(xgboost)
 library(ggplot2)
+library(ggthemes)
 library(readr)
-library(dplyr)</code></pre>
+library(dplyr)
+library(tidyr)
+library(stringr)
+
+theme_set(theme_economist())
+
+set.seed(1234) # For reproducibility.</code></pre>
 </div>
 <div id="load-and-explore-the-data" class="section level1">
 <h1><span class="header-section-number">3</span> Load And Explore The Data</h1>
-<p>We will use the <a href="https://www.kaggle.com/c/titanic/data">Titanic Dataset</a> which we get from Kaggle. Basically, we try predict whether a passenger survived or not (so this is a binary classification problem).</p>
+<p><b>We will use the <a href="https://www.kaggle.com/c/titanic/data">Titanic Dataset</a> which we get from Kaggle.</b> Basically, we try predict whether a passenger survived or not (so this is a binary classification problem).</p>
 <p>Let’s load up the data:</p>
-<pre class="r"><code># Replace directoryWhichContainsTrainingData and directoryWhichContaintsTestData with your path to your training and test data, respectively.
+<pre class="r"><code># Replace directoryWhichContainsTrainingData and directoryWhichContaintsTestData 
+# with your path to your training and test data, respectively.
 # For example mine looks like this:
 directoryWhichContainsTrainingData &lt;-  &quot;./xg_boost_data/train.csv&quot;
 directoryWhichContaintsTestData &lt;- &quot;./xg_boost_data//test.csv&quot;
 
 titanic_train &lt;- read_csv(directoryWhichContainsTrainingData)
 titanic_test &lt;- read_csv(directoryWhichContaintsTestData)</code></pre>
-<p>For the sake of brevity, I’ll only keep some of the features:</p>
+<p>For the sake of brevity (and my laziness), I’ll only keep some of the features:</p>
 <ul>
-<li>Pclass</li>
+<li>Pclass: this refers to passenger class (1st, 2nd or 3rd)</li>
 <li>Sex</li>
 <li>Age</li>
-<li>Embarked</li>
+<li>Embarked: Port of Embarkation - C = Cherbourg, Q = Queenstown, S = Southampton</li>
 </ul>
-<p>I’ll use dplyr’s select() to do this:</p>
+<p>I’ll use dplyr’s <code>select()</code> to do this:</p>
 <pre class="r"><code>titanic_train &lt;- titanic_train %&gt;%
   select(Survived,
          Pclass,
@@ -82,18 +90,17 @@ titanic_test &lt;- titanic_test %&gt;%
 ##  $ Sex     : chr [1:891] &quot;male&quot; &quot;female&quot; &quot;female&quot; &quot;female&quot; ...
 ##  $ Age     : num [1:891] 22 38 26 35 35 NA 54 2 27 14 ...
 ##  $ Embarked: chr [1:891] &quot;S&quot; &quot;C&quot; &quot;S&quot; &quot;S&quot; ...</code></pre>
-<p>XGBoost will only take numeric data as input. Let’s convert our character features to factors, and one-hot encode. We will use sparse.model.matrix() to create a sparse matrix which will be used as input for our model. XGBoost has been written to take advantage of sparse matrices, so we want to make sure that we’re using this feature.</p>
-<p>Unfortunately, in using R at least, sparse.model.matrix() will drop rows which contain NA’s if the global option <code>options('na.action')</code> is set to <code>"na.omit"</code>.</p>
-<p>So we use a fix outlined <a href="https://stackoverflow.com/questions/29732720/sparse-model-matrix-loses-rows-in-r">here</a>:</p>
-<pre class="r"><code>previous_na_action &lt;- options(&#39;na.action&#39;)
-options(na.action=&#39;na.pass&#39;)
+<p><b>XGBoost will only take numeric data as input.</b> Let’s convert our character features to factors, and one-hot encode. Since we’re one-hot encoding, we expect our matrix to be filled with lots of zeroes - in other words, we expect it to be sparse. We will use <code>sparse.model.matrix()</code> to create a sparse matrix which will be used as input for our model. XGBoost has been written to take advantage of sparse matrices, so we want to make sure that we’re using this feature.</p>
+<p><b>Unfortunately, in using R at least, sparse.model.matrix() will drop rows which contain NA’s</b> if the global option <code>options('na.action')</code> is set to <code>"na.omit"</code>. So we use a fix outlined <a href="https://stackoverflow.com/questions/29732720/sparse-model-matrix-loses-rows-in-r">here</a>:</p>
+<pre class="r"><code>previous_na_action &lt;- options(&#39;na.action&#39;) #store the current na.action
+options(na.action=&#39;na.pass&#39;) #change the na.action
 
 titanic_train$Sex &lt;- as.factor(titanic_train$Sex)
 titanic_train$Embarked &lt;- as.factor(titanic_train$Embarked)
 
-titanic_train_sparse &lt;- sparse.model.matrix(Survived~., data = titanic_train)[,-1]
+titanic_train_sparse &lt;- sparse.model.matrix(Survived~., data = titanic_train)[,-1] #create the sparse matrix
 
-options(na.action=previous_na_action$na.action)</code></pre>
+options(na.action=previous_na_action$na.action) #reset the na.action</code></pre>
 <p>Alternatively, we could have just used a sentinel value to replace the NA’s.</p>
 <div id="interacting-with-the-sparse-matrix-object" class="section level2">
 <h2><span class="header-section-number">3.1</span> Interacting with the Sparse Matrix Object</h2>
@@ -114,15 +121,14 @@ options(na.action=previous_na_action$na.action)</code></pre>
 <p>The names are the features are given by <code>titanic_train_sparse@Dimnames[[2]]</code>:</p>
 <pre class="r"><code>head(titanic_train_sparse@Dimnames[[2]])</code></pre>
 <pre><code>## [1] &quot;Pclass&quot;    &quot;Sexmale&quot;   &quot;Age&quot;       &quot;EmbarkedQ&quot; &quot;EmbarkedS&quot;</code></pre>
-<p>If needed, you can convert this data (back) into a dataframe, thusly:</p>
+<p>If needed, you can convert this data (back) into a data frame, thusly:</p>
 <pre class="r"><code>train_data_as_df &lt;- as.data.frame(as.matrix(titanic_train_sparse))</code></pre>
 </div>
 </div>
 <div id="hyperparameters" class="section level1">
 <h1><span class="header-section-number">4</span> Hyperparameters</h1>
 <p>Tuning hyperparameters is a vast topic. Without going into too much depth, I’ll outline some of the more commonly used hyperparameters:</p>
-<p>Full reference: <a href="https://xgboost.readthedocs.io/en/latest/parameter.html" class="uri">https://xgboost.readthedocs.io/en/latest/parameter.html</a>
-### Tree booster params…####</p>
+<p>Full reference: <a href="https://xgboost.readthedocs.io/en/latest/parameter.html" class="uri">https://xgboost.readthedocs.io/en/latest/parameter.html</a></p>
 <table class="table table-striped table-hover" style="margin-left: auto; margin-right: auto;">
 <caption>
 <span id="tab:unnamed-chunk-11">Table 4.1: </span>Parameters
@@ -188,25 +194,7 @@ default = 1 This is the minimum number of instances that have to been in a node.
 </tr>
 </tbody>
 </table>
-<pre class="r"><code># Full reference: https://xgboost.readthedocs.io/en/latest/parameter.html
-# ### Tree booster params...####
-# eta:                              default = 0.3
-#                                   learning rate / shrinkage. Scales the contribution of each try by a factor of 0 &lt; eta &lt; 1
-# gamma:                            default = 0
-#                                   minimum loss reduction needed to make another partition in a given tree.
-#                                   larger the value, the more conservative the tree will be (as it will need to make a bigger reduction to split)
-#                                   So, conservative in the sense of willingness to split.
-# max_depth:                        default = 6
-#                                   max depth of each tree...
-# subsample:                        1 (ie, no subsampling)
-#                                   fraction of training samples to use in each &quot;boosting iteration&quot;
-# colsample_bytree:     default = 1 (ie, no sampling)
-#                       Fraction of columns to be used when constructing each tree. This is an idea used in RandomForests
-# min_child_weight:     default = 1
-#                       This is the minimum number of instances that have to been in a node. It&#39;s a regularization parameter
-#                       So, if it&#39;s set to 10, each leaf has to have at least 10 instances assigned to it.
-#                       The higher the value, the more conservative the tree will be.</code></pre>
-<p>(I’ve left it as commented code, as I like to past this into my scripts as a quick reference.)</p>
+<p><b>Note that the above hyperparameters are in the case of the weak learner being a tree.</b> It is possible to have linear models as your weak learners.</p>
 <p>Let’s create the hyper-parameters list:</p>
 <pre class="r"><code>params_booster &lt;- list(
   booster = &#39;gbtree&#39;, # Possible to also have linear boosters as your weak learners.
@@ -223,12 +211,15 @@ bstSparse &lt;- xgboost(data = titanic_train_sparse,
                      label = titanic_train$Survived, 
                      nrounds = 100,  
                      params = params_booster)</code></pre>
+<p>One day, I shall write a blog post about various ways to tune your hyperparameters. But, today is not that day. If you are like me, and believe in serendipitous machine learning, then <b>try a random search of the hyperparameters</b> (within reason, of course. Don’t set <code>max.depth = 9999999999</code>. Or do, I’m not telling you how to live your life). You get surprisingly decent results.</p>
 </div>
-<div id="training-the-model" class="section level1">
-<h1><span class="header-section-number">5</span> Training The Model</h1>
-<p>The xgb.train() and xgboost() functions are used to train the boosting model, and both return an object of class xgb.Booster.
-Before we do that, let’s first use xgb.cv() to get some understanding of our performance before we evaluate against our final hold our test set. Important to not that xgb.cv() returns an object of type xgb.cv.synchronous, not xgb.Booster. So you won’t be able to call functions like xgb.importance() on it, as xgb.importance() takes object of class xgb.Booster <strong>not</strong> xgb.cv.synchronous.</p>
+<div id="training-the-model-or-how-i-learned-to-stop-overfitting-and-love-the-cross-validation." class="section level1">
+<h1><span class="header-section-number">5</span> Training The Model: Or, how I learned to stop overfitting and love the cross-validation.</h1>
+<p><b>The <code>xgb.train()</code> and <code>xgboost()</code> functions are used to train the boosting model</b>, and both return an object of class xgb.Booster. <code>xgboost()</code> is a simple wrapper for <code>xgb.train()</code>. <code>xgb.train()</code> is an advanced interface for training the xgboost model. We’re going to use <code>xgboost()</code> to train our model. Yay.</p>
+<p>One of the parameters we set in the <code>xgboost()</code> function is <code>nrounds</code> - the maximum number of boosting iterations. So, how many weak learners get added to our ensemble. If we set this parameter too low, we won’t be able to model the complexity of our dataset very well. If we set it too high, we run the risk of overfitting. <b>We always need to be wary of overfitting our model to our training data. </b></p>
+<p>This leads us to the <code>xgb.cv()</code> function. Let’s use xgb.cv() to get some understanding of our performance before we evaluate against our final hold our test set. Important to note that xgb.cv() returns an object of type xgb.cv.synchronous, not xgb.Booster. So you won’t be able to call functions like xgb.importance() on it, as xgb.importance() takes object of class xgb.Booster <strong>not</strong> xgb.cv.synchronous.</p>
 <pre class="r"><code># NB: keep in mind xgb.cv() is used to select the correct hyperparams.
+# Here I&#39;m only looking for a decent value for nrounds.
 # Once you have them, train using xgb.train() or xgboost() to get the final model.
 
 bst.cv &lt;- xgb.cv(data = titanic_train_sparse, 
@@ -237,31 +228,43 @@ bst.cv &lt;- xgb.cv(data = titanic_train_sparse,
               nrounds = 300, 
               nfold = 5,
               print_every_n = 20,
-              verbose = 2)</code></pre>
-<p>Note, we can also implement early-stopping: early_stopping_rounds = 3, so that if there has been no improvement in test accuracy for a specified number of rounds, the algorithm stops.</p>
-<pre class="r"><code>res_df &lt;- data.frame(tr = bst.cv$evaluation_log$train_error_mean, 
-                     val = bst.cv$evaluation_log$test_error_mean,
-                     iter = bst.cv$evaluation_log$iter)
+              verbose = 2)
 
-g &lt;- ggplot(res_df, aes(x=iter)) +        # Look @ it overfit.
-  geom_line(aes(y=tr), color = &quot;blue&quot;) +
-  geom_line(aes(y=val), colour = &quot;green&quot;)
+# Note, we can also implement early-stopping: early_stopping_rounds = 3, so that if there has been no improvement in test accuracy for a specified number of rounds, the algorithm stops.</code></pre>
+<pre class="r"><code>res_df &lt;- data.frame(TRAINING_ERROR = bst.cv$evaluation_log$train_error_mean, 
+                     VALIDATION_ERROR = bst.cv$evaluation_log$test_error_mean, # Don&#39;t confuse this with the test data set. 
+                     ITERATION = bst.cv$evaluation_log$iter) %&gt;%
+  mutate(MIN = VALIDATION_ERROR == min(VALIDATION_ERROR))
+
+best_nrounds &lt;- res_df %&gt;%
+  filter(MIN) %&gt;%
+  pull(ITERATION)
+
+res_df_longer &lt;- pivot_longer(data = res_df, 
+                              cols = c(TRAINING_ERROR, VALIDATION_ERROR), 
+                              names_to = &quot;ERROR_TYPE&quot;,
+                              values_to = &quot;ERROR&quot;)
+
+g &lt;- ggplot(res_df_longer, aes(x = ITERATION)) +        # Look @ it overfit.
+  geom_line(aes(y = ERROR, group = ERROR_TYPE, colour = ERROR_TYPE)) +
+  geom_vline(xintercept = best_nrounds, colour = &quot;green&quot;) +
+  geom_label(aes(label = str_interp(&quot;${best_nrounds} iterations gives minimum validation error&quot;), y = 0.2, x = best_nrounds, hjust = 0.1)) +
+  labs(
+    x = &quot;Iteration&quot;,
+    y = &quot;Error&quot;,
+    title = &quot;Test &amp; Train Errors&quot;,
+    subtitle = str_interp(&quot;Note how the training error keeps decreasing after ${best_nrounds} iterations, but the validation error starts \ncreeping up. This is a sign of overfitting.&quot;)
+  ) +
+  scale_colour_discrete(&quot;Error Type: &quot;)
 
 g</code></pre>
 <p><img src="/post/post/2019-10-04-an-r-pipeline-for-xgboost-and-a-discussion-about-hyperparameters_files/figure-html/unnamed-chunk-15-1.png" width="672" /></p>
-<blockquote>
-<blockquote>
-<blockquote>
-<blockquote>
-<blockquote>
-<blockquote>
-<blockquote>
-<p>3b9e6eb27cdc54f3e4e214759cb5130dfd4780c5</p>
-</blockquote>
-</blockquote>
-</blockquote>
-</blockquote>
-</blockquote>
-</blockquote>
-</blockquote>
+</div>
+<div id="wait-what-is-this-xgb.cv-function" class="section level1">
+<h1><span class="header-section-number">6</span> Wait, What is this xgb.cv() function?</h1>
+</div>
+<div id="conclusion" class="section level1">
+<h1><span class="header-section-number">7</span> Conclusion</h1>
+<p>In this blog post we saw how to…
+We hinted that we could use <code>xgb.cv()</code> to mitigate over-fitting. Part II of this blog post will discuss how to do so.</p>
 </div>
