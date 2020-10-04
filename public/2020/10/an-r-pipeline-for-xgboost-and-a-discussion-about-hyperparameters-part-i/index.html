@@ -1,0 +1,919 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    
+    <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="generator" content="Hugo 0.68.3 with theme Tranquilpeak 0.4.7-BETA">
+<meta name="author" content="Orry Messer">
+<meta name="keywords" content="">
+<meta name="description" content="
+
+
+
+
+In this blog post, we discuss what XGBoost is, and demonstrate a pipeline for working with XGBoost in R.
+">
+
+
+<meta property="og:description" content="
+
+
+
+
+In this blog post, we discuss what XGBoost is, and demonstrate a pipeline for working with XGBoost in R.
+">
+<meta property="og:type" content="article">
+<meta property="og:title" content="An R Pipeline for XGBoost Part I">
+<meta name="twitter:title" content="An R Pipeline for XGBoost Part I">
+<meta property="og:url" content="/2020/10/an-r-pipeline-for-xgboost-and-a-discussion-about-hyperparameters-part-i/">
+<meta property="twitter:url" content="/2020/10/an-r-pipeline-for-xgboost-and-a-discussion-about-hyperparameters-part-i/">
+<meta property="og:site_name" content="orrymr.com">
+<meta property="og:description" content="
+
+
+
+
+In this blog post, we discuss what XGBoost is, and demonstrate a pipeline for working with XGBoost in R.
+">
+<meta name="twitter:description" content="
+
+
+
+
+In this blog post, we discuss what XGBoost is, and demonstrate a pipeline for working with XGBoost in R.
+">
+<meta property="og:locale" content="en">
+
+  
+    <meta property="article:published_time" content="2020-10-04T00:00:00">
+  
+  
+    <meta property="article:modified_time" content="2020-10-04T00:00:00">
+  
+  
+  
+  
+    
+      <meta property="article:tag" content="R">
+    
+      <meta property="article:tag" content="data-science">
+    
+      <meta property="article:tag" content="xgboost">
+    
+  
+
+
+<meta name="twitter:card" content="summary">
+
+  <meta name="twitter:site" content="@orrymr">
+
+
+  <meta name="twitter:creator" content="@orrymr">
+
+
+
+
+
+
+  <meta property="og:image" content="https://res.cloudinary.com/da1gwmlvj/image/upload/v1601830903/xgboost%20article/test_train_error_sosoo3.png">
+  <meta property="twitter:image" content="https://res.cloudinary.com/da1gwmlvj/image/upload/v1601830903/xgboost%20article/test_train_error_sosoo3.png">
+
+
+
+
+
+  <meta property="og:image" content="https://res.cloudinary.com/da1gwmlvj/image/upload/v1585486959/me_2_wm4mmw.jpg">
+  <meta property="twitter:image" content="https://res.cloudinary.com/da1gwmlvj/image/upload/v1585486959/me_2_wm4mmw.jpg">
+
+
+    <title>An R Pipeline for XGBoost Part I</title>
+
+    <link rel="icon" href="/favicon.png">
+    
+
+    
+
+    <link rel="canonical" href="/2020/10/an-r-pipeline-for-xgboost-and-a-discussion-about-hyperparameters-part-i/">
+
+    
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css" integrity="sha256-eZrrJcwDc/3uDhsdt61sL2oOBY362qM3lon1gyExkL0=" crossorigin="anonymous" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/fancybox/2.1.4/jquery.fancybox.min.css" integrity="sha256-vuXZ9LGmmwtjqFX1F+EKin1ThZMub58gKULUyf0qECk=" crossorigin="anonymous" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/fancybox/2.1.4/helpers/jquery.fancybox-thumbs.min.css" integrity="sha256-SEa4XYAHihTcEP1f5gARTB2K26Uk8PsndQYHQC1f4jU=" crossorigin="anonymous" />
+    
+    
+    <link rel="stylesheet" href="/css/style-twzjdbqhmnnacqs0pwwdzcdbt8yhv8giawvjqjmyfoqnvazl0dalmnhdkvp7.min.css" />
+    
+    
+      
+        <link rel="stylesheet"  href="/css/mystyle.css">
+      
+    
+
+    
+      
+<script type="application/javascript">
+var doNotTrack = false;
+if (!doNotTrack) {
+	(function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+	(i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+	m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+	})(window,document,'script','https://www.google-analytics.com/analytics.js','ga');
+	ga('create', 'UA-115127992-1', 'auto');
+	
+	ga('send', 'pageview');
+}
+</script>
+
+    
+    
+  </head>
+  <body>
+    <div id="blog">
+      <header id="header" data-behavior="5">
+  <i id="btn-open-sidebar" class="fa fa-lg fa-bars"></i>
+  <div class="header-title">
+    <a class="header-title-link" href="/">orrymr.com</a>
+  </div>
+  
+    
+      <a class="header-right-picture "
+         href="/#about">
+    
+    
+    
+      
+        <img class="header-picture" src="https://res.cloudinary.com/da1gwmlvj/image/upload/v1585486959/me_2_wm4mmw.jpg" alt="" />
+      
+    
+    </a>
+  
+</header>
+
+      <nav id="sidebar" data-behavior="5">
+  <div class="sidebar-container">
+    
+      <div class="sidebar-profile">
+        <a href="/#about">
+          <img class="sidebar-profile-picture" src="https://res.cloudinary.com/da1gwmlvj/image/upload/v1585486959/me_2_wm4mmw.jpg" alt="" />
+        </a>
+        <h4 class="sidebar-profile-name">Orry Messer <br/> </h4>
+        
+          <h5 class="sidebar-profile-bio">WHERE ARE MY SHOES</h5>
+        
+      </div>
+    
+    <div class="shift-down">
+      <ul class="sidebar-buttons">
+        
+  <li class="sidebar-button">
+    
+      <a class="sidebar-button-link " href="/">
+    
+      <i class="sidebar-button-icon fa fa-lg fa-home"></i>
+      
+      <span class="sidebar-button-desc">Home</span>
+    </a>
+  </li>
+
+  <li class="sidebar-button">
+    
+      <a class="sidebar-button-link " href="/books-ive-read">
+    
+      <i class="sidebar-button-icon fa fa-lg fa-bookmark"></i>
+      
+      <span class="sidebar-button-desc">Books I&#39;ve Read</span>
+    </a>
+  </li>
+
+  <li class="sidebar-button">
+    
+      <a class="sidebar-button-link " href="/hitchhikers-guides">
+    
+      <i class="sidebar-button-icon fa fa-lg fa-bookmark"></i>
+      
+      <span class="sidebar-button-desc">Hitchhiker&#39;s Guides</span>
+    </a>
+  </li>
+
+  <li class="sidebar-button">
+    
+      <a class="sidebar-button-link " href="/zulu-stuff">
+    
+      <i class="sidebar-button-icon fa fa-lg fa-bookmark"></i>
+      
+      <span class="sidebar-button-desc">Zulu Stuff</span>
+    </a>
+  </li>
+
+  <li class="sidebar-button">
+    
+      <a class="sidebar-button-link " href="/tags">
+    
+      <i class="sidebar-button-icon fa fa-lg fa-tags"></i>
+      
+      <span class="sidebar-button-desc">Tags</span>
+    </a>
+  </li>
+
+  <li class="sidebar-button">
+    
+      <a class="sidebar-button-link " href="/archives">
+    
+      <i class="sidebar-button-icon fa fa-lg fa-archive"></i>
+      
+      <span class="sidebar-button-desc">Archives</span>
+    </a>
+  </li>
+
+
+      </ul>
+      <ul class="sidebar-buttons">
+        
+  <li class="sidebar-button">
+    
+      <a class="sidebar-button-link " href="https://twitter.com/orrymr">
+    
+      <i class="sidebar-button-icon fa fa-lg fa-twitter"></i>
+      
+      <span class="sidebar-button-desc">Twitter</span>
+    </a>
+  </li>
+
+  <li class="sidebar-button">
+    
+      <a class="sidebar-button-link " href="https://github.com/orrymr">
+    
+      <i class="sidebar-button-icon fa fa-lg fa-github"></i>
+      
+      <span class="sidebar-button-desc">GitHub</span>
+    </a>
+  </li>
+
+  <li class="sidebar-button">
+    
+      <a class="sidebar-button-link " href="https://stackoverflow.com/users/3214345/orrymr">
+    
+      <i class="sidebar-button-icon fa fa-lg fa-stack-overflow"></i>
+      
+      <span class="sidebar-button-desc">Stack Overflow</span>
+    </a>
+  </li>
+
+  <li class="sidebar-button">
+    
+      <a class="sidebar-button-link " href="/blogroll">
+    
+      <i class="sidebar-button-icon fa fa-lg fa-bookmark"></i>
+      
+      <span class="sidebar-button-desc">Blogroll</span>
+    </a>
+  </li>
+
+
+      </ul>
+      <ul class="sidebar-buttons">
+        
+  <li class="sidebar-button">
+    
+      <a class="sidebar-button-link " href="/index.xml">
+    
+      <i class="sidebar-button-icon fa fa-lg fa-rss"></i>
+      
+      <span class="sidebar-button-desc">RSS</span>
+    </a>
+  </li>
+
+
+      </ul>
+    </div>
+  </div>
+</nav>
+
+      
+
+      <div id="main" data-behavior="5"
+        class="
+               hasCoverMetaIn
+               ">
+        <article class="post" itemscope itemType="http://schema.org/BlogPosting">
+          
+          
+            <div class="post-header main-content-wrap text-left">
+  
+    <h1 class="post-title" itemprop="headline">
+      An R Pipeline for XGBoost Part I
+    </h1>
+  
+  
+  <div class="postShorten-meta post-meta">
+    
+      <time itemprop="datePublished" datetime="2020-10-04T00:00:00Z">
+        
+  
+  
+  
+  
+    04/10/2020
+  
+
+      </time>
+    
+    
+  </div>
+
+</div>
+          
+          <div class="post-content markdown" itemprop="articleBody">
+            <div class="main-content-wrap">
+              <p>Contents:</p>
+<ul>
+<li><a href="#intro">Introduction</a></li>
+<li><a href="#xgimpl">XGBoost - An Implementation of Gradient Boosting</a></li>
+<li><a href="#loadxplor">Load And Explore The Data</a></li>
+<li><a href="#hyperprm">Hyperparameters</a></li>
+<li><a href="#trn">Training The Model: Or, how I learned to stop overfitting and love the cross-validation</a></li>
+<li><a href="#makpred">Making Predictions</a></li>
+<li><a href="#conc">Conclusion</a></li>
+</ul>
+<div id="intro" class="section level1">
+<h1><span class="header-section-number">1</span> Introduction</h1>
+<p><a href="https://xgboost.readthedocs.io/en/latest/">XGBoost</a> is an implementation of a machine learning technique known as <a href="https://en.wikipedia.org/wiki/Gradient_boosting">gradient boosting</a>.
+<b>In this blog post, we discuss what XGBoost is, and demonstrate a pipeline for working with it in R.</b> We won’t go into too much theoretical detail. Rather, we’ll focus on application.</p>
+</div>
+<div id="xgimpl" class="section level1">
+<h1><span class="header-section-number">2</span> XGBoost - An Implementation of Gradient Boosting</h1>
+<p><b>Gradient boosting is part of a class of machine learning techniques known as ensemble methods.</b> An ensemble method leverages the output of many <u>weak learners</u> in order to make a prediction. Typically, these weak learners are implemented as decision trees. While each individual weak learner might not get the answer right, on average, their combined answers should be pretty decent. What makes gradient boosting different from another popular ensemble method - <a href="https://en.wikipedia.org/wiki/Random_forest">Random Forest</a>, is that the construction of the weak learners depend on the previously constructed learners.</p>
+<p>In gradient boosting, each weak learner is chosen iteratively in a greedy manner, so as to minimize the loss function. <b>XGBoost is a highly optimized implementation of gradient boosting.</b> The original paper describing XGBoost can be found <a href="https://arxiv.org/pdf/1603.02754.pdf">here</a>. Although XGBoost is written in C++, it can be interfaced from R using the <code>xgboost</code> package.</p>
+<p>To install the package:</p>
+<p><code>install.packages("xgboost")</code></p>
+<p>In this tutorial we use the following packages:</p>
+<pre class="r"><code>library(Matrix)
+library(xgboost)
+library(ggplot2)
+library(ggthemes)
+library(readr)
+library(dplyr)
+library(tidyr)
+library(stringr)
+
+theme_set(theme_economist())
+
+set.seed(1234) # For reproducibility.</code></pre>
+</div>
+<div id="loadxplor" class="section level1">
+<h1><span class="header-section-number">3</span> Load And Explore The Data</h1>
+<p><b>We will use the <a href="https://www.kaggle.com/c/titanic/data">Titanic Dataset</a> which we get from Kaggle.</b> Basically, we try predict whether a passenger survived or not (so this is a binary classification problem).</p>
+<p>Let’s load up the data:</p>
+<pre class="r"><code># Replace directoryWhichContainsTrainingData and directoryWhichContaintsTestData 
+# with your path to your training and test data, respectively.
+# For example mine looks like this:
+directoryWhichContainsTrainingData &lt;-  &quot;./xg_boost_data/train.csv&quot;
+directoryWhichContaintsTestData &lt;- &quot;./xg_boost_data//test.csv&quot;
+
+titanic_train &lt;- read_csv(directoryWhichContainsTrainingData)
+titanic_test &lt;- read_csv(directoryWhichContaintsTestData)</code></pre>
+<p>For the sake of brevity (and my laziness), I’ll only keep some of the features:</p>
+<ul>
+<li>Pclass: this refers to passenger class (1st, 2nd or 3rd)</li>
+<li>Sex</li>
+<li>Age</li>
+<li>Embarked: Port of Embarkation - C = Cherbourg, Q = Queenstown, S = Southampton</li>
+</ul>
+<p>I’ll use dplyr’s <code>select()</code> to do this:</p>
+<pre class="r"><code>titanic_train &lt;- titanic_train %&gt;%
+  select(Survived,
+         Pclass,
+         Sex,
+         Age,
+         Embarked)
+
+titanic_test &lt;- titanic_test %&gt;%
+  select(Pclass,
+         Sex,
+         Age,
+         Embarked)</code></pre>
+<p>Let’s have a look at our data after discarding a few features:</p>
+<pre class="r"><code>str(titanic_train, give.attr = FALSE)</code></pre>
+<pre><code>## tibble [891 x 5] (S3: tbl_df/tbl/data.frame)
+##  $ Survived: num [1:891] 0 1 1 1 0 0 0 0 1 1 ...
+##  $ Pclass  : num [1:891] 3 1 3 1 3 3 1 3 3 2 ...
+##  $ Sex     : chr [1:891] &quot;male&quot; &quot;female&quot; &quot;female&quot; &quot;female&quot; ...
+##  $ Age     : num [1:891] 22 38 26 35 35 NA 54 2 27 14 ...
+##  $ Embarked: chr [1:891] &quot;S&quot; &quot;C&quot; &quot;S&quot; &quot;S&quot; ...</code></pre>
+<p><b>XGBoost will only take numeric data as input.</b> Let’s convert our character features to factors, and one-hot encode. Since we’re one-hot encoding, we expect our matrix to be filled with lots of zeroes - in other words, we expect it to be sparse. We will use <code>sparse.model.matrix()</code> to create a sparse matrix which will be used as input for our model. XGBoost has been written to take advantage of sparse matrices, so we want to make sure that we’re using this feature.</p>
+<p><b>Unfortunately, in using R at least, sparse.model.matrix() will drop rows which contain NA’s</b> if the global option <code>options('na.action')</code> is set to <code>"na.omit"</code>. So we use a fix outlined <a href="https://stackoverflow.com/questions/29732720/sparse-model-matrix-loses-rows-in-r">here</a>:</p>
+<pre class="r"><code>previous_na_action &lt;- options(&#39;na.action&#39;) #store the current na.action
+options(na.action=&#39;na.pass&#39;) #change the na.action
+
+titanic_train$Sex &lt;- as.factor(titanic_train$Sex)
+titanic_train$Embarked &lt;- as.factor(titanic_train$Embarked)
+
+#create the sparse matrices
+titanic_train_sparse &lt;- sparse.model.matrix(Survived~., data = titanic_train)[,-1] 
+titanic_test_sparse &lt;- sparse.model.matrix(~., data = titanic_test)[,-1] 
+
+options(na.action=previous_na_action$na.action) #reset the na.action</code></pre>
+<p>Alternatively, we could have just used a sentinel value to replace the NA’s.</p>
+<div id="interacting-with-the-sparse-matrix-object" class="section level2">
+<h2><span class="header-section-number">3.1</span> Interacting with the Sparse Matrix Object</h2>
+<p>The data are in the format of a <strong>dgCMatrix</strong> class - this is the Matrix package’s implementation of sparse matrix:</p>
+<pre class="r"><code>str(titanic_train_sparse)</code></pre>
+<pre><code>## Formal class &#39;dgCMatrix&#39; [package &quot;Matrix&quot;] with 6 slots
+##   ..@ i       : int [1:3080] 0 1 2 3 4 5 6 7 8 9 ...
+##   ..@ p       : int [1:6] 0 891 1468 2359 2436 3080
+##   ..@ Dim     : int [1:2] 891 5
+##   ..@ Dimnames:List of 2
+##   .. ..$ : chr [1:891] &quot;1&quot; &quot;2&quot; &quot;3&quot; &quot;4&quot; ...
+##   .. ..$ : chr [1:5] &quot;Pclass&quot; &quot;Sexmale&quot; &quot;Age&quot; &quot;EmbarkedQ&quot; ...
+##   ..@ x       : num [1:3080] 3 1 3 1 3 3 1 3 3 2 ...
+##   ..@ factors : list()</code></pre>
+<p>We can check the dimension of the matrix directly:</p>
+<pre class="r"><code>dim(titanic_train_sparse)</code></pre>
+<pre><code>## [1] 891   5</code></pre>
+<p>The names are the features are given by <code>titanic_train_sparse@Dimnames[[2]]</code>:</p>
+<pre class="r"><code>head(titanic_train_sparse@Dimnames[[2]])</code></pre>
+<pre><code>## [1] &quot;Pclass&quot;    &quot;Sexmale&quot;   &quot;Age&quot;       &quot;EmbarkedQ&quot; &quot;EmbarkedS&quot;</code></pre>
+<p>If needed, you can convert this data (back) into a data frame, thusly:</p>
+<pre class="r"><code>train_data_as_df &lt;- as.data.frame(as.matrix(titanic_train_sparse))</code></pre>
+</div>
+</div>
+<div id="hyperprm" class="section level1">
+<h1><span class="header-section-number">4</span> Hyperparameters</h1>
+<p>Tuning hyperparameters is a vast topic. Without going into too much depth, I’ll outline some of the more commonly used hyperparameters:</p>
+<p>Full reference: <a href="https://xgboost.readthedocs.io/en/latest/parameter.html" class="uri">https://xgboost.readthedocs.io/en/latest/parameter.html</a></p>
+<table class="table table-striped table-hover" style="margin-left: auto; margin-right: auto;">
+<caption>
+<span id="tab:unnamed-chunk-11">Table 4.1: </span>Parameters
+</caption>
+<thead>
+<tr>
+<th style="text-align:left;">
+Parameter
+</th>
+<th style="text-align:left;">
+Explanation
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:left;">
+eta
+</td>
+<td style="text-align:left;">
+default = 0.3 learning rate / shrinkage. Scales the contribution of each try by a factor of 0 &lt; eta &lt; 1
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+gamma
+</td>
+<td style="text-align:left;">
+default = 0 minimum loss reduction needed to make another partition in a given tree. larger the value, the more conservative the tree will be (as it will need to make a bigger reduction to split) So, conservative in the sense of willingness to split.
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+max_depth
+</td>
+<td style="text-align:left;">
+default = 6 max depth of each tree…
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+subsample
+</td>
+<td style="text-align:left;">
+1 (ie, no subsampling) fraction of training samples to use in each “boosting iteration”
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+colsample_bytree
+</td>
+<td style="text-align:left;">
+default = 1 (ie, no sampling) Fraction of columns to be used when constructing each tree. This is an idea used in RandomForests
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+min_child_weight
+</td>
+<td style="text-align:left;">
+default = 1 This is the minimum number of instances that have to been in a node. It’s a regularization parameter So, if it’s set to 10, each leaf has to have at least 10 instances assigned to it. The higher the value, the more conservative the tree will be.
+</td>
+</tr>
+</tbody>
+</table>
+<p><b>Note that the above hyperparameters are in the case of the weak learner being a tree.</b> It is possible to have linear models as your weak learners.</p>
+<p>Let’s create the hyper-parameters list:</p>
+<pre class="r"><code># booster = &#39;gbtree&#39;: Possible to also have linear boosters as your weak learners.
+params_booster &lt;- list(booster = &#39;gbtree&#39;, eta = 1, gamma = 0, max.depth = 2, subsample = 1, colsample_bytree = 1, min_child_weight = 1, objective = &quot;binary:logistic&quot;)</code></pre>
+<p>One day, I shall write a blog post about various ways to tune your hyperparameters. But, today is not that day. If you are like me, and believe in serendipitous machine learning, then <b>try a random search of the hyperparameters</b> (within reason, of course. Don’t set <code>max.depth = 9999999999</code>. Or do, I’m not telling you how to live your life). You get surprisingly decent results.</p>
+</div>
+<div id="trn" class="section level1">
+<h1><span class="header-section-number">5</span> Training The Model: Or, how I learned to stop overfitting and love the cross-validation</h1>
+<p><b>The <code>xgb.train()</code> and <code>xgboost()</code> functions are used to train the boosting model</b>, and both return an object of class xgb.Booster. <code>xgboost()</code> is a simple wrapper for <code>xgb.train()</code>. <code>xgb.train()</code> is an advanced interface for training the xgboost model. We’re going to use <code>xgboost()</code> to train our model. Yay.</p>
+<p>One of the parameters we set in the <code>xgboost()</code> function is <code>nrounds</code> - the maximum number of boosting iterations. So, how many weak learners get added to our ensemble. If we set this parameter too low, we won’t be able to model the complexity of our dataset very well. If we set it too high, we run the risk of overfitting. <b>We always need to be wary of overfitting our model to our training data. </b></p>
+<p>This leads us to the <code>xgb.cv()</code> function. <b>Let’s use xgb.cv() to determine how many rounds we should use for training.</b> Important to note that xgb.cv() returns an object of type xgb.cv.synchronous, not xgb.Booster. So you won’t be able to call functions like xgb.importance() on it, as xgb.importance() takes object of class xgb.Booster <strong>not</strong> xgb.cv.synchronous.</p>
+<pre class="r"><code># NB: keep in mind xgb.cv() is used to select the correct hyperparams.
+# Here I&#39;m only looking for a decent value for nrounds; We won&#39;t do full hyperparameter tuning.
+# Once you have them, train using xgb.train() or xgboost() to get the final model.
+
+bst.cv &lt;- xgb.cv(data = titanic_train_sparse, 
+              label = titanic_train$Survived, 
+              params = params_booster,
+              nrounds = 300, 
+              nfold = 5,
+              print_every_n = 20,
+              verbose = 2)
+
+# Note, we can also implement early-stopping: early_stopping_rounds = 3, so that if there has been no improvement in test accuracy for a specified number of rounds, the algorithm stops.</code></pre>
+<p>Using the resuts of <code>xgb.cv()</code>, let’s plot our validation error and training error against the number of round:</p>
+<pre class="r"><code>res_df &lt;- data.frame(TRAINING_ERROR = bst.cv$evaluation_log$train_error_mean, 
+                     VALIDATION_ERROR = bst.cv$evaluation_log$test_error_mean, # Don&#39;t confuse this with the test data set. 
+                     ITERATION = bst.cv$evaluation_log$iter) %&gt;%
+  mutate(MIN = VALIDATION_ERROR == min(VALIDATION_ERROR))
+
+best_nrounds &lt;- res_df %&gt;%
+  filter(MIN) %&gt;%
+  pull(ITERATION)
+
+res_df_longer &lt;- pivot_longer(data = res_df, 
+                              cols = c(TRAINING_ERROR, VALIDATION_ERROR), 
+                              names_to = &quot;ERROR_TYPE&quot;,
+                              values_to = &quot;ERROR&quot;)
+
+g &lt;- ggplot(res_df_longer, aes(x = ITERATION)) +        # Look @ it overfit.
+  geom_line(aes(y = ERROR, group = ERROR_TYPE, colour = ERROR_TYPE)) +
+  geom_vline(xintercept = best_nrounds, colour = &quot;green&quot;) +
+  geom_label(aes(label = str_interp(&quot;${best_nrounds} iterations gives minimum validation error&quot;), y = 0.2, x = best_nrounds, hjust = 0.1)) +
+  labs(
+    x = &quot;nrounds&quot;,
+    y = &quot;Error&quot;,
+    title = &quot;Test &amp; Train Errors&quot;,
+    subtitle = str_interp(&quot;Note how the training error keeps decreasing after ${best_nrounds} iterations, but the validation error starts \ncreeping up. This is a sign of overfitting.&quot;)
+  ) +
+  scale_colour_discrete(&quot;Error Type: &quot;)
+
+g</code></pre>
+<p><img src="/post/post/2019-10-04-an-r-pipeline-for-xgboost-and-a-discussion-about-hyperparameters_files/figure-html/unnamed-chunk-15-1.png" width="672" />
+This leads us to believe that we should use 9 as the value for <code>nrounds</code>. Let’s train our XGBoost model:</p>
+<pre class="r"><code>bstSparse &lt;- xgboost(data = titanic_train_sparse, label = titanic_train$Survived, nrounds = best_nrounds, params = params_booster)</code></pre>
+<pre><code>## [1]  train-error:0.207632 
+## [2]  train-error:0.209877 
+## [3]  train-error:0.189675 
+## [4]  train-error:0.173962 
+## [5]  train-error:0.163861 
+## [6]  train-error:0.166105 
+## [7]  train-error:0.166105 
+## [8]  train-error:0.162739 
+## [9]  train-error:0.156004</code></pre>
+</div>
+<div id="makpred" class="section level1">
+<h1><span class="header-section-number">6</span> Making Predictions</h1>
+<p>Now that we have our model, we can use it to make predictions:</p>
+<pre class="r"><code>titanic_test &lt;- read_csv(directoryWhichContaintsTestData)
+
+predictions &lt;- predict(bstSparse, titanic_test_sparse)
+titanic_test$Survived = predictions
+
+titanic_test &lt;- titanic_test %&gt;% select(PassengerId, Survived)
+titanic_test$Survived = as.numeric(titanic_test$Survived &gt; 0.5) 
+
+
+# write_csv(titanic_test, &quot;./xg_boost_data/sb.csv&quot;)
+# I submitted the above to Kaggle, and got a score of 0.77751 (this is the categorization accuracy)
+# No discussion of AUC, precision / recall. One day, I&#39;ll blog about this as well.... Maybe</code></pre>
+</div>
+<div id="conc" class="section level1">
+<h1><span class="header-section-number">7</span> Conclusion</h1>
+<p>In this blog post we saw how to put together a pipeline to implement XGBoost. We saw how to create a sparse matrix, do cross validation, create the actual model, and finally, make predictions.</p>
+<p>There’s a lot here that I didn’t cover. Things like feature importance, for example. The plan is to write a Part II, Some Day, which goes into more detail. Really, I just intend this to be a handy reference for future me.
+If you see any errors in this post, please let me know :). I’ll try fix them.</p>
+</div>
+
+              
+            </div>
+          </div>
+          <div id="post-footer" class="post-footer main-content-wrap">
+            
+              
+                
+                
+                  <div class="post-footer-tags">
+                    <span class="text-color-light text-small"></span><br/>
+                    
+  <a class="tag tag--primary tag--small" href="/tags/r/">R</a>
+
+  <a class="tag tag--primary tag--small" href="/tags/data-science/">data-science</a>
+
+  <a class="tag tag--primary tag--small" href="/tags/xgboost/">xgboost</a>
+
+                  </div>
+                
+              
+            
+            <div class="post-actions-wrap">
+  
+      <nav >
+        <ul class="post-actions post-action-nav">
+          
+            <li class="post-action">
+              
+                <a class="post-action-btn btn btn--disabled">
+              
+                  <i class="fa fa-angle-left"></i>
+                  <span class="hide-xs hide-sm text-small icon-ml"></span>
+                </a>
+            </li>
+            <li class="post-action">
+              
+                <a class="post-action-btn btn btn--default tooltip--top" href="/2020/09/bayesian-statistics-the-fun-way-my-notes/" data-tooltip="Bayesian Statistics the Fun Way (My Notes)">
+              
+                  <span class="hide-xs hide-sm text-small icon-mr"></span>
+                  <i class="fa fa-angle-right"></i>
+                </a>
+            </li>
+          
+        </ul>
+      </nav>
+    <ul class="post-actions post-action-share" >
+      
+        <li class="post-action hide-lg hide-md hide-sm">
+          <a class="post-action-btn btn btn--default btn-open-shareoptions" href="#btn-open-shareoptions">
+            <i class="fa fa-share-alt"></i>
+          </a>
+        </li>
+        
+          <li class="post-action hide-xs">
+            <a class="post-action-btn btn btn--default" target="new" href="https://www.facebook.com/sharer/sharer.php?u=/2020/10/an-r-pipeline-for-xgboost-and-a-discussion-about-hyperparameters-part-i/">
+              <i class="fa fa-facebook-official"></i>
+            </a>
+          </li>
+        
+          <li class="post-action hide-xs">
+            <a class="post-action-btn btn btn--default" target="new" href="https://twitter.com/intent/tweet?text=/2020/10/an-r-pipeline-for-xgboost-and-a-discussion-about-hyperparameters-part-i/">
+              <i class="fa fa-twitter"></i>
+            </a>
+          </li>
+        
+          <li class="post-action hide-xs">
+            <a class="post-action-btn btn btn--default" target="new" href="https://plus.google.com/share?url=/2020/10/an-r-pipeline-for-xgboost-and-a-discussion-about-hyperparameters-part-i/">
+              <i class="fa fa-google-plus"></i>
+            </a>
+          </li>
+        
+      
+      
+        <li class="post-action">
+          <a class="post-action-btn btn btn--default" href="#disqus_thread">
+            <i class="fa fa-comment-o"></i>
+          </a>
+        </li>
+      
+      <li class="post-action">
+        
+          <a class="post-action-btn btn btn--default" href="#">
+        
+          <i class="fa fa-list"></i>
+        </a>
+      </li>
+    </ul>
+  
+</div>
+
+            
+              
+                <div id="disqus_thread">
+  <noscript>Please enable JavaScript to view the <a href="//disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+</div>
+              
+            
+          </div>
+        </article>
+        <footer id="footer" class="main-content-wrap">
+  <span class="copyrights">
+    &copy; 2020 Orry Messer. 
+  </span>
+</footer>
+
+      </div>
+      <div id="bottom-bar" class="post-bottom-bar" data-behavior="5">
+        <div class="post-actions-wrap">
+  
+      <nav >
+        <ul class="post-actions post-action-nav">
+          
+            <li class="post-action">
+              
+                <a class="post-action-btn btn btn--disabled">
+              
+                  <i class="fa fa-angle-left"></i>
+                  <span class="hide-xs hide-sm text-small icon-ml"></span>
+                </a>
+            </li>
+            <li class="post-action">
+              
+                <a class="post-action-btn btn btn--default tooltip--top" href="/2020/09/bayesian-statistics-the-fun-way-my-notes/" data-tooltip="Bayesian Statistics the Fun Way (My Notes)">
+              
+                  <span class="hide-xs hide-sm text-small icon-mr"></span>
+                  <i class="fa fa-angle-right"></i>
+                </a>
+            </li>
+          
+        </ul>
+      </nav>
+    <ul class="post-actions post-action-share" >
+      
+        <li class="post-action hide-lg hide-md hide-sm">
+          <a class="post-action-btn btn btn--default btn-open-shareoptions" href="#btn-open-shareoptions">
+            <i class="fa fa-share-alt"></i>
+          </a>
+        </li>
+        
+          <li class="post-action hide-xs">
+            <a class="post-action-btn btn btn--default" target="new" href="https://www.facebook.com/sharer/sharer.php?u=/2020/10/an-r-pipeline-for-xgboost-and-a-discussion-about-hyperparameters-part-i/">
+              <i class="fa fa-facebook-official"></i>
+            </a>
+          </li>
+        
+          <li class="post-action hide-xs">
+            <a class="post-action-btn btn btn--default" target="new" href="https://twitter.com/intent/tweet?text=/2020/10/an-r-pipeline-for-xgboost-and-a-discussion-about-hyperparameters-part-i/">
+              <i class="fa fa-twitter"></i>
+            </a>
+          </li>
+        
+          <li class="post-action hide-xs">
+            <a class="post-action-btn btn btn--default" target="new" href="https://plus.google.com/share?url=/2020/10/an-r-pipeline-for-xgboost-and-a-discussion-about-hyperparameters-part-i/">
+              <i class="fa fa-google-plus"></i>
+            </a>
+          </li>
+        
+      
+      
+        <li class="post-action">
+          <a class="post-action-btn btn btn--default" href="#disqus_thread">
+            <i class="fa fa-comment-o"></i>
+          </a>
+        </li>
+      
+      <li class="post-action">
+        
+          <a class="post-action-btn btn btn--default" href="#">
+        
+          <i class="fa fa-list"></i>
+        </a>
+      </li>
+    </ul>
+  
+</div>
+
+      </div>
+      <div id="share-options-bar" class="share-options-bar" data-behavior="5">
+  <i id="btn-close-shareoptions" class="fa fa-close"></i>
+  <ul class="share-options">
+    
+      <li class="share-option">
+        <a class="share-option-btn" target="new" href="https://www.facebook.com/sharer/sharer.php?u=%2F2020%2F10%2Fan-r-pipeline-for-xgboost-and-a-discussion-about-hyperparameters-part-i%2F">
+          <i class="fa fa-facebook-official"></i><span>%!(EXTRA string=Facebook)</span>
+        </a>
+      </li>
+    
+      <li class="share-option">
+        <a class="share-option-btn" target="new" href="https://twitter.com/intent/tweet?text=%2F2020%2F10%2Fan-r-pipeline-for-xgboost-and-a-discussion-about-hyperparameters-part-i%2F">
+          <i class="fa fa-twitter"></i><span>%!(EXTRA string=Twitter)</span>
+        </a>
+      </li>
+    
+      <li class="share-option">
+        <a class="share-option-btn" target="new" href="https://plus.google.com/share?url=%2F2020%2F10%2Fan-r-pipeline-for-xgboost-and-a-discussion-about-hyperparameters-part-i%2F">
+          <i class="fa fa-google-plus"></i><span>%!(EXTRA string=Google&#43;)</span>
+        </a>
+      </li>
+    
+  </ul>
+</div>
+<div id="share-options-mask" class="share-options-mask"></div>
+    </div>
+    
+    <div id="about">
+  <div id="about-card">
+    <div id="about-btn-close">
+      <i class="fa fa-remove"></i>
+    </div>
+    
+      <img id="about-card-picture" src="https://res.cloudinary.com/da1gwmlvj/image/upload/v1585486959/me_2_wm4mmw.jpg" alt="" />
+    
+    <h4 id="about-card-name">Orry Messer</h4>
+    
+      <div id="about-card-bio">WHERE ARE MY SHOES</div>
+    
+    
+      <div id="about-card-job">
+        <i class="fa fa-briefcase"></i>
+        <br/>
+        Data Masseuse / Broke Philanthropist / Sloth Tamer / WILL CODE FOR CHIPS
+      </div>
+    
+    
+      <div id="about-card-location">
+        <i class="fa fa-map-marker"></i>
+        <br/>
+        Johannesburg, South Africa, Africa, Planet of Earth (The garbage filled one next to the red one).
+      </div>
+    
+  </div>
+</div>
+    
+
+    
+  
+    <div id="cover" style="background-image:url('https://res.cloudinary.com/da1gwmlvj/image/upload/v1585487294/sunset_oyvlju.jpg');"></div>
+  
+
+
+    
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/2.2.4/jquery.min.js" integrity="sha256-BbhdlvQf/xTY9gja0Dq3HiwQF8LaCRTXxZKRutelT44=" crossorigin="anonymous"></script>
+
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.12.0/highlight.min.js" integrity="sha256-/BfiIkHlHoVihZdc6TFuj7MmJ0TWcWsMXkeDFwhi0zw=" crossorigin="anonymous"></script>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/fancybox/2.1.7/js/jquery.fancybox.min.js" integrity="sha256-GEAnjcTqVP+vBp3SSc8bEDQqvWAZMiHyUSIorrWwH50=" crossorigin="anonymous"></script>
+
+
+<script src="/js/script-pcw6v3xilnxydl1vddzazdverrnn9ctynvnxgwho987mfyqkuylcb1nlt.min.js"></script>
+
+
+<script lang="javascript">
+window.onload = updateMinWidth;
+window.onresize = updateMinWidth;
+document.getElementById("sidebar").addEventListener("transitionend", updateMinWidth);
+function updateMinWidth() {
+  var sidebar = document.getElementById("sidebar");
+  var main = document.getElementById("main");
+  main.style.minWidth = "";
+  var w1 = getComputedStyle(main).getPropertyValue("min-width");
+  var w2 = getComputedStyle(sidebar).getPropertyValue("width");
+  var w3 = getComputedStyle(sidebar).getPropertyValue("left");
+  main.style.minWidth = `calc(${w1} - ${w2} - ${w3})`;
+}
+</script>
+
+<script>
+$(document).ready(function() {
+  hljs.configure({ classPrefix: '', useBR: false });
+  $('pre.code-highlight > code, pre > code').each(function(i, block) {
+    if (!$(this).hasClass('codeblock')) {
+      $(this).addClass('codeblock');
+    }
+    hljs.highlightBlock(block);
+  });
+});
+</script>
+
+
+  
+    
+      <script>
+        var disqus_config = function () {
+          this.page.url = '\/2020\/10\/an-r-pipeline-for-xgboost-and-a-discussion-about-hyperparameters-part-i\/';
+          
+            this.page.identifier = '\/2020\/10\/an-r-pipeline-for-xgboost-and-a-discussion-about-hyperparameters-part-i\/'
+          
+        };
+        (function() {
+          
+          
+          if (window.location.hostname == "localhost") {
+            return;
+          }
+          var d = document, s = d.createElement('script');
+          var disqus_shortname = 'orrymr';
+          s.src = '//' + disqus_shortname + '.disqus.com/embed.js';
+
+          s.setAttribute('data-timestamp', +new Date());
+          (d.head || d.body).appendChild(s);
+        })();
+      </script>
+    
+  
+
+
+  <script type="text/javascript" async src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.4/MathJax.js?config=TeX-AMS_CHTML-full" integrity="sha256-GhM+5JHb6QUzOQPXSJLEWP7R73CbkisjzK5Eyij4U9w=" crossorigin="anonymous"></script>
+  <script type="text/x-mathjax-config">
+    MathJax.Hub.Config({
+      CommonHTML: { linebreaks: { automatic: true } },
+      tex2jax: { inlineMath: [ ['$', '$'], ['\\(','\\)'] ], displayMath: [ ['$$','$$'], ['\\[', '\\]'] ], processEscapes: true },
+      messageStyle: 'none'
+    });
+  </script>
+
+
+
+    
+  </body>
+</html>
+

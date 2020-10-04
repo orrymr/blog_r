@@ -5,37 +5,15 @@
     <description>Recent content in Tags on orrymr.com</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en</language>
-    <lastBuildDate>Wed, 16 Sep 2020 00:00:00 +0000</lastBuildDate>
+    <lastBuildDate>Sun, 04 Oct 2020 00:00:00 +0000</lastBuildDate>
     
         <atom:link href="/tags/index.xml" rel="self" type="application/rss+xml" />
     
     
     <item>
-      <title>statistics</title>
-      <link>/tags/statistics/</link>
-      <pubDate>Wed, 16 Sep 2020 00:00:00 +0000</pubDate>
-      
-      <guid>/tags/statistics/</guid>
-      <description></description>
-      
-      
-    </item>
-    
-    <item>
-      <title>R</title>
-      <link>/tags/r/</link>
-      <pubDate>Tue, 04 Aug 2020 00:00:00 +0000</pubDate>
-      
-      <guid>/tags/r/</guid>
-      <description></description>
-      
-      
-    </item>
-    
-    <item>
       <title>data-science</title>
       <link>/tags/data-science/</link>
-      <pubDate>Fri, 04 Oct 2019 00:00:00 +0000</pubDate>
+      <pubDate>Sun, 04 Oct 2020 00:00:00 +0000</pubDate>
       
       <guid>/tags/data-science/</guid>
       <description></description>
@@ -44,11 +22,33 @@
     </item>
     
     <item>
+      <title>R</title>
+      <link>/tags/r/</link>
+      <pubDate>Sun, 04 Oct 2020 00:00:00 +0000</pubDate>
+      
+      <guid>/tags/r/</guid>
+      <description></description>
+      
+      
+    </item>
+    
+    <item>
       <title>xgboost</title>
       <link>/tags/xgboost/</link>
-      <pubDate>Fri, 04 Oct 2019 00:00:00 +0000</pubDate>
+      <pubDate>Sun, 04 Oct 2020 00:00:00 +0000</pubDate>
       
       <guid>/tags/xgboost/</guid>
+      <description></description>
+      
+      
+    </item>
+    
+    <item>
+      <title>statistics</title>
+      <link>/tags/statistics/</link>
+      <pubDate>Wed, 16 Sep 2020 00:00:00 +0000</pubDate>
+      
+      <guid>/tags/statistics/</guid>
       <description></description>
       
       

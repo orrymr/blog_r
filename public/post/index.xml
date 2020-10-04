@@ -6,10 +6,25 @@
     <description>Recent content in Posts on orrymr.com</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en</language>
-    <lastBuildDate>Wed, 16 Sep 2020 00:00:00 +0000</lastBuildDate>
+    <lastBuildDate>Sun, 04 Oct 2020 00:00:00 +0000</lastBuildDate>
     
 	<atom:link href="/post/index.xml" rel="self" type="application/rss+xml" />
     
+    
+    <item>
+      <title>An R Pipeline for XGBoost Part I</title>
+      <link>/2020/10/an-r-pipeline-for-xgboost-and-a-discussion-about-hyperparameters-part-i/</link>
+      <pubDate>Sun, 04 Oct 2020 00:00:00 +0000</pubDate>
+      
+      <guid>/2020/10/an-r-pipeline-for-xgboost-and-a-discussion-about-hyperparameters-part-i/</guid>
+      <description>
+&lt;script src=&#34;/rmarkdown-libs/kePrint/kePrint.js&#34;&gt;&lt;/script&gt;
+&lt;link href=&#34;/rmarkdown-libs/bsTable/bootstrapTable.min.css&#34; rel=&#34;stylesheet&#34; /&gt;
+
+
+&lt;p&gt;In this blog post, we discuss what XGBoost is, and demonstrate a pipeline for working with XGBoost in R.&lt;/p&gt;
+</description>
+    </item>
     
     <item>
       <title>Bayesian Statistics the Fun Way (My Notes)</title>
@@ -34,21 +49,6 @@
 
 
 &lt;p&gt;In this post we&#39;ll talk about what the Central Limit Theorem is, why it&#39;s important, and how we can see it in action, using R.&lt;/p&gt;
-</description>
-    </item>
-    
-    <item>
-      <title>An R Pipeline for XGBoost Part I</title>
-      <link>/2019/10/an-r-pipeline-for-xgboost-and-a-discussion-about-hyperparameters-part-i/</link>
-      <pubDate>Fri, 04 Oct 2019 00:00:00 +0000</pubDate>
-      
-      <guid>/2019/10/an-r-pipeline-for-xgboost-and-a-discussion-about-hyperparameters-part-i/</guid>
-      <description>
-&lt;script src=&#34;/rmarkdown-libs/kePrint/kePrint.js&#34;&gt;&lt;/script&gt;
-&lt;link href=&#34;/rmarkdown-libs/bsTable/bootstrapTable.min.css&#34; rel=&#34;stylesheet&#34; /&gt;
-
-
-&lt;p&gt;In this blog post, we discuss what XGBoost is, and demonstrate a pipeline for working with XGBoost in R.&lt;/p&gt;
 </description>
     </item>
     

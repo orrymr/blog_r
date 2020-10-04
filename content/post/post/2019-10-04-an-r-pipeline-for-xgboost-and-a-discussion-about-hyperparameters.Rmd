@@ -4,14 +4,16 @@ output:
   blogdown::html_page:
     number_sections: true
 author: 'Orry Messer'
-date: '2019-10-04'
+date: '2020-10-04'
 slug: an-r-pipeline-for-xgboost-and-a-discussion-about-hyperparameters-part-i
-draft: true
+draft: false
 categories: []
 tags:
   - R
   - data-science
   - xgboost
+thumbnailImagePosition: left
+thumbnailImage: https://res.cloudinary.com/da1gwmlvj/image/upload/v1601830903/xgboost%20article/test_train_error_sosoo3.png
 ---
 
 In this blog post, we discuss what XGBoost is, and demonstrate a pipeline for working with XGBoost in R.
@@ -33,6 +35,7 @@ Contents:
 - [Load And Explore The Data](#loadxplor)
 - [Hyperparameters](#hyperprm)
 - [Training The Model: Or, how I learned to stop overfitting and love the cross-validation](#trn)
+- [Making Predictions](#makpred)
 - [Conclusion](#conc)
 
 # Introduction {#intro}
@@ -126,7 +129,9 @@ options(na.action='na.pass') #change the na.action
 titanic_train$Sex <- as.factor(titanic_train$Sex)
 titanic_train$Embarked <- as.factor(titanic_train$Embarked)
 
-titanic_train_sparse <- sparse.model.matrix(Survived~., data = titanic_train)[,-1] #create the sparse matrix
+#create the sparse matrices
+titanic_train_sparse <- sparse.model.matrix(Survived~., data = titanic_train)[,-1] 
+titanic_test_sparse <- sparse.model.matrix(~., data = titanic_test)[,-1] 
 
 options(na.action=previous_na_action$na.action) #reset the na.action
 
@@ -204,17 +209,9 @@ kable(param_df, caption = "Parameters") %>%
 
 Let's create the hyper-parameters list:
 
-```{r, results='hide'}
-params_booster <- list(
-  booster = 'gbtree', # Possible to also have linear boosters as your weak learners.
-  eta = 1, 
-  gamma = 0,
-  max.depth = 2, 
-  subsample = 1, 
-  colsample_bytree = 1,
-  min_child_weight = 1, 
-  objective = "binary:logistic"
-)
+```{r}
+# booster = 'gbtree': Possible to also have linear boosters as your weak learners.
+params_booster <- list(booster = 'gbtree', eta = 1, gamma = 0, max.depth = 2, subsample = 1, colsample_bytree = 1, min_child_weight = 1, objective = "binary:logistic")
 ```
 
 One day, I shall write a blog post about various ways to tune your hyperparameters. But, today is not that day. If you are like me, and believe in serendipitous machine learning, then <b>try a random search of the hyperparameters</b> (within reason, of course. Don't set `max.depth = 9999999999`. Or do, I'm not telling you how to live your life). You get surprisingly decent results. 
@@ -243,6 +240,7 @@ bst.cv <- xgb.cv(data = titanic_train_sparse,
 # Note, we can also implement early-stopping: early_stopping_rounds = 3, so that if there has been no improvement in test accuracy for a specified number of rounds, the algorithm stops.
 
 ```
+Using the resuts of `xgb.cv()`, let's plot our validation error and training error against the number of round:
 
 ```{r}
 res_df <- data.frame(TRAINING_ERROR = bst.cv$evaluation_log$train_error_mean, 
@@ -264,7 +262,7 @@ g <- ggplot(res_df_longer, aes(x = ITERATION)) +        # Look @ it overfit.
   geom_vline(xintercept = best_nrounds, colour = "green") +
   geom_label(aes(label = str_interp("${best_nrounds} iterations gives minimum validation error"), y = 0.2, x = best_nrounds, hjust = 0.1)) +
   labs(
-    x = "Iteration",
+    x = "nrounds",
     y = "Error",
     title = "Test & Train Errors",
     subtitle = str_interp("Note how the training error keeps decreasing after ${best_nrounds} iterations, but the validation error starts \ncreeping up. This is a sign of overfitting.")
@@ -277,19 +275,35 @@ g
 This leads us to believe that we should use `r best_nrounds` as the value for `nrounds`. Let's train our XGBoost model:
 
 ```{r}
-bstSparse <- xgboost(data = titanic_train_sparse, 
-                     label = titanic_train$Survived, 
-                     nrounds = best_nrounds,  
-                     params = params_booster)
+bstSparse <- xgboost(data = titanic_train_sparse, label = titanic_train$Survived, nrounds = best_nrounds, params = params_booster)
 
 
 
 ```
 
-# Making Predictions
+# Making Predictions {#makpred}
+
+Now that we have our model, we can use it to make predictions:
+
+```{r}
+titanic_test <- read_csv(directoryWhichContaintsTestData)
+
+predictions <- predict(bstSparse, titanic_test_sparse)
+titanic_test$Survived = predictions
+
+titanic_test <- titanic_test %>% select(PassengerId, Survived)
+titanic_test$Survived = as.numeric(titanic_test$Survived > 0.5) 
+
+
+# write_csv(titanic_test, "./xg_boost_data/sb.csv")
+# I submitted the above to Kaggle, and got a score of 0.77751 (this is the categorization accuracy)
+# No discussion of AUC, precision / recall. One day, I'll blog about this as well.... Maybe
+```
+
 
 # Conclusion {#conc}
 
-In this blog post we saw how to...
-We hinted that we could use `xgb.cv()` to mitigate over-fitting. Part II of this blog post will discuss how to do so.
+In this blog post we saw how to put together a pipeline to implement XGBoost. We saw how to create a sparse matrix, do cross validation, create the actual model, and finally, make predictions.
 
+There's a lot here that I didn't cover. Things like feature importance, for example. The plan is to write a Part II, Some Day, which goes into more detail. Really, I just intend this to be a handy reference for future me.
+If you see any errors in this post, please let me know :). I'll try fix them.
